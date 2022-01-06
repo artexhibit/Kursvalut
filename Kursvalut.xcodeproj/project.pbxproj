@@ -9,23 +9,29 @@
 /* Begin PBXBuildFile section */
 		78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C182786F9FA00C4D861 /* AppDelegate.swift */; };
 		78041C1B2786F9FA00C4D861 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C1A2786F9FA00C4D861 /* SceneDelegate.swift */; };
-		78041C1D2786F9FA00C4D861 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C1C2786F9FA00C4D861 /* ViewController.swift */; };
-		78041C202786F9FA00C4D861 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78041C1E2786F9FA00C4D861 /* Main.storyboard */; };
+		78041C1D2786F9FA00C4D861 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C1C2786F9FA00C4D861 /* CurrencyViewController.swift */; };
 		78041C232786F9FA00C4D861 /* Kursvalut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */; };
 		78041C252786F9FB00C4D861 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78041C242786F9FB00C4D861 /* Assets.xcassets */; };
 		78041C282786F9FB00C4D861 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78041C262786F9FB00C4D861 /* LaunchScreen.storyboard */; };
+		78041C342786FD8200C4D861 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C332786FD8200C4D861 /* Currency.swift */; };
+		78D3DA0A2787313D00A91511 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78041C1E2786F9FA00C4D861 /* Main.storyboard */; };
+		78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */; };
+		78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0D2787687400A91511 /* CurrencyManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		78041C152786F9FA00C4D861 /* Kursvalut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kursvalut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78041C182786F9FA00C4D861 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78041C1A2786F9FA00C4D861 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		78041C1C2786F9FA00C4D861 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		78041C1C2786F9FA00C4D861 /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		78041C1F2786F9FA00C4D861 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		78041C222786F9FA00C4D861 /* Kursvalut.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Kursvalut.xcdatamodel; sourceTree = "<group>"; };
 		78041C242786F9FB00C4D861 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		78041C272786F9FB00C4D861 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		78041C292786F9FB00C4D861 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		78041C332786FD8200C4D861 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
+		78D3DA0D2787687400A91511 /* CurrencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,14 +66,49 @@
 			children = (
 				78041C182786F9FA00C4D861 /* AppDelegate.swift */,
 				78041C1A2786F9FA00C4D861 /* SceneDelegate.swift */,
-				78041C1C2786F9FA00C4D861 /* ViewController.swift */,
-				78041C1E2786F9FA00C4D861 /* Main.storyboard */,
-				78041C242786F9FB00C4D861 /* Assets.xcassets */,
-				78041C262786F9FB00C4D861 /* LaunchScreen.storyboard */,
+				78041C2F2786FD0400C4D861 /* Model */,
+				78041C302786FD0F00C4D861 /* View */,
+				78041C312786FD2800C4D861 /* Controller */,
+				78041C322786FD3D00C4D861 /* Support Files */,
 				78041C292786F9FB00C4D861 /* Info.plist */,
 				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
 			);
 			path = Kursvalut;
+			sourceTree = "<group>";
+		};
+		78041C2F2786FD0400C4D861 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				78041C332786FD8200C4D861 /* Currency.swift */,
+				78D3DA0D2787687400A91511 /* CurrencyManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		78041C302786FD0F00C4D861 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				78041C1E2786F9FA00C4D861 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		78041C312786FD2800C4D861 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				78041C1C2786F9FA00C4D861 /* CurrencyViewController.swift */,
+				78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		78041C322786FD3D00C4D861 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				78041C242786F9FB00C4D861 /* Assets.xcassets */,
+				78041C262786F9FB00C4D861 /* LaunchScreen.storyboard */,
+			);
+			path = "Support Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,9 +169,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78D3DA0A2787313D00A91511 /* Main.storyboard in Resources */,
 				78041C282786F9FB00C4D861 /* LaunchScreen.storyboard in Resources */,
 				78041C252786F9FB00C4D861 /* Assets.xcassets in Resources */,
-				78041C202786F9FA00C4D861 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,9 +182,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78041C1D2786F9FA00C4D861 /* ViewController.swift in Sources */,
+				78041C1D2786F9FA00C4D861 /* CurrencyViewController.swift in Sources */,
+				78041C342786FD8200C4D861 /* Currency.swift in Sources */,
+				78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */,
 				78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */,
 				78041C1B2786F9FA00C4D861 /* SceneDelegate.swift in Sources */,
+				78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */,
 				78041C232786F9FA00C4D861 /* Kursvalut.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,7 +265,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -276,7 +320,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -299,6 +343,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -327,6 +372,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
