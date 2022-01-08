@@ -28,7 +28,7 @@ extension CurrencyViewController: CurrencyNetworkingDelegate {
             currencyArray.append(currency)
         }
         currencyArray.removeAll(where: {$0.shortName == "XDR"})
-        currencyArray.sort { $0.shortName < $1.shortName }
+        currencyArray.sort {$0.shortName < $1.shortName}
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -54,11 +54,11 @@ extension CurrencyViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell", for: indexPath) as! CurrencyTableViewCell
         
         cell.selectionStyle = .none
-        cell.currencyFlag.image = self.currencyManager.showCurrencyFlag(currency.shortName)
-        cell.currencyShortName.text = currency.shortName
-        cell.currencyFullName.text = self.currencyManager.showFullName(currency.shortName)
-        cell.currencyRate.text = self.currencyManager.showRate(with: currency.currentValue)
-        cell.currencyRateDifference.text = self.currencyManager.showDifference(with: currency.currentValue, and: currency.previousValue)
+        cell.flag.image = self.currencyManager.showCurrencyFlag(currency.shortName)
+        cell.shortName.text = currency.shortName
+        cell.fullName.text = self.currencyManager.showFullName(currency.shortName)
+        cell.rate.text = self.currencyManager.showRate(with: currency.currentValue)
+        cell.rateDifference.text = self.currencyManager.showDifference(with: currency.currentValue, and: currency.previousValue)
         
         return cell
     }

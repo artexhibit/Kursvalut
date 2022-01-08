@@ -3,11 +3,11 @@ import UIKit
 
 class CurrencyTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var currencyFlag: UIImageView!
-    @IBOutlet weak var currencyShortName: UILabel!
-    @IBOutlet weak var currencyFullName: UILabel!
-    @IBOutlet weak var currencyRate: UILabel!
-    @IBOutlet weak var currencyRateDifference: UILabel!
+    @IBOutlet weak var flag: UIImageView!
+    @IBOutlet weak var shortName: UILabel!
+    @IBOutlet weak var fullName: UILabel!
+    @IBOutlet weak var rate: UILabel!
+    @IBOutlet weak var rateDifference: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
