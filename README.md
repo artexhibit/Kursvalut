@@ -1,2 +1,3 @@
 # Kursvalut
-Beautiful Currency Converter in iOS style
+Мой первый самостоятельный проект на Swift:
+Конвертер Валют по курсу ЦБ РФ
