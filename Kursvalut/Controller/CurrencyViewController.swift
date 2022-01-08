@@ -13,7 +13,7 @@ class CurrencyViewController: UITableViewController {
     }
     
     @IBAction func refreshedButtonPressed(_ sender: UIBarButtonItem) {
-        currencyNetworking.fetchCurrency()
+        currencyNetworking.performRequest()
     }
     
 }
@@ -21,12 +21,14 @@ class CurrencyViewController: UITableViewController {
 //MARK: - CurrencyNetworkingDelegate
 
 extension CurrencyViewController: CurrencyNetworkingDelegate {
+    
     func didUpdateCurrency(_ currencyNetworking: CurrencyNetworking, currencies: [Currency]) {
         
         for currency in currencies {
             currencyArray.append(currency)
         }
         currencyArray.removeAll(where: {$0.shortName == "XDR"})
+        currencyArray.sort { $0.shortName < $1.shortName }
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -41,6 +43,7 @@ extension CurrencyViewController: CurrencyNetworkingDelegate {
 //MARK: - TableView DataSource Methods
 
 extension CurrencyViewController {
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currencyArray.count
     }
@@ -53,7 +56,7 @@ extension CurrencyViewController {
         cell.selectionStyle = .none
         cell.currencyFlag.image = self.currencyManager.showCurrencyFlag(currency.shortName)
         cell.currencyShortName.text = currency.shortName
-        cell.currencyFullName.text = currency.fullName
+        cell.currencyFullName.text = self.currencyManager.showFullName(currency.shortName)
         cell.currencyRate.text = self.currencyManager.showRate(with: currency.currentValue)
         cell.currencyRateDifference.text = self.currencyManager.showDifference(with: currency.currentValue, and: currency.previousValue)
         

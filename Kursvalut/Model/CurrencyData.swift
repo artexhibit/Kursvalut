@@ -6,9 +6,7 @@ struct CurrencyData: Codable {
 }
 
 struct Details: Codable {
-    let ID: String
     let CharCode: String
-    let Name: String
     let Value: Double
     let Previous: Double
 }
