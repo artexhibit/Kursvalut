@@ -59,6 +59,7 @@ extension CurrencyViewController {
         cell.fullName.text = self.currencyManager.showFullName(currency.shortName)
         cell.rate.text = self.currencyManager.showRate(with: currency.currentValue)
         cell.rateDifference.text = self.currencyManager.showDifference(with: currency.currentValue, and: currency.previousValue)
+        cell.rateDifference.textColor = self.currencyManager.showColor()
         
         return cell
     }
