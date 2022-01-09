@@ -8,7 +8,7 @@ protocol CurrencyNetworkingDelegate {
 
 struct CurrencyNetworking {
     var delegate: CurrencyNetworkingDelegate?
-    let urlString = "https://www.cbr-xml-daily.ru/daily_json.js"
+    private let urlString = "https://www.cbr-xml-daily.ru/daily_json.js"
     
     func performRequest() {
         if let url = URL(string: urlString) {
