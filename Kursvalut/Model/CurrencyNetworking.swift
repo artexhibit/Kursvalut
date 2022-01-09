@@ -36,7 +36,7 @@ struct CurrencyNetworking {
             let decodedData = try decoder.decode(CurrencyData.self, from: currencyData)
             
             for valute in decodedData.Valute.values {
-                let currency = Currency(shortName: valute.CharCode, currentValue: valute.Value, previousValue: valute.Previous)
+                let currency = Currency(shortName: valute.CharCode, nominal: valute.Nominal, currentValue: valute.Value, previousValue: valute.Previous)
                 currenciesArray.append(currency)
             }
             return currenciesArray

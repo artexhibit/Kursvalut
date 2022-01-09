@@ -3,6 +3,7 @@ import Foundation
 
 struct Currency {
     var shortName: String
+    var nominal: Int
     var currentValue: Double
     var previousValue: Double
     var fullName: String {

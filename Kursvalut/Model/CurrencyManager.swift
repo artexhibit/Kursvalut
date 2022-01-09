@@ -20,8 +20,14 @@ struct CurrencyManager {
         }
     }
     
-    func showRate(with currentValue: Double) -> String {
-        return "\(currentValue) RUB"
+    func showRate(with currentValue: Double, and nominal: Int) -> String {
+        if nominal == 100 {
+            return "\(String(format: "%.4f", currentValue/100)) RUB"
+        } else if nominal == 10 {
+            return "\(String(format: "%.4f", currentValue/10)) RUB"
+        } else {
+            return "\(String(format: "%.4f", currentValue)) RUB"
+        }
     }
     
     func showColor() -> UIColor {
