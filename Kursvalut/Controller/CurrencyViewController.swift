@@ -8,9 +8,6 @@ class CurrencyViewController: UITableViewController {
     var currencyManager = CurrencyManager()
     var currencyNetworking = CurrencyNetworking()
     private let searchController = UISearchController(searchResultsController: nil)
-    private var isFiltered: Bool {
-        return !filteredCurrencyArray.isEmpty
-    }
     private var noResult = false
     
     override func viewDidLoad() {
@@ -22,7 +19,6 @@ class CurrencyViewController: UITableViewController {
     @IBAction func refreshedButtonPressed(_ sender: UIBarButtonItem) {
         currencyNetworking.performRequest()
     }
-    
 }
 
 //MARK: - CurrencyNetworkingDelegate
@@ -30,7 +26,6 @@ class CurrencyViewController: UITableViewController {
 extension CurrencyViewController: CurrencyNetworkingDelegate {
     
     func didUpdateCurrency(_ currencyNetworking: CurrencyNetworking, currencies: [Currency]) {
-        
         for currency in currencies {
             currencyArray.append(currency)
         }
@@ -52,7 +47,7 @@ extension CurrencyViewController: CurrencyNetworkingDelegate {
 extension CurrencyViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltered {
+        if !filteredCurrencyArray.isEmpty {
             return filteredCurrencyArray.count
         } else {
             return noResult ? 0 : currencyArray.count
@@ -62,7 +57,7 @@ extension CurrencyViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currency: Currency
         
-        if isFiltered {
+        if !filteredCurrencyArray.isEmpty {
             currency = filteredCurrencyArray[indexPath.row]
         } else {
             currency = currencyArray[indexPath.row]
@@ -85,7 +80,6 @@ extension CurrencyViewController {
 //MARK: - SearchController SetUp & Delegate Methods
 
 extension CurrencyViewController: UISearchResultsUpdating {
-    
     func searchControllerSetup() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
