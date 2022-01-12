@@ -1,7 +1,7 @@
 
 import UIKit
 
-class CurrencyViewController: UITableViewController {
+class CurrencyViewController: UIViewController {
     
     var currencyArray = [Currency]()
     var filteredCurrencyArray = [Currency]()
@@ -10,13 +10,14 @@ class CurrencyViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private var noResult = false
     
+    @IBOutlet weak var tableView: TableViewAdjustedHeight!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchControllerSetup()
         currencyNetworking.delegate = self
-    }
-    
-    @IBAction func refreshedButtonPressed(_ sender: UIBarButtonItem) {
+        tableView.delegate = self
+        tableView.dataSource = self
         currencyNetworking.performRequest()
     }
 }
@@ -44,9 +45,9 @@ extension CurrencyViewController: CurrencyNetworkingDelegate {
     
 //MARK: - TableView DataSource Methods
 
-extension CurrencyViewController {
+extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if !filteredCurrencyArray.isEmpty {
             return filteredCurrencyArray.count
         } else {
@@ -54,7 +55,7 @@ extension CurrencyViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currency: Currency
         
         if !filteredCurrencyArray.isEmpty {
