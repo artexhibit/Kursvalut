@@ -4,7 +4,7 @@ import Foundation
 protocol CurrencyNetworkingDelegate {
     func didUpdateCurrency(_ currencyNetworking: CurrencyNetworking, currencies: [Currency])
     func didFailWithError(_ currencyNetworking: CurrencyNetworking, error: Error)
-    func didReceiveUpdateTime(_ currencyNetworking: CurrencyNetworking, time: String)
+    func didReceiveUpdateTime(_ currencyNetworking: CurrencyNetworking, updateTime: String)
 }
 
 struct CurrencyNetworking {
@@ -26,7 +26,7 @@ struct CurrencyNetworking {
                         let timeString = formatter.string(from: Date())
                         
                         self.delegate?.didUpdateCurrency(self, currencies: currencyData)
-                        self.delegate?.didReceiveUpdateTime(self, time: timeString)
+                        self.delegate?.didReceiveUpdateTime(self, updateTime: timeString)
                     }
                 }
             }

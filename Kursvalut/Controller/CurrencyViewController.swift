@@ -2,11 +2,11 @@
 import UIKit
 
 class CurrencyViewController: UIViewController {
-    
-    var currencyArray = [Currency]()
-    var filteredCurrencyArray = [Currency]()
+
     var currencyManager = CurrencyManager()
     var currencyNetworking = CurrencyNetworking()
+    private var currencyArray = [Currency]()
+    private var filteredCurrencyArray = [Currency]()
     private let searchController = UISearchController(searchResultsController: nil)
     private var noResult = false
     
@@ -43,9 +43,9 @@ extension CurrencyViewController: CurrencyNetworkingDelegate {
         }
     }
     
-    func didReceiveUpdateTime(_ currencyNetworking: CurrencyNetworking, time: String) {
+    func didReceiveUpdateTime(_ currencyNetworking: CurrencyNetworking, updateTime: String) {
         DispatchQueue.main.async {
-            self.updateTimeLabel.text = time
+            self.updateTimeLabel.text = updateTime
         }
     }
     

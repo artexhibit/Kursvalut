@@ -63,17 +63,17 @@
                                                                             </constraints>
                                                                         </view>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="-2" translatesAutoresizingMaskIntoConstraints="NO" id="g06-wS-NwE" userLabel="1 Stack View">
-                                                                            <rect key="frame" x="57" y="18.5" width="203" height="35.5"/>
+                                                                            <rect key="frame" x="57" y="18.5" width="198" height="35.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUl-o7-eqL">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="203" height="21.5"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="198" height="21.5"/>
                                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Российский Рубль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xq5-S1-M7b">
-                                                                                    <rect key="frame" x="0.0" y="19.5" width="203" height="16"/>
+                                                                                    <rect key="frame" x="0.0" y="19.5" width="198" height="16"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="16" id="5ve-tC-3ag"/>
                                                                                     </constraints>
@@ -93,17 +93,17 @@
                                                                             </constraints>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="-2" translatesAutoresizingMaskIntoConstraints="NO" id="Q3c-hD-8jL" userLabel="2 Stack View">
-                                                                            <rect key="frame" x="267" y="18.5" width="110" height="35.5"/>
+                                                                            <rect key="frame" x="262" y="18.5" width="115" height="35.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0,0015 USD" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="sAF-yz-cGs">
-                                                                                    <rect key="frame" x="14" y="0.0" width="96" height="21.5"/>
+                                                                                    <rect key="frame" x="19" y="0.0" width="96" height="21.5"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+0,0001 (0,64%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M0b-az-tdx">
-                                                                                    <rect key="frame" x="8" y="19.5" width="102" height="16"/>
+                                                                                    <rect key="frame" x="13" y="19.5" width="102" height="16"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="16" id="XkD-lY-Wil"/>
                                                                                     </constraints>
@@ -117,7 +117,7 @@
                                                                                 <constraint firstAttribute="trailing" secondItem="M0b-az-tdx" secondAttribute="trailing" id="D2M-v5-UVY"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="sAF-yz-cGs" secondAttribute="trailing" id="S6j-un-3P6"/>
                                                                                 <constraint firstAttribute="bottom" secondItem="M0b-az-tdx" secondAttribute="bottom" id="ady-qj-NZf"/>
-                                                                                <constraint firstAttribute="width" constant="110" id="iR5-rm-xV0"/>
+                                                                                <constraint firstAttribute="width" constant="115" id="iR5-rm-xV0"/>
                                                                                 <constraint firstItem="sAF-yz-cGs" firstAttribute="top" secondItem="Q3c-hD-8jL" secondAttribute="top" id="vO4-PQ-A9W"/>
                                                                                 <constraint firstAttribute="bottom" secondItem="M0b-az-tdx" secondAttribute="bottom" id="yLh-JH-xLR"/>
                                                                             </constraints>
