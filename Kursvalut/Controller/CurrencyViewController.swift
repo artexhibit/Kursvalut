@@ -10,7 +10,12 @@ class CurrencyViewController: UIViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private var noResult = false
     
-    @IBOutlet weak var tableView: TableViewAdjustedHeight!
+    @IBOutlet weak var tableView: UITableViewAdjustedHeight!
+    @IBOutlet weak var updateTimeLabel: UILabel!
+    
+    @IBAction func updatePressed(_ sender: UIBarButtonItem) {
+        currencyNetworking.performRequest()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +23,6 @@ class CurrencyViewController: UIViewController {
         currencyNetworking.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
-        currencyNetworking.performRequest()
     }
 }
 
@@ -27,14 +31,21 @@ class CurrencyViewController: UIViewController {
 extension CurrencyViewController: CurrencyNetworkingDelegate {
     
     func didUpdateCurrency(_ currencyNetworking: CurrencyNetworking, currencies: [Currency]) {
+        currencyArray.removeAll()
+        
         for currency in currencies {
             currencyArray.append(currency)
         }
-        currencyArray.removeAll(where: {$0.shortName == "XDR"})
         currencyArray.sort {$0.shortName < $1.shortName}
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+    
+    func didReceiveUpdateTime(_ currencyNetworking: CurrencyNetworking, time: String) {
+        DispatchQueue.main.async {
+            self.updateTimeLabel.text = time
         }
     }
     
@@ -43,7 +54,7 @@ extension CurrencyViewController: CurrencyNetworkingDelegate {
     }
 }
     
-//MARK: - TableView DataSource Methods
+//MARK: - TableView Delegate & DataSource Methods
 
 extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -92,6 +103,7 @@ extension CurrencyViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text {
             filterCurrency(with: searchText)
+            updateTimeLabel.isHidden = searchController.isActive ? true : false
         }
     }
     

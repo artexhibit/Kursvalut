@@ -7,7 +7,7 @@ struct Currency {
     var currentValue: Double
     var previousValue: Double
     var fullName: String {
-        guard let name = currencyFullNameDict[shortName] else {return ""}
+        guard let name = currencyFullNameDict[shortName] else { return "" }
         return name
     }
     

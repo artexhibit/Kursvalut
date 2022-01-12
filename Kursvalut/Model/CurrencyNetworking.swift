@@ -4,6 +4,7 @@ import Foundation
 protocol CurrencyNetworkingDelegate {
     func didUpdateCurrency(_ currencyNetworking: CurrencyNetworking, currencies: [Currency])
     func didFailWithError(_ currencyNetworking: CurrencyNetworking, error: Error)
+    func didReceiveUpdateTime(_ currencyNetworking: CurrencyNetworking, time: String)
 }
 
 struct CurrencyNetworking {
@@ -20,7 +21,12 @@ struct CurrencyNetworking {
                 }
                 if let data = data {
                     if let currencyData = self.parseJSON(with: data) {
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "\("Обновлено") dd MMM \("в") HH:mm"
+                        let timeString = formatter.string(from: Date())
+                        
                         self.delegate?.didUpdateCurrency(self, currencies: currencyData)
+                        self.delegate?.didReceiveUpdateTime(self, time: timeString)
                     }
                 }
             }
@@ -36,8 +42,10 @@ struct CurrencyNetworking {
             let decodedData = try decoder.decode(CurrencyData.self, from: currencyData)
             
             for valute in decodedData.Valute.values {
-                let currency = Currency(shortName: valute.CharCode, nominal: valute.Nominal, currentValue: valute.Value, previousValue: valute.Previous)
-                currenciesArray.append(currency)
+                if valute.CharCode != "XDR" {
+                    let currency = Currency(shortName: valute.CharCode, nominal: valute.Nominal, currentValue: valute.Value, previousValue: valute.Previous)
+                    currenciesArray.append(currency)
+                }
             }
             return currenciesArray
         } catch {

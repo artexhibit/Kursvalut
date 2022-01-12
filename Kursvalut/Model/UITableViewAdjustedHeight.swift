@@ -1,7 +1,7 @@
 
 import UIKit
 
-class TableViewAdjustedHeight: UITableView {
+class UITableViewAdjustedHeight: UITableView {
     override var intrinsicContentSize: CGSize {
         self.layoutIfNeeded()
         return self.contentSize

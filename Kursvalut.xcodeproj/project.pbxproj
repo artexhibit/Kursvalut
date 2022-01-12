@@ -16,7 +16,7 @@
 		78041C342786FD8200C4D861 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C332786FD8200C4D861 /* Currency.swift */; };
 		7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */; };
 		7838F90027885B86007D34AA /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FF27885B86007D34AA /* CurrencyData.swift */; };
-		787636F9278EB74D006891D5 /* TableViewAdjustedHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787636F8278EB74D006891D5 /* TableViewAdjustedHeight.swift */; };
+		787636F9278EB74D006891D5 /* UITableViewAdjustedHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787636F8278EB74D006891D5 /* UITableViewAdjustedHeight.swift */; };
 		78871A4B2789F4F700321E98 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 78871A4A2789F4F700321E98 /* README.md */; };
 		78D3DA0A2787313D00A91511 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78041C1E2786F9FA00C4D861 /* Main.storyboard */; };
 		78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */; };
@@ -36,7 +36,7 @@
 		78041C332786FD8200C4D861 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyNetworking.swift; sourceTree = "<group>"; };
 		7838F8FF27885B86007D34AA /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
-		787636F8278EB74D006891D5 /* TableViewAdjustedHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewAdjustedHeight.swift; sourceTree = "<group>"; };
+		787636F8278EB74D006891D5 /* UITableViewAdjustedHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewAdjustedHeight.swift; sourceTree = "<group>"; };
 		78871A4A2789F4F700321E98 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		78D3DA0D2787687400A91511 /* CurrencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 				78D3DA0D2787687400A91511 /* CurrencyManager.swift */,
 				7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */,
 				7838F8FF27885B86007D34AA /* CurrencyData.swift */,
-				787636F8278EB74D006891D5 /* TableViewAdjustedHeight.swift */,
+				787636F8278EB74D006891D5 /* UITableViewAdjustedHeight.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,7 +201,7 @@
 				78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */,
 				78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */,
 				78041C1B2786F9FA00C4D861 /* SceneDelegate.swift in Sources */,
-				787636F9278EB74D006891D5 /* TableViewAdjustedHeight.swift in Sources */,
+				787636F9278EB74D006891D5 /* UITableViewAdjustedHeight.swift in Sources */,
 				78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */,
 				7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */,
 				78041C232786F9FA00C4D861 /* Kursvalut.xcdatamodeld in Sources */,
