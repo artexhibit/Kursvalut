@@ -1,10 +1,12 @@
 
 import UIKit
+import CoreData
 
 class CurrencyViewController: UIViewController {
-
+    
     var currencyManager = CurrencyManager()
     var currencyNetworking = CurrencyNetworking()
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var currencyArray = [Currency]()
     private var filteredCurrencyArray = [Currency]()
     private let searchController = UISearchController(searchResultsController: nil)
@@ -13,16 +15,14 @@ class CurrencyViewController: UIViewController {
     @IBOutlet weak var tableView: UITableViewAdjustedHeight!
     @IBOutlet weak var updateTimeLabel: UILabel!
     
-    @IBAction func updatePressed(_ sender: UIBarButtonItem) {
-        currencyNetworking.performRequest()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchControllerSetup()
         currencyNetworking.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
+        currencyNetworking.performRequest()
+        loadCurrency()
     }
 }
 
@@ -32,15 +32,9 @@ extension CurrencyViewController: CurrencyNetworkingDelegate {
     
     func didUpdateCurrency(_ currencyNetworking: CurrencyNetworking, currencies: [Currency]) {
         currencyArray.removeAll()
-        
-        for currency in currencies {
-            currencyArray.append(currency)
-        }
-        currencyArray.sort {$0.shortName < $1.shortName}
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        currencyArray = currencies
+        currencyArray.sort {$0.shortName! < $1.shortName!}
+        saveCurrency()
     }
     
     func didReceiveUpdateTime(_ currencyNetworking: CurrencyNetworking, updateTime: String) {
@@ -53,7 +47,7 @@ extension CurrencyViewController: CurrencyNetworkingDelegate {
         print(error)
     }
 }
-    
+
 //MARK: - TableView Delegate & DataSource Methods
 
 extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
@@ -78,10 +72,10 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell", for: indexPath) as! CurrencyTableViewCell
         
         cell.selectionStyle = .none
-        cell.flag.image = self.currencyManager.showCurrencyFlag(currency.shortName)
+        cell.flag.image = self.currencyManager.showCurrencyFlag(currency.shortName!)
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
-        cell.rate.text = self.currencyManager.showRate(with: currency.currentValue, and: currency.nominal)
+        cell.rate.text = self.currencyManager.showRate(with: currency.currentValue, and: Int(currency.nominal))
         cell.rateDifference.text = self.currencyManager.showDifference(with: currency.currentValue, and: currency.previousValue)
         cell.rateDifference.textColor = self.currencyManager.showColor()
         
@@ -111,11 +105,37 @@ extension CurrencyViewController: UISearchResultsUpdating {
         filteredCurrencyArray.removeAll()
         
         for currency in currencyArray {
-            if currency.shortName.lowercased().starts(with: searchText.lowercased()) || currency.fullName.lowercased().contains(searchText.lowercased()) {
+            if currency.shortName!.lowercased().starts(with: searchText.lowercased()) || currency.fullName!.lowercased().contains(searchText.lowercased()) {
                 filteredCurrencyArray.append(currency)
             } else {
                 noResult = true
             }
+        }
+        tableView.reloadData()
+    }
+}
+
+//MARK: - Model Manipulation Methods
+
+extension CurrencyViewController {
+    func saveCurrency() {
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func loadCurrency() {
+        let request: NSFetchRequest<Currency> = Currency.fetchRequest()
+        do {
+            currencyArray = try context.fetch(request)
+        } catch {
+            print(error)
         }
         tableView.reloadData()
     }
