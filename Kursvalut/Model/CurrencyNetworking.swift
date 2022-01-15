@@ -10,8 +10,8 @@ protocol CurrencyNetworkingDelegate {
 }
 
 struct CurrencyNetworking {
+    private var coreDataManager = CurrencyCoreDataManager()
     var delegate: CurrencyNetworkingDelegate?
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private let urlString = "https://www.cbr-xml-daily.ru/daily_json.js"
     
     func performRequest() {
@@ -46,15 +46,10 @@ struct CurrencyNetworking {
             
             for valute in decodedData.Valute.values {
                 if valute.CharCode != "XDR" {
-                    let currency = Currency(context: self.context)
-                    currency.shortName = valute.CharCode
-                    currency.fullName = CurrencyManager.currencyFullNameDict[valute.CharCode]
-                    currency.currentValue = valute.Value
-                    currency.previousValue = valute.Previous
-                    currency.nominal = Int32(valute.Nominal)
-                    currenciesArray.append(currency)
+                    currenciesArray = coreDataManager.findOrCreate(with: valute)
                 }
             }
+            coreDataManager.saveCurrency()
             return currenciesArray
         } catch {
             self.delegate?.didFailWithError(self, error: error)

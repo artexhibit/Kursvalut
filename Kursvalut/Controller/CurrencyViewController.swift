@@ -4,9 +4,9 @@ import CoreData
 
 class CurrencyViewController: UIViewController {
     
-    var currencyManager = CurrencyManager()
-    var currencyNetworking = CurrencyNetworking()
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private var currencyManager = CurrencyManager()
+    private var currencyNetworking = CurrencyNetworking()
+    private var coreDataManager = CurrencyCoreDataManager()
     private var currencyArray = [Currency]()
     private var filteredCurrencyArray = [Currency]()
     private let searchController = UISearchController(searchResultsController: nil)
@@ -22,7 +22,6 @@ class CurrencyViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         currencyNetworking.performRequest()
-        loadCurrency()
     }
 }
 
@@ -31,10 +30,7 @@ class CurrencyViewController: UIViewController {
 extension CurrencyViewController: CurrencyNetworkingDelegate {
     
     func didUpdateCurrency(_ currencyNetworking: CurrencyNetworking, currencies: [Currency]) {
-        currencyArray.removeAll()
-        currencyArray = currencies
-        currencyArray.sort {$0.shortName! < $1.shortName!}
-        saveCurrency()
+        currencyArray = coreDataManager.loadCurrency(with: tableView)
     }
     
     func didReceiveUpdateTime(_ currencyNetworking: CurrencyNetworking, updateTime: String) {
@@ -110,32 +106,6 @@ extension CurrencyViewController: UISearchResultsUpdating {
             } else {
                 noResult = true
             }
-        }
-        tableView.reloadData()
-    }
-}
-
-//MARK: - Model Manipulation Methods
-
-extension CurrencyViewController {
-    func saveCurrency() {
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    func loadCurrency() {
-        let request: NSFetchRequest<Currency> = Currency.fetchRequest()
-        do {
-            currencyArray = try context.fetch(request)
-        } catch {
-            print(error)
         }
         tableView.reloadData()
     }
