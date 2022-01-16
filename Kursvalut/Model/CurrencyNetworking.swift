@@ -3,57 +3,45 @@ import Foundation
 import CoreData
 import UIKit
 
-protocol CurrencyNetworkingDelegate {
-    func didUpdateCurrency(_ currencyNetworking: CurrencyNetworking, currencies: [Currency])
-    func didFailWithError(_ currencyNetworking: CurrencyNetworking, error: Error)
-    func didReceiveUpdateTime(_ currencyNetworking: CurrencyNetworking, updateTime: String)
-}
-
 struct CurrencyNetworking {
     private var coreDataManager = CurrencyCoreDataManager()
-    var delegate: CurrencyNetworkingDelegate?
     private let urlString = "https://www.cbr-xml-daily.ru/daily_json.js"
+    private var updateTime: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "\("Обновлено") dd MMM \("в") HH:mm"
+        return formatter.string(from: Date())
+    }
     
-    func performRequest() {
+    func performRequest(_ completion: @escaping (String?, Error?) -> Void) {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { data, response, error in
                 if error != nil {
-                    self.delegate?.didFailWithError(self, error: error!)
+                    completion(nil, error)
                     return
                 }
                 if let data = data {
-                    if let currencyData = self.parseJSON(with: data) {
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "\("Обновлено") dd MMM \("в") HH:mm"
-                        let timeString = formatter.string(from: Date())
-                        
-                        self.delegate?.didUpdateCurrency(self, currencies: currencyData)
-                        self.delegate?.didReceiveUpdateTime(self, updateTime: timeString)
-                    }
+                    parseJSON(with: data)
+                    completion(updateTime, nil)
                 }
             }
             task.resume()
         }
     }
     
-    func parseJSON(with currencyData: Data) -> [Currency]? {
-        var currenciesArray = [Currency]()
-        
+    func parseJSON(with currencyData: Data) {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(CurrencyData.self, from: currencyData)
             
             for valute in decodedData.Valute.values {
                 if valute.CharCode != "XDR" {
-                    currenciesArray = coreDataManager.findOrCreate(with: valute)
+                    coreDataManager.findOrCreate(with: valute)
                 }
             }
             coreDataManager.saveCurrency()
-            return currenciesArray
         } catch {
-            self.delegate?.didFailWithError(self, error: error)
-            return nil
+            print("Error with JSON parsing, \(error)")
         }
     }
 }

@@ -18,29 +18,19 @@ class CurrencyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchControllerSetup()
-        currencyNetworking.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
-        currencyNetworking.performRequest()
-    }
-}
-
-//MARK: - CurrencyNetworkingDelegate
-
-extension CurrencyViewController: CurrencyNetworkingDelegate {
-    
-    func didUpdateCurrency(_ currencyNetworking: CurrencyNetworking, currencies: [Currency]) {
-        currencyArray = coreDataManager.loadCurrency(with: tableView)
-    }
-    
-    func didReceiveUpdateTime(_ currencyNetworking: CurrencyNetworking, updateTime: String) {
-        DispatchQueue.main.async {
-            self.updateTimeLabel.text = updateTime
+        currencyNetworking.performRequest { time, error  in
+            if error != nil {
+                print(error!)
+                return
+            } else {
+                DispatchQueue.main.async {
+                    self.currencyArray = self.coreDataManager.loadCurrency(with: self.tableView)
+                    self.updateTimeLabel.text = time
+                }
+            }
         }
-    }
-    
-    func didFailWithError(_ currencyNetworking: CurrencyNetworking, error: Error) {
-        print(error)
     }
 }
 

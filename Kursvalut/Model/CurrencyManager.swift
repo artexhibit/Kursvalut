@@ -10,7 +10,7 @@ struct CurrencyManager {
     private var differenceSign: String {
         difference.isLess(than: 0.0) ? "-" : "+"
     }
-   private var differenceColor: UIColor {
+    private var differenceColor: UIColor {
         difference.isLess(than: 0.0) ? .systemRed : .systemGreen
     }
     

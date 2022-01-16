@@ -87,8 +87,8 @@
 		78041C2F2786FD0400C4D861 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */,
 				78D3DA0D2787687400A91511 /* CurrencyManager.swift */,
+				78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */,
 				7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */,
 				7838F8FF27885B86007D34AA /* CurrencyData.swift */,
 				787636F8278EB74D006891D5 /* UITableViewAdjustedHeight.swift */,

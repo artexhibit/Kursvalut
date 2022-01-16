@@ -7,19 +7,19 @@ struct CurrencyCoreDataManager {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     func saveCurrency() {
-           do {
-               try context.save()
-           } catch {
-               print(error)
-           }
-       }
-       
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
+    }
+    
     func loadCurrency(with tableView: UITableViewAdjustedHeight) -> [Currency] {
         var array = [Currency]()
         let request: NSFetchRequest<Currency> = Currency.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "shortName", ascending: true)]
         do {
-           array = try context.fetch(request)
+            array = try context.fetch(request)
         } catch {
             print(error)
         }
@@ -29,8 +29,7 @@ struct CurrencyCoreDataManager {
         return array
     }
     
-    func findOrCreate(with id: Dictionary<String, Details>.Values.Element) -> [Currency] {
-        var array = [Currency]()
+    func findOrCreate(with id: Dictionary<String, Details>.Values.Element) {
         let request: NSFetchRequest<Currency> = Currency.fetchRequest()
         request.predicate = NSPredicate(format: "shortName = %@", id.CharCode)
         
@@ -48,11 +47,9 @@ struct CurrencyCoreDataManager {
                 currency.currentValue = id.Value
                 currency.previousValue = id.Previous
                 currency.nominal = Int32(id.Nominal)
-                array.append(currency)
             }
         } catch {
             print(error)
         }
-        return array
     }
 }
