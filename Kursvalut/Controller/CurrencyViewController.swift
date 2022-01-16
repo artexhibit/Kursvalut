@@ -23,7 +23,7 @@ class CurrencyViewController: UIViewController {
                 return
             } else {
                 DispatchQueue.main.async {
-                    self.currencyArray = self.coreDataManager.loadCurrency(for: self.tableView)
+                    self.currencyArray = self.coreDataManager.load(for: self.tableView)
                     self.updateTimeLabel.text = time
                 }
             }
@@ -77,10 +77,10 @@ extension CurrencyViewController: UISearchResultsUpdating {
         }
         
         request.sortDescriptors = [NSSortDescriptor(key: "shortName", ascending: true)]
-        currencyArray = coreDataManager.loadCurrency(for: tableView, with: request, and: predicate)
+        currencyArray = coreDataManager.load(for: tableView, with: request, and: predicate)
         
         if searchText.count == 0 {
-            currencyArray = coreDataManager.loadCurrency(for: tableView)
+            currencyArray = coreDataManager.load(for: tableView)
         }
     }
 }

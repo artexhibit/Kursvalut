@@ -40,16 +40,16 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="5CO-WX-y1d">
+                                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="5CO-WX-y1d">
                                                                     <rect key="frame" x="20" y="0.0" width="377" height="72"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h15-LY-pAQ" userLabel="Flag View">
-                                                                            <rect key="frame" x="0.0" y="6" width="50" height="60"/>
+                                                                            <rect key="frame" x="0.0" y="6" width="45" height="60"/>
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RUB" translatesAutoresizingMaskIntoConstraints="NO" id="cin-9U-lMA" userLabel="Flag">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="60"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="width" constant="50" id="AXZ-DH-RXQ"/>
+                                                                                        <constraint firstAttribute="width" constant="45" id="AXZ-DH-RXQ"/>
                                                                                     </constraints>
                                                                                 </imageView>
                                                                             </subviews>
@@ -63,21 +63,21 @@
                                                                             </constraints>
                                                                         </view>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="-2" translatesAutoresizingMaskIntoConstraints="NO" id="g06-wS-NwE" userLabel="1 Stack View">
-                                                                            <rect key="frame" x="57" y="18.5" width="198" height="35.5"/>
+                                                                            <rect key="frame" x="51" y="18.5" width="205" height="35.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUl-o7-eqL">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="198" height="21.5"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="205" height="21.5"/>
                                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Российский Рубль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xq5-S1-M7b">
-                                                                                    <rect key="frame" x="0.0" y="19.5" width="198" height="16"/>
+                                                                                    <rect key="frame" x="0.0" y="19.5" width="205" height="16"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="16" id="5ve-tC-3ag"/>
                                                                                     </constraints>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                                     <color key="textColor" systemColor="systemGrayColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
@@ -132,7 +132,7 @@
                                                                 <constraint firstAttribute="trailing" secondItem="5CO-WX-y1d" secondAttribute="trailing" constant="17" id="eep-Np-YlW"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
-                                                        <inset key="separatorInset" minX="78" minY="0.0" maxX="11" maxY="0.0"/>
+                                                        <inset key="separatorInset" minX="78" minY="0.0" maxX="19" maxY="0.0"/>
                                                         <connections>
                                                             <outlet property="flag" destination="cin-9U-lMA" id="Mg8-BE-pc5"/>
                                                             <outlet property="fullName" destination="Xq5-S1-M7b" id="cIa-sr-xM7"/>

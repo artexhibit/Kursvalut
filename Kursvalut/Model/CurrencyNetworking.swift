@@ -39,7 +39,7 @@ struct CurrencyNetworking {
                     coreDataManager.findOrCreate(with: valute)
                 }
             }
-            coreDataManager.saveCurrency()
+            coreDataManager.save()
         } catch {
             print("Error with JSON parsing, \(error)")
         }

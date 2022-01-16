@@ -6,7 +6,7 @@ import CoreData
 struct CurrencyCoreDataManager {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    func saveCurrency() {
+    func save() {
         do {
             try context.save()
         } catch {
@@ -14,7 +14,7 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    func loadCurrency(for tableView: UITableViewAdjustedHeight, with request: NSFetchRequest<Currency> = Currency.fetchRequest(), and predicate: NSCompoundPredicate? = nil, sortDescriptor: [NSSortDescriptor] = [NSSortDescriptor(key: "shortName", ascending: true)] ) -> [Currency] {
+    func load(for tableView: UITableViewAdjustedHeight, with request: NSFetchRequest<Currency> = Currency.fetchRequest(), and predicate: NSCompoundPredicate? = nil, sortDescriptor: [NSSortDescriptor] = [NSSortDescriptor(key: "shortName", ascending: true)]) -> [Currency] {
         var array = [Currency]()
         request.predicate = predicate
         request.sortDescriptors = sortDescriptor
