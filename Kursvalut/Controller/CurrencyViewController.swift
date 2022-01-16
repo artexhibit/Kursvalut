@@ -3,14 +3,11 @@ import UIKit
 import CoreData
 
 class CurrencyViewController: UIViewController {
-    
     private var currencyManager = CurrencyManager()
     private var currencyNetworking = CurrencyNetworking()
     private var coreDataManager = CurrencyCoreDataManager()
     private var currencyArray = [Currency]()
-    private var filteredCurrencyArray = [Currency]()
     private let searchController = UISearchController(searchResultsController: nil)
-    private var noResult = false
     
     @IBOutlet weak var tableView: UITableViewAdjustedHeight!
     @IBOutlet weak var updateTimeLabel: UILabel!
@@ -26,7 +23,7 @@ class CurrencyViewController: UIViewController {
                 return
             } else {
                 DispatchQueue.main.async {
-                    self.currencyArray = self.coreDataManager.loadCurrency(with: self.tableView)
+                    self.currencyArray = self.coreDataManager.loadCurrency(for: self.tableView)
                     self.updateTimeLabel.text = time
                 }
             }
@@ -37,23 +34,12 @@ class CurrencyViewController: UIViewController {
 //MARK: - TableView Delegate & DataSource Methods
 
 extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !filteredCurrencyArray.isEmpty {
-            return filteredCurrencyArray.count
-        } else {
-            return noResult ? 0 : currencyArray.count
-        }
+        return currencyArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currency: Currency
-        
-        if !filteredCurrencyArray.isEmpty {
-            currency = filteredCurrencyArray[indexPath.row]
-        } else {
-            currency = currencyArray[indexPath.row]
-        }
+        let  currency = currencyArray[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell", for: indexPath) as! CurrencyTableViewCell
         
@@ -70,7 +56,6 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 //MARK: - SearchController SetUp & Delegate Methods
-
 extension CurrencyViewController: UISearchResultsUpdating {
     func searchControllerSetup() {
         searchController.searchResultsUpdater = self
@@ -81,22 +66,21 @@ extension CurrencyViewController: UISearchResultsUpdating {
     }
     
     func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text {
-            filterCurrency(with: searchText)
-            updateTimeLabel.isHidden = searchController.isActive ? true : false
-        }
-    }
-    
-    func filterCurrency(with searchText: String) {
-        filteredCurrencyArray.removeAll()
+        guard let searchText = searchController.searchBar.text else {return}
         
-        for currency in currencyArray {
-            if currency.shortName!.lowercased().starts(with: searchText.lowercased()) || currency.fullName!.lowercased().contains(searchText.lowercased()) {
-                filteredCurrencyArray.append(currency)
-            } else {
-                noResult = true
-            }
+        updateTimeLabel.isHidden = searchController.isActive ? true : false
+        let request: NSFetchRequest<Currency> = Currency.fetchRequest()
+        var predicate: NSCompoundPredicate {
+            let shortNamePredicate = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
+            let fullNamePredicate = NSPredicate(format: "fullName CONTAINS[cd] %@", searchText)
+            return NSCompoundPredicate(type: .or, subpredicates: [shortNamePredicate, fullNamePredicate])
         }
-        tableView.reloadData()
+        
+        request.sortDescriptors = [NSSortDescriptor(key: "shortName", ascending: true)]
+        currencyArray = coreDataManager.loadCurrency(for: tableView, with: request, and: predicate)
+        
+        if searchText.count == 0 {
+            currencyArray = coreDataManager.loadCurrency(for: tableView)
+        }
     }
 }
