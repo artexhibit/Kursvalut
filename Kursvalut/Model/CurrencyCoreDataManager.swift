@@ -36,19 +36,20 @@ struct CurrencyCoreDataManager {
         
         do {
             let fetchResult = try context.fetch(request)
-            if fetchResult.count > 0 {
+            if !fetchResult.isEmpty {
                 for doubledData in fetchResult {
-                    context.delete(doubledData)
+                    doubledData.currentValue = id.Value
+                    doubledData.previousValue = id.Previous
                 }
+            } else {
+                let currency = Currency(context: self.context)
+                currency.shortName = id.CharCode
+                currency.fullName = CurrencyManager.currencyFullNameDict[id.CharCode]
+                currency.currentValue = id.Value
+                currency.previousValue = id.Previous
+                currency.nominal = Int32(id.Nominal)
+                array.append(currency)
             }
-            
-            let currency = Currency(context: self.context)
-            currency.shortName = id.CharCode
-            currency.fullName = CurrencyManager.currencyFullNameDict[id.CharCode]
-            currency.currentValue = id.Value
-            currency.previousValue = id.Previous
-            currency.nominal = Int32(id.Nominal)
-            array.append(currency)
         } catch {
             print(error)
         }

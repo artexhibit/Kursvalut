@@ -24,7 +24,11 @@ struct CurrencyManager {
     }
     
     func showRate(with currentValue: Double, and nominal: Int) -> String {
-        if nominal == 100 {
+        if nominal == 10000 {
+            return "\(String(format: "%.4f", currentValue/10000)) RUB"
+        } else if nominal == 1000 {
+            return "\(String(format: "%.4f", currentValue/1000)) RUB"
+        } else if nominal == 100 {
             return "\(String(format: "%.4f", currentValue/100)) RUB"
         } else if nominal == 10 {
             return "\(String(format: "%.4f", currentValue/10)) RUB"
