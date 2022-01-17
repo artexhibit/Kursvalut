@@ -4,25 +4,26 @@ import CoreData
 import UIKit
 
 struct CurrencyNetworking {
-    private var coreDataManager = CurrencyCoreDataManager()
+    private let coreDataManager = CurrencyCoreDataManager()
     private let urlString = "https://www.cbr-xml-daily.ru/daily_json.js"
-    private var updateTime: String {
+    private var updateCurrencyTime: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "\("Обновлено") dd MMM \("в") HH:mm"
         return formatter.string(from: Date())
     }
     
-    func performRequest(_ completion: @escaping (String?, Error?) -> Void) {
+    func performRequest(_ completion: @escaping (Error?) -> Void) {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { data, response, error in
                 if error != nil {
-                    completion(nil, error)
+                    completion(error)
                     return
                 }
                 if let data = data {
                     parseJSON(with: data)
-                    completion(updateTime, nil)
+                    completion(nil)
+                    UserDefaults.standard.setValue(updateCurrencyTime, forKey: "updateCurrencyTime")
                 }
             }
             task.resume()

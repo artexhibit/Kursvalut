@@ -4,10 +4,21 @@ import CoreData
 
 class CurrencyViewController: UIViewController {
     private var currencyManager = CurrencyManager()
-    private var currencyNetworking = CurrencyNetworking()
-    private var coreDataManager = CurrencyCoreDataManager()
+    private let currencyNetworking = CurrencyNetworking()
+    private let coreDataManager = CurrencyCoreDataManager()
     private var currencyArray = [Currency]()
     private let searchController = UISearchController(searchResultsController: nil)
+    private var wasLaunched: String {
+        return UserDefaults.standard.string(forKey: "isFirstLaunch") ?? ""
+    }
+    private var updateCurrencyTime: String {
+        return UserDefaults.standard.string(forKey: "updateCurrencyTime") ?? ""
+    }
+    private var today: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        return formatter.string(from: Date())
+    }
     
     @IBOutlet weak var tableView: UITableViewAdjustedHeight!
     @IBOutlet weak var updateTimeLabel: UILabel!
@@ -17,17 +28,7 @@ class CurrencyViewController: UIViewController {
         searchControllerSetup()
         tableView.delegate = self
         tableView.dataSource = self
-        currencyNetworking.performRequest { time, error  in
-            if error != nil {
-                print(error!)
-                return
-            } else {
-                DispatchQueue.main.async {
-                    self.currencyArray = self.coreDataManager.load(for: self.tableView)
-                    self.updateTimeLabel.text = time
-                }
-            }
-        }
+        checkOnFirstLaunchToday()
     }
 }
 
@@ -56,6 +57,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 //MARK: - SearchController SetUp & Delegate Methods
+
 extension CurrencyViewController: UISearchResultsUpdating {
     func searchControllerSetup() {
         searchController.searchResultsUpdater = self
@@ -66,9 +68,9 @@ extension CurrencyViewController: UISearchResultsUpdating {
     }
     
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text else {return}
-        
+        guard let searchText = searchController.searchBar.text else { return }
         updateTimeLabel.isHidden = searchController.isActive ? true : false
+        
         let request: NSFetchRequest<Currency> = Currency.fetchRequest()
         var predicate: NSCompoundPredicate {
             let shortNamePredicate = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
@@ -81,6 +83,33 @@ extension CurrencyViewController: UISearchResultsUpdating {
         
         if searchText.count == 0 {
             currencyArray = coreDataManager.load(for: tableView)
+        }
+    }
+}
+
+//MARK: - Check For Today's First Launch Method
+
+extension CurrencyViewController {
+    func checkOnFirstLaunchToday() {
+        if wasLaunched == today {
+            currencyArray = coreDataManager.load(for: tableView)
+            DispatchQueue.main.async {
+                self.currencyArray = self.coreDataManager.load(for: self.tableView)
+                self.updateTimeLabel.text = self.updateCurrencyTime
+            }
+        } else {
+            currencyNetworking.performRequest { error in
+                if error != nil {
+                    print(error!.localizedDescription)
+                    return
+                } else {
+                    DispatchQueue.main.async {
+                        self.currencyArray = self.coreDataManager.load(for: self.tableView)
+                        self.updateTimeLabel.text = self.updateCurrencyTime
+                    }
+                }
+            }
+            UserDefaults.standard.setValue(today, forKey:"isFirstLaunch")
         }
     }
 }
