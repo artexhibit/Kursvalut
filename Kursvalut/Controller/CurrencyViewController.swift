@@ -9,7 +9,7 @@ class CurrencyViewController: UIViewController {
     private var currencyArray = [Currency]()
     private let searchController = UISearchController(searchResultsController: nil)
     private var wasLaunched: String {
-        return UserDefaults.standard.string(forKey: "isFirstLaunch") ?? ""
+        return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
     }
     private var updateCurrencyTime: String {
         return UserDefaults.standard.string(forKey: "updateCurrencyTime") ?? ""
@@ -107,7 +107,7 @@ extension CurrencyViewController {
                         self.currencyArray = self.coreDataManager.load(for: self.tableView)
                         self.updateTimeLabel.text = self.updateCurrencyTime
                     }
-                    UserDefaults.standard.setValue(self.today, forKey:"isFirstLaunch")
+                    UserDefaults.standard.setValue(self.today, forKey:"isFirstLaunchToday")
                 }
             }
         }

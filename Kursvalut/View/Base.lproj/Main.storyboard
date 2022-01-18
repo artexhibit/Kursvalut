@@ -132,7 +132,7 @@
                                                                 <constraint firstAttribute="trailing" secondItem="5CO-WX-y1d" secondAttribute="trailing" constant="17" id="eep-Np-YlW"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
-                                                        <inset key="separatorInset" minX="78" minY="0.0" maxX="19" maxY="0.0"/>
+                                                        <inset key="separatorInset" minX="72" minY="0.0" maxX="19" maxY="0.0"/>
                                                         <connections>
                                                             <outlet property="flag" destination="cin-9U-lMA" id="Mg8-BE-pc5"/>
                                                             <outlet property="fullName" destination="Xq5-S1-M7b" id="cIa-sr-xM7"/>
