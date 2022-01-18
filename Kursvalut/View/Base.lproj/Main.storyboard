@@ -183,6 +183,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Валюты" id="nho-wb-fBX"/>
                     <connections>
+                        <outlet property="scrollView" destination="4dn-5L-zjQ" id="Mdp-Pd-Cvv"/>
                         <outlet property="tableView" destination="fTa-hr-vEU" id="o9o-z1-EKn"/>
                         <outlet property="updateTimeLabel" destination="VPm-Jd-HV1" id="Qe4-xX-TT2"/>
                     </connections>

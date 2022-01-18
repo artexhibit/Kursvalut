@@ -21,7 +21,9 @@ struct CurrencyNetworking {
                     return
                 }
                 if let data = data {
-                    parseJSON(with: data)
+                    DispatchQueue.main.async {
+                        parseJSON(with: data)
+                    }
                     UserDefaults.standard.setValue(updateCurrencyTime, forKey: "updateCurrencyTime")
                     completion(nil)
                 }

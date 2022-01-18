@@ -20,14 +20,16 @@ class CurrencyViewController: UIViewController {
         return formatter.string(from: Date())
     }
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var tableView: UITableViewAdjustedHeight!
     @IBOutlet weak var updateTimeLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchControllerSetup()
         tableView.delegate = self
         tableView.dataSource = self
+        searchControllerSetup()
+        refreshControlSetup()
         checkOnFirstLaunchToday()
     }
 }
@@ -56,7 +58,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-//MARK: - SearchController SetUp & Delegate Methods
+//MARK: - UISearchController Setup & Delegate Methods
 
 extension CurrencyViewController: UISearchResultsUpdating {
     func searchControllerSetup() {
@@ -108,6 +110,31 @@ extension CurrencyViewController {
                         self.updateTimeLabel.text = self.updateCurrencyTime
                     }
                     UserDefaults.standard.setValue(self.today, forKey:"isFirstLaunchToday")
+                }
+            }
+        }
+    }
+}
+
+//MARK: - UIRefreshControl Setup
+
+extension CurrencyViewController {
+    func refreshControlSetup() {
+        scrollView.refreshControl = UIRefreshControl()
+        scrollView.refreshControl?.attributedTitle = NSAttributedString(string: "Отпустите, чтобы обновить")
+        scrollView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+    }
+    
+    @objc func didPullToRefresh() {
+        currencyNetworking.performRequest { error in
+            if error != nil {
+                print(error!.localizedDescription)
+                return
+            } else {
+                DispatchQueue.main.async {
+                    self.currencyArray = self.coreDataManager.load(for: self.tableView)
+                    self.updateTimeLabel.text = self.updateCurrencyTime
+                    self.scrollView.refreshControl?.endRefreshing()
                 }
             }
         }
