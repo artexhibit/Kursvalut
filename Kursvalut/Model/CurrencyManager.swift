@@ -14,12 +14,8 @@ struct CurrencyManager {
     }
     
     func showCurrencyFlag(_ shortName: String) -> UIImage? {
-        if let image = UIImage(named: "\(shortName)") {
+        guard let image = UIImage(named: "\(shortName)") else { return UIImage(named: "notFound") }
             return image
-        } else {
-            print("В базе нет флага с таким shortName")
-            return nil
-        }
     }
     
     func showRate(with currentValue: Double, and nominal: Int) -> String {

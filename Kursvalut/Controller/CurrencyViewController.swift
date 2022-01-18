@@ -107,9 +107,9 @@ extension CurrencyViewController {
                         self.currencyArray = self.coreDataManager.load(for: self.tableView)
                         self.updateTimeLabel.text = self.updateCurrencyTime
                     }
+                    UserDefaults.standard.setValue(self.today, forKey:"isFirstLaunch")
                 }
             }
-            UserDefaults.standard.setValue(today, forKey:"isFirstLaunch")
         }
     }
 }
