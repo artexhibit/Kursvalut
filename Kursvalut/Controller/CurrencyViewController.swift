@@ -94,7 +94,6 @@ extension CurrencyViewController: UISearchResultsUpdating {
 extension CurrencyViewController {
     func checkOnFirstLaunchToday() {
         if wasLaunched == today {
-            currencyArray = coreDataManager.load(for: tableView)
             DispatchQueue.main.async {
                 self.currencyArray = self.coreDataManager.load(for: self.tableView)
                 self.updateTimeLabel.text = self.updateCurrencyTime
@@ -121,7 +120,6 @@ extension CurrencyViewController {
 extension CurrencyViewController {
     func refreshControlSetup() {
         scrollView.refreshControl = UIRefreshControl()
-        scrollView.refreshControl?.attributedTitle = NSAttributedString(string: "Отпустите, чтобы обновить")
         scrollView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
     }
     
