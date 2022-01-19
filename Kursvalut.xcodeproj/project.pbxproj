@@ -91,7 +91,6 @@
 				78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */,
 				7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */,
 				7838F8FF27885B86007D34AA /* CurrencyData.swift */,
-				787636F8278EB74D006891D5 /* UITableViewAdjustedHeight.swift */,
 				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
 			);
 			path = Model;
@@ -110,6 +109,7 @@
 			children = (
 				78041C1C2786F9FA00C4D861 /* CurrencyViewController.swift */,
 				78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */,
+				787636F8278EB74D006891D5 /* UITableViewAdjustedHeight.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

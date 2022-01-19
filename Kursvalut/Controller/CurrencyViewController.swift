@@ -47,7 +47,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell", for: indexPath) as! CurrencyTableViewCell
         
         cell.selectionStyle = .none
-        cell.flag.image = self.currencyManager.showCurrencyFlag(currency.shortName!)
+        cell.flag.image = self.currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
         cell.rate.text = self.currencyManager.showRate(with: currency.currentValue, and: Int(currency.nominal))
