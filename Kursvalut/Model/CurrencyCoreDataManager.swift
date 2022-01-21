@@ -14,7 +14,7 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    func load(for tableView: UITableViewAdjustedHeight, with request: NSFetchRequest<Currency> = Currency.fetchRequest(), and predicate: NSCompoundPredicate? = nil, sortDescriptor: [NSSortDescriptor] = [NSSortDescriptor(key: "shortName", ascending: true)]) -> [Currency] {
+    func load(for tableView: UITableView, with request: NSFetchRequest<Currency> = Currency.fetchRequest(), and predicate: NSCompoundPredicate? = nil, sortDescriptor: [NSSortDescriptor] = [NSSortDescriptor(key: "shortName", ascending: true)]) -> [Currency] {
         var array = [Currency]()
         request.predicate = predicate
         request.sortDescriptors = sortDescriptor
@@ -47,6 +47,7 @@ struct CurrencyCoreDataManager {
                 currency.currentValue = id.Value
                 currency.previousValue = id.Previous
                 currency.nominal = Int32(id.Nominal)
+                currency.isForConverter = false
             }
         } catch {
             print(error)

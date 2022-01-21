@@ -44,7 +44,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  currency = currencyArray[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell", for: indexPath) as! CurrencyTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell", for: indexPath) as! CurrencyTableViewCell
         
         cell.selectionStyle = .none
         cell.flag.image = self.currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
