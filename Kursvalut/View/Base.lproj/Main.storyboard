@@ -300,7 +300,7 @@
                     <navigationItem key="navigationItem" title="Конвертер" id="bsY-Hn-9A3">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="F39-hz-bc4">
                             <connections>
-                                <segue destination="qRm-Ml-gMY" kind="show" id="QID-XT-znV"/>
+                                <segue destination="cjG-HC-q21" kind="presentation" id="QID-XT-znV"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -314,7 +314,7 @@
             <objects>
                 <tableViewController id="qRm-Ml-gMY" userLabel="Pick Currency Table View Controller" customClass="PickCurrencyTableViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="orr-JY-8xr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -423,7 +423,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fWx-zj-vWA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2979.7101449275365" y="316.07142857142856"/>
+            <point key="canvasLocation" x="3889.8550724637685" y="316.07142857142856"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="Wxi-4f-yBY">
@@ -531,6 +531,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B02-r8-C8p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1322" y="976"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="MMe-F9-sH3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cjG-HC-q21" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y2i-7O-Z1b">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qRm-Ml-gMY" kind="relationship" relationship="rootViewController" id="ieo-2l-Cw5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iEk-I2-uKV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2979.7101449275365" y="316.07142857142856"/>
         </scene>
     </scenes>
     <resources>

@@ -14,7 +14,7 @@ class PickCurrencyTableViewController: UITableViewController {
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         coreDataManager.save()
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
     }
 
     // MARK: - TableView Delegate & DataSource Methods
