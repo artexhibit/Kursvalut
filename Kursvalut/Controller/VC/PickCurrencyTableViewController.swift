@@ -49,11 +49,7 @@ class PickCurrencyTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let key = currencySectionTitle[section]
-        if let valueArray = currencyDictionary[key] {
-            return valueArray.count
-        } else {
-            return 0
-        }
+        return currencyDictionary[key]?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
