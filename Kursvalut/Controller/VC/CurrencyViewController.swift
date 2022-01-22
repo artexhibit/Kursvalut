@@ -47,12 +47,12 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell", for: indexPath) as! CurrencyTableViewCell
         
         cell.selectionStyle = .none
-        cell.flag.image = self.currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+        cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
-        cell.rate.text = self.currencyManager.showRate(with: currency.currentValue, and: Int(currency.nominal))
-        cell.rateDifference.text = self.currencyManager.showDifference(with: currency.currentValue, and: currency.previousValue)
-        cell.rateDifference.textColor = self.currencyManager.showColor()
+        cell.rate.text = currencyManager.showRate(with: currency.currentValue, and: Int(currency.nominal))
+        cell.rateDifference.text = currencyManager.showDifference(with: currency.currentValue, and: currency.previousValue)
+        cell.rateDifference.textColor = currencyManager.showColor()
         
         return cell
     }

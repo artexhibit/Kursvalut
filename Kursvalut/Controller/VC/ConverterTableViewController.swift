@@ -23,7 +23,7 @@ class ConverterTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "converterCell", for: indexPath) as! ConverterTableViewCell
         
-        cell.flag.image = self.currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+        cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
         
