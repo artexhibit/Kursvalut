@@ -73,15 +73,12 @@ extension CurrencyViewController: UISearchResultsUpdating {
         guard let searchText = searchController.searchBar.text else { return }
         updateTimeLabel.isHidden = searchController.isActive ? true : false
         
-        let request: NSFetchRequest<Currency> = Currency.fetchRequest()
         var predicate: NSCompoundPredicate {
             let shortNamePredicate = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
             let fullNamePredicate = NSPredicate(format: "fullName CONTAINS[cd] %@", searchText)
             return NSCompoundPredicate(type: .or, subpredicates: [shortNamePredicate, fullNamePredicate])
         }
-        
-        request.sortDescriptors = [NSSortDescriptor(key: "shortName", ascending: true)]
-        currencyArray = coreDataManager.load(for: tableView, with: request, and: predicate)
+        currencyArray = coreDataManager.load(for: tableView, and: predicate)
         
         if searchText.count == 0 {
             currencyArray = coreDataManager.load(for: tableView)

@@ -7,9 +7,11 @@ class ConverterTableViewController: UITableViewController {
     private var converterArray = [Currency]()
     private let coreDataManager = CurrencyCoreDataManager()
     private var currencyManager = CurrencyManager()
-
+    private let predicate = NSPredicate(format: "isForConverter == YES")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        converterArray = coreDataManager.load(for: tableView, and: predicate)
     }
 
     // MARK: - TableView DataSource Methods
