@@ -53,4 +53,11 @@ struct CurrencyCoreDataManager {
             print(error)
         }
     }
+    
+    func createCurrencyFetchedResultsController(with request: NSFetchRequest<Currency> = Currency.fetchRequest(), and predicate: NSPredicate? = nil, sortDescriptor: [NSSortDescriptor] = [NSSortDescriptor(key: "shortName", ascending: true)]) -> NSFetchedResultsController<Currency> {
+        request.predicate = predicate
+        request.sortDescriptors = sortDescriptor
+        
+        return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+    }
 }

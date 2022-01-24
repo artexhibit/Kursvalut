@@ -1,9 +1,10 @@
 
 import UIKit
+import CoreData
 
 class PickCurrencyTableViewController: UITableViewController {
 
-    private var currencyArray = [Currency]()
+    private var fetchedResultsController: NSFetchedResultsController<Currency>!
     private var currencyDictionary = [String:[Currency]]()
     private var currencySectionTitle = [String]()
     private var currencyManager = CurrencyManager()
@@ -11,7 +12,7 @@ class PickCurrencyTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currencyArray = coreDataManager.load(for: tableView)
+        setupFetchedResultsController()
         createCurrencyDict()
     }
     
@@ -20,7 +21,15 @@ class PickCurrencyTableViewController: UITableViewController {
         dismiss(animated: true)
     }
     
+    func setupFetchedResultsController() {
+        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController()
+        fetchedResultsController.delegate = self
+        try? fetchedResultsController.performFetch()
+    }
+    
     func createCurrencyDict() {
+        guard let currencyArray = fetchedResultsController.fetchedObjects else { return }
+        
         for currency in currencyArray {
             let firstCharacterKey = String(currency.fullName!.prefix(1))
             if var valueArray = currencyDictionary[firstCharacterKey] {
@@ -66,13 +75,41 @@ class PickCurrencyTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let currencyArray = fetchedResultsController.fetchedObjects else { return }
         let cell = tableView.cellForRow(at: indexPath) as! PickCurrencyTableViewCell
         
         for currency in currencyArray {
             if currency.shortName == cell.shortName.text {
-                currency.isForConverter = !currency.isForConverter
+               currency.isForConverter = !currency.isForConverter
+                coreDataManager.save()
             }
         }
-        tableView.reloadData()
+    }
+}
+
+extension PickCurrencyTableViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        if let indexPath = indexPath, let newIndexPath = newIndexPath {
+            switch type {
+            case .update:
+                tableView.reloadRows(at: [indexPath], with: .none)
+            case .move:
+                tableView.moveRow(at: indexPath, to: newIndexPath)
+            case .delete:
+                tableView.deleteRows(at: [indexPath], with: .none)
+            case .insert:
+                tableView.insertRows(at: [indexPath], with: .none)
+            default:
+                tableView.reloadData()
+            }
+        }
     }
 }
