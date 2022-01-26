@@ -51,19 +51,25 @@ extension ConverterTableViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        if let indexPath = indexPath, let newIndexPath = newIndexPath {
-            switch type {
-            case .update:
+        switch type {
+        case .update:
+            if let indexPath = indexPath {
                 tableView.reloadRows(at: [indexPath], with: .none)
-            case .move:
-                tableView.moveRow(at: indexPath, to: newIndexPath)
-            case .delete:
-                tableView.deleteRows(at: [indexPath], with: .none)
-            case .insert:
-                tableView.insertRows(at: [indexPath], with: .none)
-            default:
-                tableView.reloadData()
             }
+        case .move:
+            if let indexPath = indexPath, let newIndexPath = newIndexPath {
+                tableView.moveRow(at: indexPath, to: newIndexPath)
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .none)
+            }
+        case .insert:
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: .none)
+            }
+        default:
+            tableView.reloadData()
         }
     }
 }

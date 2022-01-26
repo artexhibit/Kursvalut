@@ -414,7 +414,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Все Валюты" id="jPu-BC-ucE">
-                        <barButtonItem key="rightBarButtonItem" title="Сохранить" id="Ejh-Iq-wCv">
+                        <barButtonItem key="rightBarButtonItem" title="Готово" id="Ejh-Iq-wCv">
                             <connections>
                                 <action selector="saveButtonPressed:" destination="qRm-Ml-gMY" id="eRo-4U-AoQ"/>
                             </connections>
