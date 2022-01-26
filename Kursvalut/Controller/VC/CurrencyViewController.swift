@@ -6,7 +6,7 @@ class CurrencyViewController: UIViewController {
     private var currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
     private let coreDataManager = CurrencyCoreDataManager()
-    private var currencyArray = [Currency]()
+    private var fetchedResultsController: NSFetchedResultsController<Currency>!
     private let searchController = UISearchController(searchResultsController: nil)
     private var wasLaunched: String {
         return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
@@ -31,20 +31,26 @@ class CurrencyViewController: UIViewController {
         searchControllerSetup()
         refreshControlSetup()
         checkOnFirstLaunchToday()
+        setupFetchedResultsController()
     }
+    
+    func setupFetchedResultsController(with predicate: NSPredicate? = nil) {
+        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate)
+         fetchedResultsController.delegate = self
+         try? fetchedResultsController.performFetch()
+     }
 }
 
 //MARK: - TableView Delegate & DataSource Methods
 
 extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currencyArray.count
+        return fetchedResultsController.sections![section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let  currency = currencyArray[indexPath.row]
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell", for: indexPath) as! CurrencyTableViewCell
+        let currency = fetchedResultsController.object(at: indexPath)
         
         cell.selectionStyle = .none
         cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
@@ -78,11 +84,8 @@ extension CurrencyViewController: UISearchResultsUpdating {
             let fullNamePredicate = NSPredicate(format: "fullName CONTAINS[cd] %@", searchText)
             return NSCompoundPredicate(type: .or, subpredicates: [shortNamePredicate, fullNamePredicate])
         }
-        currencyArray = coreDataManager.load(for: tableView, and: predicate)
-        
-        if searchText.count == 0 {
-            currencyArray = coreDataManager.load(for: tableView)
-        }
+        searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: predicate)
+        tableView.reloadData()
     }
 }
 
@@ -92,7 +95,6 @@ extension CurrencyViewController {
     func checkOnFirstLaunchToday() {
         if wasLaunched == today {
             DispatchQueue.main.async {
-                self.currencyArray = self.coreDataManager.load(for: self.tableView)
                 self.updateTimeLabel.text = self.updateCurrencyTime
             }
         } else {
@@ -102,7 +104,6 @@ extension CurrencyViewController {
                     return
                 } else {
                     DispatchQueue.main.async {
-                        self.currencyArray = self.coreDataManager.load(for: self.tableView)
                         self.updateTimeLabel.text = self.updateCurrencyTime
                     }
                     UserDefaults.standard.setValue(self.today, forKey:"isFirstLaunchToday")
@@ -127,7 +128,6 @@ extension CurrencyViewController {
                 return
             } else {
                 DispatchQueue.main.async {
-                    self.currencyArray = self.coreDataManager.load(for: self.tableView)
                     self.updateTimeLabel.text = self.updateCurrencyTime
                     self.scrollView.refreshControl?.endRefreshing()
                 }
@@ -135,3 +135,39 @@ extension CurrencyViewController {
         }
     }
 }
+
+//MARK: - NSFetchedResultsController Delegates
+
+extension CurrencyViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .update:
+            if let indexPath = indexPath {
+                tableView.reloadRows(at: [indexPath], with: .none)
+            }
+        case .move:
+            if let indexPath = indexPath, let newIndexPath = newIndexPath {
+                tableView.moveRow(at: indexPath, to: newIndexPath)
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .none)
+            }
+        case .insert:
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: .none)
+            }
+        default:
+            tableView.reloadData()
+        }
+    }
+}
+

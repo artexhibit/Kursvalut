@@ -14,21 +14,6 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    func load(for tableView: UITableView, with request: NSFetchRequest<Currency> = Currency.fetchRequest(), and predicate: NSPredicate? = nil, sortDescriptor: [NSSortDescriptor] = [NSSortDescriptor(key: "shortName", ascending: true)]) -> [Currency] {
-        var array = [Currency]()
-        request.predicate = predicate
-        request.sortDescriptors = sortDescriptor
-        do {
-            array = try context.fetch(request)
-        } catch {
-            print(error)
-        }
-        DispatchQueue.main.async {
-            tableView.reloadData()
-        }
-        return array
-    }
-    
     func findOrCreate(with id: Dictionary<String, Details>.Values.Element) {
         let request: NSFetchRequest<Currency> = Currency.fetchRequest()
         request.predicate = NSPredicate(format: "shortName = %@", id.CharCode)
@@ -54,7 +39,10 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    func createCurrencyFetchedResultsController(with request: NSFetchRequest<Currency> = Currency.fetchRequest(), and predicate: NSPredicate? = nil, sortDescriptor: [NSSortDescriptor] = [NSSortDescriptor(key: "shortName", ascending: true)]) -> NSFetchedResultsController<Currency> {
+    func createCurrencyFetchedResultsController(with predicate: NSPredicate? = nil) -> NSFetchedResultsController<Currency> {
+        let request: NSFetchRequest<Currency> = Currency.fetchRequest()
+        let sortDescriptor = [NSSortDescriptor(key: "shortName", ascending: true)]
+        
         request.predicate = predicate
         request.sortDescriptors = sortDescriptor
         

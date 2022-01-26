@@ -15,7 +15,7 @@ class ConverterTableViewController: UITableViewController {
     
     func setupFetchedResultsController() {
         let predicate = NSPredicate(format: "isForConverter == YES")
-        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(and: predicate)
+        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate)
         fetchedResultsController.delegate = self
         try? fetchedResultsController.performFetch()
     }
@@ -23,8 +23,7 @@ class ConverterTableViewController: UITableViewController {
     // MARK: - TableView DataSource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let currency = fetchedResultsController.sections![section]
-        return currency.numberOfObjects
+        return fetchedResultsController.sections![section].numberOfObjects
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
