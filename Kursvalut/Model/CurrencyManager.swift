@@ -35,5 +35,11 @@ struct CurrencyManager {
         
         return "\(differenceSign)\(formattedDifference) (\(formattedPercentage)%)"
     }
+    
+    func showTime(with text: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = text
+        return formatter.string(from: Date())
+    }
 }
 

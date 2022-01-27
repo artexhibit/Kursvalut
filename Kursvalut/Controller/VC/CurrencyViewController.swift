@@ -15,9 +15,7 @@ class CurrencyViewController: UIViewController {
         return UserDefaults.standard.string(forKey: "updateCurrencyTime") ?? ""
     }
     private var today: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yyyy"
-        return formatter.string(from: Date())
+       return currencyManager.showTime(with: "MM/dd/yyyy")
     }
     
     @IBOutlet weak var scrollView: UIScrollView!

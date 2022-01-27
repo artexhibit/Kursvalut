@@ -5,11 +5,10 @@ import UIKit
 
 struct CurrencyNetworking {
     private let coreDataManager = CurrencyCoreDataManager()
+    private let currencyManager = CurrencyManager()
     private let urlString = "https://www.cbr-xml-daily.ru/daily_json.js"
-    private var updateCurrencyTime: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "\("Обновлено") dd MMM \("в") HH:mm"
-        return formatter.string(from: Date())
+    private var updateTime: String {
+       return currencyManager.showTime(with: "\("Обновлено") dd MMM \("в") HH:mm")
     }
     
     func performRequest(_ completion: @escaping (Error?) -> Void) {
@@ -24,7 +23,7 @@ struct CurrencyNetworking {
                     DispatchQueue.main.async {
                         self.parseJSON(with: data)
                     }
-                    UserDefaults.standard.setValue(updateCurrencyTime, forKey: "updateCurrencyTime")
+                    UserDefaults.standard.setValue(updateTime, forKey: "updateCurrencyTime")
                     completion(nil)
                 }
             }
