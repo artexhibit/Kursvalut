@@ -38,10 +38,9 @@ struct CurrencyNetworking {
             
             for valute in decodedData.Valute.values {
                 if valute.CharCode != "XDR" {
-                    coreDataManager.findOrCreate(with: valute)
+                    coreDataManager.findDuplicate(with: valute)
                 }
             }
-            coreDataManager.save()
         } catch {
             print("Error with JSON parsing, \(error)")
         }

@@ -326,7 +326,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="dyE-Ye-64w">
-                                            <rect key="frame" x="17" y="0.0" width="377" height="72"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="72"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" translatesAutoresizingMaskIntoConstraints="NO" id="MYe-jY-yrz" userLabel="Pick View">
                                                     <rect key="frame" x="0.0" y="21" width="30" height="30"/>
@@ -336,7 +336,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Aqw-gp-O22">
-                                                    <rect key="frame" x="45" y="6" width="332" height="60"/>
+                                                    <rect key="frame" x="45" y="6" width="329" height="60"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wIZ-h2-atm" userLabel="Flag View">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
@@ -358,17 +358,17 @@
                                                             </constraints>
                                                         </view>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="JaE-Yc-JzP" userLabel="1 Stack View">
-                                                            <rect key="frame" x="60" y="10.5" width="272" height="39.5"/>
+                                                            <rect key="frame" x="60" y="10.5" width="269" height="39.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1U-Kz-eum">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="272" height="26.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="269" height="26.5"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Российский Рубль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6G0-6c-Udg">
-                                                                    <rect key="frame" x="0.0" y="23.5" width="272" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="23.5" width="269" height="16"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="16" id="kY8-Df-CRl"/>
                                                                     </constraints>
@@ -396,7 +396,7 @@
                                         <constraint firstAttribute="bottom" secondItem="dyE-Ye-64w" secondAttribute="bottom" id="XAV-9K-yRu"/>
                                         <constraint firstItem="dyE-Ye-64w" firstAttribute="top" secondItem="oed-ZW-6ga" secondAttribute="top" id="a3h-mI-R0C"/>
                                         <constraint firstAttribute="trailing" secondItem="dyE-Ye-64w" secondAttribute="trailing" constant="20" id="hXk-nP-sAA"/>
-                                        <constraint firstItem="dyE-Ye-64w" firstAttribute="leading" secondItem="oed-ZW-6ga" secondAttribute="leading" constant="17" id="p10-GU-fle"/>
+                                        <constraint firstItem="dyE-Ye-64w" firstAttribute="leading" secondItem="oed-ZW-6ga" secondAttribute="leading" constant="20" id="p10-GU-fle"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="63" minY="0.0" maxX="0.0" maxY="0.0"/>

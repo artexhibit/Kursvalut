@@ -26,17 +26,22 @@ class CurrencyViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        searchControllerSetup()
-        refreshControlSetup()
-        checkOnFirstLaunchToday()
+        setupSearchController()
         setupFetchedResultsController()
+        setupRefreshControl()
+        checkOnFirstLaunchToday()
     }
     
     func setupFetchedResultsController(with predicate: NSPredicate? = nil) {
-        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate)
-         fetchedResultsController.delegate = self
-         try? fetchedResultsController.performFetch()
-     }
+        if predicate != nil {
+            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate)
+        } else {
+            let filter = NSPredicate(format: "shortName != %@", "RUB")
+            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: filter)
+        }
+        fetchedResultsController.delegate = self
+        try? fetchedResultsController.performFetch()
+    }
 }
 
 //MARK: - TableView Delegate & DataSource Methods
@@ -65,7 +70,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
 //MARK: - UISearchController Setup & Delegate Methods
 
 extension CurrencyViewController: UISearchResultsUpdating {
-    func searchControllerSetup() {
+    func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Поиск"
@@ -78,9 +83,9 @@ extension CurrencyViewController: UISearchResultsUpdating {
         updateTimeLabel.isHidden = searchController.isActive ? true : false
         
         var predicate: NSCompoundPredicate {
-            let shortNamePredicate = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
-            let fullNamePredicate = NSPredicate(format: "fullName CONTAINS[cd] %@", searchText)
-            return NSCompoundPredicate(type: .or, subpredicates: [shortNamePredicate, fullNamePredicate])
+            let shortName = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
+            let fullName = NSPredicate(format: "fullName CONTAINS[cd] %@", searchText)
+            return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName])
         }
         searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: predicate)
         tableView.reloadData()
@@ -114,7 +119,7 @@ extension CurrencyViewController {
 //MARK: - UIRefreshControl Setup
 
 extension CurrencyViewController {
-    func refreshControlSetup() {
+    func setupRefreshControl() {
         scrollView.refreshControl = UIRefreshControl()
         scrollView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
     }

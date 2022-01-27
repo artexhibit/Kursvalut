@@ -5,7 +5,7 @@ import CoreData
 
 struct CurrencyCoreDataManager {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
+
     func save() {
         do {
             try context.save()
@@ -14,7 +14,7 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    func findOrCreate(with id: Dictionary<String, Details>.Values.Element) {
+    func findDuplicate(with id: Dictionary<String, Details>.Values.Element) {
         let request: NSFetchRequest<Currency> = Currency.fetchRequest()
         request.predicate = NSPredicate(format: "shortName = %@", id.CharCode)
         
@@ -22,21 +22,31 @@ struct CurrencyCoreDataManager {
             let fetchResult = try context.fetch(request)
             if !fetchResult.isEmpty {
                 for doubledData in fetchResult {
-                    doubledData.currentValue = id.Value
-                    doubledData.previousValue = id.Previous
+                    update(data: doubledData, currValue: id.Value, prevValue: id.Previous)
                 }
             } else {
-                let currency = Currency(context: self.context)
-                currency.shortName = id.CharCode
-                currency.fullName = CurrencyManager.currencyFullNameDict[id.CharCode]
-                currency.currentValue = id.Value
-                currency.previousValue = id.Previous
-                currency.nominal = Int32(id.Nominal)
-                currency.isForConverter = false
+                create(shortName: id.CharCode, fullName: id.CharCode, currValue: id.Value, prevValue: id.Previous, nominal: id.Nominal)
             }
         } catch {
             print(error)
         }
+    }
+    
+    func update(data: Currency, currValue: Double, prevValue: Double) {
+        data.currentValue = currValue
+        data.previousValue = prevValue
+    }
+    
+    func create(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int) {
+        let currency = Currency(context: self.context)
+        currency.shortName = shortName
+        currency.fullName = CurrencyManager.currencyFullNameDict[fullName]
+        currency.currentValue = currValue
+        currency.previousValue = prevValue
+        currency.nominal = Int32(nominal)
+        currency.isForConverter = false
+        
+        save()
     }
     
     func createCurrencyFetchedResultsController(with predicate: NSPredicate? = nil) -> NSFetchedResultsController<Currency> {

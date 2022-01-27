@@ -7,12 +7,21 @@ class ConverterTableViewController: UITableViewController {
     private var fetchedResultsController: NSFetchedResultsController<Currency>!
     private let coreDataManager = CurrencyCoreDataManager()
     private var currencyManager = CurrencyManager()
+    private let firstAppLaunch = UserDefaults.standard.bool(forKey: "firstAppLaunch")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFetchedResultsController()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !firstAppLaunch {
+            UserDefaults.standard.set(true, forKey: "firstAppLaunch")
+            coreDataManager.create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1)
+        }
+    }
+
     func setupFetchedResultsController() {
         let predicate = NSPredicate(format: "isForConverter == YES")
         fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate)
