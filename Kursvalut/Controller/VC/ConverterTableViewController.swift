@@ -21,14 +21,7 @@ class ConverterTableViewController: UITableViewController {
             coreDataManager.create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1)
         }
     }
-
-    func setupFetchedResultsController() {
-        let predicate = NSPredicate(format: "isForConverter == YES")
-        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate)
-        fetchedResultsController.delegate = self
-        try? fetchedResultsController.performFetch()
-    }
-
+    
     // MARK: - TableView DataSource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,9 +40,16 @@ class ConverterTableViewController: UITableViewController {
     }
 }
 
-//MARK: - NSFetchedResultsController Delegates
+//MARK: - NSFetchedResultsController Setup & Delegates
 
 extension ConverterTableViewController: NSFetchedResultsControllerDelegate {
+    func setupFetchedResultsController() {
+        let predicate = NSPredicate(format: "isForConverter == YES")
+        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate)
+        fetchedResultsController.delegate = self
+        try? fetchedResultsController.performFetch()
+    }
+    
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }

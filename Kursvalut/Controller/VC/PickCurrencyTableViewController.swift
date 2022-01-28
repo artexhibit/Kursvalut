@@ -19,13 +19,6 @@ class PickCurrencyTableViewController: UITableViewController {
         dismiss(animated: true)
     }
     
-    func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
-        let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
-        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: searchPredicate, and: sortDescriptor)
-        fetchedResultsController.delegate = self
-        try? fetchedResultsController.performFetch()
-    }
-    
     // MARK: - TableView Delegate & DataSource Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -41,7 +34,8 @@ class PickCurrencyTableViewController: UITableViewController {
         var sectionTitles = [String]()
         
         for section in sections {
-            sectionTitles.append(String(section.name.first!))
+            guard let firstCharacter = section.name.first else { return nil }
+            sectionTitles.append(String(firstCharacter))
         }
         return sectionTitles
     }
@@ -73,7 +67,16 @@ class PickCurrencyTableViewController: UITableViewController {
     }
 }
 
+//MARK: - NSFetchedResultsController Setup & Delegates
+
 extension PickCurrencyTableViewController: NSFetchedResultsControllerDelegate {
+    func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
+        let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
+        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: searchPredicate, and: sortDescriptor)
+        fetchedResultsController.delegate = self
+        try? fetchedResultsController.performFetch()
+    }
+    
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }

@@ -31,17 +31,6 @@ class CurrencyViewController: UIViewController {
         setupRefreshControl()
         checkOnFirstLaunchToday()
     }
-    
-    func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
-        if searchPredicate != nil {
-            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: searchPredicate)
-        } else {
-            let filter = NSPredicate(format: "shortName != %@", "RUB")
-            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: filter)
-        }
-        fetchedResultsController.delegate = self
-        try? fetchedResultsController.performFetch()
-    }
 }
 
 //MARK: - TableView Delegate & DataSource Methods
@@ -139,9 +128,20 @@ extension CurrencyViewController {
     }
 }
 
-//MARK: - NSFetchedResultsController Delegates
+//MARK: - NSFetchedResultsController Setup & Delegates
 
 extension CurrencyViewController: NSFetchedResultsControllerDelegate {
+    func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
+        if searchPredicate != nil {
+            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: searchPredicate)
+        } else {
+            let filter = NSPredicate(format: "shortName != %@", "RUB")
+            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: filter)
+        }
+        fetchedResultsController.delegate = self
+        try? fetchedResultsController.performFetch()
+    }
+    
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
