@@ -41,11 +41,12 @@ struct CurrencyCoreDataManager {
         let currency = Currency(context: self.context)
         
         currency.shortName = shortName
-        currency.fullName = CurrencyManager.currencyFullNameDict[fullName]
+        currency.fullName = CurrencyManager.currencyFullNameDict[fullName]?.currencyName
         currency.currentValue = currValue
         currency.previousValue = prevValue
         currency.nominal = Int32(nominal)
         currency.isForConverter = false
+        currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         
         save()
     }

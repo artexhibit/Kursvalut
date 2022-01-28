@@ -6,9 +6,10 @@
         <attribute name="isForConverter" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nominal" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="previousValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="searchName" attributeType="String"/>
         <attribute name="shortName" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Currency" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="Currency" positionX="-63" positionY="-18" width="128" height="134"/>
     </elements>
 </model>

@@ -8,6 +8,7 @@ class CurrencyViewController: UIViewController {
     private let coreDataManager = CurrencyCoreDataManager()
     private var fetchedResultsController: NSFetchedResultsController<Currency>!
     private let searchController = UISearchController(searchResultsController: nil)
+    private let firstAppLaunch = UserDefaults.standard.bool(forKey: "firstAppLaunch")
     private var wasLaunched: String {
         return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
     }
@@ -30,6 +31,14 @@ class CurrencyViewController: UIViewController {
         setupFetchedResultsController()
         setupRefreshControl()
         checkOnFirstLaunchToday()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !firstAppLaunch {
+            UserDefaults.standard.set(true, forKey: "firstAppLaunch")
+            coreDataManager.create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1)
+        }
     }
 }
 
@@ -74,7 +83,8 @@ extension CurrencyViewController: UISearchResultsUpdating {
         var searchPredicate: NSCompoundPredicate {
             let shortName = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
             let fullName = NSPredicate(format: "fullName CONTAINS[cd] %@", searchText)
-            return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName])
+            let searchName = NSPredicate(format: "searchName CONTAINS[cd] %@", searchText)
+            return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName, searchName])
         }
         searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: searchPredicate)
         tableView.reloadData()

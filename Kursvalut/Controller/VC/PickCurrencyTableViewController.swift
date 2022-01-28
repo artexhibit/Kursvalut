@@ -126,7 +126,8 @@ extension PickCurrencyTableViewController: UISearchResultsUpdating {
         var searchPredicate: NSCompoundPredicate {
             let shortName = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
             let fullName = NSPredicate(format: "fullName CONTAINS[cd] %@", searchText)
-            return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName])
+            let searchName = NSPredicate(format: "searchName CONTAINS[cd] %@", searchText)
+            return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName, searchName])
         }
         searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: searchPredicate)
         tableView.reloadData()
