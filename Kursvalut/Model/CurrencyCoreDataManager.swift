@@ -39,6 +39,7 @@ struct CurrencyCoreDataManager {
     
     func create(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int) {
         let currency = Currency(context: self.context)
+        
         currency.shortName = shortName
         currency.fullName = CurrencyManager.currencyFullNameDict[fullName]
         currency.currentValue = currValue
@@ -49,13 +50,23 @@ struct CurrencyCoreDataManager {
         save()
     }
     
-    func createCurrencyFetchedResultsController(with predicate: NSPredicate? = nil) -> NSFetchedResultsController<Currency> {
+    func createCurrencyFetchedResultsController(with predicate: NSPredicate? = nil, and sortDescriptor: NSSortDescriptor? = nil) -> NSFetchedResultsController<Currency> {
         let request: NSFetchRequest<Currency> = Currency.fetchRequest()
-        let sortDescriptor = [NSSortDescriptor(key: "shortName", ascending: true)]
-        
+        let baseSortDescriptor = NSSortDescriptor(key: "shortName", ascending: true)
         request.predicate = predicate
-        request.sortDescriptors = sortDescriptor
         
-        return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        if let additionalSortDescriptor = sortDescriptor {
+            request.sortDescriptors = [additionalSortDescriptor, baseSortDescriptor]
+            return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: "fullName.firstStringCharacter", cacheName: nil)
+        } else {
+            request.sortDescriptors = [baseSortDescriptor]
+            return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        }
+    }
+}
+
+extension NSString {
+    @objc func firstStringCharacter() -> String {
+        return self.substring(to: 1).capitalized
     }
 }

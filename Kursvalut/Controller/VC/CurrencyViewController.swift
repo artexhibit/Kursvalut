@@ -32,9 +32,9 @@ class CurrencyViewController: UIViewController {
         checkOnFirstLaunchToday()
     }
     
-    func setupFetchedResultsController(with predicate: NSPredicate? = nil) {
-        if predicate != nil {
-            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate)
+    func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
+        if searchPredicate != nil {
+            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: searchPredicate)
         } else {
             let filter = NSPredicate(format: "shortName != %@", "RUB")
             fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: filter)
@@ -82,12 +82,12 @@ extension CurrencyViewController: UISearchResultsUpdating {
         guard let searchText = searchController.searchBar.text else { return }
         updateTimeLabel.isHidden = searchController.isActive ? true : false
         
-        var predicate: NSCompoundPredicate {
+        var searchPredicate: NSCompoundPredicate {
             let shortName = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
             let fullName = NSPredicate(format: "fullName CONTAINS[cd] %@", searchText)
             return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName])
         }
-        searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: predicate)
+        searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: searchPredicate)
         tableView.reloadData()
     }
 }
