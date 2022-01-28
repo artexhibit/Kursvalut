@@ -5,21 +5,23 @@ import CoreData
 class PickCurrencyTableViewController: UITableViewController {
     
     private var fetchedResultsController: NSFetchedResultsController<Currency>!
+    private let searchController = UISearchController(searchResultsController: nil)
     private var currencyManager = CurrencyManager()
     private let coreDataManager = CurrencyCoreDataManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFetchedResultsController()
+        setupSearchController()
     }
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
     
-    func setupFetchedResultsController() {
+    func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
         let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
-        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(and: sortDescriptor)
+        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: searchPredicate, and: sortDescriptor)
         fetchedResultsController.delegate = self
         try? fetchedResultsController.performFetch()
     }
@@ -101,5 +103,29 @@ extension PickCurrencyTableViewController: NSFetchedResultsControllerDelegate {
         default:
             tableView.reloadData()
         }
+    }
+}
+
+//MARK: - UISearchController Setup & Delegate Methods
+
+extension PickCurrencyTableViewController: UISearchResultsUpdating {
+    func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Поиск"
+        definesPresentationContext = true
+        navigationItem.searchController = searchController
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else { return }
+        
+        var searchPredicate: NSCompoundPredicate {
+            let shortName = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
+            let fullName = NSPredicate(format: "fullName CONTAINS[cd] %@", searchText)
+            return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName])
+        }
+        searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: searchPredicate)
+        tableView.reloadData()
     }
 }
