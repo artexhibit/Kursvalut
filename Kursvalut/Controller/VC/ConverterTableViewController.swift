@@ -26,8 +26,31 @@ class ConverterTableViewController: UITableViewController {
         cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
+        cell.numberTextField.delegate = self
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let currency = fetchedResultsController.object(at: indexPath)
+            currency.isForConverter = false
+            coreDataManager.save()
+        }
+    }
+}
+
+//MARK: - UITextField Delegate Methods
+
+extension ConverterTableViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.text = ""
+        textField.textColor = UIColor.systemBlue
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        textField.text = "0"
+        textField.textColor = UIColor.black
     }
 }
 

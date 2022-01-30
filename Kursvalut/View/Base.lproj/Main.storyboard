@@ -262,7 +262,7 @@
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dtx-EN-ZX9">
                                                             <rect key="frame" x="0.0" y="0.0" width="175" height="37.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
-                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                                         </textField>
                                                     </subviews>
                                                     <constraints>
@@ -287,7 +287,7 @@
                                 <connections>
                                     <outlet property="flag" destination="7fS-Am-ALx" id="bGJ-r4-TbI"/>
                                     <outlet property="fullName" destination="0Zq-F1-bUn" id="gfk-Bh-w1a"/>
-                                    <outlet property="numberTextField" destination="Dtx-EN-ZX9" id="4Hh-L3-Kzh"/>
+                                    <outlet property="numberTextField" destination="Dtx-EN-ZX9" id="Rel-Er-lPJ"/>
                                     <outlet property="shortName" destination="4op-Cx-0Iz" id="UUk-5S-ieR"/>
                                 </connections>
                             </tableViewCell>
