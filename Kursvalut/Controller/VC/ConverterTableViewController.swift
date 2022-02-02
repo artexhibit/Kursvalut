@@ -7,6 +7,7 @@ class ConverterTableViewController: UITableViewController {
     private var fetchedResultsController: NSFetchedResultsController<Currency>!
     private let coreDataManager = CurrencyCoreDataManager()
     private var currencyManager = CurrencyManager()
+    private var numberFromTextField: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +27,23 @@ class ConverterTableViewController: UITableViewController {
         cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
+        cell.numberTextField.tag = indexPath.row
         cell.numberTextField.delegate = self
         
+        update(cell, at: indexPath)
+        
         return cell
+    }
+    
+    private func update(_ cell: ConverterTableViewCell, at indexPath: IndexPath) {
+        let currency = fetchedResultsController.object(at: indexPath)
+        
+        if let number = numberFromTextField {
+            cell.numberTextField.text = String(currency.currentValue * number)
+        } else {
+            cell.numberTextField.text = "0"
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -49,8 +64,21 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        textField.text = "0"
         textField.textColor = UIColor.black
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        numberFromTextField = Double(textField.text!)
+        
+        let activeTextFieldIndexPath = IndexPath(row: textField.tag, section: 0)
+        var visibleIndexPaths = [IndexPath]()
+        
+        for indexPath in tableView.indexPathsForVisibleRows! {
+            if indexPath != activeTextFieldIndexPath {
+                visibleIndexPaths.append(indexPath)
+            }
+        }
+        tableView.reloadRows(at: visibleIndexPaths, with: .none)
     }
 }
 
