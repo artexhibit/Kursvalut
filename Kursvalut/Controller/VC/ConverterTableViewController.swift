@@ -40,7 +40,7 @@ class ConverterTableViewController: UITableViewController {
         let currency = fetchedResultsController.object(at: indexPath)
         
         if let number = numberFromTextField, let pickedCurrency = pickedCurrency {
-            cell.numberTextField.text = String(pickedCurrency.currentValue/currency.currentValue * number)
+            cell.numberTextField.text = String((pickedCurrency.currentValue/Double(pickedCurrency.nominal))/currency.currentValue * number)
         } else {
             cell.numberTextField.text = "0"
         }
@@ -60,6 +60,7 @@ class ConverterTableViewController: UITableViewController {
 
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.placeholder = "0"
         textField.text = ""
         textField.textColor = UIColor.systemBlue
     }
