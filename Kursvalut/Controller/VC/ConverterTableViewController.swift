@@ -8,6 +8,7 @@ class ConverterTableViewController: UITableViewController {
     private let coreDataManager = CurrencyCoreDataManager()
     private var currencyManager = CurrencyManager()
     private var numberFromTextField: Double?
+    private var pickedCurrency: Currency?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +39,8 @@ class ConverterTableViewController: UITableViewController {
     private func update(_ cell: ConverterTableViewCell, at indexPath: IndexPath) {
         let currency = fetchedResultsController.object(at: indexPath)
         
-        if let number = numberFromTextField {
-            cell.numberTextField.text = String(currency.currentValue * number)
+        if let number = numberFromTextField, let pickedCurrency = pickedCurrency {
+            cell.numberTextField.text = String(pickedCurrency.currentValue/currency.currentValue * number)
         } else {
             cell.numberTextField.text = "0"
         }
@@ -68,9 +69,10 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        numberFromTextField = Double(textField.text!)
-        
         let activeTextFieldIndexPath = IndexPath(row: textField.tag, section: 0)
+        numberFromTextField = Double(textField.text!)
+        pickedCurrency = fetchedResultsController.object(at: activeTextFieldIndexPath)
+        
         var visibleIndexPaths = [IndexPath]()
         
         for indexPath in tableView.indexPathsForVisibleRows! {
