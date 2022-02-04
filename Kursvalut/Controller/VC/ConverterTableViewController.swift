@@ -31,20 +31,12 @@ class ConverterTableViewController: UITableViewController {
         cell.numberTextField.tag = indexPath.row
         cell.numberTextField.delegate = self
         
-        update(cell, at: indexPath)
-        
-        return cell
-    }
-    
-    private func update(_ cell: ConverterTableViewCell, at indexPath: IndexPath) {
-        let currency = fetchedResultsController.object(at: indexPath)
-        
         if let number = numberFromTextField, let pickedCurrency = pickedCurrency {
-            cell.numberTextField.text = String((pickedCurrency.currentValue/Double(pickedCurrency.nominal))/currency.currentValue * number)
+            cell.numberTextField.text = currencyManager.performCalculation(with: number, pickedCurrency, currency)
         } else {
             cell.numberTextField.text = "0"
         }
-        
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

@@ -76,5 +76,19 @@ struct CurrencyManager {
         formatter.dateFormat = text
         return formatter.string(from: Date())
     }
+    
+    //MARK: - Converter Calculation Method
+    
+    func performCalculation(with number: Double, _ pickedCurrency: Currency, _ cellCurrency: Currency) -> String {
+        let unformattedValue = (pickedCurrency.currentValue/Double(pickedCurrency.nominal))/cellCurrency.currentValue * number
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.decimalSeparator = ","
+        formatter.groupingSeparator = " "
+        formatter.maximumFractionDigits = 2
+        
+        return formatter.string(from: NSNumber(value: unformattedValue)) ?? "0"
+    }
 }
 
