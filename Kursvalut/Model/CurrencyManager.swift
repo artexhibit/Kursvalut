@@ -84,7 +84,7 @@ struct CurrencyManager {
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        formatter.decimalSeparator = ","
+        formatter.decimalSeparator = "."
         formatter.groupingSeparator = " "
         formatter.maximumFractionDigits = 2
         

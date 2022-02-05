@@ -78,23 +78,19 @@ extension ConverterTableViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let formatter = NumberFormatter()
-        formatter.usesGroupingSeparator = true
         formatter.numberStyle = .decimal
         formatter.decimalSeparator = "."
         formatter.groupingSeparator = " "
         
-        let completeString = textField.text!.replacingOccurrences(of: formatter.groupingSeparator, with: "") + string
+        let textString = textField.text ?? ""
+        guard let range = Range(range, in: textString) else { return false }
+        let updatedString = textString.replacingCharacters(in: range, with: string)
+        let completeString = updatedString.replacingOccurrences(of: formatter.groupingSeparator, with: "")
         
-        guard let value = Double(completeString) else { return false }
-        numberFromTextField = value
+        numberFromTextField = completeString.isEmpty ? 0 : Double(completeString) ?? 0
+        guard !completeString.isEmpty else { return true }
         
-        let formattedNumber = formatter.string(from: NSNumber(value: value)) ?? ""
-        textField.text = formattedNumber
-        
-        if string.isEmpty {
-            return true
-        }
-        
+        textField.text = formatter.string(from: NSNumber(value: numberFromTextField ?? 0))
         return string == formatter.decimalSeparator
     }
 }
