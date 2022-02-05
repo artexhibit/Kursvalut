@@ -63,7 +63,6 @@ extension ConverterTableViewController: UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         let activeTextFieldIndexPath = IndexPath(row: textField.tag, section: 0)
-        numberFromTextField = Double(textField.text!)
         pickedCurrency = fetchedResultsController.object(at: activeTextFieldIndexPath)
         
         var visibleIndexPaths = [IndexPath]()
@@ -74,6 +73,29 @@ extension ConverterTableViewController: UITextFieldDelegate {
             }
         }
         tableView.reloadRows(at: visibleIndexPaths, with: .none)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let formatter = NumberFormatter()
+        formatter.usesGroupingSeparator = true
+        formatter.numberStyle = .decimal
+        formatter.decimalSeparator = "."
+        formatter.groupingSeparator = " "
+        
+        let completeString = textField.text!.replacingOccurrences(of: formatter.groupingSeparator, with: "") + string
+        
+        guard let value = Double(completeString) else { return false }
+        numberFromTextField = value
+        
+        let formattedNumber = formatter.string(from: NSNumber(value: value)) ?? ""
+        textField.text = formattedNumber
+        
+        if string.isEmpty {
+            return true
+        }
+        
+        return string == formatter.decimalSeparator
     }
 }
 
