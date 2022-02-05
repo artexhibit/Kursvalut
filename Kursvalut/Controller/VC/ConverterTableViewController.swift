@@ -33,8 +33,6 @@ class ConverterTableViewController: UITableViewController {
         
         if let number = numberFromTextField, let pickedCurrency = pickedCurrency {
             cell.numberTextField.text = currencyManager.performCalculation(with: number, pickedCurrency, currency)
-        } else {
-            cell.numberTextField.text = "0"
         }
         return cell
     }
@@ -54,11 +52,12 @@ extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.placeholder = "0"
         textField.text = ""
-        textField.textColor = UIColor.systemBlue
+        textField.textColor = UIColor(named: "BlueColor")
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        textField.textColor = UIColor.black
+        textField.textColor = UIColor(named: "BlackColor")
+        numberFromTextField = 0
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -76,21 +75,17 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.decimalSeparator = "."
-        formatter.groupingSeparator = " "
-        
+        let formatter = currencyManager.setupNumberFormatter(withMaxFractionDigits: 4)
         let textString = textField.text ?? ""
         guard let range = Range(range, in: textString) else { return false }
         let updatedString = textString.replacingCharacters(in: range, with: string)
-        let completeString = updatedString.replacingOccurrences(of: formatter.groupingSeparator, with: "")
+        let correctDecimalString = updatedString.replacingOccurrences(of: ",", with: ".")
+        let completeString = correctDecimalString.replacingOccurrences(of: formatter.groupingSeparator, with: "")
         
-        numberFromTextField = completeString.isEmpty ? 0 : Double(completeString) ?? 0
+        numberFromTextField = completeString.isEmpty ? 0 : Double(completeString)
         guard !completeString.isEmpty else { return true }
         
-        textField.text = formatter.string(from: NSNumber(value: numberFromTextField ?? 0))
+        textField.text = formatter.string(for: numberFromTextField)
         return string == formatter.decimalSeparator
     }
 }

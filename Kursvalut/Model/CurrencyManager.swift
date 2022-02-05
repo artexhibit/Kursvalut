@@ -77,18 +77,20 @@ struct CurrencyManager {
         return formatter.string(from: Date())
     }
     
+    func setupNumberFormatter(withMaxFractionDigits digits: Int = 0) -> NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = " "
+        formatter.maximumFractionDigits = digits
+        return formatter
+    }
+    
     //MARK: - Converter Calculation Method
     
     func performCalculation(with number: Double, _ pickedCurrency: Currency, _ cellCurrency: Currency) -> String {
-        let unformattedValue = (pickedCurrency.currentValue/Double(pickedCurrency.nominal))/cellCurrency.currentValue * number
-        
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.decimalSeparator = "."
-        formatter.groupingSeparator = " "
-        formatter.maximumFractionDigits = 2
-        
-        return formatter.string(from: NSNumber(value: unformattedValue)) ?? "0"
+        let unformattedNumber = (pickedCurrency.currentValue/Double(pickedCurrency.nominal))/(cellCurrency.currentValue/Double(cellCurrency.nominal)) * number
+        let formatter = setupNumberFormatter(withMaxFractionDigits: 2)
+        return formatter.string(from: NSNumber(value: unformattedNumber)) ?? "0"
     }
 }
 
