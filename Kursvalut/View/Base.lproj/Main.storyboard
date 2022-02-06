@@ -202,24 +202,21 @@
                                                     <rect key="frame" x="0.0" y="6" width="45" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="45" id="Mru-UV-q2o"/>
-                                                        <constraint firstAttribute="height" constant="60" id="cRl-RO-Za2"/>
+                                                        <constraint firstAttribute="height" priority="750" constant="60" id="cRl-RO-Za2"/>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gnh-tt-WDk" userLabel="1 Stack View">
-                                                    <rect key="frame" x="51" y="18" width="122" height="36.5"/>
+                                                    <rect key="frame" x="51" y="18.5" width="110" height="35"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4op-Cx-0Iz">
-                                                            <rect key="frame" x="0.0" y="0.0" width="122" height="21.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="21.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Российский Рубль" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zq-F1-bUn">
-                                                            <rect key="frame" x="0.0" y="20.5" width="109" height="16"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="16" id="Dlo-pu-rTI"/>
-                                                            </constraints>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Российский Рубль" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zq-F1-bUn">
+                                                            <rect key="frame" x="0.0" y="20.5" width="109" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
@@ -229,15 +226,15 @@
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="4op-Cx-0Iz" secondAttribute="trailing" id="2us-hi-o8a"/>
                                                         <constraint firstItem="4op-Cx-0Iz" firstAttribute="top" secondItem="gnh-tt-WDk" secondAttribute="top" id="4OB-fC-UlY"/>
-                                                        <constraint firstAttribute="width" constant="122" id="XE3-nO-4ZR"/>
+                                                        <constraint firstAttribute="width" constant="110" id="Vc4-yi-hSc"/>
                                                         <constraint firstItem="4op-Cx-0Iz" firstAttribute="leading" secondItem="gnh-tt-WDk" secondAttribute="leading" id="wDj-OL-Z0n"/>
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="i8V-zC-tOh" userLabel="2 Stack View">
-                                                    <rect key="frame" x="179" y="17.5" width="175" height="37.5"/>
+                                                    <rect key="frame" x="167" y="17.5" width="187" height="37.5"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dtx-EN-ZX9">
-                                                            <rect key="frame" x="0.0" y="0.0" width="175" height="37.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="187" height="37.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                                         </textField>
@@ -259,7 +256,7 @@
                                         <constraint firstItem="cGY-qt-ui7" firstAttribute="leading" secondItem="LRS-4u-sI9" secondAttribute="leading" constant="10" id="w6j-8f-8Zh"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <inset key="separatorInset" minX="65" minY="0.0" maxX="13" maxY="0.0"/>
+                                <inset key="separatorInset" minX="62" minY="0.0" maxX="13" maxY="0.0"/>
                                 <connections>
                                     <outlet property="flag" destination="7fS-Am-ALx" id="bGJ-r4-TbI"/>
                                     <outlet property="fullName" destination="0Zq-F1-bUn" id="gfk-Bh-w1a"/>
