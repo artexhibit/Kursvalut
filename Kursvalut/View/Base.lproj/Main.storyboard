@@ -229,6 +229,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="4op-Cx-0Iz" secondAttribute="trailing" id="2us-hi-o8a"/>
                                                         <constraint firstItem="4op-Cx-0Iz" firstAttribute="top" secondItem="gnh-tt-WDk" secondAttribute="top" id="4OB-fC-UlY"/>
+                                                        <constraint firstAttribute="width" constant="122" id="XE3-nO-4ZR"/>
                                                         <constraint firstItem="4op-Cx-0Iz" firstAttribute="leading" secondItem="gnh-tt-WDk" secondAttribute="leading" id="wDj-OL-Z0n"/>
                                                     </constraints>
                                                 </stackView>
@@ -244,7 +245,6 @@
                                                     <constraints>
                                                         <constraint firstItem="Dtx-EN-ZX9" firstAttribute="leading" secondItem="i8V-zC-tOh" secondAttribute="leading" id="U9W-h4-ekR"/>
                                                         <constraint firstItem="Dtx-EN-ZX9" firstAttribute="top" secondItem="i8V-zC-tOh" secondAttribute="top" id="cDV-sq-6c7"/>
-                                                        <constraint firstAttribute="width" constant="175" id="hPp-NQ-Yob"/>
                                                         <constraint firstAttribute="trailing" secondItem="Dtx-EN-ZX9" secondAttribute="trailing" id="ot0-6r-BWT"/>
                                                         <constraint firstAttribute="bottom" secondItem="Dtx-EN-ZX9" secondAttribute="bottom" id="rhv-lm-Xdr"/>
                                                     </constraints>

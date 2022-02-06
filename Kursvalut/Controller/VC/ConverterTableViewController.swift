@@ -83,6 +83,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         let completeString = correctDecimalString.replacingOccurrences(of: formatter.groupingSeparator, with: "")
         
         numberFromTextField = completeString.isEmpty ? 0 : Double(completeString)
+        guard completeString.count <= 15 else { return false }
         guard !completeString.isEmpty else { return true }
         
         textField.text = formatter.string(for: numberFromTextField)
