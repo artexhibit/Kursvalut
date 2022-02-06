@@ -30,7 +30,6 @@ class CurrencyViewController: UIViewController {
         setupSearchController()
         setupFetchedResultsController()
         setupRefreshControl()
-        checkOnFirstLaunchToday()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +38,7 @@ class CurrencyViewController: UIViewController {
             UserDefaults.standard.set(true, forKey: "firstAppLaunch")
             coreDataManager.create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1)
         }
+        checkOnFirstLaunchToday()
     }
 }
 

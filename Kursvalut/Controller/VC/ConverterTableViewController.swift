@@ -13,6 +13,7 @@ class ConverterTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFetchedResultsController()
+        setupKeyboardHide()
     }
     
     // MARK: - TableView DataSource Methods
@@ -42,6 +43,10 @@ class ConverterTableViewController: UITableViewController {
             let currency = fetchedResultsController.object(at: indexPath)
             currency.isForConverter = false
             coreDataManager.save()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                 self.tableView.reloadData()
+             }
         }
     }
 }
@@ -50,28 +55,33 @@ class ConverterTableViewController: UITableViewController {
 
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.textColor = UIColor(named: "BlueColor")
+        numberFromTextField = 0
         textField.placeholder = "0"
         textField.text = ""
-        textField.textColor = UIColor(named: "BlueColor")
+        setupToolbar(with: textField)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         textField.textColor = UIColor(named: "BlackColor")
-        numberFromTextField = 0
+   
+        guard let text = textField.text else { return }
+        if text.isEmpty {
+            textField.text = "0"
+        }
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         let activeTextFieldIndexPath = IndexPath(row: textField.tag, section: 0)
         pickedCurrency = fetchedResultsController.object(at: activeTextFieldIndexPath)
         
-        var visibleIndexPaths = [IndexPath]()
+        guard let currencyObjects = fetchedResultsController.fetchedObjects?.count else {return}
+        var nonActiveIndexPaths = [IndexPath]()
         
-        for indexPath in tableView.indexPathsForVisibleRows! {
-            if indexPath != activeTextFieldIndexPath {
-                visibleIndexPaths.append(indexPath)
-            }
+        for object in 0..<currencyObjects where object != textField.tag  {
+            nonActiveIndexPaths.append(IndexPath(row: object, section: 0))
         }
-        tableView.reloadRows(at: visibleIndexPaths, with: .none)
+        tableView.reloadRows(at: nonActiveIndexPaths, with: .none)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -83,11 +93,34 @@ extension ConverterTableViewController: UITextFieldDelegate {
         let completeString = correctDecimalString.replacingOccurrences(of: formatter.groupingSeparator, with: "")
         
         numberFromTextField = completeString.isEmpty ? 0 : Double(completeString)
-        guard completeString.count <= 15 else { return false }
+        guard completeString.count <= 12 else { return false }
         guard !completeString.isEmpty else { return true }
         
         textField.text = formatter.string(for: numberFromTextField)
         return string == formatter.decimalSeparator
+    }
+}
+
+//MARK: - Keyboard Handling Methods
+
+extension ConverterTableViewController {
+    func setupKeyboardHide() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func setupToolbar(with textField: UITextField) {
+        let bar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 20))
+        let doneButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(dismissKeyboard))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        bar.items = [flexSpace, doneButton]
+        bar.sizeToFit()
+        textField.inputAccessoryView = bar
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 

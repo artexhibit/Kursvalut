@@ -89,7 +89,7 @@ struct CurrencyManager {
     
     func performCalculation(with number: Double, _ pickedCurrency: Currency, _ cellCurrency: Currency) -> String {
         let unformattedNumber = (pickedCurrency.currentValue/Double(pickedCurrency.nominal))/(cellCurrency.currentValue/Double(cellCurrency.nominal)) * number
-        let formatter = setupNumberFormatter(withMaxFractionDigits: 2)
+        let formatter = setupNumberFormatter(withMaxFractionDigits: 4)
         return formatter.string(from: NSNumber(value: unformattedNumber)) ?? "0"
     }
 }
