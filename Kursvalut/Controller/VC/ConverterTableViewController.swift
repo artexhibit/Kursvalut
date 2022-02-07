@@ -29,7 +29,6 @@ class ConverterTableViewController: UITableViewController {
         cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
-        cell.numberTextField.tag = indexPath.row
         cell.numberTextField.delegate = self
         
         if let number = numberFromTextField, let pickedCurrency = pickedCurrency {
@@ -43,10 +42,6 @@ class ConverterTableViewController: UITableViewController {
             let currency = fetchedResultsController.object(at: indexPath)
             currency.isForConverter = false
             coreDataManager.save()
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                 self.tableView.reloadData()
-             }
         }
     }
 }
@@ -55,16 +50,16 @@ class ConverterTableViewController: UITableViewController {
 
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.textColor = UIColor(named: "BlueColor")
         numberFromTextField = 0
+        setupToolbar(with: textField)
+        textField.textColor = UIColor(named: "BlueColor")
         textField.placeholder = "0"
         textField.text = ""
-        setupToolbar(with: textField)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         textField.textColor = UIColor(named: "BlackColor")
-   
+        
         guard let text = textField.text else { return }
         if text.isEmpty {
             textField.text = "0"
@@ -72,14 +67,18 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        let activeTextFieldIndexPath = IndexPath(row: textField.tag, section: 0)
-        pickedCurrency = fetchedResultsController.object(at: activeTextFieldIndexPath)
+        let tapLocation = textField.convert(textField.bounds.origin, to: tableView)
+        guard let pickedCurrencyIndexPath = tableView.indexPathForRow(at: tapLocation) else { return }
+        pickedCurrency = fetchedResultsController.object(at: pickedCurrencyIndexPath)
         
-        guard let currencyObjects = fetchedResultsController.fetchedObjects?.count else {return}
         var nonActiveIndexPaths = [IndexPath]()
         
-        for object in 0..<currencyObjects where object != textField.tag  {
-            nonActiveIndexPaths.append(IndexPath(row: object, section: 0))
+        let tableViewRows = tableView.numberOfRows(inSection: 0)
+        for i in 0..<tableViewRows {
+            let indexPath = IndexPath(row: i, section: 0)
+            if indexPath != pickedCurrencyIndexPath {
+                nonActiveIndexPaths.append(indexPath)
+            }
         }
         tableView.reloadRows(at: nonActiveIndexPaths, with: .none)
     }

@@ -30,15 +30,12 @@ class CurrencyViewController: UIViewController {
         setupSearchController()
         setupFetchedResultsController()
         setupRefreshControl()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        checkOnFirstLaunchToday()
+        
         if !firstAppLaunch {
             UserDefaults.standard.set(true, forKey: "firstAppLaunch")
             coreDataManager.create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1)
         }
-        checkOnFirstLaunchToday()
     }
 }
 
@@ -145,8 +142,8 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
         if searchPredicate != nil {
             fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: searchPredicate)
         } else {
-            let filter = NSPredicate(format: "shortName != %@", "RUB")
-            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: filter)
+            let filterPredicate = NSPredicate(format: "shortName != %@", "RUB")
+            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: filterPredicate)
         }
         fetchedResultsController.delegate = self
         try? fetchedResultsController.performFetch()
