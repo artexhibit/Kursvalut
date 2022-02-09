@@ -37,7 +37,7 @@ struct CurrencyCoreDataManager {
         data.previousValue = prevValue
     }
     
-    func create(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int) {
+    func create(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, isForConverter: Bool = false, itemNumberForConverter: Int32 = 0) {
         let currency = Currency(context: self.context)
         
         currency.shortName = shortName
@@ -45,24 +45,23 @@ struct CurrencyCoreDataManager {
         currency.currentValue = currValue
         currency.previousValue = prevValue
         currency.nominal = Int32(nominal)
-        currency.isForConverter = false
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         
         save()
     }
     
     func createCurrencyFetchedResultsController(with predicate: NSPredicate? = nil, and sortDescriptor: NSSortDescriptor? = nil) -> NSFetchedResultsController<Currency> {
+        var sectionName: String?
         let request: NSFetchRequest<Currency> = Currency.fetchRequest()
         let baseSortDescriptor = NSSortDescriptor(key: "shortName", ascending: true)
         request.predicate = predicate
+        request.sortDescriptors = [baseSortDescriptor]
         
         if let additionalSortDescriptor = sortDescriptor {
             request.sortDescriptors = [additionalSortDescriptor, baseSortDescriptor]
-            return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: "fullName.firstStringCharacter", cacheName: nil)
-        } else {
-            request.sortDescriptors = [baseSortDescriptor]
-            return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+            sectionName = additionalSortDescriptor.key == "fullName" ? "fullName.firstStringCharacter" : nil
         }
+        return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionName, cacheName: nil)
     }
 }
 
