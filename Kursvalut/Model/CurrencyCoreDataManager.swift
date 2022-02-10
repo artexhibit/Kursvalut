@@ -45,6 +45,8 @@ struct CurrencyCoreDataManager {
         currency.currentValue = currValue
         currency.previousValue = prevValue
         currency.nominal = Int32(nominal)
+        currency.isForConverter = isForConverter
+        currency.itemNumberForConverter = itemNumberForConverter
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         
         save()
@@ -60,6 +62,8 @@ struct CurrencyCoreDataManager {
         if let additionalSortDescriptor = sortDescriptor {
             request.sortDescriptors = [additionalSortDescriptor, baseSortDescriptor]
             sectionName = additionalSortDescriptor.key == "fullName" ? "fullName.firstStringCharacter" : nil
+        } else {
+            sectionName = nil
         }
         return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionName, cacheName: nil)
     }
