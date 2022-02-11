@@ -37,7 +37,7 @@ struct CurrencyCoreDataManager {
         data.previousValue = prevValue
     }
     
-    func create(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, isForConverter: Bool = false, itemNumberForConverter: Int32 = 0) {
+    func create(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0) {
         let currency = Currency(context: self.context)
         
         currency.shortName = shortName
@@ -46,7 +46,7 @@ struct CurrencyCoreDataManager {
         currency.previousValue = prevValue
         currency.nominal = Int32(nominal)
         currency.isForConverter = isForConverter
-        currency.itemNumberForConverter = itemNumberForConverter
+        currency.rowForConverter = rowForConverter
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         
         save()
@@ -66,6 +66,33 @@ struct CurrencyCoreDataManager {
             sectionName = nil
         }
         return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionName, cacheName: nil)
+    }
+    
+    func setRow(for currency: Currency, in currencies: [Currency]) {
+        var numberOfCells: Int {
+            get {
+                var numberOfCellsSet = Set<Currency>()
+                for currency in currencies {
+                    if currency.isForConverter {
+                        numberOfCellsSet.insert(currency)
+                    }
+                }
+                return numberOfCellsSet.count
+            }
+        }
+        
+        if numberOfCells <= 1 && currency.isForConverter {
+            currency.rowForConverter = 0
+        } else if numberOfCells > 1 && currency.isForConverter {
+            currency.rowForConverter = Int32(numberOfCells - 1)
+        } else {
+            currency.rowForConverter = 0
+            for currency in currencies {
+                if currency.rowForConverter != 0 {
+                    currency.rowForConverter -= 1
+                }
+            }
+        }
     }
 }
 

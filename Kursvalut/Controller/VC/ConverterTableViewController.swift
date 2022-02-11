@@ -19,7 +19,8 @@ class ConverterTableViewController: UITableViewController {
     // MARK: - TableView DataSource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections![section].numberOfObjects
+        guard let section = fetchedResultsController.sections?[section] else { return 0 }
+        return section.numberOfObjects
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -40,7 +41,9 @@ class ConverterTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let currency = fetchedResultsController.object(at: indexPath)
+            let currencies = fetchedResultsController.fetchedObjects!
             currency.isForConverter = false
+            coreDataManager.setRow(for: currency, in: currencies)
             coreDataManager.save()
         }
     }
@@ -128,7 +131,8 @@ extension ConverterTableViewController {
 extension ConverterTableViewController: NSFetchedResultsControllerDelegate {
     func setupFetchedResultsController() {
         let predicate = NSPredicate(format: "isForConverter == YES")
-        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate)
+        let sortDescriptor = NSSortDescriptor(key: "rowForConverter", ascending: true)
+        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate, and: sortDescriptor)
         fetchedResultsController.delegate = self
         try? fetchedResultsController.performFetch()
     }

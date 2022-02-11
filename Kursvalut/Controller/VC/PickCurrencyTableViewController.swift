@@ -62,7 +62,10 @@ class PickCurrencyTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currency = fetchedResultsController.object(at: indexPath)
+        let currencies = fetchedResultsController.fetchedObjects!
+        
         currency.isForConverter = !currency.isForConverter
+        coreDataManager.setRow(for: currency, in: currencies)
         coreDataManager.save()
     }
 }
