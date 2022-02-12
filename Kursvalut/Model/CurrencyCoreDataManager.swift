@@ -69,30 +69,24 @@ struct CurrencyCoreDataManager {
     }
     
     func setRow(for currency: Currency, in currencies: [Currency]) {
-        var numberOfCells: Int {
-            get {
-                var numberOfCellsSet = Set<Currency>()
-                for currency in currencies {
-                    if currency.isForConverter {
-                        numberOfCellsSet.insert(currency)
-                    }
-                }
-                return numberOfCellsSet.count
-            }
+        var currencyRowsArray = UserDefaults.standard.stringArray(forKey: "currencyRowsArray") ?? [String]()
+        
+        if currency.isForConverter {
+            currencyRowsArray.append(currency.shortName!)
+        } else {
+            guard let row = currencyRowsArray.firstIndex(of: currency.shortName!) else { return }
+            currencyRowsArray.remove(at: row)
+            currency.rowForConverter = 0
         }
         
-        if numberOfCells <= 1 && currency.isForConverter {
-            currency.rowForConverter = 0
-        } else if numberOfCells > 1 && currency.isForConverter {
-            currency.rowForConverter = Int32(numberOfCells - 1)
-        } else {
-            currency.rowForConverter = 0
+        for (row, object) in currencyRowsArray.enumerated() {
             for currency in currencies {
-                if currency.rowForConverter != 0 {
-                    currency.rowForConverter -= 1
+                if object == currency.shortName {
+                    currency.rowForConverter = Int32(row)
                 }
             }
         }
+        UserDefaults.standard.set(currencyRowsArray, forKey: "currenciesToShow")
     }
 }
 

@@ -149,7 +149,9 @@ extension ConverterTableViewController: NSFetchedResultsControllerDelegate {
         switch type {
         case .update:
             if let indexPath = indexPath {
-                tableView.reloadRows(at: [indexPath], with: .none)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
+                }
             }
         case .move:
             if let indexPath = indexPath, let newIndexPath = newIndexPath {
