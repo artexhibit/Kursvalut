@@ -271,12 +271,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Конвертер" id="bsY-Hn-9A3">
+                        <barButtonItem key="leftBarButtonItem" title=" " id="WXI-kA-tYn">
+                            <connections>
+                                <action selector="doneEditingPressed:" destination="7CZ-dz-alq" id="cRR-Xe-2D2"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="F39-hz-bc4">
                             <connections>
                                 <segue destination="cjG-HC-q21" kind="presentation" id="QID-XT-znV"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="doneEditingButton" destination="WXI-kA-tYn" id="2kG-Ui-BtJ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2BI-ex-Q7P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

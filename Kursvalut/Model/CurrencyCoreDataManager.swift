@@ -74,7 +74,7 @@ struct CurrencyCoreDataManager {
         if currency.isForConverter {
             currencyRowsArray.append(currency.shortName!)
         } else {
-            guard let row = currencyRowsArray.firstIndex(of: currency.shortName!) else { return }
+            guard let row = currencyRowsArray.firstIndex(of: currency.shortName ?? "") else { return }
             currencyRowsArray.remove(at: row)
             currency.rowForConverter = 0
         }

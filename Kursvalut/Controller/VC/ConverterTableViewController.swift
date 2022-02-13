@@ -9,11 +9,20 @@ class ConverterTableViewController: UITableViewController {
     private var currencyManager = CurrencyManager()
     private var numberFromTextField: Double?
     private var pickedCurrency: Currency?
+    private var isInEdit = false
+    
+    @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFetchedResultsController()
         setupKeyboardHide()
+    }
+    
+    @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
+        turnEditing()
+        isInEdit = false
+        tableView.reloadData()
     }
     
     // MARK: - TableView DataSource Methods
@@ -31,6 +40,7 @@ class ConverterTableViewController: UITableViewController {
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
         cell.numberTextField.delegate = self
+        cell.numberTextField.isHidden = isInEdit ? true : false
         
         if let number = numberFromTextField, let pickedCurrency = pickedCurrency {
             cell.numberTextField.text = currencyManager.performCalculation(with: number, pickedCurrency, currency)
@@ -38,13 +48,17 @@ class ConverterTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView,
-                            trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let move = UIContextualAction(style: .normal, title: "Переместить") { (action, view, completionHandler) in
-            print("move")
+            self.turnEditing()
+            self.turnEditing()
+            self.isInEdit = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                self.tableView.reloadData()
+            }
             completionHandler(true)
         }
-        move.backgroundColor = UIColor(named: "CalmBlueColor")
+        move.backgroundColor = UIColor(named: "BlueColor")
         
         let delete = UIContextualAction(style: .destructive, title: "Удалить") { [self] (action, view, completionHandler) in
             let currency = fetchedResultsController.object(at: indexPath)
@@ -58,6 +72,36 @@ class ConverterTableViewController: UITableViewController {
         
         let configuration = UISwipeActionsConfiguration(actions: [delete, move])
         return configuration
+    }
+    
+    func turnEditing() {
+        if tableView.isEditing {
+            tableView.isEditing = false
+            doneEditingButton.title = ""
+            doneEditingButton.isEnabled = false
+        } else {
+            tableView.isEditing = true
+            doneEditingButton.isEnabled = true
+            doneEditingButton.title = "Готово"
+        }
+    }
+    
+    //MARK: - TableView Delegate Methods
+    
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
 }
 
