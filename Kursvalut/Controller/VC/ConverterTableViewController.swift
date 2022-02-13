@@ -38,14 +38,26 @@ class ConverterTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+    override func tableView(_ tableView: UITableView,
+                            trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let move = UIContextualAction(style: .normal, title: "Переместить") { (action, view, completionHandler) in
+            print("move")
+            completionHandler(true)
+        }
+        move.backgroundColor = UIColor(named: "CalmBlueColor")
+        
+        let delete = UIContextualAction(style: .destructive, title: "Удалить") { [self] (action, view, completionHandler) in
             let currency = fetchedResultsController.object(at: indexPath)
             let currencies = fetchedResultsController.fetchedObjects!
             currency.isForConverter = false
             coreDataManager.setRow(for: currency, in: currencies)
             coreDataManager.save()
+            completionHandler(true)
         }
+        delete.backgroundColor = UIColor(named: "RedColor")
+        
+        let configuration = UISwipeActionsConfiguration(actions: [delete, move])
+        return configuration
     }
 }
 

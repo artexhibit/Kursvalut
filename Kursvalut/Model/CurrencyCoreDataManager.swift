@@ -86,7 +86,7 @@ struct CurrencyCoreDataManager {
                 }
             }
         }
-        UserDefaults.standard.set(currencyRowsArray, forKey: "currenciesToShow")
+        UserDefaults.standard.set(currencyRowsArray, forKey: "currencyRowsArray")
     }
 }
 
