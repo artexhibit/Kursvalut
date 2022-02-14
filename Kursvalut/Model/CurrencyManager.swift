@@ -76,21 +76,5 @@ struct CurrencyManager {
         formatter.dateFormat = text
         return formatter.string(from: Date())
     }
-    
-    func setupNumberFormatter(withMaxFractionDigits digits: Int = 0) -> NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = " "
-        formatter.maximumFractionDigits = digits
-        return formatter
-    }
-    
-    //MARK: - Converter Calculation Method
-    
-    func performCalculation(with number: Double, _ pickedCurrency: Currency, _ cellCurrency: Currency) -> String {
-        let unformattedNumber = (pickedCurrency.currentValue/Double(pickedCurrency.nominal))/(cellCurrency.currentValue/Double(cellCurrency.nominal)) * number
-        let formatter = setupNumberFormatter(withMaxFractionDigits: 4)
-        return formatter.string(from: NSNumber(value: unformattedNumber)) ?? "0"
-    }
 }
 

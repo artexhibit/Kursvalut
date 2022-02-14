@@ -6,6 +6,7 @@ class ConverterTableViewController: UITableViewController {
     
     private var fetchedResultsController: NSFetchedResultsController<Currency>!
     private let coreDataManager = CurrencyCoreDataManager()
+    private let converterManager = ConverterManager()
     private var currencyManager = CurrencyManager()
     private var numberFromTextField: Double?
     private var pickedCurrency: Currency?
@@ -43,7 +44,7 @@ class ConverterTableViewController: UITableViewController {
         cell.numberTextField.isHidden = isInEdit ? true : false
         
         if let number = numberFromTextField, let pickedCurrency = pickedCurrency {
-            cell.numberTextField.text = currencyManager.performCalculation(with: number, pickedCurrency, currency)
+            cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
         }
         return cell
     }
@@ -61,10 +62,10 @@ class ConverterTableViewController: UITableViewController {
         move.backgroundColor = UIColor(named: "BlueColor")
         
         let delete = UIContextualAction(style: .destructive, title: "Удалить") { [self] (action, view, completionHandler) in
-            let currency = fetchedResultsController.object(at: indexPath)
             let currencies = fetchedResultsController.fetchedObjects!
+            let currency = fetchedResultsController.object(at: indexPath)
             currency.isForConverter = false
-            coreDataManager.setRow(for: currency, in: currencies)
+            converterManager.setRow(for: currency, in: currencies)
             coreDataManager.save()
             completionHandler(true)
         }
@@ -73,6 +74,8 @@ class ConverterTableViewController: UITableViewController {
         let configuration = UISwipeActionsConfiguration(actions: [delete, move])
         return configuration
     }
+    
+    //MARK: - Method for Move Swipe Action
     
     func turnEditing() {
         if tableView.isEditing {
@@ -93,7 +96,11 @@ class ConverterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let currencies = fetchedResultsController.fetchedObjects!
+        let pickedCurrency = fetchedResultsController.object(at: sourceIndexPath)
         
+        converterManager.moveRow(with: pickedCurrency, in: currencies, with: sourceIndexPath, and: destinationIndexPath)
+        coreDataManager.save()
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -143,7 +150,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let formatter = currencyManager.setupNumberFormatter(withMaxFractionDigits: 4)
+        let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: 4)
         let textString = textField.text ?? ""
         guard let range = Range(range, in: textString) else { return false }
         let updatedString = textString.replacingCharacters(in: range, with: string)
@@ -169,7 +176,7 @@ extension ConverterTableViewController {
     
     func setupToolbar(with textField: UITextField) {
         let bar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 20))
-        let doneButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(dismissKeyboard))
+        let doneButton = UIBarButtonItem(image: UIImage(named: "chevron.down"), style: .done, target: self, action: #selector(dismissKeyboard))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         bar.items = [flexSpace, doneButton]

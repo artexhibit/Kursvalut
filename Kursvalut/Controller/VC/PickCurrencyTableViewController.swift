@@ -8,6 +8,7 @@ class PickCurrencyTableViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private var currencyManager = CurrencyManager()
     private let coreDataManager = CurrencyCoreDataManager()
+    private let converterManager = ConverterManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +66,7 @@ class PickCurrencyTableViewController: UITableViewController {
         let currencies = fetchedResultsController.fetchedObjects!
         
         currency.isForConverter = !currency.isForConverter
-        coreDataManager.setRow(for: currency, in: currencies)
+        converterManager.setRow(for: currency, in: currencies)
         coreDataManager.save()
     }
 }

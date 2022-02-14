@@ -5,7 +5,7 @@ import CoreData
 
 struct CurrencyCoreDataManager {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    
     func save() {
         do {
             try context.save()
@@ -66,27 +66,6 @@ struct CurrencyCoreDataManager {
             sectionName = nil
         }
         return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionName, cacheName: nil)
-    }
-    
-    func setRow(for currency: Currency, in currencies: [Currency]) {
-        var currencyRowsArray = UserDefaults.standard.stringArray(forKey: "currencyRowsArray") ?? [String]()
-        
-        if currency.isForConverter {
-            currencyRowsArray.append(currency.shortName!)
-        } else {
-            guard let row = currencyRowsArray.firstIndex(of: currency.shortName ?? "") else { return }
-            currencyRowsArray.remove(at: row)
-            currency.rowForConverter = 0
-        }
-        
-        for (row, object) in currencyRowsArray.enumerated() {
-            for currency in currencies {
-                if object == currency.shortName {
-                    currency.rowForConverter = Int32(row)
-                }
-            }
-        }
-        UserDefaults.standard.set(currencyRowsArray, forKey: "currencyRowsArray")
     }
 }
 
