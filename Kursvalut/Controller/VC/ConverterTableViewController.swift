@@ -50,7 +50,7 @@ class ConverterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let move = UIContextualAction(style: .normal, title: "Переместить") { (action, view, completionHandler) in
+        let move = UIContextualAction(style: .normal, title: nil) { (action, view, completionHandler) in
             self.turnEditing()
             self.turnEditing()
             self.isInEdit = true
@@ -59,9 +59,10 @@ class ConverterTableViewController: UITableViewController {
             }
             completionHandler(true)
         }
+        move.image = UIImage(named: "line.3.horizontal")
         move.backgroundColor = UIColor(named: "BlueColor")
         
-        let delete = UIContextualAction(style: .destructive, title: "Удалить") { [self] (action, view, completionHandler) in
+        let delete = UIContextualAction(style: .destructive, title: nil) { [self] (action, view, completionHandler) in
             let currencies = fetchedResultsController.fetchedObjects!
             let currency = fetchedResultsController.object(at: indexPath)
             currency.isForConverter = false
@@ -69,6 +70,7 @@ class ConverterTableViewController: UITableViewController {
             coreDataManager.save()
             completionHandler(true)
         }
+        delete.image = UIImage(named: "trash")
         delete.backgroundColor = UIColor(named: "RedColor")
         
         let configuration = UISwipeActionsConfiguration(actions: [delete, move])
