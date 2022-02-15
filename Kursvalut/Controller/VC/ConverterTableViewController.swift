@@ -65,7 +65,7 @@ class ConverterTableViewController: UITableViewController {
             let currencies = fetchedResultsController.fetchedObjects!
             let currency = fetchedResultsController.object(at: indexPath)
             currency.isForConverter = false
-            converterManager.setRow(for: currency, in: currencies)
+            converterManager.deleteRow(for: currency, in: currencies)
             coreDataManager.save()
             completionHandler(true)
         }

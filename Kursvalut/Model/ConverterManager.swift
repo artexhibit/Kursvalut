@@ -20,40 +20,61 @@ struct ConverterManager {
     
     //MARK: - Cells Row Management Methods
     
-    func setRow(for currency: Currency, in currencies: [Currency]) {
-        var currencyRowsArray = UserDefaults.standard.stringArray(forKey: "currencyRowsArray") ?? [String]()
+    func setRow(for pickedCurrency: Currency, in currencies: [Currency]) {
+        var pickedCurrenciesArray = setupArray(with: pickedCurrency, in: currencies, customCondition: true)
+        pickedCurrenciesArray.sort(by: ({$0.rowForConverter < $1.rowForConverter}))
+        pickedCurrenciesArray.append(pickedCurrency)
+        setAndSaveRow(from: pickedCurrenciesArray)
+    }
+    
+    func deleteRow(for pickedCurrency: Currency, in currencies: [Currency]) {
+        var pickedCurrenciesArray = setupArray(with: pickedCurrency, in: currencies)
         
-        if currency.isForConverter {
-            currencyRowsArray.append(currency.shortName!)
-        } else {
-            guard let row = currencyRowsArray.firstIndex(of: currency.shortName ?? "") else { return }
-            currencyRowsArray.remove(at: row)
-            currency.rowForConverter = 0
+        for currency in currencies {
+            if !currency.isForConverter && currency.shortName == pickedCurrency.shortName {
+                pickedCurrency.rowForConverter = 0
+                pickedCurrenciesArray.removeAll(where: {$0 == pickedCurrency})
+                pickedCurrenciesArray.sort(by: ({$0.rowForConverter < $1.rowForConverter}))
+            }
         }
-        changeAttribute(with: currencyRowsArray, in: currencies)
-        UserDefaults.standard.set(currencyRowsArray, forKey: "currencyRowsArray")
+        setAndSaveRow(from: pickedCurrenciesArray)
     }
     
     func moveRow(with pickedCurrency: Currency, in currencies: [Currency], with sourceIndexPath: IndexPath, and destinationIndexPath: IndexPath) {
-        var currencyRowsArray = UserDefaults.standard.stringArray(forKey: "currencyRowsArray") ?? [String]()
+        var pickedCurrenciesArray = setupArray(with: pickedCurrency, in: currencies)
+        pickedCurrenciesArray.sort(by: ({$0.rowForConverter < $1.rowForConverter}))
         
-        for object in currencyRowsArray {
-            if pickedCurrency.shortName == object {
-                let removedCurrency = currencyRowsArray.remove(at: sourceIndexPath.row)
-                currencyRowsArray.insert(removedCurrency, at: destinationIndexPath.row)
+        for currency in pickedCurrenciesArray {
+            if pickedCurrency.shortName == currency.shortName {
+                let removedCurrency = pickedCurrenciesArray.remove(at: sourceIndexPath.row)
+                pickedCurrenciesArray.insert(removedCurrency, at: destinationIndexPath.row)
             }
         }
-        changeAttribute(with: currencyRowsArray, in: currencies)
-        UserDefaults.standard.set(currencyRowsArray, forKey: "currencyRowsArray")
+        setAndSaveRow(from: pickedCurrenciesArray)
     }
     
-    func changeAttribute(with currencyRowsArray: [String], in currencies: [Currency]) {
-        for (row, object) in currencyRowsArray.enumerated() {
+    func setAndSaveRow(from pickedCurrenciesArray: [Currency]) {
+        for (row, currency) in pickedCurrenciesArray.enumerated() {
+            currency.rowForConverter = Int32(row)
+        }
+    }
+    
+    func setupArray(with pickedCurrency: Currency, in currencies: [Currency], customCondition: Bool = false) -> [Currency] {
+        var array = [Currency]()
+        
+        if customCondition {
             for currency in currencies {
-                if object == currency.shortName {
-                    currency.rowForConverter = Int32(row)
+                if currency.isForConverter && currency.shortName != pickedCurrency.shortName {
+                    array.append(currency)
+                }
+            }
+        } else {
+            for currency in currencies {
+                if currency.isForConverter {
+                    array.append(currency)
                 }
             }
         }
+        return array
     }
 }
