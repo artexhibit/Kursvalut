@@ -11,6 +11,7 @@ class ConverterTableViewController: UITableViewController {
     private var numberFromTextField: Double?
     private var pickedCurrency: Currency?
     private var isInEdit = false
+    private var pickedNameArray = [String]()
     
     @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
@@ -99,9 +100,9 @@ class ConverterTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let currencies = fetchedResultsController.fetchedObjects!
-        let pickedCurrency = fetchedResultsController.object(at: sourceIndexPath)
+        let currency = fetchedResultsController.object(at: sourceIndexPath)
         
-        converterManager.moveRow(with: pickedCurrency, in: currencies, with: sourceIndexPath, and: destinationIndexPath)
+        converterManager.moveRow(with: currency, in: currencies, with: sourceIndexPath, and: destinationIndexPath)
         coreDataManager.save()
     }
     
@@ -118,11 +119,14 @@ class ConverterTableViewController: UITableViewController {
 
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        numberFromTextField = 0
         setupToolbar(with: textField)
         textField.textColor = UIColor(named: "BlueColor")
-        textField.placeholder = "0"
-        textField.text = ""
+        
+        if textField.text == "0" {
+            numberFromTextField = 0
+            textField.placeholder = "0"
+            textField.text = ""
+        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
@@ -138,17 +142,23 @@ extension ConverterTableViewController: UITextFieldDelegate {
         let tapLocation = textField.convert(textField.bounds.origin, to: tableView)
         guard let pickedCurrencyIndexPath = tableView.indexPathForRow(at: tapLocation) else { return }
         pickedCurrency = fetchedResultsController.object(at: pickedCurrencyIndexPath)
+        guard let currencyName = pickedCurrency?.shortName else { return }
         
-        var nonActiveIndexPaths = [IndexPath]()
+        converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
         
-        let tableViewRows = tableView.numberOfRows(inSection: 0)
-        for i in 0..<tableViewRows {
-            let indexPath = IndexPath(row: i, section: 0)
-            if indexPath != pickedCurrencyIndexPath {
-                nonActiveIndexPaths.append(indexPath)
+        pickedNameArray.append(currencyName)
+        
+        for name in pickedNameArray {
+            guard let currencyName = pickedCurrency?.shortName else { return }
+            if name != currencyName {
+                numberFromTextField = 0
+                textField.placeholder = "0"
+                textField.text = ""
+            }
+            if pickedNameArray.count > 1 {
+                pickedNameArray.remove(at: 0)
             }
         }
-        tableView.reloadRows(at: nonActiveIndexPaths, with: .none)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
