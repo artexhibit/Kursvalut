@@ -91,4 +91,13 @@ struct ConverterManager {
         }
         return array
     }
+    
+    func setupTapLocation(of textField: UITextField, and tableView: UITableView) -> IndexPath {
+        var indexPath = IndexPath()
+        let tapLocation = textField.convert(textField.bounds.origin, to: tableView)
+        if let pickedIndexPath = tableView.indexPathForRow(at: tapLocation) {
+            indexPath = pickedIndexPath
+        }
+        return indexPath
+    }
 }

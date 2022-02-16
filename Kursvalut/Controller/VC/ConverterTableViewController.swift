@@ -12,6 +12,7 @@ class ConverterTableViewController: UITableViewController {
     private var pickedCurrency: Currency?
     private var isInEdit = false
     private var pickedNameArray = [String]()
+    private var pickedTextField = UITextField()
     
     @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
@@ -139,11 +140,10 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        let tapLocation = textField.convert(textField.bounds.origin, to: tableView)
-        guard let pickedCurrencyIndexPath = tableView.indexPathForRow(at: tapLocation) else { return }
+        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
         pickedCurrency = fetchedResultsController.object(at: pickedCurrencyIndexPath)
         guard let currencyName = pickedCurrency?.shortName else { return }
-        
+        pickedTextField = textField
         converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
         
         pickedNameArray.append(currencyName)
@@ -188,16 +188,24 @@ extension ConverterTableViewController {
     
     func setupToolbar(with textField: UITextField) {
         let bar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 20))
-        let doneButton = UIBarButtonItem(image: UIImage(named: "chevron.down"), style: .done, target: self, action: #selector(dismissKeyboard))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(image: UIImage(named: "chevron.down"), style: .done, target: self, action: #selector(dismissKeyboard))
+        let clearButton = UIBarButtonItem(image: UIImage(named:"xmark.circle"), style: .plain, target: self, action: #selector(clearTextField))
         
-        bar.items = [flexSpace, doneButton]
+        bar.items = [clearButton, flexSpace, doneButton]
         bar.sizeToFit()
         textField.inputAccessoryView = bar
     }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc func clearTextField() {
+        pickedTextField.text = ""
+        numberFromTextField = 0
+        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: pickedTextField, and: tableView)
+        converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
     }
 }
 
