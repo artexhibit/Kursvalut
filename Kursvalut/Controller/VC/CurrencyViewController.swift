@@ -22,6 +22,7 @@ class CurrencyViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var tableView: UITableViewAdjustedHeight!
     @IBOutlet weak var updateTimeLabel: UILabel!
+    @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +35,17 @@ class CurrencyViewController: UIViewController {
         
         if !firstAppLaunch {
             UserDefaults.standard.set(true, forKey: "firstAppLaunch")
-            coreDataManager.create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1)
+            coreDataManager.create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, isForCurrency: false)
         }
+    }
+    
+    @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
+        turnEditing()
+        tableView.reloadData()
     }
 }
 
-//MARK: - TableView Delegate & DataSource Methods
+//MARK: - TableView DataSource Methods
 
 extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,6 +65,59 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         cell.rateDifference.textColor = currencyManager.showColor()
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let move = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
+            self.turnEditing()
+            self.turnEditing()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                self.tableView.reloadData()
+            }
+            completionHandler(true)
+        }
+        move.image = UIImage(named: "line.3.horizontal")
+        move.backgroundColor = UIColor(named: "BlueColor")
+        
+        let configuration = UISwipeActionsConfiguration(actions: [move])
+        return configuration
+    }
+}
+
+//MARK: - Method for Move Swipe Action
+
+extension CurrencyViewController {
+    func turnEditing() {
+        if tableView.isEditing {
+            tableView.isEditing = false
+            doneEditingButton.title = ""
+            doneEditingButton.isEnabled = false
+        } else {
+            tableView.isEditing = true
+            doneEditingButton.isEnabled = true
+            doneEditingButton.title = "Готово"
+        }
+    }
+}
+
+//MARK: - TableView Delegate Methods
+
+extension CurrencyViewController {
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
 }
 
@@ -142,8 +201,9 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
         if searchPredicate != nil {
             fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: searchPredicate)
         } else {
-            let filterPredicate = NSPredicate(format: "shortName != %@", "RUB")
-            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: filterPredicate)
+            let predicate = NSPredicate(format: "isForCurrencyScreen == YES")
+            let sortDescriptor = NSSortDescriptor(key: "rowForCurrency", ascending: true)
+            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate, and: sortDescriptor)
         }
         fetchedResultsController.delegate = self
         try? fetchedResultsController.performFetch()

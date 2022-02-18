@@ -43,6 +43,7 @@ class ConverterTableViewController: UITableViewController {
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
         cell.numberTextField.delegate = self
+        
         cell.numberTextField.isHidden = isInEdit ? true : false
         
         if let number = numberFromTextField, let pickedCurrency = pickedCurrency {
@@ -52,12 +53,12 @@ class ConverterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let move = UIContextualAction(style: .normal, title: nil) { (action, view, completionHandler) in
-            self.turnEditing()
-            self.turnEditing()
-            self.isInEdit = true
+        let move = UIContextualAction(style: .normal, title: nil) { [self] (action, view, completionHandler) in
+            turnEditing()
+            turnEditing()
+            isInEdit = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                self.tableView.reloadData()
+                tableView.reloadData()
             }
             completionHandler(true)
         }

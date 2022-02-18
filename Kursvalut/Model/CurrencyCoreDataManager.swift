@@ -37,7 +37,7 @@ struct CurrencyCoreDataManager {
         data.previousValue = prevValue
     }
     
-    func create(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0) {
+    func create(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0) {
         let currency = Currency(context: self.context)
         
         currency.shortName = shortName
@@ -47,6 +47,8 @@ struct CurrencyCoreDataManager {
         currency.nominal = Int32(nominal)
         currency.isForConverter = isForConverter
         currency.rowForConverter = rowForConverter
+        currency.isForCurrencyScreen = isForCurrency
+        currency.rowForCurrency = rowForCurrency
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         
         save()
