@@ -5,11 +5,16 @@ import UIKit
 struct ConverterManager {
     //MARK: - Calculation Methods
     
-    func setupNumberFormatter(withMaxFractionDigits digits: Int = 0) -> NumberFormatter {
+    func setupNumberFormatter(withMaxFractionDigits digits: Int = 0, roundDown: Bool = false) -> NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.groupingSeparator = " "
         formatter.maximumFractionDigits = digits
+        
+        if roundDown {
+            formatter.roundingMode = .down
+        }
+        
         return formatter
     }
     

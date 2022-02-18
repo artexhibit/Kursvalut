@@ -140,10 +140,10 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
+        pickedTextField = textField
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
         pickedCurrency = fetchedResultsController.object(at: pickedCurrencyIndexPath)
         guard let currencyName = pickedCurrency?.shortName else { return }
-        pickedTextField = textField
         converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
         
         pickedNameArray.append(currencyName)
@@ -162,7 +162,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: 4)
+        let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: 4, roundDown: true)
         let textString = textField.text ?? ""
         guard let range = Range(range, in: textString) else { return false }
         let updatedString = textString.replacingCharacters(in: range, with: string)
