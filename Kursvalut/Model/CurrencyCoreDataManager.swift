@@ -22,7 +22,11 @@ struct CurrencyCoreDataManager {
             let fetchResult = try context.fetch(request)
             if !fetchResult.isEmpty {
                 for existingCurrency in fetchResult {
-                    update(currency: existingCurrency, currValue: id.Value, prevValue: id.Previous)
+                    if existingCurrency.shortName == "RUB" {
+                        update(currency: existingCurrency, currValue: 1.0, prevValue: 1.0)
+                    } else {
+                        update(currency: existingCurrency, currValue: id.Value, prevValue: id.Previous)
+                    }
                 }
             } else {
                 create(shortName: id.CharCode, fullName: id.CharCode, currValue: id.Value, prevValue: id.Previous, nominal: id.Nominal)

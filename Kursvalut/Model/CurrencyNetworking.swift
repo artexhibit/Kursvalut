@@ -41,6 +41,7 @@ struct CurrencyNetworking {
                     coreDataManager.findDuplicate(with: valute)
                 }
             }
+            coreDataManager.create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, isForCurrency: false)
         } catch {
             print("Error with JSON parsing, \(error)")
         }

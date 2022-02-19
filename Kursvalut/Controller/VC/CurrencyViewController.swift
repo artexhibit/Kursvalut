@@ -8,7 +8,6 @@ class CurrencyViewController: UIViewController {
     private let coreDataManager = CurrencyCoreDataManager()
     private var fetchedResultsController: NSFetchedResultsController<Currency>!
     private let searchController = UISearchController(searchResultsController: nil)
-    private let firstAppLaunch = UserDefaults.standard.bool(forKey: "firstAppLaunch")
     private var wasLaunched: String {
         return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
     }
@@ -32,11 +31,6 @@ class CurrencyViewController: UIViewController {
         setupFetchedResultsController()
         setupRefreshControl()
         checkOnFirstLaunchToday()
-        
-        if !firstAppLaunch {
-            UserDefaults.standard.set(true, forKey: "firstAppLaunch")
-            coreDataManager.create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, isForCurrency: false)
-        }
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
