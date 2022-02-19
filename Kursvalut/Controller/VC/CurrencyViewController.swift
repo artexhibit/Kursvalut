@@ -109,7 +109,16 @@ extension CurrencyViewController {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-
+        var currencies = fetchedResultsController.fetchedObjects!
+        let currency = fetchedResultsController.object(at: sourceIndexPath)
+                
+        currencies.remove(at: sourceIndexPath.row)
+        currencies.insert(currency, at: destinationIndexPath.row)
+        
+        for (index, currency) in currencies.enumerated() {
+            currency.rowForCurrency = Int32(index)
+        }
+        coreDataManager.save()
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -221,7 +230,9 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
         switch type {
         case .update:
             if let indexPath = indexPath {
-                tableView.reloadRows(at: [indexPath], with: .none)
+               DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                   self.tableView.reloadRows(at: [indexPath], with: .none)
+               }
             }
         case .move:
             if let indexPath = indexPath, let newIndexPath = newIndexPath {

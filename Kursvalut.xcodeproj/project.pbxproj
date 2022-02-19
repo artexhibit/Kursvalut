@@ -99,8 +99,8 @@
 			children = (
 				78D3DA0D2787687400A91511 /* CurrencyManager.swift */,
 				787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */,
-				78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */,
 				7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */,
+				78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */,
 				7838F8FF27885B86007D34AA /* CurrencyData.swift */,
 				787636F8278EB74D006891D5 /* UITableViewAdjustedHeight.swift */,
 				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,

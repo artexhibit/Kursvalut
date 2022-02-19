@@ -21,8 +21,8 @@ struct CurrencyCoreDataManager {
         do {
             let fetchResult = try context.fetch(request)
             if !fetchResult.isEmpty {
-                for doubledData in fetchResult {
-                    update(data: doubledData, currValue: id.Value, prevValue: id.Previous)
+                for existingCurrency in fetchResult {
+                    update(currency: existingCurrency, currValue: id.Value, prevValue: id.Previous)
                 }
             } else {
                 create(shortName: id.CharCode, fullName: id.CharCode, currValue: id.Value, prevValue: id.Previous, nominal: id.Nominal)
@@ -32,9 +32,9 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    func update(data: Currency, currValue: Double, prevValue: Double) {
-        data.currentValue = currValue
-        data.previousValue = prevValue
+    func update(currency: Currency, currValue: Double, prevValue: Double) {
+        currency.currentValue = currValue
+        currency.previousValue = prevValue
     }
     
     func create(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0) {
