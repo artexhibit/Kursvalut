@@ -112,6 +112,7 @@ class ConverterTableViewController: UITableViewController {
         }
         
         coreDataManager.save()
+        tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
