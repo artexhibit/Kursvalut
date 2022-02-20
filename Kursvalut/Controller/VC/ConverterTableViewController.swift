@@ -101,10 +101,16 @@ class ConverterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let currencies = fetchedResultsController.fetchedObjects!
+        var currencies = fetchedResultsController.fetchedObjects!
         let currency = fetchedResultsController.object(at: sourceIndexPath)
+                
+        currencies.remove(at: sourceIndexPath.row)
+        currencies.insert(currency, at: destinationIndexPath.row)
         
-        converterManager.moveRow(with: currency, in: currencies, with: sourceIndexPath, and: destinationIndexPath)
+        for (index, currency) in currencies.enumerated() {
+            currency.rowForConverter = Int32(index)
+        }
+        
         coreDataManager.save()
     }
     

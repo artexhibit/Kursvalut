@@ -46,19 +46,6 @@ struct ConverterManager {
         setAndSaveRow(from: pickedCurrenciesArray)
     }
     
-    func moveRow(with pickedCurrency: Currency, in currencies: [Currency], with sourceIndexPath: IndexPath, and destinationIndexPath: IndexPath) {
-        var pickedCurrenciesArray = setupArray(with: pickedCurrency, in: currencies)
-        pickedCurrenciesArray.sort(by: ({$0.rowForConverter < $1.rowForConverter}))
-        
-        for currency in pickedCurrenciesArray {
-            if pickedCurrency.shortName == currency.shortName {
-                let removedCurrency = pickedCurrenciesArray.remove(at: sourceIndexPath.row)
-                pickedCurrenciesArray.insert(removedCurrency, at: destinationIndexPath.row)
-            }
-        }
-        setAndSaveRow(from: pickedCurrenciesArray)
-    }
-    
     func setAndSaveRow(from pickedCurrenciesArray: [Currency]) {
         for (row, currency) in pickedCurrenciesArray.enumerated() {
             currency.rowForConverter = Int32(row)
