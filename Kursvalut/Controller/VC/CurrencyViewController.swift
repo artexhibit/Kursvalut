@@ -18,8 +18,7 @@ class CurrencyViewController: UIViewController {
        return currencyManager.showTime(with: "MM/dd/yyyy")
     }
     
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var tableView: UITableViewAdjustedHeight!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var updateTimeLabel: UILabel!
     @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
@@ -113,6 +112,7 @@ extension CurrencyViewController {
             currency.rowForCurrency = Int32(index)
         }
         coreDataManager.save()
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -133,6 +133,7 @@ extension CurrencyViewController: UISearchResultsUpdating {
         searchController.searchBar.placeholder = "Поиск"
         definesPresentationContext = true
         navigationItem.searchController = searchController
+        navigationController!.navigationBar.sizeToFit()
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -178,8 +179,8 @@ extension CurrencyViewController {
 
 extension CurrencyViewController {
     func setupRefreshControl() {
-        scrollView.refreshControl = UIRefreshControl()
-        scrollView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
     }
     
     @objc func didPullToRefresh() {
@@ -190,7 +191,7 @@ extension CurrencyViewController {
             } else {
                 DispatchQueue.main.async {
                     self.updateTimeLabel.text = self.updateCurrencyTime
-                    self.scrollView.refreshControl?.endRefreshing()
+                    self.tableView.refreshControl?.endRefreshing()
                 }
             }
         }
