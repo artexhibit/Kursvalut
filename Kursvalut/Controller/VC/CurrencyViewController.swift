@@ -30,6 +30,7 @@ class CurrencyViewController: UIViewController {
         setupFetchedResultsController()
         setupRefreshControl()
         checkOnFirstLaunchToday()
+        removeGapFromSearchController()
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
@@ -148,6 +149,10 @@ extension CurrencyViewController: UISearchResultsUpdating {
         }
         searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: searchPredicate)
         tableView.reloadData()
+    }
+    
+    func removeGapFromSearchController() {
+        tableView.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
     }
 }
 
