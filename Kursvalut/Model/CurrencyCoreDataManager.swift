@@ -22,11 +22,7 @@ struct CurrencyCoreDataManager {
             let fetchResult = try context.fetch(request)
             if !fetchResult.isEmpty {
                 for existingCurrency in fetchResult {
-                    if existingCurrency.shortName == "RUB" {
-                        update(currency: existingCurrency, currValue: 1.0, prevValue: 1.0)
-                    } else {
-                        update(currency: existingCurrency, currValue: id.Value, prevValue: id.Previous)
-                    }
+                    update(currency: existingCurrency, currValue: id.Value, prevValue: id.Previous)
                 }
             } else {
                 create(shortName: id.CharCode, fullName: id.CharCode, currValue: id.Value, prevValue: id.Previous, nominal: id.Nominal)
@@ -72,6 +68,24 @@ struct CurrencyCoreDataManager {
             sectionName = nil
         }
         return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionName, cacheName: nil)
+    }
+    
+    func createRubleEntry() {
+        let request: NSFetchRequest<Currency> = Currency.fetchRequest()
+        request.predicate = NSPredicate(format: "shortName = %@", "RUB")
+        
+        do {
+            let fetchRuble = try context.fetch(request)
+            if fetchRuble.isEmpty {
+                create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, isForCurrency: false)
+            } else {
+                for ruble in fetchRuble {
+                    update(currency: ruble, currValue: 1.0, prevValue: 1.0)
+                }
+            }
+        } catch {
+            print(error)
+        }
     }
 }
 
