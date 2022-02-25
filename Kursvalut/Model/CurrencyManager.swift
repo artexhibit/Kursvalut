@@ -45,7 +45,7 @@ struct CurrencyManager {
         difference.isLess(than: 0.0) ? "-" : "+"
     }
     private var differenceColor: UIColor {
-        difference.isLess(than: 0.0) ? .systemRed : .systemGreen
+        difference.isLess(than: 0.0) ? .systemGreen : .systemRed
     }
     
     func showCurrencyFlag(_ shortName: String) -> UIImage? {

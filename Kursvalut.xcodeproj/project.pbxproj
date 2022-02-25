@@ -19,6 +19,7 @@
 		78522961279B1A1B00507877 /* PickCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78522960279B1A1B00507877 /* PickCurrencyTableViewCell.swift */; };
 		786479AA27981E410077ABC7 /* ConverterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786479A927981E410077ABC7 /* ConverterTableViewController.swift */; };
 		786479AC279825DF0077ABC7 /* ConverterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786479AB279825DF0077ABC7 /* ConverterTableViewCell.swift */; };
+		787D551927C9364400587653 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787D551827C9364400587653 /* SettingsTableViewController.swift */; };
 		787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */; };
 		78871A4B2789F4F700321E98 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 78871A4A2789F4F700321E98 /* README.md */; };
 		78D3DA0A2787313D00A91511 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78041C1E2786F9FA00C4D861 /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 		78522960279B1A1B00507877 /* PickCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		786479A927981E410077ABC7 /* ConverterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterTableViewController.swift; sourceTree = "<group>"; };
 		786479AB279825DF0077ABC7 /* ConverterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterTableViewCell.swift; sourceTree = "<group>"; };
+		787D551827C9364400587653 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterManager.swift; sourceTree = "<group>"; };
 		78871A4A2789F4F700321E98 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				78041C1C2786F9FA00C4D861 /* CurrencyViewController.swift */,
 				786479A927981E410077ABC7 /* ConverterTableViewController.swift */,
 				7852295E279B19E300507877 /* PickCurrencyTableViewController.swift */,
+				787D551827C9364400587653 /* SettingsTableViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 				78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */,
 				786479AA27981E410077ABC7 /* ConverterTableViewController.swift in Sources */,
 				7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */,
+				787D551927C9364400587653 /* SettingsTableViewController.swift in Sources */,
 				786479AC279825DF0077ABC7 /* ConverterTableViewCell.swift in Sources */,
 				78041C232786F9FA00C4D861 /* Kursvalut.xcdatamodeld in Sources */,
 				787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */,
