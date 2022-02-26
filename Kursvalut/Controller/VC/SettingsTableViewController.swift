@@ -2,16 +2,19 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
-
+    
+    @IBOutlet var iconView: [UIView]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        roundViewCorners()
+    }
+    
+    func roundViewCorners() {
         for view in iconView {
             view.layer.cornerRadius = 6
         }
     }
-    
-    @IBOutlet var iconView: [UIView]!
     
     // MARK: - Table view data source
 
