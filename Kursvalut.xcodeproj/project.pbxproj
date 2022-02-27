@@ -22,6 +22,7 @@
 		787D551927C9364400587653 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787D551827C9364400587653 /* SettingsTableViewController.swift */; };
 		787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */; };
 		78871A4B2789F4F700321E98 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 78871A4A2789F4F700321E98 /* README.md */; };
+		78B49AE427CBD3D5003C975D /* DecimalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */; };
 		78D3DA0A2787313D00A91511 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78041C1E2786F9FA00C4D861 /* Main.storyboard */; };
 		78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */; };
 		78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0D2787687400A91511 /* CurrencyManager.swift */; };
@@ -47,6 +48,7 @@
 		787D551827C9364400587653 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterManager.swift; sourceTree = "<group>"; };
 		78871A4A2789F4F700321E98 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalsTableViewController.swift; sourceTree = "<group>"; };
 		78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		78D3DA0D2787687400A91511 /* CurrencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
 		78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCoreDataManager.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				786479A927981E410077ABC7 /* ConverterTableViewController.swift */,
 				7852295E279B19E300507877 /* PickCurrencyTableViewController.swift */,
 				787D551827C9364400587653 /* SettingsTableViewController.swift */,
+				78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				786479AC279825DF0077ABC7 /* ConverterTableViewCell.swift in Sources */,
 				78041C232786F9FA00C4D861 /* Kursvalut.xcdatamodeld in Sources */,
 				787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */,
+				78B49AE427CBD3D5003C975D /* DecimalsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
