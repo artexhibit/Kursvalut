@@ -452,7 +452,7 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appIcon" translatesAutoresizingMaskIntoConstraints="NO" id="52U-kM-KrX" userLabel="App Icon">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app.icon" translatesAutoresizingMaskIntoConstraints="NO" id="52U-kM-KrX" userLabel="App Icon">
                                                             <rect key="frame" x="264" y="15" width="80" height="80"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -489,7 +489,7 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yDb-4o-0FR" userLabel="iconView">
                                                             <rect key="frame" x="0.0" y="7" width="29" height="29"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Comma" translatesAutoresizingMaskIntoConstraints="NO" id="VwV-mK-7pG" userLabel="icon">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="comma" translatesAutoresizingMaskIntoConstraints="NO" id="VwV-mK-7pG" userLabel="icon">
                                                                     <rect key="frame" x="4.5" y="4.5" width="20" height="20"/>
                                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
@@ -651,7 +651,7 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rQc-cb-kNm" userLabel="iconView">
                                                             <rect key="frame" x="0.0" y="7" width="29" height="29"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="k" translatesAutoresizingMaskIntoConstraints="NO" id="8HK-Xc-Qt3" userLabel="icon">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cool.smile" translatesAutoresizingMaskIntoConstraints="NO" id="8HK-Xc-Qt3" userLabel="icon">
                                                                     <rect key="frame" x="4.5" y="4.5" width="20" height="20"/>
                                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
@@ -699,12 +699,12 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1QC-ka-l2V" userLabel="iconView">
                                                             <rect key="frame" x="0.0" y="7" width="29" height="29"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cart.fill" translatesAutoresizingMaskIntoConstraints="NO" id="3MZ-IK-ByC" userLabel="icon">
-                                                                    <rect key="frame" x="4.5" y="4.5" width="20" height="20"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock.arrow.circlepath" translatesAutoresizingMaskIntoConstraints="NO" id="3MZ-IK-ByC" userLabel="icon">
+                                                                    <rect key="frame" x="3.5" y="3.5" width="22" height="22"/>
                                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="20" id="2aR-jV-aPz"/>
-                                                                        <constraint firstAttribute="height" constant="20" id="gID-h1-8zI"/>
+                                                                        <constraint firstAttribute="width" constant="22" id="2aR-jV-aPz"/>
+                                                                        <constraint firstAttribute="height" constant="22" id="gID-h1-8zI"/>
                                                                     </constraints>
                                                                 </imageView>
                                                             </subviews>
@@ -800,11 +800,11 @@
                                                             <rect key="frame" x="0.0" y="7" width="29" height="29"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.shield.fill" translatesAutoresizingMaskIntoConstraints="NO" id="Q7u-kh-Ud0" userLabel="icon">
-                                                                    <rect key="frame" x="4.5" y="4.5" width="20" height="20"/>
+                                                                    <rect key="frame" x="3.5" y="3.5" width="22" height="22"/>
                                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="20" id="pzx-8F-x67"/>
-                                                                        <constraint firstAttribute="width" constant="20" id="ypi-UP-szY"/>
+                                                                        <constraint firstAttribute="height" constant="22" id="pzx-8F-x67"/>
+                                                                        <constraint firstAttribute="width" constant="22" id="ypi-UP-szY"/>
                                                                     </constraints>
                                                                 </imageView>
                                                             </subviews>
@@ -852,11 +852,11 @@
                                                             <rect key="frame" x="0.0" y="7" width="29" height="29"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info.circle" translatesAutoresizingMaskIntoConstraints="NO" id="ITu-e1-dij" userLabel="icon">
-                                                                    <rect key="frame" x="4.5" y="4.5" width="20" height="20"/>
+                                                                    <rect key="frame" x="3.5" y="3.5" width="22" height="22"/>
                                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="20" id="OU3-ha-I5o"/>
-                                                                        <constraint firstAttribute="height" constant="20" id="aAw-nQ-WYd"/>
+                                                                        <constraint firstAttribute="width" constant="22" id="OU3-ha-I5o"/>
+                                                                        <constraint firstAttribute="height" constant="22" id="aAw-nQ-WYd"/>
                                                                     </constraints>
                                                                 </imageView>
                                                             </subviews>
@@ -1100,6 +1100,7 @@
                         <outletCollection property="iconView" destination="ZGE-fi-UIE" collectionClass="NSMutableArray" id="ZpV-iV-aV1"/>
                         <outletCollection property="iconView" destination="rQc-cb-kNm" collectionClass="NSMutableArray" id="wLy-NH-pac"/>
                         <outletCollection property="iconView" destination="1QC-ka-l2V" collectionClass="NSMutableArray" id="GJo-Ox-YPR"/>
+                        <outletCollection property="iconView" destination="bjc-sZ-JZr" collectionClass="NSMutableArray" id="e8k-uK-eLT"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HU0-OO-c6a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1249,22 +1250,22 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Comma" width="50" height="50"/>
         <image name="RUB" width="512" height="512"/>
-        <image name="appIcon" width="341" height="341"/>
+        <image name="app.icon" width="341" height="341"/>
         <image name="arrow.left.arrow.right" catalog="system" width="119" height="128"/>
         <image name="bubble.left.and.bubble.right.fill" width="15" height="12"/>
-        <image name="cart.fill" width="12" height="10"/>
         <image name="checkmark.shield.fill" width="9" height="10"/>
         <image name="circle" width="11" height="11"/>
         <image name="circle.lefthalf.filled" width="11" height="11"/>
+        <image name="clock.arrow.circlepath" width="12" height="11"/>
+        <image name="comma" width="50" height="50"/>
+        <image name="cool.smile" width="50" height="50"/>
         <image name="doc.text.fill" width="9" height="11"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
         <image name="heart.fill" width="10" height="10"/>
         <image name="info.circle" width="11" height="11"/>
         <image name="iphone.and.arrow.forward" width="8" height="11"/>
-        <image name="k" width="6" height="8"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="square.and.arrow.up" width="9" height="12"/>
         <image name="star.fill" width="12" height="11"/>
