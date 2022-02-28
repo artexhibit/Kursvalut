@@ -3,6 +3,10 @@ import Foundation
 import UIKit
 
 struct ConverterManager {
+    private var converterScreenDecimalsAmount: Int {
+        return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
+    }
+    
     //MARK: - Calculation Methods
     
     func setupNumberFormatter(withMaxFractionDigits digits: Int = 0, roundDown: Bool = false) -> NumberFormatter {
@@ -20,7 +24,7 @@ struct ConverterManager {
     
     func performCalculation(with number: Double, _ pickedCurrency: Currency, _ cellCurrency: Currency) -> String {
         let unformattedNumber = (pickedCurrency.currentValue/Double(pickedCurrency.nominal))/(cellCurrency.currentValue/Double(cellCurrency.nominal)) * number
-        let formatter = setupNumberFormatter(withMaxFractionDigits: 2)
+        let formatter = setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount)
         return formatter.string(from: NSNumber(value: unformattedNumber)) ?? "0"
     }
     

@@ -13,6 +13,9 @@ class ConverterTableViewController: UITableViewController {
     private var isInEdit = false
     private var pickedNameArray = [String]()
     private var pickedTextField = UITextField()
+    private var converterScreenDecimalsAmount: Int {
+        return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
+    }
     
     @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
@@ -170,7 +173,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: 4, roundDown: true)
+        let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount, roundDown: true)
         let textString = textField.text ?? ""
         guard let range = Range(range, in: textString) else { return false }
         let updatedString = textString.replacingCharacters(in: range, with: string)

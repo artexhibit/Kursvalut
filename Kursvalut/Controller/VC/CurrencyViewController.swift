@@ -33,6 +33,11 @@ class CurrencyViewController: UIViewController {
         removeGapFromSearchController()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
         turnEditing()
         tableView.reloadData()
