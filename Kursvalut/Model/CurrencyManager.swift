@@ -47,9 +47,11 @@ struct CurrencyManager {
     private var differenceColor: UIColor {
         difference.isLess(than: 0.0) ? .systemGreen : .systemRed
     }
-    
     private var currencyScreenDecimalsAmount: Int {
         return UserDefaults.standard.integer(forKey: "currencyScreenDecimals")
+    }
+    private var converterScreenDecimalsAmount: Int {
+        return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
     }
     
     func showCurrencyFlag(_ shortName: String) -> UIImage? {
@@ -57,9 +59,11 @@ struct CurrencyManager {
             return image
     }
     
-    func showRate(with currentValue: Double, and nominal: Int) -> String {
-        let formattedRate = String(format: "%.\(currencyScreenDecimalsAmount)f", currentValue/Double(nominal))
-        return "\(formattedRate) RUB"
+    func showRate(withNumber currentValue: Double, and nominal: Int = 1, forConverter: Bool = false) -> String {
+        let format = forConverter ? "%.\(converterScreenDecimalsAmount)f" : "%.\(currencyScreenDecimalsAmount)f RUB"
+        let formattedRate = String(format: format, currentValue/Double(nominal))
+        let formattedDecimalSign = formattedRate.replacingOccurrences(of: ".", with: ",")
+        return formattedDecimalSign
     }
     
     func showColor() -> UIColor {

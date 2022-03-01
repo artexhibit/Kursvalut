@@ -28,6 +28,8 @@
 		78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */; };
 		78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0D2787687400A91511 /* CurrencyManager.swift */; };
 		78D531902793058B00EF65B2 /* CurrencyCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */; };
+		78F13FF127CE9AC60076613A /* CurrencyPreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F13FF027CE9AC60076613A /* CurrencyPreviewTableViewCell.swift */; };
+		78F13FF327CE9AD80076613A /* ConverterPreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		78D3DA0D2787687400A91511 /* CurrencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
 		78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCoreDataManager.swift; sourceTree = "<group>"; };
+		78F13FF027CE9AC60076613A /* CurrencyPreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPreviewTableViewCell.swift; sourceTree = "<group>"; };
+		78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterPreviewTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +160,8 @@
 				786479AB279825DF0077ABC7 /* ConverterTableViewCell.swift */,
 				78522960279B1A1B00507877 /* PickCurrencyTableViewCell.swift */,
 				783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */,
+				78F13FF027CE9AC60076613A /* CurrencyPreviewTableViewCell.swift */,
+				78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -234,6 +240,7 @@
 			files = (
 				7838F90027885B86007D34AA /* CurrencyData.swift in Sources */,
 				783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */,
+				78F13FF327CE9AD80076613A /* ConverterPreviewTableViewCell.swift in Sources */,
 				7852295F279B19E300507877 /* PickCurrencyTableViewController.swift in Sources */,
 				78041C1D2786F9FA00C4D861 /* CurrencyViewController.swift in Sources */,
 				78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */,
@@ -247,6 +254,7 @@
 				787D551927C9364400587653 /* SettingsTableViewController.swift in Sources */,
 				786479AC279825DF0077ABC7 /* ConverterTableViewCell.swift in Sources */,
 				78041C232786F9FA00C4D861 /* Kursvalut.xcdatamodeld in Sources */,
+				78F13FF127CE9AC60076613A /* CurrencyPreviewTableViewCell.swift in Sources */,
 				787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */,
 				78B49AE427CBD3D5003C975D /* DecimalsTableViewController.swift in Sources */,
 			);

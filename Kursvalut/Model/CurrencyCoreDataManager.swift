@@ -50,8 +50,6 @@ struct CurrencyCoreDataManager {
         currency.isForCurrencyScreen = isForCurrency
         currency.rowForCurrency = rowForCurrency
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
-        
-        save()
     }
     
     func createCurrencyFetchedResultsController(with predicate: NSPredicate? = nil, and sortDescriptor: NSSortDescriptor? = nil) -> NSFetchedResultsController<Currency> {

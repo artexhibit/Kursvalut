@@ -3,15 +3,17 @@ import UIKit
 
 class DecimalsTableViewController: UITableViewController {
     
+    private var currencyManager = CurrencyManager()
     let optionsArray = ["1", "2", "3", "4"]
     let sectionsArray = [
-        (header: "Экран Валюты", footer: "Количество десятичных знаков для отображения на экране Валюты"),
-        (header: "Экран Конвертер", footer: "Количество десятичных знаков для отображения на экране Конвертер")
+        (header: "Экран Валюты", footer: ""),
+        (header: "", footer: "Количество десятичных знаков для отображения на экране Валюты"),
+        (header: "Экран Конвертер", footer: ""),
+        (header: "", footer: "Количество десятичных знаков для отображения на экране Конвертер")
     ]
     private var currencyScreenDecimalsAmount: Int {
         return UserDefaults.standard.integer(forKey: "currencyScreenDecimals")
     }
-    
     private var converterScreenDecimalsAmount: Int {
         return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
     }
@@ -27,7 +29,11 @@ class DecimalsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 1 || section == 3 {
         return optionsArray.count
+        } else {
+            return 1
+        }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -40,17 +46,27 @@ class DecimalsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let pickedSection = indexPath.section
+        
+        if pickedSection == 1 || pickedSection == 3 {
         let cell = tableView.dequeueReusableCell(withIdentifier: "decimalsCell", for: indexPath) as! DecimalsTableViewCell
         
         cell.numberLabel.text = optionsArray[indexPath.row]
         
-        if pickedSection == 0 {
+        if pickedSection == 1 {
             cell.accessoryType = cell.numberLabel.text == String(currencyScreenDecimalsAmount) ? .checkmark : .none
-        } else {
+        } else if pickedSection == 3 {
             cell.accessoryType = cell.numberLabel.text == String(converterScreenDecimalsAmount) ? .checkmark : .none
         }
-
         return cell
+        } else if pickedSection == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "currencyPreviewCell", for: indexPath) as! CurrencyPreviewTableViewCell
+            cell.rateLabel.text = currencyManager.showRate(withNumber: 100.1234)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "converterPreviewCell", for: indexPath) as! ConverterPreviewTableViewCell
+            cell.numberLabel.text = currencyManager.showRate(withNumber: 90.1234, forConverter: true)
+            return cell
+        }
     }
     
     //MARK: - TableView Delegate Methods
@@ -69,10 +85,12 @@ class DecimalsTableViewController: UITableViewController {
             cell.accessoryType = .checkmark
         }
         
-        if pickedSection == 0 {
+        if pickedSection == 1 {
             UserDefaults.standard.set(pickedOption, forKey: "currencyScreenDecimals")
-        } else {
+            tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        } else if pickedSection == 3 {
             UserDefaults.standard.set(pickedOption, forKey: "converterScreenDecimals")
+            tableView.reloadRows(at: [IndexPath(row: 0, section: 2)], with: .none)
         }
     }
     

@@ -45,5 +45,6 @@ struct CurrencyNetworking {
         } catch {
             print("Error with JSON parsing, \(error)")
         }
+        coreDataManager.save()
     }
 }
