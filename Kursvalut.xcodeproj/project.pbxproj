@@ -30,6 +30,8 @@
 		78D531902793058B00EF65B2 /* CurrencyCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */; };
 		78F13FF127CE9AC60076613A /* CurrencyPreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F13FF027CE9AC60076613A /* CurrencyPreviewTableViewCell.swift */; };
 		78F13FF327CE9AD80076613A /* ConverterPreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */; };
+		78F2716B27CFDF6000381CA9 /* StartViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */; };
+		78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2716C27CFE00400381CA9 /* StartViewTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCoreDataManager.swift; sourceTree = "<group>"; };
 		78F13FF027CE9AC60076613A /* CurrencyPreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPreviewTableViewCell.swift; sourceTree = "<group>"; };
 		78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterPreviewTableViewCell.swift; sourceTree = "<group>"; };
+		78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewTableViewController.swift; sourceTree = "<group>"; };
+		78F2716C27CFE00400381CA9 /* StartViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +171,7 @@
 				78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */,
 				78F13FF027CE9AC60076613A /* CurrencyPreviewTableViewCell.swift */,
 				783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */,
+				78F2716C27CFE00400381CA9 /* StartViewTableViewCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -174,8 +179,9 @@
 		78F2716527CFDD4800381CA9 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */,
 				787D551827C9364400587653 /* SettingsTableViewController.swift */,
+				78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */,
+				78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -293,12 +299,14 @@
 				78041C1D2786F9FA00C4D861 /* CurrencyViewController.swift in Sources */,
 				78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */,
 				78D531902793058B00EF65B2 /* CurrencyCoreDataManager.swift in Sources */,
+				78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */,
 				78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */,
 				78041C1B2786F9FA00C4D861 /* SceneDelegate.swift in Sources */,
 				78522961279B1A1B00507877 /* PickCurrencyTableViewCell.swift in Sources */,
 				78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */,
 				786479AA27981E410077ABC7 /* ConverterTableViewController.swift in Sources */,
 				7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */,
+				78F2716B27CFDF6000381CA9 /* StartViewTableViewController.swift in Sources */,
 				787D551927C9364400587653 /* SettingsTableViewController.swift in Sources */,
 				786479AC279825DF0077ABC7 /* ConverterTableViewCell.swift in Sources */,
 				78041C232786F9FA00C4D861 /* Kursvalut.xcdatamodeld in Sources */,

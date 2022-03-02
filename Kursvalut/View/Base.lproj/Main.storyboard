@@ -574,6 +574,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <segue destination="2oy-xu-7BW" kind="show" id="ogq-RE-56i"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="hHO-mJ-MPI" userLabel="Тема">
                                         <rect key="frame" x="20" y="264" width="374" height="43"/>
@@ -1411,6 +1414,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEk-I2-uKV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2979.7101449275365" y="316.07142857142856"/>
+        </scene>
+        <!--Start View Table View Controller-->
+        <scene sceneID="bYm-7R-RYy">
+            <objects>
+                <tableViewController title="Start View Table View Controller" id="2oy-xu-7BW" customClass="StartViewTableViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="Mvg-9z-U1d">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startViewCell" id="hyY-vn-r54" userLabel="Start View Cell" customClass="StartViewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
+                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hyY-vn-r54" id="Dx2-ce-Ru7">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Валюты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbc-hr-FHJ" userLabel="viewNameLabel">
+                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Cbc-hr-FHJ" firstAttribute="leading" secondItem="Dx2-ce-Ru7" secondAttribute="leadingMargin" id="Jp2-3j-SUx"/>
+                                        <constraint firstItem="Cbc-hr-FHJ" firstAttribute="top" secondItem="Dx2-ce-Ru7" secondAttribute="topMargin" id="dn7-H3-NpO"/>
+                                        <constraint firstItem="Cbc-hr-FHJ" firstAttribute="trailing" secondItem="Dx2-ce-Ru7" secondAttribute="trailingMargin" id="mUI-FK-gGe"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Cbc-hr-FHJ" secondAttribute="bottom" id="sqf-Yb-4o1"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="viewNameLabel" destination="Cbc-hr-FHJ" id="PxD-yg-mpd"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2oy-xu-7BW" id="DwT-HE-iSs"/>
+                            <outlet property="delegate" destination="2oy-xu-7BW" id="FQM-sR-YpR"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Стартовый Экран" id="xHq-Cu-Kj0"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JZ2-f6-vs8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1042" y="1706"/>
         </scene>
     </scenes>
     <resources>
