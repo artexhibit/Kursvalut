@@ -91,7 +91,7 @@ class DecimalsTableViewController: UITableViewController {
         
         if pickedSection == sectionNumber.decimalCell.firstCell {
             userDefaults.set(pickedOption, forKey: "currencyScreenDecimals")
-            userDefaults.set(true, forKey: "reloadCurrencyTableView")
+            userDefaults.set(true, forKey: "decimalsNumberChanged")
             tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
         } else if pickedSection == sectionNumber.decimalCell.secondCell {
             userDefaults.set(pickedOption, forKey: "converterScreenDecimals")

@@ -12,8 +12,8 @@ class CurrencyViewController: UIViewController {
     private var wasLaunched: String {
         return userDefaults.string(forKey: "isFirstLaunchToday") ?? ""
     }
-    private var reloadTableView: Bool {
-        return userDefaults.bool(forKey: "reloadCurrencyTableView")
+    private var decimalsNumberChanged: Bool {
+        return userDefaults.bool(forKey: "decimalsNumberChanged")
     }
     private var updateCurrencyTime: String {
         return userDefaults.string(forKey: "updateCurrencyTime") ?? ""
@@ -34,15 +34,12 @@ class CurrencyViewController: UIViewController {
         setupFetchedResultsController()
         setupRefreshControl()
         checkOnFirstLaunchToday()
-        removeGapFromSearchController()
+        removeGapBetweenSearchBarAndUpdateLabel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if reloadTableView {
-            tableView.reloadData()
-        }
-        userDefaults.set(false, forKey: "reloadCurrencyTableView")
+        updateDecimalsNumber()
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
@@ -167,10 +164,6 @@ extension CurrencyViewController: UISearchResultsUpdating {
         searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: filterPredicate)
         tableView.reloadData()
     }
-    
-    func removeGapFromSearchController() {
-        tableView.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
-    }
 }
 
 //MARK: - Check For Today's First Launch Method
@@ -266,6 +259,20 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
         default:
             tableView.reloadData()
         }
+    }
+}
+//MARK: - CurrencyViewController Manage Methods
+
+extension CurrencyViewController {
+    func updateDecimalsNumber() {
+        if decimalsNumberChanged {
+            tableView.reloadData()
+        }
+        userDefaults.set(false, forKey: "decimalsNumberChanged")
+    }
+    
+    func removeGapBetweenSearchBarAndUpdateLabel() {
+        tableView.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
     }
 }
 

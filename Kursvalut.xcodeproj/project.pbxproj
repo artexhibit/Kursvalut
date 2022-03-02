@@ -144,11 +144,9 @@
 		7852295B279B173F00507877 /* VC */ = {
 			isa = PBXGroup;
 			children = (
-				78041C1C2786F9FA00C4D861 /* CurrencyViewController.swift */,
-				786479A927981E410077ABC7 /* ConverterTableViewController.swift */,
-				7852295E279B19E300507877 /* PickCurrencyTableViewController.swift */,
-				787D551827C9364400587653 /* SettingsTableViewController.swift */,
-				78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */,
+				78F2716727CFDD7200381CA9 /* ConverterView */,
+				78F2716627CFDD6700381CA9 /* CurrencyView */,
+				78F2716527CFDD4800381CA9 /* Settings */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -156,14 +154,64 @@
 		7852295C279B174700507877 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */,
-				786479AB279825DF0077ABC7 /* ConverterTableViewCell.swift */,
-				78522960279B1A1B00507877 /* PickCurrencyTableViewCell.swift */,
-				783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */,
-				78F13FF027CE9AC60076613A /* CurrencyPreviewTableViewCell.swift */,
-				78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */,
+				78F2716927CFDDAB00381CA9 /* ConverterCell */,
+				78F2716827CFDD9F00381CA9 /* CurrencyCell */,
+				78F2716427CFDD1800381CA9 /* Settings */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		78F2716427CFDD1800381CA9 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */,
+				78F13FF027CE9AC60076613A /* CurrencyPreviewTableViewCell.swift */,
+				783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		78F2716527CFDD4800381CA9 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */,
+				787D551827C9364400587653 /* SettingsTableViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		78F2716627CFDD6700381CA9 /* CurrencyView */ = {
+			isa = PBXGroup;
+			children = (
+				78041C1C2786F9FA00C4D861 /* CurrencyViewController.swift */,
+				7852295E279B19E300507877 /* PickCurrencyTableViewController.swift */,
+			);
+			path = CurrencyView;
+			sourceTree = "<group>";
+		};
+		78F2716727CFDD7200381CA9 /* ConverterView */ = {
+			isa = PBXGroup;
+			children = (
+				786479A927981E410077ABC7 /* ConverterTableViewController.swift */,
+			);
+			path = ConverterView;
+			sourceTree = "<group>";
+		};
+		78F2716827CFDD9F00381CA9 /* CurrencyCell */ = {
+			isa = PBXGroup;
+			children = (
+				78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */,
+			);
+			path = CurrencyCell;
+			sourceTree = "<group>";
+		};
+		78F2716927CFDDAB00381CA9 /* ConverterCell */ = {
+			isa = PBXGroup;
+			children = (
+				78522960279B1A1B00507877 /* PickCurrencyTableViewCell.swift */,
+				786479AB279825DF0077ABC7 /* ConverterTableViewCell.swift */,
+			);
+			path = ConverterCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
