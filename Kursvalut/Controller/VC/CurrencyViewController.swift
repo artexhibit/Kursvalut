@@ -159,7 +159,12 @@ extension CurrencyViewController: UISearchResultsUpdating {
             let searchName = NSPredicate(format: "searchName CONTAINS[cd] %@", searchText)
             return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName, searchName])
         }
-        searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: searchPredicate)
+        var filterPredicate: NSCompoundPredicate {
+        let filterBaseCurrency = NSPredicate(format: "isForCurrencyScreen == YES")
+            return NSCompoundPredicate(type: .and, subpredicates: [searchPredicate, filterBaseCurrency])
+        }
+        
+        searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: filterPredicate)
         tableView.reloadData()
     }
     
