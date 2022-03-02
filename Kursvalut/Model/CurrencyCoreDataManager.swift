@@ -22,7 +22,7 @@ struct CurrencyCoreDataManager {
             let fetchResult = try context.fetch(request)
             if !fetchResult.isEmpty {
                 for existingCurrency in fetchResult {
-                    update(currency: existingCurrency, currValue: id.Value, prevValue: id.Previous)
+                    update(currency: existingCurrency, currValue: id.Value, prevValue: id.Previous, currNominal: id.Nominal)
                 }
             } else {
                 create(shortName: id.CharCode, fullName: id.CharCode, currValue: id.Value, prevValue: id.Previous, nominal: id.Nominal)
@@ -32,9 +32,10 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    func update(currency: Currency, currValue: Double, prevValue: Double) {
+    func update(currency: Currency, currValue: Double, prevValue: Double, currNominal: Int) {
         currency.currentValue = currValue
         currency.previousValue = prevValue
+        currency.nominal = Int32(currNominal)
     }
     
     func create(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0) {
@@ -78,7 +79,7 @@ struct CurrencyCoreDataManager {
                 create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, isForCurrency: false)
             } else {
                 for ruble in fetchRuble {
-                    update(currency: ruble, currValue: 1.0, prevValue: 1.0)
+                    update(currency: ruble, currValue: 1.0, prevValue: 1.0, currNominal: 1)
                 }
             }
         } catch {
