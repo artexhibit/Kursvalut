@@ -1218,7 +1218,7 @@
                                     <outlet property="numberLabel" destination="vIU-e3-J4Z" id="hIC-AZ-Hbu"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="currencyPreviewCell" rowHeight="72" id="eJK-GH-MtY" userLabel="Currency Preview Cell" customClass="CurrencyPreviewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="currencyPreviewCell" rowHeight="72" id="eJK-GH-MtY" userLabel="Currency Preview Cell" customClass="CurrencyPreviewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
                                 <rect key="frame" x="20" y="92.5" width="374" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eJK-GH-MtY" id="0wM-ge-vhQ">
@@ -1309,7 +1309,7 @@
                                     <outlet property="rateLabel" destination="iDw-On-OR4" id="d0V-XX-Ybw"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="converterPreviewCell" rowHeight="72" id="KoA-DA-Ywk" userLabel="Converter Preview Cell" customClass="ConverterPreviewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="converterPreviewCell" rowHeight="72" id="KoA-DA-Ywk" userLabel="Converter Preview Cell" customClass="ConverterPreviewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
                                 <rect key="frame" x="20" y="164.5" width="374" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KoA-DA-Ywk" id="gvP-G7-hjR">

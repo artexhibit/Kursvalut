@@ -4,6 +4,7 @@ import UIKit
 class DecimalsTableViewController: UITableViewController {
     
     private var currencyManager = CurrencyManager()
+    private let userDefaults = UserDefaults.standard
     let optionsArray = ["1", "2", "3", "4"]
     let sectionsArray = [
         (header: "Экран Валюты", footer: ""),
@@ -11,13 +12,19 @@ class DecimalsTableViewController: UITableViewController {
         (header: "Экран Конвертер", footer: ""),
         (header: "", footer: "Количество десятичных знаков для отображения на экране Конвертер")
     ]
+    let sectionNumber = (decimalCell: (firstCell: 1, secondCell: 3),
+                         currencyCell: (row: 0, section: 0),
+                         converterCell: (row: 0, section: 2)
+    )
+    let previewNumber = (forCurrencyScreen: 100.1234, forConverterScreen: 90.1234)
+    
     private var currencyScreenDecimalsAmount: Int {
-        return UserDefaults.standard.integer(forKey: "currencyScreenDecimals")
+        return userDefaults.integer(forKey: "currencyScreenDecimals")
     }
     private var converterScreenDecimalsAmount: Int {
-        return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
+        return userDefaults.integer(forKey: "converterScreenDecimals")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -29,8 +36,8 @@ class DecimalsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1 || section == 3 {
-        return optionsArray.count
+        if section == sectionNumber.decimalCell.firstCell || section == sectionNumber.decimalCell.secondCell {
+            return optionsArray.count
         } else {
             return 1
         }
@@ -46,25 +53,22 @@ class DecimalsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let pickedSection = indexPath.section
-        
-        if pickedSection == 1 || pickedSection == 3 {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "decimalsCell", for: indexPath) as! DecimalsTableViewCell
-        
-        cell.numberLabel.text = optionsArray[indexPath.row]
-        
-        if pickedSection == 1 {
-            cell.accessoryType = cell.numberLabel.text == String(currencyScreenDecimalsAmount) ? .checkmark : .none
-        } else if pickedSection == 3 {
-            cell.accessoryType = cell.numberLabel.text == String(converterScreenDecimalsAmount) ? .checkmark : .none
+        var loadDecimalsAmount: Int {
+            pickedSection == sectionNumber.decimalCell.firstCell ? currencyScreenDecimalsAmount : converterScreenDecimalsAmount
         }
-        return cell
-        } else if pickedSection == 0 {
+        
+        if pickedSection == sectionNumber.decimalCell.firstCell || pickedSection == sectionNumber.decimalCell.secondCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "decimalsCell", for: indexPath) as! DecimalsTableViewCell
+            cell.numberLabel.text = optionsArray[indexPath.row]
+            cell.accessoryType = cell.numberLabel.text == String(loadDecimalsAmount) ? .checkmark : .none
+            return cell
+        } else if pickedSection == sectionNumber.currencyCell.section {
             let cell = tableView.dequeueReusableCell(withIdentifier: "currencyPreviewCell", for: indexPath) as! CurrencyPreviewTableViewCell
-            cell.rateLabel.text = currencyManager.showRate(withNumber: 100.1234)
+            cell.rateLabel.text = currencyManager.showRate(withNumber: previewNumber.forCurrencyScreen)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "converterPreviewCell", for: indexPath) as! ConverterPreviewTableViewCell
-            cell.numberLabel.text = currencyManager.showRate(withNumber: 90.1234, forConverter: true)
+            cell.numberLabel.text = currencyManager.showRate(withNumber: previewNumber.forConverterScreen, forConverter: true)
             return cell
         }
     }
@@ -85,12 +89,13 @@ class DecimalsTableViewController: UITableViewController {
             cell.accessoryType = .checkmark
         }
         
-        if pickedSection == 1 {
-            UserDefaults.standard.set(pickedOption, forKey: "currencyScreenDecimals")
-            tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
-        } else if pickedSection == 3 {
-            UserDefaults.standard.set(pickedOption, forKey: "converterScreenDecimals")
-            tableView.reloadRows(at: [IndexPath(row: 0, section: 2)], with: .none)
+        if pickedSection == sectionNumber.decimalCell.firstCell {
+            userDefaults.set(pickedOption, forKey: "currencyScreenDecimals")
+            userDefaults.set(true, forKey: "reloadCurrencyTableView")
+            tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
+        } else if pickedSection == sectionNumber.decimalCell.secondCell {
+            userDefaults.set(pickedOption, forKey: "converterScreenDecimals")
+            tableView.reloadRows(at: [IndexPath(row: sectionNumber.converterCell.row, section: sectionNumber.converterCell.section)], with: .none)
         }
     }
     

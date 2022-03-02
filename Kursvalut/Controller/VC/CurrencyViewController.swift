@@ -3,16 +3,20 @@ import UIKit
 import CoreData
 
 class CurrencyViewController: UIViewController {
+    private let userDefaults = UserDefaults.standard
     private var currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
     private let coreDataManager = CurrencyCoreDataManager()
     private var fetchedResultsController: NSFetchedResultsController<Currency>!
     private let searchController = UISearchController(searchResultsController: nil)
     private var wasLaunched: String {
-        return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
+        return userDefaults.string(forKey: "isFirstLaunchToday") ?? ""
+    }
+    private var reloadTableView: Bool {
+        return userDefaults.bool(forKey: "reloadCurrencyTableView")
     }
     private var updateCurrencyTime: String {
-        return UserDefaults.standard.string(forKey: "updateCurrencyTime") ?? ""
+        return userDefaults.string(forKey: "updateCurrencyTime") ?? ""
     }
     private var today: String {
        return currencyManager.showTime(with: "MM/dd/yyyy")
@@ -35,7 +39,10 @@ class CurrencyViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        if reloadTableView {
+            tableView.reloadData()
+        }
+        userDefaults.set(false, forKey: "reloadCurrencyTableView")
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
@@ -178,7 +185,7 @@ extension CurrencyViewController {
                     DispatchQueue.main.async {
                         self.updateTimeLabel.text = self.updateCurrencyTime
                     }
-                    UserDefaults.standard.setValue(self.today, forKey:"isFirstLaunchToday")
+                    self.userDefaults.setValue(self.today, forKey:"isFirstLaunchToday")
                 }
             }
         }
