@@ -19,7 +19,7 @@ class CurrencyViewController: UIViewController {
         return userDefaults.string(forKey: "updateCurrencyTime") ?? ""
     }
     private var today: String {
-       return currencyManager.showTime(with: "MM/dd/yyyy")
+        return currencyManager.showTime(with: "MM/dd/yyyy")
     }
     
     @IBOutlet weak var tableView: UITableView!

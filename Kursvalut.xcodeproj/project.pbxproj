@@ -148,8 +148,8 @@
 		7852295B279B173F00507877 /* VC */ = {
 			isa = PBXGroup;
 			children = (
-				78F2716727CFDD7200381CA9 /* ConverterView */,
 				78F2716627CFDD6700381CA9 /* CurrencyView */,
+				78F2716727CFDD7200381CA9 /* ConverterView */,
 				78F2716527CFDD4800381CA9 /* Settings */,
 			);
 			path = VC;

@@ -11,6 +11,7 @@ class StartViewTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addGapBetweenSectionAndNavBar()
     }
     
     //MARK: - TableView DataSource Methods
@@ -54,5 +55,13 @@ class StartViewTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return tableView.estimatedSectionFooterHeight
+    }
+}
+
+//MARK: - StartViewTableViewController Manage Methods
+
+extension StartViewTableViewController {
+    func addGapBetweenSectionAndNavBar() {
+        tableView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
     }
 }
