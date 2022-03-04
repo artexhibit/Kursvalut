@@ -190,7 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				78041C1C2786F9FA00C4D861 /* CurrencyViewController.swift */,
-				7852295E279B19E300507877 /* PickCurrencyTableViewController.swift */,
 			);
 			path = CurrencyView;
 			sourceTree = "<group>";
@@ -199,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				786479A927981E410077ABC7 /* ConverterTableViewController.swift */,
+				7852295E279B19E300507877 /* PickCurrencyTableViewController.swift */,
 			);
 			path = ConverterView;
 			sourceTree = "<group>";
@@ -214,8 +214,8 @@
 		78F2716927CFDDAB00381CA9 /* ConverterCell */ = {
 			isa = PBXGroup;
 			children = (
-				78522960279B1A1B00507877 /* PickCurrencyTableViewCell.swift */,
 				786479AB279825DF0077ABC7 /* ConverterTableViewCell.swift */,
+				78522960279B1A1B00507877 /* PickCurrencyTableViewCell.swift */,
 			);
 			path = ConverterCell;
 			sourceTree = "<group>";

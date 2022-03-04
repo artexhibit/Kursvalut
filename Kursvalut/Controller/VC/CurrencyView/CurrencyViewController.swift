@@ -9,17 +9,11 @@ class CurrencyViewController: UIViewController {
     private let coreDataManager = CurrencyCoreDataManager()
     private var fetchedResultsController: NSFetchedResultsController<Currency>!
     private let searchController = UISearchController(searchResultsController: nil)
-    private var wasLaunched: String {
-        return userDefaults.string(forKey: "isFirstLaunchToday") ?? ""
-    }
     private var decimalsNumberChanged: Bool {
         return userDefaults.bool(forKey: "decimalsNumberChanged")
     }
-    private var updateCurrencyTime: String {
-        return userDefaults.string(forKey: "updateCurrencyTime") ?? ""
-    }
-    private var today: String {
-        return currencyManager.showTime(with: "MM/dd/yyyy")
+    private var currencyUpdateTime: String {
+        return userDefaults.string(forKey: "currencyUpdateTime") ?? ""
     }
     
     @IBOutlet weak var tableView: UITableView!
@@ -33,7 +27,7 @@ class CurrencyViewController: UIViewController {
         setupSearchController()
         setupFetchedResultsController()
         setupRefreshControl()
-        checkOnFirstLaunchToday()
+        currencyNetworking.checkOnFirstLaunchToday(with: updateTimeLabel)
         removeGapBetweenSearchBarAndUpdateLabel()
     }
     
@@ -166,30 +160,6 @@ extension CurrencyViewController: UISearchResultsUpdating {
     }
 }
 
-//MARK: - Check For Today's First Launch Method
-
-extension CurrencyViewController {
-    func checkOnFirstLaunchToday() {
-        if wasLaunched == today {
-            DispatchQueue.main.async {
-                self.updateTimeLabel.text = self.updateCurrencyTime
-            }
-        } else {
-            currencyNetworking.performRequest { error in
-                if error != nil {
-                    print(error!.localizedDescription)
-                    return
-                } else {
-                    DispatchQueue.main.async {
-                        self.updateTimeLabel.text = self.updateCurrencyTime
-                    }
-                    self.userDefaults.setValue(self.today, forKey:"isFirstLaunchToday")
-                }
-            }
-        }
-    }
-}
-
 //MARK: - UIRefreshControl Setup
 
 extension CurrencyViewController {
@@ -205,7 +175,7 @@ extension CurrencyViewController {
                 return
             } else {
                 DispatchQueue.main.async {
-                    self.updateTimeLabel.text = self.updateCurrencyTime
+                    self.updateTimeLabel.text = self.currencyUpdateTime
                     self.tableView.refreshControl?.endRefreshing()
                 }
             }

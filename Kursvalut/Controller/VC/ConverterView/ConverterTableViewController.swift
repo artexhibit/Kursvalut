@@ -8,6 +8,7 @@ class ConverterTableViewController: UITableViewController {
     private let coreDataManager = CurrencyCoreDataManager()
     private let converterManager = ConverterManager()
     private var currencyManager = CurrencyManager()
+    private let currencyNetworking = CurrencyNetworking()
     private var numberFromTextField: Double?
     private var pickedCurrency: Currency?
     private var isInEdit = false
@@ -16,6 +17,9 @@ class ConverterTableViewController: UITableViewController {
     private var converterScreenDecimalsAmount: Int {
         return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
     }
+    private var pickedStartView: String {
+        return UserDefaults.standard.string(forKey: "startView") ?? ""
+    }
     
     @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
@@ -23,6 +27,10 @@ class ConverterTableViewController: UITableViewController {
         super.viewDidLoad()
         setupFetchedResultsController()
         setupKeyboardHide()
+        
+        if pickedStartView == "Конвертер" {
+            currencyNetworking.checkOnFirstLaunchToday()
+        }
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {

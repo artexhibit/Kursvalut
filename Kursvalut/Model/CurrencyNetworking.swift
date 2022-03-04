@@ -8,8 +8,16 @@ struct CurrencyNetworking {
     private let currencyManager = CurrencyManager()
     private let urlString = "https://www.cbr-xml-daily.ru/daily_json.js"
     private var updateTime: String {
-       return currencyManager.showTime(with: "\("Обновлено") dd MMM \("в") HH:mm")
+        return currencyManager.showTime(with: "\("Обновлено") dd MMM \("в") HH:mm")
     }
+    private var wasLaunched: String {
+        return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
+    }
+    private var today: String {
+        return currencyManager.showTime(with: "MM/dd/yyyy")
+    }
+    
+    //MARK: - Networking Methods
     
     func performRequest(_ completion: @escaping (Error?) -> Void) {
         if let url = URL(string: urlString) {
@@ -23,7 +31,7 @@ struct CurrencyNetworking {
                     DispatchQueue.main.async {
                         self.parseJSON(with: data)
                     }
-                    UserDefaults.standard.setValue(updateTime, forKey: "updateCurrencyTime")
+                    UserDefaults.standard.setValue(updateTime, forKey: "currencyUpdateTime")
                     completion(nil)
                 }
             }
@@ -38,13 +46,39 @@ struct CurrencyNetworking {
             
             for valute in decodedData.Valute.values {
                 if valute.CharCode != "XDR" {
-                    coreDataManager.findDuplicate(with: valute)
+                    coreDataManager.createOrUpdateCurrency(with: valute)
                 }
             }
-            coreDataManager.createRubleEntry()
+            coreDataManager.createRubleCurrency()
         } catch {
             print("Error with JSON parsing, \(error)")
         }
         coreDataManager.save()
+    }
+    
+    //MARK: - Check For Today's First Launch Method
+    
+    func checkOnFirstLaunchToday(with label: UILabel = UILabel()) {
+        var currencyUpdateTime: String {
+            return UserDefaults.standard.string(forKey: "currencyUpdateTime") ?? ""
+        }
+        
+        if wasLaunched == today {
+            DispatchQueue.main.async {
+                label.text = currencyUpdateTime
+            }
+        } else {
+            performRequest { error in
+                if error != nil {
+                    print(error!.localizedDescription)
+                    return
+                } else {
+                    DispatchQueue.main.async {
+                        label.text = currencyUpdateTime
+                    }
+                    UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
+                }
+            }
+        }
     }
 }

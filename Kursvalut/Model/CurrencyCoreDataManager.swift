@@ -14,7 +14,7 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    func findDuplicate(with id: Dictionary<String, Details>.Values.Element) {
+    func createOrUpdateCurrency(with id: Dictionary<String, Details>.Values.Element) {
         let request: NSFetchRequest<Currency> = Currency.fetchRequest()
         request.predicate = NSPredicate(format: "shortName = %@", id.CharCode)
         
@@ -69,7 +69,7 @@ struct CurrencyCoreDataManager {
         return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionName, cacheName: nil)
     }
     
-    func createRubleEntry() {
+    func createRubleCurrency() {
         let request: NSFetchRequest<Currency> = Currency.fetchRequest()
         request.predicate = NSPredicate(format: "shortName = %@", "RUB")
         
