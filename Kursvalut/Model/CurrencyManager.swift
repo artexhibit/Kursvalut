@@ -41,11 +41,14 @@ struct CurrencyManager {
     ]
     
     private var difference: Double = 0.0
-    private var differenceSign: String {
-        difference.isLess(than: 0.0) ? "-" : "+"
-    }
-    private var differenceColor: UIColor {
-        difference.isLess(than: 0.0) ? .systemGreen : .systemRed
+    private var differenceAttributes: (Sign: String, Color: UIColor, Symbol: String) {
+        if difference > 0 {
+            return (Sign: "+", Color: .systemRed, Symbol: "↑")
+        } else if difference < 0 {
+            return (Sign: "-", Color: .systemGreen, Symbol: "↓")
+        } else {
+            return (Sign: "", Color: .systemGray, Symbol: "")
+        }
     }
     private var currencyScreenDecimalsAmount: Int {
         return UserDefaults.standard.integer(forKey: "currencyScreenDecimals")
@@ -67,7 +70,7 @@ struct CurrencyManager {
     }
     
     func showColor() -> UIColor {
-        return differenceColor
+        return differenceAttributes.Color
     }
     
     mutating func showDifference(with currentValue: Double, and previousValue: Double) -> String {
@@ -76,7 +79,7 @@ struct CurrencyManager {
         let formattedDifference = String(format: "%.2f", abs(difference))
         let formattedPercentage = String(format: "%.2f", differencePercentage)
         
-        return "\(differenceSign)\(formattedDifference) (\(formattedPercentage)%)"
+        return "\(differenceAttributes.Sign)\(formattedDifference) (\(formattedPercentage)%)\(differenceAttributes.Symbol)"
     }
     
     func showTime(with text: String) -> String {
