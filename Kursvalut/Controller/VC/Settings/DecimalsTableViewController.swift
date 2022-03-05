@@ -5,18 +5,18 @@ class DecimalsTableViewController: UITableViewController {
     
     private var currencyManager = CurrencyManager()
     private let userDefaults = UserDefaults.standard
-    let optionsArray = ["1", "2", "3", "4"]
-    let sectionsArray = [
+    private let optionsArray = ["1", "2", "3", "4"]
+    private let sectionsArray = [
         (header: "Экран Валюты", footer: ""),
         (header: "", footer: "Количество десятичных знаков для отображения на экране Валюты"),
         (header: "Экран Конвертер", footer: ""),
         (header: "", footer: "Количество десятичных знаков для отображения на экране Конвертер")
     ]
-    let sectionNumber = (decimalCell: (firstCell: 1, secondCell: 3),
+    private let sectionNumber = (decimalCell: (firstCell: 1, secondCell: 3),
                          currencyCell: (row: 0, section: 0),
                          converterCell: (row: 0, section: 2)
     )
-    let previewNumber = (forCurrencyScreen: 100.1234, forConverterScreen: 90.1234)
+    private let previewNumber = (forCurrencyScreen: 100.1234, forConverterScreen: 90.1234)
     
     private var currencyScreenDecimalsAmount: Int {
         return userDefaults.integer(forKey: "currencyScreenDecimals")

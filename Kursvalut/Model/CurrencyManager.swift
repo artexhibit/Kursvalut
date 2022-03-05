@@ -47,7 +47,7 @@ struct CurrencyManager {
         } else if difference < 0 {
             return (Sign: "-", Color: .systemGreen, Symbol: "↓")
         } else {
-            return (Sign: "", Color: .systemGray, Symbol: "")
+            return (Sign: "", Color: .systemGray, Symbol: "＝")
         }
     }
     private var currencyScreenDecimalsAmount: Int {
@@ -59,7 +59,7 @@ struct CurrencyManager {
     
     func showCurrencyFlag(_ shortName: String) -> UIImage? {
         guard let image = UIImage(named: "\(shortName)") else { return UIImage(named: "notFound") }
-            return image
+        return image
     }
     
     func showRate(withNumber currentValue: Double, and nominal: Int = 1, forConverter: Bool = false) -> String {
@@ -78,7 +78,6 @@ struct CurrencyManager {
         let differencePercentage = (abs(difference) / ((currentValue + previousValue)/2)) * 100
         let formattedDifference = String(format: "%.2f", abs(difference))
         let formattedPercentage = String(format: "%.2f", differencePercentage)
-        
         return "\(differenceAttributes.Sign)\(formattedDifference) (\(formattedPercentage)%)\(differenceAttributes.Symbol)"
     }
     
@@ -86,6 +85,12 @@ struct CurrencyManager {
         let formatter = DateFormatter()
         formatter.dateFormat = text
         return formatter.string(from: Date())
+    }
+    
+    //MARK: - ViewController Configuration Methods
+    
+    func configureContentInset(for tableView: UITableView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
+        tableView.contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
     }
 }
 

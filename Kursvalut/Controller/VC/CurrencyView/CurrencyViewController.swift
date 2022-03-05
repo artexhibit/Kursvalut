@@ -28,7 +28,7 @@ class CurrencyViewController: UIViewController {
         setupFetchedResultsController()
         setupRefreshControl()
         currencyNetworking.checkOnFirstLaunchToday(with: updateTimeLabel)
-        removeGapBetweenSearchBarAndUpdateLabel()
+        currencyManager.configureContentInset(for: tableView, top: -10)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -240,9 +240,4 @@ extension CurrencyViewController {
         }
         userDefaults.set(false, forKey: "decimalsNumberChanged")
     }
-    
-    func removeGapBetweenSearchBarAndUpdateLabel() {
-        tableView.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
-    }
 }
-

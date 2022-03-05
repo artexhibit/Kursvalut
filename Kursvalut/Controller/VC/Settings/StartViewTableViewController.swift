@@ -3,15 +3,16 @@ import UIKit
 
 class StartViewTableViewController: UITableViewController {
     
-    let optionsArray = ["Валюты", "Конвертер"]
-    let sectionArray = [(header: "", footer: "Выбранный экран будет открываться сразу после запуска приложения")]
-    var pickedStartView: String {
+    private var currencyManager = CurrencyManager()
+    private let optionsArray = ["Валюты", "Конвертер"]
+    private let sectionArray = [(header: "", footer: "Выбранный экран будет открываться сразу после запуска приложения")]
+    private var pickedStartView: String {
         return UserDefaults.standard.string(forKey: "startView") ?? ""
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addGapBetweenSectionAndNavBar()
+        currencyManager.configureContentInset(for: tableView, top: 30)
     }
     
     //MARK: - TableView DataSource Methods
@@ -55,13 +56,5 @@ class StartViewTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return tableView.estimatedSectionFooterHeight
-    }
-}
-
-//MARK: - StartViewTableViewController Manage Methods
-
-extension StartViewTableViewController {
-    func addGapBetweenSectionAndNavBar() {
-        tableView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
     }
 }
