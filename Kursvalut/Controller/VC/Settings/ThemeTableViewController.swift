@@ -5,7 +5,7 @@ class ThemeTableViewController: UITableViewController {
     
     private var currencyManager = CurrencyManager()
     private let optionsArray = ["Светлая", "Тёмная", "Как в системе"]
-    private let sectionArray = [(header: "", footer: "Принудительно установить один из вариантов оформления или переключать его согласно системным настройкам устройства")]
+    private let sectionArray = [(header: "", footer: "Принудительно установить один из вариантов оформления или переключать его согласно настройкам на устройстве")]
     private var pickedTheme: String {
         return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
     }
@@ -39,20 +39,11 @@ class ThemeTableViewController: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+        guard let firstWindow = windowScene.windows.first else { return }
         guard let cell = tableView.cellForRow(at: indexPath) as? ThemeTableViewCell else { return }
         let pickedSection = indexPath.section
-        let pickedOption = cell.themeNameLabel.text
-        
-        var themeStyle: UIUserInterfaceStyle {
-            if pickedOption == "Светлая" {
-                return .light
-            } else if pickedOption == "Тёмная" {
-                return .dark
-            } else {
-                return .unspecified
-            }
-        }
+        let pickedOption = cell.themeNameLabel.text ?? ""
         
         if cell.accessoryType != .checkmark {
             for row in 0..<tableView.numberOfRows(inSection: pickedSection) {
@@ -63,10 +54,9 @@ class ThemeTableViewController: UITableViewController {
         }
         UserDefaults.standard.set(pickedOption, forKey: "pickedTheme")
         
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-        guard let firstWindow = windowScene.windows.first else { return }
-        UIView.transition(with: firstWindow, duration: 0.3, options: .transitionCrossDissolve, animations: { firstWindow.overrideUserInterfaceStyle = themeStyle }, completion: nil)
+        UIView.transition(with: firstWindow, duration: 0.3, options: .transitionCrossDissolve, animations: {firstWindow.overrideUserInterfaceStyle = self.currencyManager.switchTheme()}, completion: nil)
         
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

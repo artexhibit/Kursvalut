@@ -76,7 +76,6 @@ class DecimalsTableViewController: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         guard let cell = tableView.cellForRow(at: indexPath) as? DecimalsTableViewCell else { return }
         let pickedSection = indexPath.section
         let pickedOption = Int(cell.numberLabel.text ?? "2") ?? 2
@@ -97,6 +96,8 @@ class DecimalsTableViewController: UITableViewController {
             userDefaults.set(pickedOption, forKey: "converterScreenDecimals")
             tableView.reloadRows(at: [IndexPath(row: sectionNumber.converterCell.row, section: sectionNumber.converterCell.section)], with: .none)
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

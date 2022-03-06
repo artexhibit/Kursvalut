@@ -10,11 +10,12 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
+    var currencyManager = CurrencyManager()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
         loadStartViewController()
-        loadPickedTheme()
+        window!.overrideUserInterfaceStyle = currencyManager.switchTheme()
     }
     
     func loadStartViewController() {
@@ -24,22 +25,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let tabBarController = self.window!.rootViewController as? UITabBarController else { return }
         tabBarController.selectedIndex = pickedStartView == "Валюты" ? 0 : 1
-    }
-    
-    func loadPickedTheme() {
-        var pickedTheme: String {
-            return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
-        }
-        var themeStyle: UIUserInterfaceStyle {
-            if pickedTheme == "Светлая" {
-                return .light
-            } else if pickedTheme == "Тёмная" {
-                return .dark
-            } else {
-                return .unspecified
-            }
-        }
-        window!.overrideUserInterfaceStyle = themeStyle
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
