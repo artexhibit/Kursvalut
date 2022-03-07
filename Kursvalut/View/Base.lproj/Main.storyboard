@@ -791,6 +791,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <segue destination="d7z-vH-yCS" kind="show" id="efO-mk-JcS"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="ome-zf-fmC" userLabel="Политика конфиденциальности">
                                         <rect key="frame" x="20" y="536" width="374" height="43"/>
@@ -1508,6 +1511,100 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kjR-lY-jQM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1684" y="1706"/>
+        </scene>
+        <!--Terms Of Use View Controller-->
+        <scene sceneID="JbH-Un-d3E">
+            <objects>
+                <viewController id="d7z-vH-yCS" userLabel="Terms Of Use View Controller" customClass="TermsOfUseViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bJx-FF-oWQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XE7-hr-BZi">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="termsOfUseCell" rowHeight="96" id="0S3-4D-xAJ" customClass="TermsOfUseTableViewCell" customModule="Kursvalut" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="96"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0S3-4D-xAJ" id="Te2-zA-dmU">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заголовок" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rum-ZI-dFr">
+                                                    <rect key="frame" x="20" y="11" width="374" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="ZMZ-jp-j3n"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Основной Текст" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AL7-Xm-5Qb">
+                                                    <rect key="frame" x="20" y="46" width="374" height="39"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Rum-ZI-dFr" firstAttribute="leading" secondItem="Te2-zA-dmU" secondAttribute="leadingMargin" id="1PG-mS-pB4"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="AL7-Xm-5Qb" secondAttribute="trailing" id="6sc-Ny-tn7"/>
+                                                <constraint firstItem="AL7-Xm-5Qb" firstAttribute="leading" secondItem="Te2-zA-dmU" secondAttribute="leadingMargin" id="AAt-aW-Nwb"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Rum-ZI-dFr" secondAttribute="trailing" id="F1N-9L-EiU"/>
+                                                <constraint firstItem="AL7-Xm-5Qb" firstAttribute="top" secondItem="Rum-ZI-dFr" secondAttribute="bottom" constant="10" id="PIU-zu-gvd"/>
+                                                <constraint firstItem="Rum-ZI-dFr" firstAttribute="top" secondItem="Te2-zA-dmU" secondAttribute="topMargin" id="QRD-67-aUz"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="AL7-Xm-5Qb" secondAttribute="bottom" id="gzi-N9-71G"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="headerLabel" destination="Rum-ZI-dFr" id="AQp-9P-AP3"/>
+                                            <outlet property="mainTextLabel" destination="AL7-Xm-5Qb" id="9hG-R3-Uxx"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="d7z-vH-yCS" id="Nik-4y-is2"/>
+                                    <outlet property="delegate" destination="d7z-vH-yCS" id="HT2-RA-lEy"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="agy-qs-I0u">
+                                <rect key="frame" x="25" y="748" width="364" height="50"/>
+                                <color key="backgroundColor" name="BlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="oHO-fD-HHh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Связаться с разработчиком">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="contactButtonPressed:" destination="d7z-vH-yCS" eventType="touchUpInside" id="JFm-B6-XXt"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Uqq-Ze-J6H"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Uqq-Ze-J6H" firstAttribute="bottom" secondItem="XE7-hr-BZi" secondAttribute="bottom" id="8BJ-hp-6MW"/>
+                            <constraint firstItem="agy-qs-I0u" firstAttribute="bottom" secondItem="Uqq-Ze-J6H" secondAttribute="bottom" constant="-15" id="DQj-8U-oXO"/>
+                            <constraint firstItem="Uqq-Ze-J6H" firstAttribute="trailing" secondItem="agy-qs-I0u" secondAttribute="trailing" constant="25" id="OIC-U6-hPk"/>
+                            <constraint firstItem="XE7-hr-BZi" firstAttribute="top" secondItem="Uqq-Ze-J6H" secondAttribute="top" id="UwU-5g-5FF"/>
+                            <constraint firstItem="XE7-hr-BZi" firstAttribute="trailing" secondItem="Uqq-Ze-J6H" secondAttribute="trailing" id="VRY-ab-F8a"/>
+                            <constraint firstItem="agy-qs-I0u" firstAttribute="leading" secondItem="Uqq-Ze-J6H" secondAttribute="leading" constant="25" id="h3Z-04-Stp"/>
+                            <constraint firstItem="XE7-hr-BZi" firstAttribute="leading" secondItem="Uqq-Ze-J6H" secondAttribute="leading" id="ngP-7v-kDK"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Условия использования" largeTitleDisplayMode="never" id="VNX-Om-81M"/>
+                    <connections>
+                        <outlet property="contactButton" destination="agy-qs-I0u" id="H1w-2L-ozJ"/>
+                        <outlet property="tableView" destination="XE7-hr-BZi" id="ovn-Te-VqC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VKi-dm-69e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2394.202898550725" y="1705.5803571428571"/>
         </scene>
     </scenes>
     <resources>
