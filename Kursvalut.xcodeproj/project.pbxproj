@@ -33,6 +33,8 @@
 		78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */; };
 		78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0D2787687400A91511 /* CurrencyManager.swift */; };
 		78D531902793058B00EF65B2 /* CurrencyCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */; };
+		78E9B79A27D7956300BB5249 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E9B79927D7956300BB5249 /* PrivacyPolicyViewController.swift */; };
+		78E9B79C27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E9B79B27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift */; };
 		78F13FF127CE9AC60076613A /* CurrencyPreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F13FF027CE9AC60076613A /* CurrencyPreviewTableViewCell.swift */; };
 		78F13FF327CE9AD80076613A /* ConverterPreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */; };
 		78F2716B27CFDF6000381CA9 /* StartViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */; };
@@ -68,6 +70,8 @@
 		78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		78D3DA0D2787687400A91511 /* CurrencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
 		78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCoreDataManager.swift; sourceTree = "<group>"; };
+		78E9B79927D7956300BB5249 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		78E9B79B27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyTableViewCell.swift; sourceTree = "<group>"; };
 		78F13FF027CE9AC60076613A /* CurrencyPreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPreviewTableViewCell.swift; sourceTree = "<group>"; };
 		78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterPreviewTableViewCell.swift; sourceTree = "<group>"; };
 		78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewTableViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 				78F2716C27CFE00400381CA9 /* StartViewTableViewCell.swift */,
 				78C6FAF627D3C188002E35E9 /* ThemeTableViewCell.swift */,
 				78B40A1227D659F60016D9E6 /* TermsOfUseTableViewCell.swift */,
+				78E9B79B27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 				78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */,
 				78C6FAF427D3C160002E35E9 /* ThemeTableViewController.swift */,
 				78B40A0F27D659BB0016D9E6 /* TermsOfUseViewController.swift */,
+				78E9B79927D7956300BB5249 /* PrivacyPolicyViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -307,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78E9B79C27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift in Sources */,
 				7838F90027885B86007D34AA /* CurrencyData.swift in Sources */,
 				783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */,
 				78B40A1327D659F60016D9E6 /* TermsOfUseTableViewCell.swift in Sources */,
@@ -318,6 +325,7 @@
 				78D531902793058B00EF65B2 /* CurrencyCoreDataManager.swift in Sources */,
 				78C6FAF527D3C160002E35E9 /* ThemeTableViewController.swift in Sources */,
 				78C6FAF727D3C188002E35E9 /* ThemeTableViewCell.swift in Sources */,
+				78E9B79A27D7956300BB5249 /* PrivacyPolicyViewController.swift in Sources */,
 				78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */,
 				78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */,
 				78041C1B2786F9FA00C4D861 /* SceneDelegate.swift in Sources */,
