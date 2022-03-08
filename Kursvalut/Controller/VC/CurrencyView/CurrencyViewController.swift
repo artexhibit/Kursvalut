@@ -108,7 +108,7 @@ extension CurrencyViewController {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         var currencies = fetchedResultsController.fetchedObjects!
         let currency = fetchedResultsController.object(at: sourceIndexPath)
-                
+        
         currencies.remove(at: sourceIndexPath.row)
         currencies.insert(currency, at: destinationIndexPath.row)
         
@@ -151,7 +151,7 @@ extension CurrencyViewController: UISearchResultsUpdating {
             return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName, searchName])
         }
         var filterPredicate: NSCompoundPredicate {
-        let filterBaseCurrency = NSPredicate(format: "isForCurrencyScreen == YES")
+            let filterBaseCurrency = NSPredicate(format: "isForCurrencyScreen == YES")
             return NSCompoundPredicate(type: .and, subpredicates: [searchPredicate, filterBaseCurrency])
         }
         
@@ -210,9 +210,9 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
         switch type {
         case .update:
             if let indexPath = indexPath {
-               DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                   self.tableView.reloadRows(at: [indexPath], with: .none)
-               }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
+                }
             }
         case .move:
             if let indexPath = indexPath, let newIndexPath = newIndexPath {

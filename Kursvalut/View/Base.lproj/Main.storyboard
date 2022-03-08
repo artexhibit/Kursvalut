@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kPs-c4-rso">
-    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -1532,7 +1532,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заголовок" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rum-ZI-dFr">
-                                                    <rect key="frame" x="20" y="11" width="374" height="25"/>
+                                                    <rect key="frame" x="35" y="11" width="359" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="ZMZ-jp-j3n"/>
                                                     </constraints>
@@ -1541,16 +1541,16 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Основной Текст" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AL7-Xm-5Qb">
-                                                    <rect key="frame" x="20" y="46" width="374" height="39"/>
+                                                    <rect key="frame" x="35" y="46" width="359" height="39"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Rum-ZI-dFr" firstAttribute="leading" secondItem="Te2-zA-dmU" secondAttribute="leadingMargin" id="1PG-mS-pB4"/>
+                                                <constraint firstItem="Rum-ZI-dFr" firstAttribute="leading" secondItem="Te2-zA-dmU" secondAttribute="leadingMargin" constant="15" id="1PG-mS-pB4"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="AL7-Xm-5Qb" secondAttribute="trailing" id="6sc-Ny-tn7"/>
-                                                <constraint firstItem="AL7-Xm-5Qb" firstAttribute="leading" secondItem="Te2-zA-dmU" secondAttribute="leadingMargin" id="AAt-aW-Nwb"/>
+                                                <constraint firstItem="AL7-Xm-5Qb" firstAttribute="leading" secondItem="Te2-zA-dmU" secondAttribute="leadingMargin" constant="15" id="AAt-aW-Nwb"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Rum-ZI-dFr" secondAttribute="trailing" id="F1N-9L-EiU"/>
                                                 <constraint firstItem="AL7-Xm-5Qb" firstAttribute="top" secondItem="Rum-ZI-dFr" secondAttribute="bottom" constant="10" id="PIU-zu-gvd"/>
                                                 <constraint firstItem="Rum-ZI-dFr" firstAttribute="top" secondItem="Te2-zA-dmU" secondAttribute="topMargin" id="QRD-67-aUz"/>
