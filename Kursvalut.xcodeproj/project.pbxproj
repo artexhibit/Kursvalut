@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17227D90C4400769693 /* AboutAppTableViewController.swift */; };
+		7802A17727D924E200769693 /* AboutAppDeveloperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17627D924E200769693 /* AboutAppDeveloperTableViewCell.swift */; };
 		78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C182786F9FA00C4D861 /* AppDelegate.swift */; };
 		78041C1B2786F9FA00C4D861 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C1A2786F9FA00C4D861 /* SceneDelegate.swift */; };
 		78041C1D2786F9FA00C4D861 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C1C2786F9FA00C4D861 /* CurrencyViewController.swift */; };
@@ -42,6 +44,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7802A17227D90C4400769693 /* AboutAppTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppTableViewController.swift; sourceTree = "<group>"; };
+		7802A17627D924E200769693 /* AboutAppDeveloperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppDeveloperTableViewCell.swift; sourceTree = "<group>"; };
 		78041C152786F9FA00C4D861 /* Kursvalut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kursvalut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78041C182786F9FA00C4D861 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78041C1A2786F9FA00C4D861 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -183,13 +187,14 @@
 		78F2716427CFDD1800381CA9 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */,
-				78F13FF027CE9AC60076613A /* CurrencyPreviewTableViewCell.swift */,
 				783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */,
+				78F13FF027CE9AC60076613A /* CurrencyPreviewTableViewCell.swift */,
+				78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */,
 				78F2716C27CFE00400381CA9 /* StartViewTableViewCell.swift */,
 				78C6FAF627D3C188002E35E9 /* ThemeTableViewCell.swift */,
 				78B40A1227D659F60016D9E6 /* TermsOfUseTableViewCell.swift */,
 				78E9B79B27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift */,
+				7802A17627D924E200769693 /* AboutAppDeveloperTableViewCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -203,6 +208,7 @@
 				78C6FAF427D3C160002E35E9 /* ThemeTableViewController.swift */,
 				78B40A0F27D659BB0016D9E6 /* TermsOfUseViewController.swift */,
 				78E9B79927D7956300BB5249 /* PrivacyPolicyViewController.swift */,
+				7802A17227D90C4400769693 /* AboutAppTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -316,6 +322,7 @@
 				78E9B79C27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift in Sources */,
 				7838F90027885B86007D34AA /* CurrencyData.swift in Sources */,
 				783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */,
+				7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */,
 				78B40A1327D659F60016D9E6 /* TermsOfUseTableViewCell.swift in Sources */,
 				78F13FF327CE9AD80076613A /* ConverterPreviewTableViewCell.swift in Sources */,
 				7813102827D75FE000065410 /* SMailComposeViewController.swift in Sources */,
@@ -324,6 +331,7 @@
 				78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */,
 				78D531902793058B00EF65B2 /* CurrencyCoreDataManager.swift in Sources */,
 				78C6FAF527D3C160002E35E9 /* ThemeTableViewController.swift in Sources */,
+				7802A17727D924E200769693 /* AboutAppDeveloperTableViewCell.swift in Sources */,
 				78C6FAF727D3C188002E35E9 /* ThemeTableViewCell.swift in Sources */,
 				78E9B79A27D7956300BB5249 /* PrivacyPolicyViewController.swift in Sources */,
 				78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */,
