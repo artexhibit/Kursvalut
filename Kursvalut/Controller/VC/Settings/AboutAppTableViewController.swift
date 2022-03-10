@@ -3,10 +3,13 @@ import UIKit
 
 class AboutAppTableViewController: UITableViewController {
     
-    let dataArray = [
-        (header: "", footer: "", data: ["Привет. Меня зовут Игорь, и я единственный разработчик Kursvalut. Спасибо, что пользуетесь приложением. Если Вам не хватает какой-то функции, то смело пишите мне на почту. Вы лучшие! ❤️"])
+    private let dataArray = [
+        (header: "", data: [(name: "", description: "Привет 👋🏻. Меня зовут Игорь, и я единственный разработчик Kursvalut. Спасибо, что пользуетесь приложением. Если Вам не хватает какой-то функции, то пишите мне на почту. Вы лучшие! ❤️", link: "")]),
+        (header: "Источники данных", data: [(name: "cbr-xml-daily.ru", description: "Курсы валют по ЦБ РФ", link: "https://www.cbr-xml-daily.ru")]),
+        (header: "Иконки", data: [(name: "Flaticon", description: "Флаги стран", link: "https://www.flaticon.com"), (name: "SFSymbols", description: "Системные иконки", link: "https://developer.apple.com/sf-symbols/")])
     ]
-    var appVersion: String {
+    private let sectionNumber = (aboutAppCell: 0, providerNameFirst: 1, providerNameSecond: 2)
+    private var appVersion: String {
         guard let dictionary = Bundle.main.infoDictionary else { return "" }
         guard let version = dictionary["CFBundleShortVersionString"] else { return "" }
         return "Версия \(version)"
@@ -14,7 +17,6 @@ class AboutAppTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     //MARK: - TableView DataSource Methods
@@ -24,21 +26,36 @@ class AboutAppTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dataArray.count
+        dataArray[section].data.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return dataArray[section].header
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "aboutAppDeveloperCell", for: indexPath) as! AboutAppDeveloperTableViewCell
-        cell.descriptionLabel.text = dataArray[0].data[0]
-        cell.appVersionLabel.text = appVersion
-        return cell
+        let pickedSection = indexPath.section
+        
+        if pickedSection == sectionNumber.aboutAppCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "aboutAppDeveloperCell", for: indexPath) as! AboutAppDeveloperTableViewCell
+            cell.descriptionLabel.text = dataArray[pickedSection].data[indexPath.row].description
+            cell.appVersionLabel.text = appVersion
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "aboutAppDataProvidersCell", for: indexPath) as! AboutAppDataProvidersTableViewCell
+            cell.providerNameLabel.text = dataArray[pickedSection].data[indexPath.row].name
+            cell.descriptionLabel.text = dataArray[pickedSection].data[indexPath.row].description
+            return cell
+        }
+    }
+    
+    //MARK: - TableView Delegate Methods
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        tableView.estimatedSectionHeaderHeight
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return tableView.estimatedSectionFooterHeight
+       return tableView.estimatedSectionHeaderHeight
     }
 }
