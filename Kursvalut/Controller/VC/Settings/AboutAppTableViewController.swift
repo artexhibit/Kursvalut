@@ -1,5 +1,6 @@
 
 import UIKit
+import SafariServices
 
 class AboutAppTableViewController: UITableViewController {
     
@@ -52,6 +53,15 @@ class AboutAppTableViewController: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let pickedSection = indexPath.section
+        let pickedCell = indexPath.row
+        
+        if pickedSection != sectionNumber.aboutAppCell {
+            let link = dataArray[pickedSection].data[pickedCell].link
+            guard let urlString = URL(string: link) else { return }
+            let safariWebView = SFSafariViewController(url: urlString)
+            present(safariWebView, animated: true)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

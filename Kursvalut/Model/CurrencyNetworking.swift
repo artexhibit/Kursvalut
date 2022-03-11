@@ -10,12 +10,6 @@ struct CurrencyNetworking {
     private var updateTime: String {
         return currencyManager.showTime(with: "\("Обновлено") dd MMM \("в") HH:mm")
     }
-    private var wasLaunched: String {
-        return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
-    }
-    private var today: String {
-        return currencyManager.showTime(with: "MM/dd/yyyy")
-    }
     
     //MARK: - Networking Methods
     
@@ -59,6 +53,12 @@ struct CurrencyNetworking {
     //MARK: - Check For Today's First Launch Method
     
     func checkOnFirstLaunchToday(with label: UILabel = UILabel()) {
+        var wasLaunched: String {
+            return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
+        }
+        var today: String {
+            return currencyManager.showTime(with: "MM/dd/yyyy")
+        }
         var currencyUpdateTime: String {
             return UserDefaults.standard.string(forKey: "currencyUpdateTime") ?? ""
         }

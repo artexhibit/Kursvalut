@@ -1773,8 +1773,8 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7w-xG-Enl">
-                                            <rect key="frame" x="120.5" y="140" width="133" height="49"/>
-                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                            <rect key="frame" x="20" y="140" width="334" height="49"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1783,8 +1783,8 @@
                                         <constraint firstItem="0KZ-xc-LRa" firstAttribute="centerX" secondItem="cw0-y4-Dli" secondAttribute="centerX" id="5XU-gB-bBh"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="K7w-xG-Enl" secondAttribute="bottom" id="8wz-dT-bAU"/>
                                         <constraint firstItem="K7w-xG-Enl" firstAttribute="top" secondItem="0KZ-xc-LRa" secondAttribute="bottom" constant="25" id="KOh-4l-kDg"/>
-                                        <constraint firstItem="K7w-xG-Enl" firstAttribute="centerX" secondItem="cw0-y4-Dli" secondAttribute="centerX" id="VDL-SZ-Yrr"/>
-                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="K7w-xG-Enl" secondAttribute="trailing" constant="20" id="VKg-1o-4FY"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="K7w-xG-Enl" secondAttribute="trailing" id="VKg-1o-4FY"/>
+                                        <constraint firstItem="K7w-xG-Enl" firstAttribute="leading" secondItem="cw0-y4-Dli" secondAttribute="leadingMargin" id="bvi-Nf-a9X"/>
                                         <constraint firstItem="0KZ-xc-LRa" firstAttribute="top" secondItem="cw0-y4-Dli" secondAttribute="top" constant="5" id="uzm-Hs-KSY"/>
                                     </constraints>
                                 </tableViewCellContentView>
