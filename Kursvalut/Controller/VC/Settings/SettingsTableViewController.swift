@@ -1,5 +1,6 @@
 
 import UIKit
+import MessageUI
 
 class SettingsTableViewController: UITableViewController {
     
@@ -27,8 +28,28 @@ class SettingsTableViewController: UITableViewController {
     }
     
     //MARK: - TableView DataSource Methods
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let pickedSection = indexPath.section
+        let pickedCell = indexPath.row
+        
+        if pickedSection == 4 && pickedCell == 2 {
+            let mailComposeVC = SMailComposeViewController(delegate: self)
+            
+            if MFMailComposeViewController.canSendMail() {
+                present(mailComposeVC, animated: true, completion: nil)
+            } else {
+                mailComposeVC.sendThroughMailto()
+            }
+        }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+//MARK: - MFMailComposeViewControllerDelegate Methods
+
+extension SettingsTableViewController:  MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        dismiss(animated: true, completion: nil)
     }
 }
