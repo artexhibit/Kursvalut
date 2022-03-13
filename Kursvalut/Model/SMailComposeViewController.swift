@@ -3,7 +3,7 @@ import MessageUI
 
 class SMailComposeViewController: MFMailComposeViewController {
     
-    init(recipient: [String] = ["igor@kursvalut.app"], subject: String = "", delegate: MFMailComposeViewControllerDelegate?) {
+    init(recipient: [String] = ["ceo@igorcodes.ru"], subject: String = "", delegate: MFMailComposeViewControllerDelegate?) {
         super.init(nibName: nil, bundle: nil)
         setToRecipients(recipient)
         setSubject(subject)
@@ -14,7 +14,7 @@ class SMailComposeViewController: MFMailComposeViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func sendThroughMailto(to recipient: String = "igor@kursvalut.app", with subject: String = "") {
+    func sendThroughMailto(to recipient: String = "ceo@igorcodes.ru", with subject: String = "") {
         guard let emailString = "mailto:\(recipient)?subject=\(subject)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
         guard let emailURL = URL(string: emailString) else { return }
         
