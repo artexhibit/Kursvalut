@@ -1440,14 +1440,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startViewCell" id="hyY-vn-r54" userLabel="Start View Cell" customClass="StartViewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hyY-vn-r54" id="Dx2-ce-Ru7">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Валюты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbc-hr-FHJ" userLabel="viewNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1485,14 +1485,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="M1Q-1H-VHB" userLabel="Theme Cell" customClass="ThemeTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M1Q-1H-VHB" id="3sk-ff-s1w">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Как в системе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrU-4i-37D" userLabel="themeNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1905,44 +1905,37 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Небольшие чаевые" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yu5-ug-fhD">
-                                            <rect key="frame" x="20" y="11" width="259" height="23"/>
+                                            <rect key="frame" x="20" y="11" width="154.5" height="23"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UeR-So-crj" userLabel="Tip View">
-                                            <rect key="frame" x="279" y="7.5" width="90" height="30"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="149,00 ₽" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ref-ls-JRl">
-                                                    <rect key="frame" x="5" y="5" width="80" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" systemColor="tintColor"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zdp-02-HY4">
+                                            <rect key="frame" x="285" y="9" width="79" height="27"/>
+                                            <color key="backgroundColor" red="0.20538118480000001" green="0.46996724610000001" blue="0.96475249529999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="90" id="6SR-5R-u79"/>
-                                                <constraint firstItem="ref-ls-JRl" firstAttribute="centerY" secondItem="UeR-So-crj" secondAttribute="centerY" id="ESr-g1-Qht"/>
-                                                <constraint firstItem="ref-ls-JRl" firstAttribute="leading" secondItem="UeR-So-crj" secondAttribute="leading" constant="5" id="Hrb-tv-I46"/>
-                                                <constraint firstAttribute="height" constant="30" id="S2P-LN-rP9"/>
-                                                <constraint firstAttribute="trailing" secondItem="ref-ls-JRl" secondAttribute="trailing" constant="5" id="cz9-N1-wLe"/>
+                                                <constraint firstAttribute="height" constant="27" id="RNh-Vp-i3h"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="79" id="ZZj-WR-cab"/>
                                             </constraints>
-                                        </view>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="149,00 ₽">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Yu5-ug-fhD" firstAttribute="leading" secondItem="FnO-97-7JX" secondAttribute="leadingMargin" id="0yx-M1-AyJ"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Yu5-ug-fhD" secondAttribute="bottom" id="4qx-90-UCp"/>
-                                        <constraint firstItem="UeR-So-crj" firstAttribute="leading" secondItem="Yu5-ug-fhD" secondAttribute="trailing" id="9aN-Nb-Z3V"/>
                                         <constraint firstItem="Yu5-ug-fhD" firstAttribute="top" secondItem="FnO-97-7JX" secondAttribute="topMargin" id="KXb-Ae-BSG"/>
-                                        <constraint firstAttribute="trailing" secondItem="UeR-So-crj" secondAttribute="trailing" constant="5" id="OQW-ce-fOA"/>
-                                        <constraint firstItem="UeR-So-crj" firstAttribute="centerY" secondItem="FnO-97-7JX" secondAttribute="centerY" id="ty0-Oo-zF8"/>
+                                        <constraint firstItem="zdp-02-HY4" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Yu5-ug-fhD" secondAttribute="trailing" constant="119" id="elf-b1-MsR"/>
+                                        <constraint firstItem="zdp-02-HY4" firstAttribute="centerY" secondItem="FnO-97-7JX" secondAttribute="centerY" id="gT2-RG-TZl"/>
+                                        <constraint firstAttribute="trailing" secondItem="zdp-02-HY4" secondAttribute="trailing" constant="10" id="vCD-jF-LRp"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="tipButton" destination="zdp-02-HY4" id="R7z-cc-oYK"/>
                                     <outlet property="tipNameLabel" destination="Yu5-ug-fhD" id="LBP-eA-Cix"/>
-                                    <outlet property="tipPriceLabel" destination="ref-ls-JRl" id="l9U-vW-nr0"/>
-                                    <outlet property="tipView" destination="UeR-So-crj" id="oJw-dw-apF"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2008,9 +2001,6 @@
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

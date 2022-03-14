@@ -15,7 +15,7 @@ struct CurrencyNetworking {
     
     func performRequest(_ completion: @escaping (Error?) -> Void) {
         if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
+            let session = URLSession(configuration: .ephemeral)
             let task = session.dataTask(with: url) { data, _, error in
                 if error != nil {
                     completion(error)

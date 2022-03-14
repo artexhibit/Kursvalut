@@ -14,7 +14,6 @@ class TipJarTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currencyManager.configureContentInset(for: tableView, top: 20)
         tableViewFooterLabel.text = "Чаевые поддерживают текущую разработку приложения. Спасибо!"
     }
     
@@ -27,7 +26,7 @@ class TipJarTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tipJarCell", for: indexPath) as! TipJarTableViewCell
         cell.tipNameLabel.text = dataArray[indexPath.row].tipName
-        cell.tipPriceLabel.text = dataArray[indexPath.row].tipPrice
+        cell.tipButton.setTitle(dataArray[indexPath.row].tipPrice, for: .normal)
         return cell
     }
 }
