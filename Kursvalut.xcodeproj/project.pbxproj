@@ -19,6 +19,7 @@
 		7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */; };
 		7838F90027885B86007D34AA /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FF27885B86007D34AA /* CurrencyData.swift */; };
 		783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */; };
+		78425CD727E104DA007F78F0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78425CD627E104DA007F78F0 /* StoreKit.framework */; };
 		7852295F279B19E300507877 /* PickCurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7852295E279B19E300507877 /* PickCurrencyTableViewController.swift */; };
 		78522961279B1A1B00507877 /* PickCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78522960279B1A1B00507877 /* PickCurrencyTableViewCell.swift */; };
 		786479AA27981E410077ABC7 /* ConverterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786479A927981E410077ABC7 /* ConverterTableViewController.swift */; };
@@ -62,6 +63,7 @@
 		7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyNetworking.swift; sourceTree = "<group>"; };
 		7838F8FF27885B86007D34AA /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
 		783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalsTableViewCell.swift; sourceTree = "<group>"; };
+		78425CD627E104DA007F78F0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7852295E279B19E300507877 /* PickCurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCurrencyTableViewController.swift; sourceTree = "<group>"; };
 		78522960279B1A1B00507877 /* PickCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		786479A927981E410077ABC7 /* ConverterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterTableViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78425CD727E104DA007F78F0 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +108,7 @@
 				78871A4A2789F4F700321E98 /* README.md */,
 				78041C172786F9FA00C4D861 /* Kursvalut */,
 				78041C162786F9FA00C4D861 /* Products */,
+				78425CD527E104DA007F78F0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,6 +172,14 @@
 				78041C262786F9FB00C4D861 /* LaunchScreen.storyboard */,
 			);
 			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		78425CD527E104DA007F78F0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				78425CD627E104DA007F78F0 /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		7852295B279B173F00507877 /* VC */ = {

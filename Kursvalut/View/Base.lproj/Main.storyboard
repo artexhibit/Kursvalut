@@ -1440,14 +1440,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startViewCell" id="hyY-vn-r54" userLabel="Start View Cell" customClass="StartViewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hyY-vn-r54" id="Dx2-ce-Ru7">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Валюты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbc-hr-FHJ" userLabel="viewNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1485,14 +1485,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="M1Q-1H-VHB" userLabel="Theme Cell" customClass="ThemeTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M1Q-1H-VHB" id="3sk-ff-s1w">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Как в системе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrU-4i-37D" userLabel="themeNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1904,38 +1904,33 @@
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Небольшие чаевые" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yu5-ug-fhD">
-                                            <rect key="frame" x="20" y="11" width="154.5" height="23"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Небольшие чаевые" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yu5-ug-fhD">
+                                            <rect key="frame" x="20" y="12.5" width="154.5" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zdp-02-HY4">
-                                            <rect key="frame" x="285" y="9" width="79" height="27"/>
-                                            <color key="backgroundColor" red="0.20538118480000001" green="0.46996724610000001" blue="0.96475249529999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="149,00 $" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyo-FR-QI1">
+                                            <rect key="frame" x="254.5" y="12.5" width="99.5" height="20"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="27" id="RNh-Vp-i3h"/>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="79" id="ZZj-WR-cab"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="uK4-jp-Ndr"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="149,00 ₽">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                        </button>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Yu5-ug-fhD" firstAttribute="leading" secondItem="FnO-97-7JX" secondAttribute="leadingMargin" id="0yx-M1-AyJ"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Yu5-ug-fhD" secondAttribute="bottom" id="4qx-90-UCp"/>
-                                        <constraint firstItem="Yu5-ug-fhD" firstAttribute="top" secondItem="FnO-97-7JX" secondAttribute="topMargin" id="KXb-Ae-BSG"/>
-                                        <constraint firstItem="zdp-02-HY4" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Yu5-ug-fhD" secondAttribute="trailing" constant="119" id="elf-b1-MsR"/>
-                                        <constraint firstItem="zdp-02-HY4" firstAttribute="centerY" secondItem="FnO-97-7JX" secondAttribute="centerY" id="gT2-RG-TZl"/>
-                                        <constraint firstAttribute="trailing" secondItem="zdp-02-HY4" secondAttribute="trailing" constant="10" id="vCD-jF-LRp"/>
+                                        <constraint firstItem="Yu5-ug-fhD" firstAttribute="leading" secondItem="FnO-97-7JX" secondAttribute="leadingMargin" id="0Vz-Jm-Dpw"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="hyo-FR-QI1" secondAttribute="trailing" id="0fl-ya-VMN"/>
+                                        <constraint firstItem="hyo-FR-QI1" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Yu5-ug-fhD" secondAttribute="trailing" constant="80" id="Dad-MB-44D"/>
+                                        <constraint firstItem="hyo-FR-QI1" firstAttribute="centerY" secondItem="FnO-97-7JX" secondAttribute="centerY" id="IZy-ow-OzC"/>
+                                        <constraint firstItem="Yu5-ug-fhD" firstAttribute="centerY" secondItem="FnO-97-7JX" secondAttribute="centerY" id="mX1-88-Hfx"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="tipButton" destination="zdp-02-HY4" id="R7z-cc-oYK"/>
                                     <outlet property="tipNameLabel" destination="Yu5-ug-fhD" id="LBP-eA-Cix"/>
+                                    <outlet property="tipPriceLabel" destination="hyo-FR-QI1" id="GxK-Jb-lFp"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1951,7 +1946,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1kN-JN-Otj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4557.971014492754" y="1705.5803571428571"/>
+            <point key="canvasLocation" x="4548" y="1705"/>
         </scene>
     </scenes>
     <resources>
