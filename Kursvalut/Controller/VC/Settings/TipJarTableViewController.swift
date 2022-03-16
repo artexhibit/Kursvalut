@@ -5,11 +5,12 @@ import StoreKit
 class TipJarTableViewController: UITableViewController {
     
     @IBOutlet weak var tableViewFooterLabel: UILabel!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var loadCellsSpinner: UIActivityIndicatorView!
     
     private var currencyManager = CurrencyManager()
     private var activityIndicator = UIActivityIndicatorView()
     private var tipsArray = [SKProduct]()
+    private var transactionEnded: Bool = false
     private let tipsID = Set(["ru.igorcodes.kursvalut.smalltip", "ru.igorcodes.kursvalut.mediumtip", "ru.igorcodes.kursvalut.bigtip"])
     
     override func viewDidLoad() {
@@ -30,14 +31,18 @@ class TipJarTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tipJarCell", for: indexPath) as! TipJarTableViewCell
         cell.tipNameLabel.text = tip.localizedTitle
         cell.tipPriceLabel.text = "\(tip.price) \(tip.priceLocale.currencySymbol ?? "$")"
+        
+        if transactionEnded {
+            cell.tipPriceSpinner.stopAnimating()
+            cell.tipPriceLabel.isHidden = false
+        }
         return cell
     }
     
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tipPayment = SKPayment(product: tipsArray[indexPath.row])
-        SKPaymentQueue.default().add(tipPayment)
+        makePurchase(ofTipAt: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -49,36 +54,45 @@ extension TipJarTableViewController: SKProductsRequestDelegate, SKPaymentTransac
             let request = SKProductsRequest(productIdentifiers: tipsID)
             request.delegate = self
             request.start()
-            spinner.startAnimating()
+            loadCellsSpinner.startAnimating()
         } else {
             print("You can't make payments")
         }
     }
+    
+    func makePurchase(ofTipAt indexPath: IndexPath) {
+        let tipPayment = SKPayment(product: tipsArray[indexPath.row])
+        let cell = tableView.cellForRow(at: indexPath) as! TipJarTableViewCell
+        
+        cell.tipPriceSpinner.startAnimating()
+        cell.tipPriceLabel.isHidden = true
+        SKPaymentQueue.default().add(tipPayment)
+    }
+
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         DispatchQueue.main.async {
             self.tipsArray = response.products
             self.tipsArray.sort(by: {$0.price.floatValue < $1.price.floatValue})
             self.tableView.reloadData()
-            self.spinner.stopAnimating()
+            self.loadCellsSpinner.stopAnimating()
         }
     }
     
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
-            switch transaction.transactionState {
-            case .purchased:
+            if transaction.transactionState == .purchased {
+                transactionEnded = true
+                tableView.reloadData()
                 SKPaymentQueue.default().finishTransaction(transaction)
-            case .failed:
+            } else if transaction.transactionState == .failed {
+                if let error = transaction.error {
+                    let errorDescription = error.localizedDescription
+                    print(errorDescription)
+                }
+                transactionEnded = true
+                tableView.reloadData()
                 SKPaymentQueue.default().finishTransaction(transaction)
-            case .restored:
-                break
-            case .purchasing:
-                break
-            case .deferred:
-                break
-            @unknown default:
-                break
             }
         }
     }

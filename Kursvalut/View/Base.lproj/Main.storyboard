@@ -1915,7 +1915,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="149,00 $" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyo-FR-QI1">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="149 $" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyo-FR-QI1">
                                             <rect key="frame" x="254.5" y="11" width="99.5" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="uK4-jp-Ndr"/>
@@ -1924,15 +1924,20 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="vMV-mp-JfG">
+                                            <rect key="frame" x="324" y="12.5" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Yu5-ug-fhD" firstAttribute="leading" secondItem="FnO-97-7JX" secondAttribute="leadingMargin" id="0Vz-Jm-Dpw"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="hyo-FR-QI1" secondAttribute="trailing" id="0fl-ya-VMN"/>
+                                        <constraint firstItem="vMV-mp-JfG" firstAttribute="centerY" secondItem="FnO-97-7JX" secondAttribute="centerY" id="49Y-lJ-F9h"/>
                                         <constraint firstItem="Yu5-ug-fhD" firstAttribute="top" secondItem="FnO-97-7JX" secondAttribute="topMargin" id="9ig-Nf-Pib"/>
                                         <constraint firstItem="hyo-FR-QI1" firstAttribute="top" secondItem="FnO-97-7JX" secondAttribute="topMargin" id="CdI-ZM-rUR"/>
                                         <constraint firstItem="hyo-FR-QI1" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Yu5-ug-fhD" secondAttribute="trailing" constant="80" id="Dad-MB-44D"/>
                                         <constraint firstItem="hyo-FR-QI1" firstAttribute="centerY" secondItem="FnO-97-7JX" secondAttribute="centerY" id="IZy-ow-OzC"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="hyo-FR-QI1" secondAttribute="bottom" id="UIa-x7-tl3"/>
+                                        <constraint firstAttribute="trailing" secondItem="vMV-mp-JfG" secondAttribute="trailing" constant="30" id="i1t-e9-e09"/>
                                         <constraint firstItem="Yu5-ug-fhD" firstAttribute="centerY" secondItem="FnO-97-7JX" secondAttribute="centerY" id="mX1-88-Hfx"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Yu5-ug-fhD" secondAttribute="bottom" id="urs-lv-Xj6"/>
                                     </constraints>
@@ -1940,6 +1945,7 @@
                                 <connections>
                                     <outlet property="tipNameLabel" destination="Yu5-ug-fhD" id="LBP-eA-Cix"/>
                                     <outlet property="tipPriceLabel" destination="hyo-FR-QI1" id="GxK-Jb-lFp"/>
+                                    <outlet property="tipPriceSpinner" destination="vMV-mp-JfG" id="Mhq-8L-U3q"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1950,7 +1956,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Оставить чаевые" id="l4i-oP-Zwh"/>
                     <connections>
-                        <outlet property="spinner" destination="Ya8-p6-2Ks" id="oZa-7F-Jy8"/>
+                        <outlet property="loadCellsSpinner" destination="Ya8-p6-2Ks" id="FlM-64-jDQ"/>
                         <outlet property="tableViewFooterLabel" destination="SSt-As-SwQ" id="mrV-Y0-vIo"/>
                     </connections>
                 </tableViewController>
