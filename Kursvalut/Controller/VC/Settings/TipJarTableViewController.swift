@@ -5,8 +5,10 @@ import StoreKit
 class TipJarTableViewController: UITableViewController {
     
     @IBOutlet weak var tableViewFooterLabel: UILabel!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     private var currencyManager = CurrencyManager()
+    private var activityIndicator = UIActivityIndicatorView()
     private var tipsArray = [SKProduct]()
     private let tipsID = Set(["ru.igorcodes.kursvalut.smalltip", "ru.igorcodes.kursvalut.mediumtip", "ru.igorcodes.kursvalut.bigtip"])
     
@@ -47,6 +49,7 @@ extension TipJarTableViewController: SKProductsRequestDelegate, SKPaymentTransac
             let request = SKProductsRequest(productIdentifiers: tipsID)
             request.delegate = self
             request.start()
+            spinner.startAnimating()
         } else {
             print("You can't make payments")
         }
@@ -57,6 +60,7 @@ extension TipJarTableViewController: SKProductsRequestDelegate, SKPaymentTransac
             self.tipsArray = response.products
             self.tipsArray.sort(by: {$0.price.floatValue < $1.price.floatValue})
             self.tableView.reloadData()
+            self.spinner.stopAnimating()
         }
     }
     
