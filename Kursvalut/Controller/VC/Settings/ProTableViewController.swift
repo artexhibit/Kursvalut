@@ -19,21 +19,13 @@ class ProViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        purchaseButton.layer.cornerRadius = 15
-        purchaseLabel.text = "Единоразовая покупка • Всего за 99 ₽"
-        purchaseViewSetup()
+        purchaseView.layer.cornerRadius = 20
+        purchaseButton.layer.cornerRadius = 12
+        purchaseLabel.text = "Всего за 99 ₽"
     }
     
     @IBAction func dismissButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
-    }
-    
-    func purchaseViewSetup() {
-        purchaseView.layer.cornerRadius = 25.0
-        purchaseView.layer.shadowColor = UIColor.darkGray.cgColor
-        purchaseView.layer.shadowRadius = 15
-        purchaseView.layer.shadowOpacity = 0.5
-        purchaseView.layer.shadowOffset = .zero
     }
 }
 
