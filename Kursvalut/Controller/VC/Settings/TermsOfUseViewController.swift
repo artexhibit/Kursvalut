@@ -20,6 +20,11 @@ class TermsOfUseViewController: UIViewController {
         currencyManager.configureContentInset(for: tableView, top: 20)
     }
     
+    @IBAction func closeButtonPressed(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    
+    
     @IBAction func contactButtonPressed(_ sender: UIButton) {
         let subject = "Вопрос по условиям использования"
         let mailComposeVC = SMailComposeViewController(subject: subject, delegate: self)
