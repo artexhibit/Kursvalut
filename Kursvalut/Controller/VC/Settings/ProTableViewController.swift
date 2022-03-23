@@ -1,12 +1,18 @@
 
 import UIKit
+import StoreKit
 
 class ProViewController: UIViewController {
     
+    
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var purchaseButton: UIButton!
     @IBOutlet weak var purchaseView: UIView!
-    @IBOutlet weak var purchaseLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var purchaseSpinner: UIActivityIndicatorView!
+    @IBOutlet weak var priceSpinner: UIActivityIndicatorView!
     
+    private var tipsArray = [SKProduct]()
     private let dataArray = [
         (backColor: UIColor(red: 255/255, green: 235/255, blue: 100/255, alpha: 0.3), icon: UIImage(named: "apps.iphone"), iconColor: UIColor.systemYellow, title: "Стартовый экран", description: "Экономьте время - нужный экран будет открываться мгновенно."),
         (backColor: UIColor(red: 0/255, green: 255/255, blue: 90/255, alpha: 0.3), icon: UIImage(named: "arrow.up.arrow.down"), iconColor: UIColor.systemGreen, title: "Сортировка списка валют", description: "Настройте расположение валют в удобном вам порядке."),
@@ -19,14 +25,23 @@ class ProViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchTips()
         purchaseView.layer.cornerRadius = 20
         purchaseButton.layer.cornerRadius = 12
-        purchaseLabel.text = "Всего за 99 ₽"
     }
     
     @IBAction func dismissButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
+    
+    @IBAction func purchaseButtonPressed(_ sender: UIButton) {
+        let tipPayment = SKPayment(product: tipsArray[0])
+        SKPaymentQueue.default().add(self)
+        SKPaymentQueue.default().add(tipPayment)
+        purchaseButton.isHidden = true
+        purchaseSpinner.startAnimating()
+    }
+    
 }
 
 //MARK: - TableView DataSource Methods
@@ -47,4 +62,53 @@ extension ProViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+}
+
+//MARK: - In-App Purchase Methods
+
+extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver {
+    
+    func fetchTips() {
+        if SKPaymentQueue.canMakePayments() {
+            let request = SKProductsRequest(productIdentifiers: Set(["ru.igorcodes.kursvalut.pro"]))
+            request.delegate = self
+            request.start()
+            priceSpinner.startAnimating()
+        } else {
+            print("You can't make payments")
+        }
+    }
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        
+        DispatchQueue.main.async {
+            for product in response.products {
+                if product.localizedTitle == "Kursvalut Pro" {
+                    self.tipsArray.append(product)
+                    self.priceLabel.text = "\(product.price) \(product.priceLocale.currencySymbol ?? "$")"
+                    self.priceSpinner.stopAnimating()
+                }
+            }
+        }
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            if transaction.transactionState == .purchased {
+                purchaseButton.isHidden = false
+                purchaseSpinner.stopAnimating()
+                SKPaymentQueue.default().finishTransaction(transaction)
+            } else if transaction.transactionState == .failed {
+                if let error = transaction.error {
+                    let errorDescription = error.localizedDescription
+                    print(errorDescription)
+                }
+                purchaseButton.isHidden = false
+                purchaseSpinner.stopAnimating()
+                SKPaymentQueue.default().finishTransaction(transaction)
+            }
+        }
+    }
+    
+    
 }
