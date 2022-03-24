@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kPs-c4-rso">
-    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -2124,49 +2124,25 @@
                                                     <color key="textColor" name="BlueColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ISP-wd-CSa">
-                                                    <rect key="frame" x="0.5" y="13.5" width="105.5" height="27.5"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4GX-K5-3CF">
+                                                    <rect key="frame" x="7.5" y="13.5" width="91.5" height="27.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="всего за" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="Loe-rb-blY">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="всего за" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="dbk-aA-9tL">
                                                             <rect key="frame" x="0.0" y="3.5" width="66.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="aMM-WO-siX" userLabel="Price View">
-                                                            <rect key="frame" x="68.5" y="5" width="37" height="18"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="dbk-aA-9tL">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="37" height="0.0"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="eu6-VP-ul3">
-                                                                    <rect key="frame" x="8.5" y="-1" width="20" height="20"/>
-                                                                </activityIndicatorView>
-                                                            </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="18" id="E94-1G-hOh"/>
-                                                                <constraint firstAttribute="trailing" secondItem="dbk-aA-9tL" secondAttribute="trailing" id="NZ1-oe-d92"/>
-                                                                <constraint firstItem="eu6-VP-ul3" firstAttribute="centerX" secondItem="aMM-WO-siX" secondAttribute="centerX" id="QLq-dD-mcD"/>
-                                                                <constraint firstItem="dbk-aA-9tL" firstAttribute="centerX" secondItem="aMM-WO-siX" secondAttribute="centerX" id="Uef-W1-zLc"/>
-                                                                <constraint firstItem="eu6-VP-ul3" firstAttribute="centerY" secondItem="aMM-WO-siX" secondAttribute="centerY" id="gxM-2q-iT7"/>
-                                                                <constraint firstItem="dbk-aA-9tL" firstAttribute="top" secondItem="aMM-WO-siX" secondAttribute="top" id="qEU-ob-Tot"/>
-                                                                <constraint firstItem="eu6-VP-ul3" firstAttribute="leading" secondItem="aMM-WO-siX" secondAttribute="leading" constant="8.5" id="xPq-32-3ET"/>
-                                                            </constraints>
-                                                        </view>
+                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="eu6-VP-ul3">
+                                                            <rect key="frame" x="71.5" y="4" width="20" height="20"/>
+                                                        </activityIndicatorView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="Loe-rb-blY" firstAttribute="centerY" secondItem="ISP-wd-CSa" secondAttribute="centerY" id="CAb-et-j92"/>
-                                                        <constraint firstItem="aMM-WO-siX" firstAttribute="centerY" secondItem="ISP-wd-CSa" secondAttribute="centerY" id="fan-2Y-zYM"/>
-                                                        <constraint firstAttribute="trailing" secondItem="aMM-WO-siX" secondAttribute="trailing" id="iib-nh-3sG"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="106" id="KcB-UC-NYk"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="41" id="E66-MH-AXw"/>
-                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="106" id="lYe-6a-bpF"/>
                                             </constraints>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cDL-hy-CNe">

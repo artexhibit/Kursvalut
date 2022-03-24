@@ -28,6 +28,7 @@ class ProViewController: UIViewController {
         fetchTips()
         purchaseView.layer.cornerRadius = 20
         purchaseButton.layer.cornerRadius = 12
+        priceSpinner.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
     }
     
     @IBAction func dismissButtonPressed(_ sender: UIBarButtonItem) {
@@ -85,7 +86,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
             for product in response.products {
                 if product.localizedTitle == "Kursvalut Pro" {
                     self.tipsArray.append(product)
-                    self.priceLabel.text = "\(product.price) \(product.priceLocale.currencySymbol ?? "$")"
+                    self.priceLabel.text = "всего за \(product.price) \(product.priceLocale.currencySymbol ?? "$")"
                     self.priceSpinner.stopAnimating()
                 }
             }
@@ -96,7 +97,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
         for transaction in transactions {
             if transaction.transactionState == .purchased {
                 purchaseButton.isHidden = false
-                purchaseSpinner.stopAnimating()
+                setPurchasedButton()
                 SKPaymentQueue.default().finishTransaction(transaction)
             } else if transaction.transactionState == .failed {
                 if let error = transaction.error {
@@ -110,5 +111,12 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
         }
     }
     
+    //MARK: - User Interface Change Methods
     
+    func setPurchasedButton() {
+        purchaseButton.backgroundColor = UIColor.systemGreen
+        purchaseButton.setTitle("КУПЛЕНО", for: .normal)
+        purchaseButton.isUserInteractionEnabled = false
+        purchaseSpinner.stopAnimating()
+    }
 }
