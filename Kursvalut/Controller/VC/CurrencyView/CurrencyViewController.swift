@@ -177,6 +177,7 @@ extension CurrencyViewController {
                 DispatchQueue.main.async {
                     self.updateTimeLabel.text = self.currencyUpdateTime
                     self.tableView.refreshControl?.endRefreshing()
+                    PopupView.instance.createPopup(title: "Успешно", message: "Курсы загружены", symbol: UIImage(named: "checkmark.circle.fill")!, on: self)
                 }
             }
         }

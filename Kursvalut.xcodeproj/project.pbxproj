@@ -35,6 +35,8 @@
 		78B40A1027D659BB0016D9E6 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B40A0F27D659BB0016D9E6 /* TermsOfUseViewController.swift */; };
 		78B40A1327D659F60016D9E6 /* TermsOfUseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B40A1227D659F60016D9E6 /* TermsOfUseTableViewCell.swift */; };
 		78B49AE427CBD3D5003C975D /* DecimalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */; };
+		78BD46DB27F06B6D002AFDA1 /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78BD46DA27F06B6D002AFDA1 /* PopupView.xib */; };
+		78BD46DF27F07460002AFDA1 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BD46DE27F07460002AFDA1 /* PopupView.swift */; };
 		78C6FAF527D3C160002E35E9 /* ThemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C6FAF427D3C160002E35E9 /* ThemeTableViewController.swift */; };
 		78C6FAF727D3C188002E35E9 /* ThemeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C6FAF627D3C188002E35E9 /* ThemeTableViewCell.swift */; };
 		78D3DA0A2787313D00A91511 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78041C1E2786F9FA00C4D861 /* Main.storyboard */; };
@@ -81,6 +83,8 @@
 		78B40A0F27D659BB0016D9E6 /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		78B40A1227D659F60016D9E6 /* TermsOfUseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseTableViewCell.swift; sourceTree = "<group>"; };
 		78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalsTableViewController.swift; sourceTree = "<group>"; };
+		78BD46DA27F06B6D002AFDA1 /* PopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupView.xib; sourceTree = "<group>"; };
+		78BD46DE27F07460002AFDA1 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		78C6FAF427D3C160002E35E9 /* ThemeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableViewController.swift; sourceTree = "<group>"; };
 		78C6FAF627D3C188002E35E9 /* ThemeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableViewCell.swift; sourceTree = "<group>"; };
 		78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 				78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */,
 				7838F8FF27885B86007D34AA /* CurrencyData.swift */,
 				7813102727D75FE000065410 /* SMailComposeViewController.swift */,
+				78BD46DE27F07460002AFDA1 /* PopupView.swift */,
 				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
 			);
 			path = Model;
@@ -174,6 +179,7 @@
 			children = (
 				78041C242786F9FB00C4D861 /* Assets.xcassets */,
 				78041C262786F9FB00C4D861 /* LaunchScreen.storyboard */,
+				78BD46DA27F06B6D002AFDA1 /* PopupView.xib */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -335,6 +341,7 @@
 			files = (
 				78D3DA0A2787313D00A91511 /* Main.storyboard in Resources */,
 				78041C282786F9FB00C4D861 /* LaunchScreen.storyboard in Resources */,
+				78BD46DB27F06B6D002AFDA1 /* PopupView.xib in Resources */,
 				78871A4B2789F4F700321E98 /* README.md in Resources */,
 				78041C252786F9FB00C4D861 /* Assets.xcassets in Resources */,
 			);
@@ -356,6 +363,7 @@
 				7813102827D75FE000065410 /* SMailComposeViewController.swift in Sources */,
 				7852295F279B19E300507877 /* PickCurrencyTableViewController.swift in Sources */,
 				78041C1D2786F9FA00C4D861 /* CurrencyViewController.swift in Sources */,
+				78BD46DF27F07460002AFDA1 /* PopupView.swift in Sources */,
 				78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */,
 				78D531902793058B00EF65B2 /* CurrencyCoreDataManager.swift in Sources */,
 				786C01A327DE50E300868EBE /* TipJarTableViewController.swift in Sources */,
