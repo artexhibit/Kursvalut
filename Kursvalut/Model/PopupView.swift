@@ -3,8 +3,6 @@ import UIKit
 
 class PopupView: UIView {
     
-    static let instance = PopupView()
-    
     @IBOutlet weak var popupView: UIVisualEffectView!
     @IBOutlet weak var symbol: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -12,22 +10,31 @@ class PopupView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        Bundle.main.loadNibNamed("PopupView", owner: self)
+        configure()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        configure()
     }
     
-    func createPopup(title: String, message: String, symbol: UIImage, on viewController: UIViewController) {
-        self.titleLabel.text = title
-        self.descriptionLabel.text = message
+    private func configure() {
+        if let views = Bundle.main.loadNibNamed("PopupView", owner: self) {
+            guard let view = views.first as? UIView else { return }
+            view.frame = bounds
+            addSubview(view)
+        }
+    }
+    
+    func showPopup(title: String, message: String, symbol: UIImage, on viewController: UIViewController) {
+
+        titleLabel.text = title
+        descriptionLabel.text = message
         self.symbol.image = symbol
         
         popupView.layer.cornerRadius = 20
-        popupView.translatesAutoresizingMaskIntoConstraints = true
-        popupView.center.x = viewController.view.center.x
-        viewController.view.addSubview(self.popupView)
+        popupView.clipsToBounds = true
+        viewController.view.addSubview(self)
         
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveLinear) {
             self.popupView.center.y += 40
