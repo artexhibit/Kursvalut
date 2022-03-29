@@ -27,24 +27,24 @@ class PopupView: UIView {
     }
     
     func showPopup(title: String, message: String, symbol: UIImage, on viewController: UIViewController) {
-
         titleLabel.text = title
         descriptionLabel.text = message
         self.symbol.image = symbol
         
         popupView.layer.cornerRadius = 20
         popupView.clipsToBounds = true
-        viewController.view.addSubview(self)
+        popupView.center.x = viewController.view.center.x
+        popupView.translatesAutoresizingMaskIntoConstraints = true
+        viewController.navigationController?.view.addSubview(popupView)
         
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveLinear) {
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveLinear) {
             self.popupView.center.y += 40
         } completion: { _ in
-            UIView.animate(withDuration: 0.3, delay: 3.0, options: .curveLinear) {
-                self.popupView.center.y -= 80
+            UIView.animate(withDuration: 0.15, delay: 2.0, options: .curveLinear) {
+                self.popupView.center.y -= 40
             } completion: { _ in
                 self.popupView.removeFromSuperview()
             }
-            
         }
     }
 }

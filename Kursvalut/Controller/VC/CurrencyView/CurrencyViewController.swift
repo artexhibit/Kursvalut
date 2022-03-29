@@ -171,16 +171,17 @@ extension CurrencyViewController {
     @objc func didPullToRefresh() {
         currencyNetworking.performRequest { error in
             if error != nil {
-                print(error!.localizedDescription)
-                return
+                DispatchQueue.main.async {
+                    self.tableView.refreshControl?.endRefreshing()
+                    PopupView().showPopup(title: "Упс, что-то пошло не так", message: "\(error!.localizedDescription)", symbol: UIImage(named: "okHand")!, on: self)
+                }
             } else {
                 DispatchQueue.main.async {
                     self.updateTimeLabel.text = self.currencyUpdateTime
                     self.tableView.refreshControl?.endRefreshing()
-                    
-                    let frame = CGRect(x: self.view.frame.midX, y: 0, width: 0, height: 140)
-                    let popup = PopupView(frame: frame)
-                    popup.showPopup(title: "Обновлено", message: "Курсы актуальны", symbol: UIImage(named: "checkmark.circle.fill")!, on: self)
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", symbol: UIImage(named: "okHand")!, on: self)
                 }
             }
         }
