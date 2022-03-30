@@ -173,15 +173,15 @@ extension CurrencyViewController {
             if error != nil {
                 DispatchQueue.main.async {
                     self.tableView.refreshControl?.endRefreshing()
-                    PopupView().showPopup(title: "Упс, что-то пошло не так", message: "\(error!.localizedDescription)", symbol: UIImage(named: "okHand")!, on: self)
+                    PopupView().showPopup(title: "Ошибка", message: "\(error!.localizedDescription)", symbol: UIImage(named: "okHand")!)
                 }
             } else {
                 DispatchQueue.main.async {
                     self.updateTimeLabel.text = self.currencyUpdateTime
                     self.tableView.refreshControl?.endRefreshing()
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", symbol: UIImage(named: "okHand")!, on: self)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", symbol: UIImage(named: "okHand")!)
                 }
             }
         }
