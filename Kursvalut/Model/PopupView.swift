@@ -9,6 +9,7 @@ class PopupView: UIView {
     @IBOutlet weak var descriptionLabel: UILabel!
     
     private var isRemovedBySwipe = false
+    private var yAdjustment: CGFloat = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,6 +36,7 @@ class PopupView: UIView {
     private func animatePopup() {
         UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveLinear) {
             self.popupView.center.y += 40
+            self.yAdjustment = self.popupView.frame.origin.y
         } completion: { _ in
             UIView.animate(withDuration: 0.15, delay: 4.0, options: .curveLinear) {
                 self.popupView.center.y -= 50
@@ -54,11 +56,10 @@ class PopupView: UIView {
     }
     
     @objc private func didSwipe(_ sender:UISwipeGestureRecognizer) {
-        guard let window = UIApplication.shared.windows.first(where: {$0.isKeyWindow}) else { return }
-        let tappedArea = sender.location(in: popupView)
-        let popupFrame = CGRect(x: tappedArea.x, y: tappedArea.y, width: popupView.frame.width, height: popupView.frame.height)
-        
-        if sender.direction == .up, window.frame.contains(popupFrame) {
+        let popupFrame = popupView.bounds
+        var tappedArea = sender.location(in: popupView)
+        tappedArea.y -= (yAdjustment - popupView.frame.origin.y)
+        if sender.direction == .up, popupFrame.contains(tappedArea) {
             UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveLinear) {
                 self.popupView.center.y -= 50
             } completion: { _ in
