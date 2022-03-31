@@ -23,30 +23,30 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kse-pV-zuk">
-                    <rect key="frame" x="4" y="0.0" width="220" height="50"/>
+                    <rect key="frame" x="14" y="0.0" width="200" height="50"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6vZ-kb-RH4">
-                        <rect key="frame" x="0.0" y="0.0" width="220" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" translatesAutoresizingMaskIntoConstraints="NO" id="b6w-wL-w9q">
-                                <rect key="frame" x="20" y="12.5" width="25" height="25"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thinkingFace" translatesAutoresizingMaskIntoConstraints="NO" id="b6w-wL-w9q">
+                                <rect key="frame" x="10" y="12.5" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="hsU-PU-EkI"/>
                                     <constraint firstAttribute="height" constant="25" id="wWO-aR-ic9"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="YPm-FI-PjL">
-                                <rect key="frame" x="50" y="10" width="165" height="30"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="YPm-FI-PjL">
+                                <rect key="frame" x="40" y="10" width="150" height="30"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Обновлено" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="g0g-0z-EZb">
-                                        <rect key="frame" x="0.0" y="0.0" width="165" height="5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Ошибка -1000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="g0g-0z-EZb">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="15"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Не удается загрузить данные. Проверьте соединение с интернетом" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="G3H-cQ-dH7">
-                                        <rect key="frame" x="0.0" y="5" width="165" height="25"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Повторите ещё раз позже" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="G3H-cQ-dH7">
+                                        <rect key="frame" x="0.0" y="15" width="150" height="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" systemColor="systemGrayColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -54,18 +54,18 @@
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="YPm-FI-PjL" secondAttribute="trailing" constant="5" id="1Yo-EO-nK2"/>
+                            <constraint firstAttribute="trailing" secondItem="YPm-FI-PjL" secondAttribute="trailing" constant="10" id="1Yo-EO-nK2"/>
                             <constraint firstItem="YPm-FI-PjL" firstAttribute="top" secondItem="6vZ-kb-RH4" secondAttribute="top" constant="10" id="SuN-Y6-5Wf"/>
                             <constraint firstItem="YPm-FI-PjL" firstAttribute="centerY" secondItem="6vZ-kb-RH4" secondAttribute="centerY" id="TV2-2R-2sN"/>
                             <constraint firstItem="YPm-FI-PjL" firstAttribute="leading" secondItem="b6w-wL-w9q" secondAttribute="trailing" constant="5" id="eYL-zj-ylR"/>
                             <constraint firstItem="b6w-wL-w9q" firstAttribute="centerY" secondItem="6vZ-kb-RH4" secondAttribute="centerY" id="f1F-1N-Vb7"/>
-                            <constraint firstItem="b6w-wL-w9q" firstAttribute="leading" secondItem="6vZ-kb-RH4" secondAttribute="leading" constant="20" id="pPp-sB-ieS"/>
+                            <constraint firstItem="b6w-wL-w9q" firstAttribute="leading" secondItem="6vZ-kb-RH4" secondAttribute="leading" constant="10" id="pPp-sB-ieS"/>
                             <constraint firstAttribute="bottom" secondItem="YPm-FI-PjL" secondAttribute="bottom" constant="10" id="zXZ-w4-cK6"/>
                         </constraints>
                     </view>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="5bP-9J-KVD"/>
-                        <constraint firstAttribute="width" constant="220" id="Jg0-fA-CDh"/>
+                        <constraint firstAttribute="width" constant="200" id="Jg0-fA-CDh"/>
                     </constraints>
                     <blurEffect style="systemUltraThinMaterial"/>
                 </visualEffectView>
@@ -83,7 +83,7 @@
         </view>
     </objects>
     <resources>
-        <image name="checkmark.circle.fill" width="11" height="11"/>
+        <image name="thinkingFace" width="213" height="213"/>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

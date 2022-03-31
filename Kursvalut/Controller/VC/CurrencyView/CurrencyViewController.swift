@@ -169,11 +169,11 @@ extension CurrencyViewController {
     }
     
     @objc func didPullToRefresh() {
-        currencyNetworking.performRequest { error in
-            if error != nil {
+        currencyNetworking.performRequest { errorCode in
+            if errorCode != nil {
                 DispatchQueue.main.async {
                     self.tableView.refreshControl?.endRefreshing()
-                    PopupView().showPopup(title: "Ошибка", message: "\(error!.localizedDescription)", symbol: UIImage(named: "okHand")!)
+                    PopupView().showPopup(title: "Ошибка \(errorCode ?? 0)", message: "Повторите ещё раз позже", type: .failure)
                 }
             } else {
                 DispatchQueue.main.async {
@@ -181,7 +181,7 @@ extension CurrencyViewController {
                     self.tableView.refreshControl?.endRefreshing()
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", symbol: UIImage(named: "okHand")!)
+                    PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
                 }
             }
         }

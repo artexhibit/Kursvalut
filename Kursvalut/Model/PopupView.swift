@@ -11,6 +11,12 @@ class PopupView: UIView {
     private var isRemovedBySwipe = false
     private var yAdjustment: CGFloat = 0
     
+    enum PopupType {
+        case success
+        case failure
+        case purchase
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         Bundle.main.loadNibNamed("PopupView", owner: self)
@@ -38,7 +44,7 @@ class PopupView: UIView {
             self.popupView.center.y += 40
             self.yAdjustment = self.popupView.frame.origin.y
         } completion: { _ in
-            UIView.animate(withDuration: 0.15, delay: 4.0, options: .curveLinear) {
+            UIView.animate(withDuration: 0.15, delay: 3.0, options: .curveLinear) {
                 self.popupView.center.y -= 50
             } completion: { _ in
                 if !self.isRemovedBySwipe {
@@ -56,10 +62,10 @@ class PopupView: UIView {
     }
     
     @objc private func didSwipe(_ sender:UISwipeGestureRecognizer) {
-        let popupFrame = popupView.bounds
         var tappedArea = sender.location(in: popupView)
         tappedArea.y -= (yAdjustment - popupView.frame.origin.y)
-        if sender.direction == .up, popupFrame.contains(tappedArea) {
+        
+        if sender.direction == .up, popupView.bounds.contains(tappedArea) {
             UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveLinear) {
                 self.popupView.center.y -= 50
             } completion: { _ in
@@ -69,9 +75,17 @@ class PopupView: UIView {
         }
     }
     
-    func showPopup(title: String, message: String, symbol: UIImage) {
+    func showPopup(title: String, message: String, type: PopupType) {
         titleLabel.text = title
         descriptionLabel.text = message
-        self.symbol.image = symbol
+        
+        switch type {
+        case .success:
+            self.symbol.image = UIImage(named: "okHand")
+        case .failure:
+            self.symbol.image = UIImage(named: "thinkingFace")
+        case .purchase:
+            self.symbol.image = UIImage(named: "heartEyesEmoji")
+        }
     }
 }

@@ -13,12 +13,13 @@ struct CurrencyNetworking {
     
     //MARK: - Networking Methods
     
-    func performRequest(_ completion: @escaping (Error?) -> Void) {
+    func performRequest(_ completion: @escaping (Int?) -> Void) {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .ephemeral)
             let task = session.dataTask(with: url) { data, _, error in
                 if error != nil {
-                    completion(error)
+                    guard let error = error as NSError? else {return}
+                    completion(error.code)
                     return
                 }
                 if let data = data {
@@ -68,13 +69,16 @@ struct CurrencyNetworking {
                 label.text = currencyUpdateTime
             }
         } else {
-            performRequest { error in
-                if error != nil {
-                    print(error!.localizedDescription)
+            performRequest { errorCode in
+                if errorCode != nil {
+                    DispatchQueue.main.async {
+                        PopupView().showPopup(title: "Ошибка \(errorCode ?? 0)", message: "Повторите ещё раз позже", type: .failure)
+                    }
                     return
                 } else {
                     DispatchQueue.main.async {
                         label.text = currencyUpdateTime
+                        PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
                     }
                     UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
                 }
