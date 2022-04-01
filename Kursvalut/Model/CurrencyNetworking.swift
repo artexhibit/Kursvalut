@@ -18,7 +18,7 @@ struct CurrencyNetworking {
             let session = URLSession(configuration: .ephemeral)
             let task = session.dataTask(with: url) { data, _, error in
                 if error != nil {
-                    guard let error = error as NSError? else {return}
+                    guard let error = error as NSError? else { return }
                     completion(error.code)
                     return
                 }

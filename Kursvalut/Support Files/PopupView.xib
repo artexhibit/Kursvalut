@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kse-pV-zuk">
-                    <rect key="frame" x="14" y="0.0" width="200" height="50"/>
+                    <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6vZ-kb-RH4">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -73,8 +73,10 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="kse-pV-zuk" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1ff-93-bZ7"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kse-pV-zuk" secondAttribute="trailing" priority="999" id="DL1-kZ-Zjg"/>
+                <constraint firstAttribute="bottom" secondItem="kse-pV-zuk" secondAttribute="bottom" priority="999" id="UrI-io-AyK"/>
                 <constraint firstItem="kse-pV-zuk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VVl-yN-Qmq"/>
+                <constraint firstItem="kse-pV-zuk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="kef-Rd-jtl"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

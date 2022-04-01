@@ -84,16 +84,20 @@ extension TipJarTableViewController: SKProductsRequestDelegate, SKPaymentTransac
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             if transaction.transactionState == .purchased {
-                transactionEnded = true
-                tableView.reloadData()
-                SKPaymentQueue.default().finishTransaction(transaction)
-            } else if transaction.transactionState == .failed {
-                if let error = transaction.error {
-                    let errorDescription = error.localizedDescription
-                    print(errorDescription)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    PopupView().showPopup(title: "Успешно", message: "Спасибо! Ты - супер!", type: .purchase)
                 }
                 transactionEnded = true
-                tableView.reloadData()
+                SKPaymentQueue.default().finishTransaction(transaction)
+            } else if transaction.transactionState == .failed {
+                guard let error = transaction.error as? NSError else { return }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    PopupView().showPopup(title: "Ошибка \(error.code)", message: "Не удалось оплатить", type: .failure)
+                }
+                transactionEnded = true
                 SKPaymentQueue.default().finishTransaction(transaction)
             }
         }

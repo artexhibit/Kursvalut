@@ -5,6 +5,7 @@ class SMailComposeViewController: MFMailComposeViewController {
     
     init(recipient: [String] = ["ceo@igorcodes.ru"], subject: String = "", delegate: MFMailComposeViewControllerDelegate?) {
         super.init(nibName: nil, bundle: nil)
+        
         setToRecipients(recipient)
         setSubject(subject)
         mailComposeDelegate = delegate

@@ -15,6 +15,7 @@ class PopupView: UIView {
         case success
         case failure
         case purchase
+        case emailContact
     }
     
     override init(frame: CGRect) {
@@ -44,7 +45,7 @@ class PopupView: UIView {
             self.popupView.center.y += 40
             self.yAdjustment = self.popupView.frame.origin.y
         } completion: { _ in
-            UIView.animate(withDuration: 0.15, delay: 3.0, options: .curveLinear) {
+            UIView.animate(withDuration: 0.15, delay: 4.0, options: .curveLinear) {
                 self.popupView.center.y -= 50
             } completion: { _ in
                 if !self.isRemovedBySwipe {
@@ -86,6 +87,8 @@ class PopupView: UIView {
             self.symbol.image = UIImage(named: "thinkingFace")
         case .purchase:
             self.symbol.image = UIImage(named: "heartEyesEmoji")
+        case .emailContact:
+            self.symbol.image = UIImage(named: "compGuy")
         }
     }
 }

@@ -96,16 +96,20 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             if transaction.transactionState == .purchased {
-                purchaseButton.isHidden = false
-                setPurchasedButton()
+                DispatchQueue.main.async {
+                    self.purchaseButton.isHidden = false
+                    self.setPurchasedButton()
+                    PopupView().showPopup(title: "Спасибо", message: "Теперь ты в Pro!", type: .purchase)
+                }
                 SKPaymentQueue.default().finishTransaction(transaction)
             } else if transaction.transactionState == .failed {
-                if let error = transaction.error {
-                    let errorDescription = error.localizedDescription
-                    print(errorDescription)
+                guard let error = transaction.error as? NSError else { return }
+                
+                DispatchQueue.main.async {
+                    self.purchaseButton.isHidden = false
+                    self.purchaseSpinner.stopAnimating()
+                    PopupView().showPopup(title: "Ошибка \(error.code)", message: "Не удалось оплатить", type: .failure)
                 }
-                purchaseButton.isHidden = false
-                purchaseSpinner.stopAnimating()
                 SKPaymentQueue.default().finishTransaction(transaction)
             }
         }
