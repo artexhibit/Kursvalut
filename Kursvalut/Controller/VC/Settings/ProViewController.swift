@@ -4,7 +4,6 @@ import StoreKit
 
 class ProViewController: UIViewController {
     
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var purchaseButton: UIButton!
     @IBOutlet weak var purchaseView: UIView!
@@ -12,6 +11,9 @@ class ProViewController: UIViewController {
     @IBOutlet weak var purchaseSpinner: UIActivityIndicatorView!
     @IBOutlet weak var priceSpinner: UIActivityIndicatorView!
     
+    private var proPurchased: Bool {
+        return UserDefaults.standard.bool(forKey: "Kursvalut Pro")
+    }
     private var tipsArray = [SKProduct]()
     private let dataArray = [
         (backColor: UIColor(red: 255/255, green: 235/255, blue: 100/255, alpha: 0.3), icon: UIImage(named: "apps.iphone"), iconColor: UIColor.systemYellow, title: "Стартовый экран", description: "Экономьте время - нужный экран будет открываться мгновенно."),
@@ -29,10 +31,21 @@ class ProViewController: UIViewController {
         purchaseView.layer.cornerRadius = 20
         purchaseButton.layer.cornerRadius = 12
         priceSpinner.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+        
+        if proPurchased {
+            setPurchasedButton()
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if proPurchased {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pro"), object: nil)
+        }
     }
     
     @IBAction func dismissButtonPressed(_ sender: UIBarButtonItem) {
-        dismiss(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func purchaseButtonPressed(_ sender: UIButton) {
@@ -76,12 +89,11 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
             request.start()
             priceSpinner.startAnimating()
         } else {
-            print("You can't make payments")
+            PopupView().showPopup(title: "Ошибка", message: "Нет разрешения на покупки", type: .failure)
         }
     }
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        
         DispatchQueue.main.async {
             for product in response.products {
                 if product.localizedTitle == "Kursvalut Pro" {
@@ -101,6 +113,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
                     self.setPurchasedButton()
                     PopupView().showPopup(title: "Спасибо", message: "Теперь ты в Pro!", type: .purchase)
                 }
+                UserDefaults.standard.set(true, forKey: "Kursvalut Pro")
                 SKPaymentQueue.default().finishTransaction(transaction)
             } else if transaction.transactionState == .failed {
                 guard let error = transaction.error as? NSError else { return }
@@ -115,7 +128,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
         }
     }
     
-    //MARK: - User Interface Change Methods
+    //MARK: - User Interface Manage Methods
     
     func setPurchasedButton() {
         purchaseButton.backgroundColor = UIColor.systemGreen

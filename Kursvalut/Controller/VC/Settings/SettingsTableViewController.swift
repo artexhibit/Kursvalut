@@ -10,10 +10,14 @@ class SettingsTableViewController: UITableViewController {
     private var pickedTheme: String {
         return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
     }
+    private var proPurchased: Bool {
+        return UserDefaults.standard.bool(forKey: "Kursvalut Pro")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         roundViewCorners()
+        NotificationCenter.default.addObserver(self, selector: #selector(unlockPro), name: NSNotification.Name(rawValue: "pro"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -25,6 +29,10 @@ class SettingsTableViewController: UITableViewController {
         for view in iconView {
             view.layer.cornerRadius = 6
         }
+    }
+    
+    @objc func unlockPro(notification: NSNotification){
+        self.tableView.reloadData()
     }
     
     //MARK: - TableView DataSource Methods
