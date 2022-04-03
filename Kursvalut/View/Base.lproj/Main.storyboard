@@ -704,7 +704,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="oDs-Uf-sgD">
-                                                    <rect key="frame" x="15" y="0.0" width="359" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="324" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1QC-ka-l2V" userLabel="iconView">
                                                             <rect key="frame" x="0.0" y="7" width="29" height="29"/>
@@ -727,19 +727,28 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Восстановить покупку" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWD-ry-1Yh">
-                                                            <rect key="frame" x="44" y="11.5" width="315" height="20.5"/>
+                                                            <rect key="frame" x="44" y="11.5" width="280" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="tyL-dk-R14">
+                                                    <rect key="frame" x="339" y="11.5" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="KOu-ca-cLb"/>
+                                                        <constraint firstAttribute="height" constant="20" id="aZf-9v-tLb"/>
+                                                    </constraints>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="oDs-Uf-sgD" firstAttribute="leading" secondItem="0Li-1t-skP" secondAttribute="leading" constant="15" id="3Wv-2C-8ja"/>
                                                 <constraint firstAttribute="bottom" secondItem="oDs-Uf-sgD" secondAttribute="bottom" id="6dB-4e-qqN"/>
+                                                <constraint firstItem="tyL-dk-R14" firstAttribute="centerY" secondItem="0Li-1t-skP" secondAttribute="centerY" id="HOo-4D-546"/>
+                                                <constraint firstItem="tyL-dk-R14" firstAttribute="leading" secondItem="oDs-Uf-sgD" secondAttribute="trailing" id="IM6-ae-XjU"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="tyL-dk-R14" secondAttribute="trailing" constant="-5" id="Nmo-TQ-iYb"/>
                                                 <constraint firstItem="oDs-Uf-sgD" firstAttribute="top" secondItem="0Li-1t-skP" secondAttribute="top" id="VfK-Il-WQs"/>
-                                                <constraint firstAttribute="trailing" secondItem="oDs-Uf-sgD" secondAttribute="trailing" id="mEQ-Gq-PSb"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1111,6 +1120,7 @@
                     <navigationItem key="navigationItem" title="Настройки" id="HaY-0Q-aJI"/>
                     <connections>
                         <outlet property="pickedThemeLabel" destination="mbr-jw-0kB" id="cYk-Up-AaR"/>
+                        <outlet property="restoreSpinner" destination="tyL-dk-R14" id="jCe-pM-Jt9"/>
                         <outletCollection property="iconView" destination="4Ak-bd-Tsx" collectionClass="NSMutableArray" id="rgU-Cp-q33"/>
                         <outletCollection property="iconView" destination="yDb-4o-0FR" collectionClass="NSMutableArray" id="bQq-Oi-97i"/>
                         <outletCollection property="iconView" destination="Puh-Fj-HKC" collectionClass="NSMutableArray" id="a3x-R7-0GU"/>
@@ -1444,14 +1454,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startViewCell" id="hyY-vn-r54" userLabel="Start View Cell" customClass="StartViewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hyY-vn-r54" id="Dx2-ce-Ru7">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Валюты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbc-hr-FHJ" userLabel="viewNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1489,14 +1499,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="M1Q-1H-VHB" userLabel="Theme Cell" customClass="ThemeTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M1Q-1H-VHB" id="3sk-ff-s1w">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Как в системе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrU-4i-37D" userLabel="themeNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>

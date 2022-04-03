@@ -113,7 +113,6 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
                     self.setPurchasedButton()
                     PopupView().showPopup(title: "Спасибо", message: "Теперь ты в Pro!", type: .purchase)
                 }
-                UserDefaults.standard.set(true, forKey: "Kursvalut Pro")
                 SKPaymentQueue.default().finishTransaction(transaction)
             } else if transaction.transactionState == .failed {
                 guard let error = transaction.error as? NSError else { return }
@@ -131,6 +130,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
     //MARK: - User Interface Manage Methods
     
     func setPurchasedButton() {
+        UserDefaults.standard.set(true, forKey: "Kursvalut Pro")
         purchaseButton.backgroundColor = UIColor.systemGreen
         purchaseButton.setTitle("КУПЛЕНО", for: .normal)
         purchaseButton.isUserInteractionEnabled = false

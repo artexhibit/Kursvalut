@@ -58,7 +58,7 @@ extension TipJarTableViewController: SKProductsRequestDelegate, SKPaymentTransac
             request.start()
             loadCellsSpinner.startAnimating()
         } else {
-            print("You can't make payments")
+            PopupView().showPopup(title: "Ошибка", message: "Нет разрешения на покупки", type: .failure)
         }
     }
     

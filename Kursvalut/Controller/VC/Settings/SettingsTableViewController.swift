@@ -1,11 +1,13 @@
 
 import UIKit
 import MessageUI
+import StoreKit
 
 class SettingsTableViewController: UITableViewController {
     
     @IBOutlet var iconView: [UIView]!
     @IBOutlet weak var pickedThemeLabel: UILabel!
+    @IBOutlet weak var restoreSpinner: UIActivityIndicatorView!
     
     private var pickedTheme: String {
         return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
@@ -17,7 +19,7 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         roundViewCorners()
-        NotificationCenter.default.addObserver(self, selector: #selector(unlockPro), name: NSNotification.Name(rawValue: "pro"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: "pro"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,7 +33,7 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
-    @objc func unlockPro(notification: NSNotification){
+    @objc func reloadData(notification: NSNotification) {
         self.tableView.reloadData()
     }
     
@@ -49,8 +51,48 @@ class SettingsTableViewController: UITableViewController {
             } else {
                 mailComposeVC.sendThroughMailto()
             }
+        } else if pickedSection == 2 && pickedCell == 1 {
+            startProRestore()
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+//MARK: - In-App Purchase Methods
+
+extension SettingsTableViewController: SKPaymentTransactionObserver {
+    
+    func startProRestore() {
+        restoreSpinner.startAnimating()
+        SKPaymentQueue.default().add(self)
+        SKPaymentQueue.default().restoreCompletedTransactions()
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            if transaction.transactionState == .restored {
+                //unlockPro()
+                UserDefaults.standard.set(true, forKey: "Kursvalut Pro")
+                SKPaymentQueue.default().finishTransaction(transaction)
+                SKPaymentQueue.default().remove(self)
+            }
+        }
+    }
+    
+    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        if queue.transactions.isEmpty {
+            PopupView().showPopup(title: "Ошибка", message: "Pro не покупался", type: .failure)
+        } else {
+            PopupView().showPopup(title: "Успешно", message: "Покупка восстановлена", type: .restore)
+            //unlockPro()
+        }
+        restoreSpinner.stopAnimating()
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+        guard let error = error as NSError? else { return }
+        PopupView().showPopup(title: "Ошибка \(error.code)", message: "Не удалось восстановить", type: .failure)
+        restoreSpinner.stopAnimating()
     }
 }
 
@@ -58,7 +100,6 @@ class SettingsTableViewController: UITableViewController {
 
 extension SettingsTableViewController:  MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        
         switch result {
         case .cancelled:
             dismiss(animated: true, completion: nil)
