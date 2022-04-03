@@ -15,6 +15,7 @@ class TipJarTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        SKPaymentQueue.default().add(self)
         tableViewFooterLabel.text = "Чаевые поддерживают текущую разработку приложения. Спасибо!"
         fetchTips()
     }
@@ -67,10 +68,8 @@ extension TipJarTableViewController: SKProductsRequestDelegate, SKPaymentTransac
         
         cell.tipPriceSpinner.startAnimating()
         cell.tipPriceLabel.isHidden = true
-        SKPaymentQueue.default().add(self)
         SKPaymentQueue.default().add(tipPayment)
     }
-
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         DispatchQueue.main.async {

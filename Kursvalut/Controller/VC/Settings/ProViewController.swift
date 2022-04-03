@@ -14,7 +14,7 @@ class ProViewController: UIViewController {
     private var proPurchased: Bool {
         return UserDefaults.standard.bool(forKey: "Kursvalut Pro")
     }
-    private var tipsArray = [SKProduct]()
+    private var proPurchase: SKProduct?
     private let dataArray = [
         (backColor: UIColor(red: 255/255, green: 235/255, blue: 100/255, alpha: 0.3), icon: UIImage(named: "apps.iphone"), iconColor: UIColor.systemYellow, title: "Стартовый экран", description: "Экономьте время - нужный экран будет открываться мгновенно."),
         (backColor: UIColor(red: 0/255, green: 255/255, blue: 90/255, alpha: 0.3), icon: UIImage(named: "arrow.up.arrow.down"), iconColor: UIColor.systemGreen, title: "Сортировка списка валют", description: "Настройте расположение валют в удобном вам порядке."),
@@ -27,10 +27,11 @@ class ProViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchTips()
+        fetchForPro()
         purchaseView.layer.cornerRadius = 20
         purchaseButton.layer.cornerRadius = 12
         priceSpinner.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+        SKPaymentQueue.default().add(self)
         
         if proPurchased {
             setPurchasedButton()
@@ -49,9 +50,10 @@ class ProViewController: UIViewController {
     }
     
     @IBAction func purchaseButtonPressed(_ sender: UIButton) {
-        let tipPayment = SKPayment(product: tipsArray[0])
-        SKPaymentQueue.default().add(self)
-        SKPaymentQueue.default().add(tipPayment)
+        guard let proPurchase = proPurchase else { return }
+        
+        let proPayment = SKPayment(product: proPurchase)
+        SKPaymentQueue.default().add(proPayment)
         purchaseButton.isHidden = true
         purchaseSpinner.startAnimating()
     }
@@ -82,9 +84,9 @@ extension ProViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver {
     
-    func fetchTips() {
+    func fetchForPro() {
         if SKPaymentQueue.canMakePayments() {
-            let request = SKProductsRequest(productIdentifiers: Set(["ru.igorcodes.kursvalut.pro"]))
+            let request = SKProductsRequest(productIdentifiers: ["ru.igorcodes.kursvalut.pro"])
             request.delegate = self
             request.start()
             priceSpinner.startAnimating()
@@ -95,12 +97,10 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         DispatchQueue.main.async {
-            for product in response.products {
-                if product.localizedTitle == "Kursvalut Pro" {
-                    self.tipsArray.append(product)
-                    self.priceLabel.text = "всего за \(product.price) \(product.priceLocale.currencySymbol ?? "$")"
-                    self.priceSpinner.stopAnimating()
-                }
+            if let product = response.products.first {
+                self.proPurchase = product
+                self.priceLabel.text = "всего за \(product.price) \(product.priceLocale.currencySymbol ?? "$")"
+                self.priceSpinner.stopAnimating()
             }
         }
     }
