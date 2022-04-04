@@ -6,6 +6,7 @@ import StoreKit
 class SettingsTableViewController: UITableViewController {
     
     @IBOutlet var iconView: [UIView]!
+    @IBOutlet var proView: [UIView]!
     @IBOutlet weak var pickedThemeLabel: UILabel!
     @IBOutlet weak var restoreSpinner: UIActivityIndicatorView!
     
@@ -19,6 +20,11 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         roundViewCorners()
+        if !proPurchased {
+            for view in proView {
+                view.isHidden = false
+            }
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: "pro"), object: nil)
     }
     
@@ -30,6 +36,9 @@ class SettingsTableViewController: UITableViewController {
     func roundViewCorners() {
         for view in iconView {
             view.layer.cornerRadius = 6
+        }
+        for view in proView {
+            view.layer.cornerRadius = 3
         }
     }
     
@@ -53,6 +62,10 @@ class SettingsTableViewController: UITableViewController {
             }
         } else if pickedSection == 2 && pickedCell == 1 {
             startProRestore()
+        } else if pickedSection == 1 && pickedCell == 0 || pickedCell == 1 || pickedCell == 2 {
+            if !proPurchased {
+                PopupView().showPopup(title: "Упс", message: "Доступно только в Pro", type: .success)
+            }
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
