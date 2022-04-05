@@ -6,7 +6,7 @@ import StoreKit
 class SettingsTableViewController: UITableViewController {
     
     @IBOutlet var iconView: [UIView]!
-    @IBOutlet var proView: [UIView]!
+    @IBOutlet var proLabel: [UIView]!
     @IBOutlet weak var pickedThemeLabel: UILabel!
     @IBOutlet weak var restoreSpinner: UIActivityIndicatorView!
     
@@ -20,9 +20,9 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         roundViewCorners()
-        if !proPurchased {
-            for view in proView {
-                view.isHidden = false
+        if proPurchased {
+            for label in proLabel {
+                label.isHidden = true
             }
         }
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: "pro"), object: nil)
@@ -37,8 +37,8 @@ class SettingsTableViewController: UITableViewController {
         for view in iconView {
             view.layer.cornerRadius = 6
         }
-        for view in proView {
-            view.layer.cornerRadius = 3
+        for label in proLabel {
+            label.layer.cornerRadius = 3
         }
     }
     
@@ -54,7 +54,6 @@ class SettingsTableViewController: UITableViewController {
         
         if pickedSection == 4 && pickedCell == 2 {
             let mailComposeVC = SMailComposeViewController(delegate: self)
-            
             if MFMailComposeViewController.canSendMail() {
                 present(mailComposeVC, animated: true, completion: nil)
             } else {
@@ -63,8 +62,19 @@ class SettingsTableViewController: UITableViewController {
         } else if pickedSection == 2 && pickedCell == 1 {
             startProRestore()
         } else if pickedSection == 1 && pickedCell == 0 || pickedCell == 1 || pickedCell == 2 {
-            if !proPurchased {
-                PopupView().showPopup(title: "Упс", message: "Доступно только в Pro", type: .success)
+            if proPurchased {
+                switch pickedCell {
+                case 0:
+                    performSegue(withIdentifier: "decimalsSegue", sender: self)
+                case 1:
+                    performSegue(withIdentifier: "startViewSegue", sender: self)
+                case 2:
+                    performSegue(withIdentifier: "themeSegue", sender: self)
+                default:
+                    return
+                }
+            } else {
+                PopupView().showPopup(title: "Закрыто", message: "Доступно только в Pro", type: .lock)
             }
         }
         tableView.deselectRow(at: indexPath, animated: true)
@@ -74,7 +84,6 @@ class SettingsTableViewController: UITableViewController {
 //MARK: - In-App Purchase Methods
 
 extension SettingsTableViewController: SKPaymentTransactionObserver {
-    
     func startProRestore() {
         restoreSpinner.startAnimating()
         SKPaymentQueue.default().add(self)
@@ -84,10 +93,10 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             if transaction.transactionState == .restored {
-                //unlockPro()
                 UserDefaults.standard.set(true, forKey: "Kursvalut Pro")
                 SKPaymentQueue.default().finishTransaction(transaction)
                 SKPaymentQueue.default().remove(self)
+                tableView.reloadData()
             }
         }
     }
@@ -97,7 +106,7 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
             PopupView().showPopup(title: "Ошибка", message: "Pro не покупался", type: .failure)
         } else {
             PopupView().showPopup(title: "Успешно", message: "Покупка восстановлена", type: .restore)
-            //unlockPro()
+            tableView.reloadData()
         }
         restoreSpinner.stopAnimating()
     }

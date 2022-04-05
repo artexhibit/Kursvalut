@@ -513,7 +513,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPh-ea-oka" userLabel="Pro View">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPh-ea-oka" userLabel="Pro Label">
                                                     <rect key="frame" x="210.5" y="10" width="25" height="10"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6S-uC-07x">
@@ -543,9 +543,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <segue destination="gJz-h7-x4W" kind="show" id="0FW-GW-qcO"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="XEw-Gj-X6p" userLabel="Стартовый экран">
                                         <rect key="frame" x="20" y="221" width="374" height="43"/>
@@ -580,7 +577,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rms-zW-SOQ" userLabel="Pro View">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rms-zW-SOQ" userLabel="Pro Label">
                                                     <rect key="frame" x="200" y="10" width="25" height="10"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OsY-H3-oG0">
@@ -610,9 +607,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <segue destination="2oy-xu-7BW" kind="show" id="ogq-RE-56i"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="hHO-mJ-MPI" userLabel="Тема">
                                         <rect key="frame" x="20" y="264" width="374" height="43"/>
@@ -653,7 +647,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PU3-H0-xGb" userLabel="Pro View">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PU3-H0-xGb" userLabel="Pro Label">
                                                     <rect key="frame" x="102.5" y="10" width="25" height="10"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTC-OC-NXa">
@@ -685,9 +679,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <segue destination="15R-bi-2cq" kind="show" id="Wgp-QV-dzL"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1179,9 +1170,12 @@
                         <outletCollection property="iconView" destination="yDb-4o-0FR" collectionClass="NSMutableArray" id="bQq-Oi-97i"/>
                         <outletCollection property="iconView" destination="Puh-Fj-HKC" collectionClass="NSMutableArray" id="a3x-R7-0GU"/>
                         <outletCollection property="iconView" destination="XI5-ld-pP8" collectionClass="NSMutableArray" id="I6U-nD-2U1"/>
-                        <outletCollection property="proView" destination="KPh-ea-oka" collectionClass="NSMutableArray" id="QIM-wq-9cW"/>
-                        <outletCollection property="proView" destination="rms-zW-SOQ" collectionClass="NSMutableArray" id="tro-Wd-CwB"/>
-                        <outletCollection property="proView" destination="PU3-H0-xGb" collectionClass="NSMutableArray" id="T2l-cL-dcd"/>
+                        <outletCollection property="proLabel" destination="PU3-H0-xGb" collectionClass="NSMutableArray" id="YGf-KK-c4Q"/>
+                        <outletCollection property="proLabel" destination="rms-zW-SOQ" collectionClass="NSMutableArray" id="rSK-GD-Rnp"/>
+                        <outletCollection property="proLabel" destination="KPh-ea-oka" collectionClass="NSMutableArray" id="HFz-iA-njj"/>
+                        <segue destination="gJz-h7-x4W" kind="show" identifier="decimalsSegue" id="d3X-wq-g06"/>
+                        <segue destination="2oy-xu-7BW" kind="show" identifier="startViewSegue" id="dcU-pH-nX7"/>
+                        <segue destination="15R-bi-2cq" kind="show" identifier="themeSegue" id="npE-V9-oky"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HU0-OO-c6a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

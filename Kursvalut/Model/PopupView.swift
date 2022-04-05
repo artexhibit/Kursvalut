@@ -17,6 +17,7 @@ class PopupView: UIView {
         case purchase
         case emailContact
         case restore
+        case lock
     }
     
     override init(frame: CGRect) {
@@ -92,6 +93,8 @@ class PopupView: UIView {
             self.symbol.image = UIImage(named: "compGuy")
         case .restore:
             self.symbol.image = UIImage(named: "thumbsUp")
+        case .lock:
+            self.symbol.image = UIImage(named: "lock.fill")
         }
     }
 }
