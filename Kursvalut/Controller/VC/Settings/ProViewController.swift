@@ -12,7 +12,7 @@ class ProViewController: UIViewController {
     @IBOutlet weak var priceSpinner: UIActivityIndicatorView!
     
     private var proPurchased: Bool {
-        return UserDefaults.standard.bool(forKey: "Kursvalut Pro")
+        return UserDefaults.standard.bool(forKey: "kursvalutPro")
     }
     private var proPurchase: SKProduct?
     private let dataArray = [
@@ -130,7 +130,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
     //MARK: - User Interface Manage Methods
     
     func setPurchasedButton() {
-        UserDefaults.standard.set(true, forKey: "Kursvalut Pro")
+        UserDefaults.standard.set(true, forKey: "kursvalutPro")
         purchaseButton.backgroundColor = UIColor.systemGreen
         purchaseButton.setTitle("КУПЛЕНО", for: .normal)
         purchaseButton.isUserInteractionEnabled = false

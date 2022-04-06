@@ -14,16 +14,15 @@ class SettingsTableViewController: UITableViewController {
         return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
     }
     private var proPurchased: Bool {
-        return UserDefaults.standard.bool(forKey: "Kursvalut Pro")
+        return UserDefaults.standard.bool(forKey: "kursvalutPro")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         roundViewCorners()
+        
         if proPurchased {
-            for label in proLabel {
-                label.isHidden = true
-            }
+            unlockPro(for: proLabel)
         }
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: "pro"), object: nil)
     }
@@ -84,6 +83,14 @@ class SettingsTableViewController: UITableViewController {
 //MARK: - In-App Purchase Methods
 
 extension SettingsTableViewController: SKPaymentTransactionObserver {
+    func unlockPro(for labels: [UIView]? = nil) {
+        guard let labels = labels else { return }
+        
+        for label in labels {
+            label.isHidden = true
+        }
+    }
+    
     func startProRestore() {
         restoreSpinner.startAnimating()
         SKPaymentQueue.default().add(self)
@@ -93,9 +100,10 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             if transaction.transactionState == .restored {
-                UserDefaults.standard.set(true, forKey: "Kursvalut Pro")
+                UserDefaults.standard.set(true, forKey: "kursvalutPro")
                 SKPaymentQueue.default().finishTransaction(transaction)
                 SKPaymentQueue.default().remove(self)
+                unlockPro(for: proLabel)
                 tableView.reloadData()
             }
         }
@@ -106,7 +114,6 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
             PopupView().showPopup(title: "Ошибка", message: "Pro не покупался", type: .failure)
         } else {
             PopupView().showPopup(title: "Успешно", message: "Покупка восстановлена", type: .restore)
-            tableView.reloadData()
         }
         restoreSpinner.stopAnimating()
     }

@@ -20,6 +20,12 @@ class ConverterTableViewController: UITableViewController {
     private var pickedStartView: String {
         return UserDefaults.standard.string(forKey: "startView") ?? ""
     }
+    private var proPurchased: Bool {
+        return UserDefaults.standard.bool(forKey: "kursvalutPro")
+    }
+    private var amountOfPickedCurrencies: Int {
+        return UserDefaults.standard.integer(forKey: "savedAmount")
+    }
     
     @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
@@ -79,7 +85,13 @@ class ConverterTableViewController: UITableViewController {
         let delete = UIContextualAction(style: .destructive, title: nil) { [self] (action, view, completionHandler) in
             let currencies = fetchedResultsController.fetchedObjects!
             let currency = fetchedResultsController.object(at: indexPath)
+            var currentAmount = amountOfPickedCurrencies
+            
             currency.isForConverter = false
+            if !proPurchased {
+                currentAmount -= 1
+                UserDefaults.standard.set(currentAmount, forKey: "savedAmount")
+            }
             converterManager.deleteRow(for: currency, in: currencies)
             coreDataManager.save()
             completionHandler(true)

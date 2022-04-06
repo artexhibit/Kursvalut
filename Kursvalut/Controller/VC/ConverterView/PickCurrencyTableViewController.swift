@@ -9,6 +9,12 @@ class PickCurrencyTableViewController: UITableViewController {
     private var currencyManager = CurrencyManager()
     private let coreDataManager = CurrencyCoreDataManager()
     private let converterManager = ConverterManager()
+    private var proPurchased: Bool {
+        return UserDefaults.standard.bool(forKey: "kursvalutPro")
+    }
+    private var amountOfPickedCurrencies: Int {
+        return UserDefaults.standard.integer(forKey: "savedAmount")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,9 +70,22 @@ class PickCurrencyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currency = fetchedResultsController.object(at: indexPath)
         let currencies = fetchedResultsController.fetchedObjects!
+        var currentAmount = amountOfPickedCurrencies
         
         currency.isForConverter = !currency.isForConverter
-        converterManager.setRow(for: currency, in: currencies)
+        currency.isForConverter ? (currentAmount += 1) : (currentAmount -= 1)
+
+        if proPurchased {
+            converterManager.setRow(for: currency, in: currencies)
+        } else if !proPurchased && currentAmount <= 3 {
+            converterManager.setRow(for: currency, in: currencies)
+            UserDefaults.standard.set(currentAmount, forKey: "savedAmount")
+        } else {
+            currency.isForConverter = false
+            currentAmount -= 1
+            UserDefaults.standard.set(currentAmount, forKey: "savedAmount")
+            //Add popup
+        }
         coreDataManager.save()
     }
 }
