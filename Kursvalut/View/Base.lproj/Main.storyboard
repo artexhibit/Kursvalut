@@ -414,39 +414,33 @@
                                                     <rect key="frame" x="15" y="0.0" width="344" height="110"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="X9r-ov-wym">
-                                                            <rect key="frame" x="0.0" y="17.5" width="254" height="75"/>
+                                                            <rect key="frame" x="0.0" y="17" width="254" height="76"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="moW-Fq-6Bj">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="199.5" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="199.5" height="23"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kursvalut Pro" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="y5M-Wo-yK0" userLabel="Name Label">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="121.5" height="25"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="121.5" height="23"/>
                                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                                                             <color key="textColor" name="BlueColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ak-bd-Tsx" userLabel="Purchase View">
-                                                                            <rect key="frame" x="129.5" y="0.0" width="70" height="25"/>
-                                                                            <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Купить" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKw-w9-TJn">
-                                                                                    <rect key="frame" x="8" y="3.5" width="54" height="18"/>
-                                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                            </subviews>
-                                                                            <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cw3-NX-EJA" userLabel="Purchase Button">
+                                                                            <rect key="frame" x="129.5" y="0.0" width="70" height="23"/>
+                                                                            <color key="backgroundColor" name="RedColor"/>
                                                                             <constraints>
-                                                                                <constraint firstItem="IKw-w9-TJn" firstAttribute="centerY" secondItem="4Ak-bd-Tsx" secondAttribute="centerY" id="109-o5-MSW"/>
-                                                                                <constraint firstAttribute="width" constant="70" id="IZO-5x-LZN"/>
-                                                                                <constraint firstItem="IKw-w9-TJn" firstAttribute="centerX" secondItem="4Ak-bd-Tsx" secondAttribute="centerX" id="jUw-7i-ytW"/>
-                                                                                <constraint firstAttribute="height" constant="25" id="t8H-J8-plE"/>
+                                                                                <constraint firstAttribute="height" constant="23" id="UUh-iL-56K"/>
+                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="bY5-jz-Iru"/>
                                                                             </constraints>
-                                                                        </view>
+                                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                            <state key="normal" title="Куплено"/>
+                                                                        </button>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выбор количества десятичных знаков, расстановка валют в любом порядке и многое другое" textAlignment="natural" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="HlX-pB-Fiw" userLabel="Description Label">
-                                                                    <rect key="frame" x="0.0" y="28" width="250" height="47"/>
+                                                                    <rect key="frame" x="0.0" y="26" width="250" height="50"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <color key="textColor" systemColor="systemGrayColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -462,6 +456,9 @@
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="X9r-ov-wym" firstAttribute="top" secondItem="uzh-ua-VL4" secondAttribute="top" constant="17" id="dfG-54-eDV"/>
+                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
@@ -1156,8 +1153,8 @@
                     <navigationItem key="navigationItem" title="Настройки" id="HaY-0Q-aJI"/>
                     <connections>
                         <outlet property="pickedThemeLabel" destination="mbr-jw-0kB" id="cYk-Up-AaR"/>
+                        <outlet property="purchaseButton" destination="cw3-NX-EJA" id="8R5-u9-5x2"/>
                         <outlet property="restoreSpinner" destination="tyL-dk-R14" id="jCe-pM-Jt9"/>
-                        <outletCollection property="iconView" destination="4Ak-bd-Tsx" collectionClass="NSMutableArray" id="rgU-Cp-q33"/>
                         <outletCollection property="iconView" destination="tJU-9F-KZQ" collectionClass="NSMutableArray" id="Pl0-Mc-7IW"/>
                         <outletCollection property="iconView" destination="zcc-yn-O7M" collectionClass="NSMutableArray" id="onl-p5-6eF"/>
                         <outletCollection property="iconView" destination="bIl-RQ-7AO" collectionClass="NSMutableArray" id="OiU-Y6-SZQ"/>
@@ -1173,6 +1170,7 @@
                         <outletCollection property="proLabel" destination="PU3-H0-xGb" collectionClass="NSMutableArray" id="YGf-KK-c4Q"/>
                         <outletCollection property="proLabel" destination="rms-zW-SOQ" collectionClass="NSMutableArray" id="rSK-GD-Rnp"/>
                         <outletCollection property="proLabel" destination="KPh-ea-oka" collectionClass="NSMutableArray" id="HFz-iA-njj"/>
+                        <outletCollection property="iconView" destination="cw3-NX-EJA" collectionClass="NSMutableArray" id="IZj-VD-cpR"/>
                         <segue destination="gJz-h7-x4W" kind="show" identifier="decimalsSegue" id="d3X-wq-g06"/>
                         <segue destination="2oy-xu-7BW" kind="show" identifier="startViewSegue" id="dcU-pH-nX7"/>
                         <segue destination="15R-bi-2cq" kind="show" identifier="themeSegue" id="npE-V9-oky"/>
@@ -2297,6 +2295,7 @@
         <!--Navigation Controller-->
         <scene sceneID="dGD-ey-STL">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GpB-gW-wAb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YIv-jB-lHO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="zJ0-FW-qOn">
@@ -2308,7 +2307,6 @@
                         <segue destination="yT0-od-ExB" kind="relationship" relationship="rootViewController" id="c3R-hL-BI0"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GpB-gW-wAb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6207" y="2363"/>
         </scene>

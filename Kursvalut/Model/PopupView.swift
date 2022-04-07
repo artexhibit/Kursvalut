@@ -94,7 +94,7 @@ class PopupView: UIView {
         case .restore:
             self.symbol.image = UIImage(named: "thumbsUp")
         case .lock:
-            self.symbol.image = UIImage(named: "lock.fill")
+            self.symbol.image = UIImage(named: "indexPoint")
         }
     }
 }

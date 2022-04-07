@@ -84,7 +84,7 @@ class PickCurrencyTableViewController: UITableViewController {
             currency.isForConverter = false
             currentAmount -= 1
             UserDefaults.standard.set(currentAmount, forKey: "savedAmount")
-            //Add popup
+            PopupView().showPopup(title: "Максимум 3 валюты", message: "Безлимитно в Pro", type: .lock)
         }
         coreDataManager.save()
     }

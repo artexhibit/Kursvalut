@@ -7,6 +7,7 @@ class SettingsTableViewController: UITableViewController {
     
     @IBOutlet var iconView: [UIView]!
     @IBOutlet var proLabel: [UIView]!
+    @IBOutlet weak var purchaseButton: UIButton!
     @IBOutlet weak var pickedThemeLabel: UILabel!
     @IBOutlet weak var restoreSpinner: UIActivityIndicatorView!
     
@@ -52,26 +53,12 @@ class SettingsTableViewController: UITableViewController {
         let pickedCell = indexPath.row
         
         if pickedSection == 4 && pickedCell == 2 {
-            let mailComposeVC = SMailComposeViewController(delegate: self)
-            if MFMailComposeViewController.canSendMail() {
-                present(mailComposeVC, animated: true, completion: nil)
-            } else {
-                mailComposeVC.sendThroughMailto()
-            }
+            setupMailController()
         } else if pickedSection == 2 && pickedCell == 1 {
-            startProRestore()
-        } else if pickedSection == 1 && pickedCell == 0 || pickedCell == 1 || pickedCell == 2 {
+            startProVersionRestore()
+        } else if pickedSection == 1 && (pickedCell == 0 || pickedCell == 1 || pickedCell == 2) {
             if proPurchased {
-                switch pickedCell {
-                case 0:
-                    performSegue(withIdentifier: "decimalsSegue", sender: self)
-                case 1:
-                    performSegue(withIdentifier: "startViewSegue", sender: self)
-                case 2:
-                    performSegue(withIdentifier: "themeSegue", sender: self)
-                default:
-                    return
-                }
+               unlockPro(for: pickedCell)
             } else {
                 PopupView().showPopup(title: "Закрыто", message: "Доступно только в Pro", type: .lock)
             }
@@ -83,15 +70,28 @@ class SettingsTableViewController: UITableViewController {
 //MARK: - In-App Purchase Methods
 
 extension SettingsTableViewController: SKPaymentTransactionObserver {
-    func unlockPro(for labels: [UIView]? = nil) {
-        guard let labels = labels else { return }
-        
+    func unlockPro(for labels: [UIView]) {
         for label in labels {
             label.isHidden = true
         }
+        purchaseButton.backgroundColor = UIColor.systemGreen
+        purchaseButton.setTitle("Куплено", for: .normal)
     }
     
-    func startProRestore() {
+    func unlockPro(for cell: Int) {
+        switch cell {
+        case 0:
+            performSegue(withIdentifier: "decimalsSegue", sender: self)
+        case 1:
+            performSegue(withIdentifier: "startViewSegue", sender: self)
+        case 2:
+            performSegue(withIdentifier: "themeSegue", sender: self)
+        default:
+            return
+        }
+    }
+    
+    func startProVersionRestore() {
         restoreSpinner.startAnimating()
         SKPaymentQueue.default().add(self)
         SKPaymentQueue.default().restoreCompletedTransactions()
@@ -143,6 +143,15 @@ extension SettingsTableViewController:  MFMailComposeViewControllerDelegate {
             dismiss(animated: true, completion: nil)
         @unknown default:
             dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func setupMailController() {
+        let mailComposeVC = SMailComposeViewController(delegate: self)
+        if MFMailComposeViewController.canSendMail() {
+            present(mailComposeVC, animated: true, completion: nil)
+        } else {
+            mailComposeVC.sendThroughMailto()
         }
     }
 }
