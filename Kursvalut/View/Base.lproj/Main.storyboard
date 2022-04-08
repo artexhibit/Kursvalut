@@ -435,7 +435,7 @@
                                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                            <state key="normal" title="Куплено"/>
+                                                                            <state key="normal" title="Купить"/>
                                                                         </button>
                                                                     </subviews>
                                                                 </stackView>
@@ -2048,7 +2048,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Vc3-M3-uKM" userLabel="Footer View">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="102"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Приложение бесплатно и не содержит рекламы, но с Pro версией работать станет комфортнее!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgg-iS-lcP">
@@ -2066,13 +2066,13 @@
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="opq-cJ-rDT" userLabel="Footer View">
-                                    <rect key="frame" x="0.0" y="237" width="414" height="100"/>
+                                    <rect key="frame" x="0.0" y="259" width="414" height="100"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="proCell" rowHeight="90" id="mZb-4S-Ea9" userLabel="proCell" customClass="ProTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="124.5" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="146.5" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mZb-4S-Ea9" id="OXy-AM-qbA">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
@@ -2290,12 +2290,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D6k-Gc-Peb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6207" y="3052"/>
+            <point key="canvasLocation" x="6205.7971014492759" y="3051.5625"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dGD-ey-STL">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GpB-gW-wAb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YIv-jB-lHO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="zJ0-FW-qOn">
@@ -2307,6 +2306,7 @@
                         <segue destination="yT0-od-ExB" kind="relationship" relationship="rootViewController" id="c3R-hL-BI0"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GpB-gW-wAb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6207" y="2363"/>
         </scene>

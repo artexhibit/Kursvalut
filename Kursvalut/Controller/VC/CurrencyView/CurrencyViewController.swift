@@ -15,6 +15,9 @@ class CurrencyViewController: UIViewController {
     private var currencyUpdateTime: String {
         return userDefaults.string(forKey: "currencyUpdateTime") ?? ""
     }
+    private var proPurchased: Bool {
+        return UserDefaults.standard.bool(forKey: "kursvalutPro")
+    }
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var updateTimeLabel: UILabel!
@@ -77,8 +80,13 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         move.image = UIImage(named: "line.3.horizontal")
         move.backgroundColor = UIColor(named: "BlueColor")
         
-        let configuration = UISwipeActionsConfiguration(actions: [move])
-        return configuration
+        if proPurchased {
+            let configuration = UISwipeActionsConfiguration(actions: [move])
+            return configuration
+        } else {
+            let configuration = UISwipeActionsConfiguration(actions: [])
+            return configuration
+        }
     }
 }
 

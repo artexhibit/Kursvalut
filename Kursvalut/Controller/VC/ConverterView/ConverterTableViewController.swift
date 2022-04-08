@@ -70,7 +70,7 @@ class ConverterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let move = UIContextualAction(style: .normal, title: nil) { [self] (action, view, completionHandler) in
+        let move = UIContextualAction(style: .normal, title: nil) { [self] action, view, completionHandler in
             turnEditing()
             turnEditing()
             isInEdit = true
@@ -99,8 +99,13 @@ class ConverterTableViewController: UITableViewController {
         delete.image = UIImage(named: "trash")
         delete.backgroundColor = UIColor(named: "RedColor")
         
-        let configuration = UISwipeActionsConfiguration(actions: [delete, move])
-        return configuration
+        if proPurchased {
+            let configuration = UISwipeActionsConfiguration(actions: [delete, move])
+            return configuration
+        } else {
+            let configuration = UISwipeActionsConfiguration(actions: [delete])
+            return configuration
+        }
     }
     
     //MARK: - Method for Move Swipe Action

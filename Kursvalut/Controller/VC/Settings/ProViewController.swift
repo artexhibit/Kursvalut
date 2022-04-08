@@ -19,9 +19,9 @@ class ProViewController: UIViewController {
         (backColor: UIColor(red: 255/255, green: 235/255, blue: 100/255, alpha: 0.3), icon: UIImage(named: "apps.iphone"), iconColor: UIColor.systemYellow, title: "Стартовый экран", description: "Экономьте время - нужный экран будет открываться мгновенно."),
         (backColor: UIColor(red: 0/255, green: 255/255, blue: 90/255, alpha: 0.3), icon: UIImage(named: "arrow.up.arrow.down"), iconColor: UIColor.systemGreen, title: "Сортировка списка валют", description: "Настройте расположение валют в удобном вам порядке."),
         (backColor: UIColor(red: 0/255, green: 100/255, blue: 255/255, alpha: 0.3), icon: UIImage(named: "quote.closing"), iconColor: UIColor.systemBlue, title: "Десятичные знаки", description: "Установите нужное количество знаков после запятой."),
-        (backColor: UIColor(red: 255/255, green: 155/255, blue: 0/255, alpha: 0.3), icon: UIImage(named: "rublesign.circle"), iconColor: UIColor.systemOrange, title: "Конвертер валют", description: "Добавьте столько валют в конвертер, сколько требуется."),
+        (backColor: UIColor(red: 255/255, green: 155/255, blue: 0/255, alpha: 0.3), icon: UIImage(named: "rublesign.circle"), iconColor: UIColor.systemOrange, title: "Безлимитное добавление валют в конвертере", description: "Добавьте столько валют, сколько требуется."),
         (backColor: UIColor(red: 125/255, green: 0/255, blue: 255/255, alpha: 0.3), icon: UIImage(named: "circle.lefthalf.filled"), iconColor: UIColor.systemPurple, title: "Тема", description: "Нравится тёмное оформление? Установите его на постоянной основе."),
-        (backColor: UIColor(red: 100/255, green: 70/255, blue: 0/255, alpha: 0.3), icon: UIImage(named: "infinity"), iconColor: UIColor.systemBrown, title: "Новые функции", description: "Купите один раз - получите будущие обновления бесплатно!"),
+        (backColor: UIColor(red: 100/255, green: 70/255, blue: 0/255, alpha: 0.3), icon: UIImage(named: "infinity"), iconColor: UIColor.systemBrown, title: "Новые функции", description: "Купите один раз - будущие обновления для Вас бесплатны!"),
         (backColor: UIColor(red: 255/255, green: 45/255, blue: 0/255, alpha: 0.3), icon: UIImage(named: "heart.fill"), iconColor: UIColor.systemRed, title: "Поддержите разработку", description: "Помогите приложению, кототое делает один разработчик.")
     ]
     
