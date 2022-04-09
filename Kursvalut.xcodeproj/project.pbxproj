@@ -35,6 +35,10 @@
 		78B40A1027D659BB0016D9E6 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B40A0F27D659BB0016D9E6 /* TermsOfUseViewController.swift */; };
 		78B40A1327D659F60016D9E6 /* TermsOfUseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B40A1227D659F60016D9E6 /* TermsOfUseTableViewCell.swift */; };
 		78B49AE427CBD3D5003C975D /* DecimalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */; };
+		78B9F55B2801B5900030ECF4 /* SortingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B9F55A2801B5900030ECF4 /* SortingTableViewController.swift */; };
+		78B9F55D2801B9B50030ECF4 /* MainSortTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B9F55C2801B9B50030ECF4 /* MainSortTableViewCell.swift */; };
+		78B9F55F2801B9F10030ECF4 /* SubSortTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B9F55E2801B9F10030ECF4 /* SubSortTableViewCell.swift */; };
+		78B9F5612801BBAA0030ECF4 /* SortingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B9F5602801BBAA0030ECF4 /* SortingSection.swift */; };
 		78BD46DB27F06B6D002AFDA1 /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78BD46DA27F06B6D002AFDA1 /* PopupView.xib */; };
 		78BD46DF27F07460002AFDA1 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BD46DE27F07460002AFDA1 /* PopupView.swift */; };
 		78C6FAF527D3C160002E35E9 /* ThemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C6FAF427D3C160002E35E9 /* ThemeTableViewController.swift */; };
@@ -83,6 +87,10 @@
 		78B40A0F27D659BB0016D9E6 /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		78B40A1227D659F60016D9E6 /* TermsOfUseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseTableViewCell.swift; sourceTree = "<group>"; };
 		78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalsTableViewController.swift; sourceTree = "<group>"; };
+		78B9F55A2801B5900030ECF4 /* SortingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingTableViewController.swift; sourceTree = "<group>"; };
+		78B9F55C2801B9B50030ECF4 /* MainSortTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSortTableViewCell.swift; sourceTree = "<group>"; };
+		78B9F55E2801B9F10030ECF4 /* SubSortTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubSortTableViewCell.swift; sourceTree = "<group>"; };
+		78B9F5602801BBAA0030ECF4 /* SortingSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingSection.swift; sourceTree = "<group>"; };
 		78BD46DA27F06B6D002AFDA1 /* PopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupView.xib; sourceTree = "<group>"; };
 		78BD46DE27F07460002AFDA1 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		78C6FAF427D3C160002E35E9 /* ThemeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +161,7 @@
 				7813102727D75FE000065410 /* SMailComposeViewController.swift */,
 				78BD46DE27F07460002AFDA1 /* PopupView.swift */,
 				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
+				78B9F5602801BBAA0030ECF4 /* SortingSection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -226,6 +235,8 @@
 				789A767127DA74F700B8EE06 /* AboutAppDataProvidersTableViewCell.swift */,
 				786C01A427DE511400868EBE /* TipJarTableViewCell.swift */,
 				7841735D27E6460000A35530 /* ProTableViewCell.swift */,
+				78B9F55C2801B9B50030ECF4 /* MainSortTableViewCell.swift */,
+				78B9F55E2801B9F10030ECF4 /* SubSortTableViewCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -242,6 +253,7 @@
 				7802A17227D90C4400769693 /* AboutAppTableViewController.swift */,
 				786C01A227DE50E300868EBE /* TipJarTableViewController.swift */,
 				7841735B27E645DE00A35530 /* ProViewController.swift */,
+				78B9F55A2801B5900030ECF4 /* SortingTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -357,6 +369,7 @@
 				78E9B79C27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift in Sources */,
 				7838F90027885B86007D34AA /* CurrencyData.swift in Sources */,
 				783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */,
+				78B9F55F2801B9F10030ECF4 /* SubSortTableViewCell.swift in Sources */,
 				7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */,
 				78B40A1327D659F60016D9E6 /* TermsOfUseTableViewCell.swift in Sources */,
 				78F13FF327CE9AD80076613A /* ConverterPreviewTableViewCell.swift in Sources */,
@@ -386,10 +399,13 @@
 				78041C232786F9FA00C4D861 /* Kursvalut.xcdatamodeld in Sources */,
 				78F13FF127CE9AC60076613A /* CurrencyPreviewTableViewCell.swift in Sources */,
 				78B40A1027D659BB0016D9E6 /* TermsOfUseViewController.swift in Sources */,
+				78B9F55D2801B9B50030ECF4 /* MainSortTableViewCell.swift in Sources */,
+				78B9F5612801BBAA0030ECF4 /* SortingSection.swift in Sources */,
 				7841735E27E6460000A35530 /* ProTableViewCell.swift in Sources */,
 				787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */,
 				78B49AE427CBD3D5003C975D /* DecimalsTableViewController.swift in Sources */,
 				7841735C27E645DE00A35530 /* ProViewController.swift in Sources */,
+				78B9F55B2801B5900030ECF4 /* SortingTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
