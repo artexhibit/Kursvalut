@@ -16,7 +16,7 @@ class SortingTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        currencyManager.configureContentInset(for: tableView, top: 20)
+        currencyManager.configureContentInset(for: tableView, top: 10)
     }
     
     //MARK: - TableView DataSource Methods
@@ -40,6 +40,12 @@ class SortingTableViewController: UITableViewController {
             cell.titleLabel.text = sections[indexPath.section].title
             cell.subtitleLabel.text = sections[indexPath.section].subtitle
             cell.proLabel.isHidden = indexPath.section == 3 && !proPurchased ? false : true
+            
+            if sections[indexPath.section].isOpened {
+                cell.chevronImage.transform = CGAffineTransform(rotationAngle: .pi/2)
+            } else {
+                cell.chevronImage.transform = .identity
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "subSortCell", for: indexPath) as! SubSortTableViewCell
@@ -58,9 +64,33 @@ class SortingTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             sections[indexPath.section].isOpened = !sections[indexPath.section].isOpened
-            tableView.reloadSections([indexPath.section], with: .none)
+            
+            guard let cell = tableView.cellForRow(at: indexPath) as? MainSortTableViewCell else { return }
+            
+            UIView.animate(withDuration: 0.3) {
+                if self.sections[indexPath.section].isOpened {
+                    cell.chevronImage.transform = CGAffineTransform(rotationAngle: .pi/2)
+                } else {
+                    cell.chevronImage.transform = .identity
+                }
+            } completion: { _ in
+                tableView.reloadSections([indexPath.section], with: .none)
+            }
         } else {
-            print("tapped cell at row \(indexPath.row) in section \(indexPath.section)")
+            guard let cell = tableView.cellForRow(at: indexPath) as? SubSortTableViewCell else { return }
+            let pickedSection =  sections[indexPath.section].title
+            let pickedOption = cell.titleLabel.text ?? ""
+            
+            if cell.accessoryType != .checkmark {
+                for section in 0..<tableView.numberOfSections {
+                    for row in 0..<tableView.numberOfRows(inSection: section) {
+                        guard let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) else { return }
+                        cell.accessoryType = .none
+                    }
+                }
+                cell.accessoryType = .checkmark
+            }
+            print("tapped cell at row \(indexPath.row) called \(pickedOption) in section \(indexPath.section) called \(pickedSection)")
         }
         
         if indexPath.section == 3 && !proPurchased {
