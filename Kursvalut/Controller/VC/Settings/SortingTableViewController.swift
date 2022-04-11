@@ -7,6 +7,12 @@ class SortingTableViewController: UITableViewController {
     private var proPurchased: Bool {
         return UserDefaults.standard.bool(forKey: "kursvalutPro")
     }
+    private var pickedOrder: String {
+        return UserDefaults.standard.string(forKey: "pickedOrder") ?? ""
+    }
+    private var pickedSectionNumber: Int {
+        return UserDefaults.standard.integer(forKey: "pickedSectionNumber")
+    }
     private var sections = [
     SortingSection(title: "По имени", subtitle: "Российский рубль", options: ["По возрастанию (А→Я)", "По убыванию (Я→А)"]),
     SortingSection(title: "По короткому имени", subtitle: "RUB", options: ["По возрастанию (А→Я)", "По убыванию (Я→А)"]),
@@ -17,6 +23,7 @@ class SortingTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         currencyManager.configureContentInset(for: tableView, top: 10)
+        sections[pickedSectionNumber].isOpened = true
     }
     
     //MARK: - TableView DataSource Methods
@@ -27,11 +34,7 @@ class SortingTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let section = sections[section]
-        if section.isOpened {
-            return section.options.count + 1
-        } else {
-            return 1
-        }
+        return section.isOpened ? section.options.count + 1 : 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,6 +53,10 @@ class SortingTableViewController: UITableViewController {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "subSortCell", for: indexPath) as! SubSortTableViewCell
             cell.titleLabel.text = sections[indexPath.section].options[indexPath.row - 1]
+            
+            if pickedSectionNumber == indexPath.section {
+                cell.accessoryType = cell.titleLabel.text == pickedOrder ? .checkmark : .none
+            }
             return cell
         }
     }
@@ -63,11 +70,10 @@ class SortingTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            sections[indexPath.section].isOpened = !sections[indexPath.section].isOpened
+            sections[indexPath.section].isOpened.toggle()
             
             guard let cell = tableView.cellForRow(at: indexPath) as? MainSortTableViewCell else { return }
-            
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: 0.2) {
                 if self.sections[indexPath.section].isOpened {
                     cell.chevronImage.transform = CGAffineTransform(rotationAngle: .pi/2)
                 } else {
@@ -79,7 +85,7 @@ class SortingTableViewController: UITableViewController {
         } else {
             guard let cell = tableView.cellForRow(at: indexPath) as? SubSortTableViewCell else { return }
             let pickedSection =  sections[indexPath.section].title
-            let pickedOption = cell.titleLabel.text ?? ""
+            let pickedOrder = cell.titleLabel.text ?? ""
             
             if cell.accessoryType != .checkmark {
                 for section in 0..<tableView.numberOfSections {
@@ -89,8 +95,10 @@ class SortingTableViewController: UITableViewController {
                     }
                 }
                 cell.accessoryType = .checkmark
+                UserDefaults.standard.set(pickedOrder, forKey: "pickedOrder")
+                UserDefaults.standard.set(pickedSection, forKey: "pickedSection")
+                UserDefaults.standard.set(indexPath.section, forKey: "pickedSectionNumber")
             }
-            print("tapped cell at row \(indexPath.row) called \(pickedOption) in section \(indexPath.section) called \(pickedSection)")
         }
         
         if indexPath.section == 3 && !proPurchased {

@@ -160,8 +160,8 @@
 				7838F8FF27885B86007D34AA /* CurrencyData.swift */,
 				7813102727D75FE000065410 /* SMailComposeViewController.swift */,
 				78BD46DE27F07460002AFDA1 /* PopupView.swift */,
-				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
 				78B9F5602801BBAA0030ECF4 /* SortingSection.swift */,
+				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";

@@ -18,6 +18,13 @@ class CurrencyViewController: UIViewController {
     private var proPurchased: Bool {
         return UserDefaults.standard.bool(forKey: "kursvalutPro")
     }
+    private var pickedOrder: String {
+        return UserDefaults.standard.string(forKey: "pickedOrder") ?? ""
+    }
+    private var pickedSection: String {
+        return UserDefaults.standard.string(forKey: "pickedSection") ?? ""
+    }
+
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var updateTimeLabel: UILabel!
