@@ -94,6 +94,7 @@ class PickCurrencyTableViewController: UITableViewController {
 
 extension PickCurrencyTableViewController: NSFetchedResultsControllerDelegate {
     func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
+        UserDefaults.standard.set(true, forKey: "pickCurrencyRequest")
         let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
         fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: searchPredicate, and: sortDescriptor)
         fetchedResultsController.delegate = self

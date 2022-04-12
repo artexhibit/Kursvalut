@@ -56,6 +56,8 @@ class SortingTableViewController: UITableViewController {
             
             if pickedSectionNumber == indexPath.section {
                 cell.accessoryType = cell.titleLabel.text == pickedOrder ? .checkmark : .none
+            } else {
+                cell.accessoryType = .none
             }
             return cell
         }
@@ -95,10 +97,10 @@ class SortingTableViewController: UITableViewController {
                     }
                 }
                 cell.accessoryType = .checkmark
-                UserDefaults.standard.set(pickedOrder, forKey: "pickedOrder")
-                UserDefaults.standard.set(pickedSection, forKey: "pickedSection")
-                UserDefaults.standard.set(indexPath.section, forKey: "pickedSectionNumber")
             }
+            UserDefaults.standard.set(pickedOrder, forKey: "pickedOrder")
+            UserDefaults.standard.set(pickedSection, forKey: "pickedSection")
+            UserDefaults.standard.set(indexPath.section, forKey: "pickedSectionNumber")
         }
         
         if indexPath.section == 3 && !proPurchased {

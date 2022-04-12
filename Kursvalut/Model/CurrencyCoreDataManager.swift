@@ -4,6 +4,9 @@ import UIKit
 import CoreData
 
 struct CurrencyCoreDataManager {
+    private var pickCurrencyRequest: Bool {
+        return UserDefaults.standard.bool(forKey: "pickCurrencyRequest")
+    }
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     func save() {
@@ -62,7 +65,8 @@ struct CurrencyCoreDataManager {
         
         if let additionalSortDescriptor = sortDescriptor {
             request.sortDescriptors = [additionalSortDescriptor, baseSortDescriptor]
-            sectionName = additionalSortDescriptor.key == "fullName" ? "fullName.firstStringCharacter" : nil
+            sectionName = pickCurrencyRequest ? "fullName.firstStringCharacter" : nil
+            UserDefaults.standard.set(false, forKey: "pickCurrencyRequest")
         } else {
             sectionName = nil
         }
