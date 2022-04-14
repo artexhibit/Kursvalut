@@ -24,7 +24,6 @@ class CurrencyViewController: UIViewController {
     private var pickedSection: String {
         return UserDefaults.standard.string(forKey: "pickedSection") ?? ""
     }
-
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var updateTimeLabel: UILabel!
@@ -35,7 +34,6 @@ class CurrencyViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         setupSearchController()
-        setupFetchedResultsController()
         setupRefreshControl()
         currencyNetworking.checkOnFirstLaunchToday(with: updateTimeLabel)
         currencyManager.configureContentInset(for: tableView, top: -10)
@@ -44,6 +42,7 @@ class CurrencyViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateDecimalsNumber()
+        setupFetchedResultsController()
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
@@ -206,16 +205,33 @@ extension CurrencyViewController {
 //MARK: - NSFetchedResultsController Setup & Delegates
 
 extension CurrencyViewController: NSFetchedResultsControllerDelegate {
+    
+    var sortingOrder: Bool {
+        return (pickedOrder == "По возрастанию (А→Я)" || pickedOrder == "По возрастанию (1→2)") ? true : false
+    }
+    
     func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
         if searchPredicate != nil {
             fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: searchPredicate)
         } else {
             let predicate = NSPredicate(format: "isForCurrencyScreen == YES")
-            let sortDescriptor = NSSortDescriptor(key: "rowForCurrency", ascending: true)
+            
+            var sortDescriptor: NSSortDescriptor {
+                if pickedSection == "По имени" {
+                    return NSSortDescriptor(key: "fullName", ascending: sortingOrder)
+                } else if pickedSection == "По короткому имени" {
+                    return NSSortDescriptor(key: "shortName", ascending: sortingOrder)
+                } else if pickedSection == "По значению" {
+                    return NSSortDescriptor(key: "currentValue", ascending: sortingOrder)
+                } else {
+                    return NSSortDescriptor(key: "rowForCurrency", ascending: true)
+                }
+            }
             fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate, and: sortDescriptor)
         }
         fetchedResultsController.delegate = self
         try? fetchedResultsController.performFetch()
+        tableView.reloadData()
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

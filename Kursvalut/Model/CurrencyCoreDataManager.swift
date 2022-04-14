@@ -61,13 +61,13 @@ struct CurrencyCoreDataManager {
         let request: NSFetchRequest<Currency> = Currency.fetchRequest()
         let baseSortDescriptor = NSSortDescriptor(key: "shortName", ascending: true)
         request.predicate = predicate
-        request.sortDescriptors = [baseSortDescriptor]
         
         if let additionalSortDescriptor = sortDescriptor {
             request.sortDescriptors = [additionalSortDescriptor, baseSortDescriptor]
             sectionName = pickCurrencyRequest ? "fullName.firstStringCharacter" : nil
             UserDefaults.standard.set(false, forKey: "pickCurrencyRequest")
         } else {
+            request.sortDescriptors = [baseSortDescriptor]
             sectionName = nil
         }
         return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionName, cacheName: nil)

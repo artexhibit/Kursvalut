@@ -123,4 +123,9 @@ class SortingTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         tableView.estimatedSectionHeaderHeight
     }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        let virtualSection: Int = section / 2
+        return (section % 2 != 0 && sections[virtualSection].isOpened) ? 3 : tableView.estimatedSectionFooterHeight
+    }
 }
