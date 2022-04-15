@@ -75,11 +75,15 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let move = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
-            self.turnEditing()
-            self.turnEditing()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                self.tableView.reloadData()
+            if self.pickedSection != "Своя" {
+                PopupView().showPopup(title: "Включите в настройках", message: "Сортировка → Своя", type: .lock)
+            } else {
+                self.turnEditing()
+                self.turnEditing()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                    self.tableView.reloadData()
+                }
             }
             completionHandler(true)
         }
@@ -96,7 +100,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-//MARK: - Method for Move Swipe Action
+//MARK: - Method for Trailing Swipe Action
 
 extension CurrencyViewController {
     func turnEditing() {

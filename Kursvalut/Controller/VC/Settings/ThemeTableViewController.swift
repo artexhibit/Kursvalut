@@ -5,7 +5,7 @@ class ThemeTableViewController: UITableViewController {
     
     private var currencyManager = CurrencyManager()
     private let optionsArray = ["Светлая", "Тёмная", "Как в системе"]
-    private let sectionArray = [(header: "", footer: "Принудительно установить один из вариантов оформления или переключать его согласно настройкам на устройстве")]
+    private let sectionArray = [(header: "", footer: "Принудительно установить один из вариантов оформления или переключать согласно системной настройке оформления")]
     private var pickedTheme: String {
         return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
     }
