@@ -54,6 +54,12 @@ struct CurrencyCoreDataManager {
         currency.isForCurrencyScreen = isForCurrency
         currency.rowForCurrency = rowForCurrency
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
+        
+        if currency.shortName == "USD" {
+            currency.rowForConverter = 1
+            currency.isForConverter = true
+            UserDefaults.standard.set(2, forKey: "savedAmount")
+        }
     }
     
     func createCurrencyFetchedResultsController(with predicate: NSPredicate? = nil, and sortDescriptor: NSSortDescriptor? = nil) -> NSFetchedResultsController<Currency> {
@@ -80,7 +86,7 @@ struct CurrencyCoreDataManager {
         do {
             let fetchRuble = try context.fetch(request)
             if fetchRuble.isEmpty {
-                create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, isForCurrency: false)
+                create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, isForConverter: true, rowForConverter: 0, isForCurrency: false)
             } else {
                 for ruble in fetchRuble {
                     update(currency: ruble, currValue: 1.0, prevValue: 1.0, currNominal: 1)
