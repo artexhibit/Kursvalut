@@ -66,7 +66,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
-        cell.rate.text = currencyManager.showRate(withNumber: currency.currentValue, and: Int(currency.nominal))
+        cell.rate.text = currencyManager.showRate(with: currency.absoluteValue)
         cell.rateDifference.text = currencyManager.showDifference(with: currency.currentValue, and: currency.previousValue)
         cell.rateDifference.textColor = currencyManager.showColor()
         
@@ -222,7 +222,7 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
                 } else if pickedSection == "По короткому имени" {
                     return NSSortDescriptor(key: "shortName", ascending: sortingOrder)
                 } else if pickedSection == "По значению" {
-                    return NSSortDescriptor(key: "currentValue", ascending: sortingOrder)
+                    return NSSortDescriptor(key: "absoluteValue", ascending: sortingOrder)
                 } else {
                     return NSSortDescriptor(key: "rowForCurrency", ascending: true)
                 }

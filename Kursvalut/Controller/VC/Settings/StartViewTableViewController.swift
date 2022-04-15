@@ -39,6 +39,8 @@ class StartViewTableViewController: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         guard let cell = tableView.cellForRow(at: indexPath) as? StartViewTableViewCell else { return }
         let pickedSection = indexPath.section
         let pickedOption = cell.viewNameLabel.text ?? ""
@@ -51,8 +53,6 @@ class StartViewTableViewController: UITableViewController {
             cell.accessoryType = .checkmark
         }
         UserDefaults.standard.set(pickedOption, forKey: "startView")
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

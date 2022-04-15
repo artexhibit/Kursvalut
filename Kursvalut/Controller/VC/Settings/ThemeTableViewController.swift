@@ -39,6 +39,8 @@ class ThemeTableViewController: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
         guard let firstWindow = windowScene.windows.first else { return }
         guard let cell = tableView.cellForRow(at: indexPath) as? ThemeTableViewCell else { return }
@@ -55,8 +57,6 @@ class ThemeTableViewController: UITableViewController {
         UserDefaults.standard.set(pickedOption, forKey: "pickedTheme")
         
         UIView.transition(with: firstWindow, duration: 0.3, options: .transitionCrossDissolve, animations: {firstWindow.overrideUserInterfaceStyle = self.currencyManager.switchTheme()}, completion: nil)
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

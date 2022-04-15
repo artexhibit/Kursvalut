@@ -53,6 +53,8 @@ class AboutAppTableViewController: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let pickedSection = indexPath.section
         let pickedCell = indexPath.row
         
@@ -62,7 +64,6 @@ class AboutAppTableViewController: UITableViewController {
             let safariWebView = SFSafariViewController(url: urlString)
             present(safariWebView, animated: true)
         }
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

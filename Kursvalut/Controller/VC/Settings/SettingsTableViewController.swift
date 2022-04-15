@@ -49,6 +49,8 @@ class SettingsTableViewController: UITableViewController {
     //MARK: - TableView DataSource Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let pickedSection = indexPath.section
         let pickedCell = indexPath.row
         
@@ -63,7 +65,6 @@ class SettingsTableViewController: UITableViewController {
                 PopupView().showPopup(title: "Закрыто", message: "Доступно только в Pro", type: .lock)
             }
         }
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

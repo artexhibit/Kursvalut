@@ -79,6 +79,7 @@ class SortingTableViewController: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let virtualSection: Int = indexPath.section / 2
         
         if indexPath.section % 2 == 0 {
@@ -117,7 +118,6 @@ class SortingTableViewController: UITableViewController {
             UserDefaults.standard.set(pickedSection, forKey: "pickedSection")
             UserDefaults.standard.set(virtualSection, forKey: "pickedSectionNumber")
         }
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -64,11 +64,11 @@ class DecimalsTableViewController: UITableViewController {
             return cell
         } else if pickedSection == sectionNumber.currencyCell.section {
             let cell = tableView.dequeueReusableCell(withIdentifier: "currencyPreviewCell", for: indexPath) as! CurrencyPreviewTableViewCell
-            cell.rateLabel.text = currencyManager.showRate(withNumber: previewNumber.forCurrencyScreen)
+            cell.rateLabel.text = currencyManager.showRate(with: previewNumber.forCurrencyScreen)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "converterPreviewCell", for: indexPath) as! ConverterPreviewTableViewCell
-            cell.numberLabel.text = currencyManager.showRate(withNumber: previewNumber.forConverterScreen, forConverter: true)
+            cell.numberLabel.text = currencyManager.showRate(with: previewNumber.forConverterScreen, forConverter: true)
             return cell
         }
     }
@@ -76,6 +76,8 @@ class DecimalsTableViewController: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         guard let cell = tableView.cellForRow(at: indexPath) as? DecimalsTableViewCell else { return }
         let pickedSection = indexPath.section
         let pickedOption = Int(cell.numberLabel.text ?? "2") ?? 2
@@ -96,8 +98,6 @@ class DecimalsTableViewController: UITableViewController {
             userDefaults.set(pickedOption, forKey: "converterScreenDecimals")
             tableView.reloadRows(at: [IndexPath(row: sectionNumber.converterCell.row, section: sectionNumber.converterCell.section)], with: .none)
         }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

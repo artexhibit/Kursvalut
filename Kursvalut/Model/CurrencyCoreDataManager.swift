@@ -25,23 +25,24 @@ struct CurrencyCoreDataManager {
             let fetchResult = try context.fetch(request)
             if !fetchResult.isEmpty {
                 for existingCurrency in fetchResult {
-                    update(currency: existingCurrency, currValue: id.Value, prevValue: id.Previous, currNominal: id.Nominal)
+                    update(currency: existingCurrency, currValue: id.Value, prevValue: id.Previous, currNominal: id.Nominal, abslValue: (id.Value / Double(id.Nominal)))
                 }
             } else {
-                create(shortName: id.CharCode, fullName: id.CharCode, currValue: id.Value, prevValue: id.Previous, nominal: id.Nominal)
+                create(shortName: id.CharCode, fullName: id.CharCode, currValue: id.Value, prevValue: id.Previous, nominal: id.Nominal, abslValue: (id.Value / Double(id.Nominal)))
             }
         } catch {
             print(error)
         }
     }
     
-    func update(currency: Currency, currValue: Double, prevValue: Double, currNominal: Int) {
+    func update(currency: Currency, currValue: Double, prevValue: Double, currNominal: Int, abslValue: Double) {
         currency.currentValue = currValue
         currency.previousValue = prevValue
         currency.nominal = Int32(currNominal)
+        currency.absoluteValue = abslValue
     }
     
-    func create(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0) {
+    func create(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0) {
         let currency = Currency(context: self.context)
         
         currency.shortName = shortName
@@ -54,6 +55,7 @@ struct CurrencyCoreDataManager {
         currency.isForCurrencyScreen = isForCurrency
         currency.rowForCurrency = rowForCurrency
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
+        currency.absoluteValue = currency.currentValue / Double(currency.nominal)
         
         if currency.shortName == "USD" {
             currency.rowForConverter = 1
@@ -86,10 +88,10 @@ struct CurrencyCoreDataManager {
         do {
             let fetchRuble = try context.fetch(request)
             if fetchRuble.isEmpty {
-                create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, isForConverter: true, rowForConverter: 0, isForCurrency: false)
+                create(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, abslValue: 1, isForConverter: true, rowForConverter: 0, isForCurrency: false)
             } else {
                 for ruble in fetchRuble {
-                    update(currency: ruble, currValue: 1.0, prevValue: 1.0, currNominal: 1)
+                    update(currency: ruble, currValue: 1.0, prevValue: 1.0, currNominal: 1, abslValue: 1)
                 }
             }
         } catch {

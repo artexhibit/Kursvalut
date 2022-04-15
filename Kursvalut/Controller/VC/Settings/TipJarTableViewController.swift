@@ -42,8 +42,8 @@ class TipJarTableViewController: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        makePurchase(ofTipAt: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
+        makePurchase(ofTipAt: indexPath)
     }
 }
 

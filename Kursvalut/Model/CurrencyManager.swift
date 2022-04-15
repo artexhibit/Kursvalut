@@ -62,9 +62,9 @@ struct CurrencyManager {
         return image
     }
     
-    func showRate(withNumber currentValue: Double, and nominal: Int = 1, forConverter: Bool = false) -> String {
+    func showRate(with value: Double, forConverter: Bool = false) -> String {
         let format = forConverter ? "%.\(converterScreenDecimalsAmount)f" : "%.\(currencyScreenDecimalsAmount)f RUB"
-        let formattedRate = String(format: format, currentValue/Double(nominal))
+        let formattedRate = String(format: format, value)
         let formattedDecimalSign = formattedRate.replacingOccurrences(of: ".", with: ",")
         return formattedDecimalSign
     }
