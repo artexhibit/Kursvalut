@@ -15,6 +15,9 @@
 		78041C232786F9FA00C4D861 /* Kursvalut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */; };
 		78041C252786F9FB00C4D861 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78041C242786F9FB00C4D861 /* Assets.xcassets */; };
 		78041C282786F9FB00C4D861 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78041C262786F9FB00C4D861 /* LaunchScreen.storyboard */; };
+		780AA2E7280ACE9000ECC3C4 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780AA2E6280ACE9000ECC3C4 /* OnboardingViewController.swift */; };
+		780AA2EB280ADF7F00ECC3C4 /* OnboardingSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */; };
+		780AA2ED280AEA8D00ECC3C4 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780AA2EC280AEA8D00ECC3C4 /* OnboardingCollectionViewCell.swift */; };
 		7813102827D75FE000065410 /* SMailComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813102727D75FE000065410 /* SMailComposeViewController.swift */; };
 		7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */; };
 		7838F90027885B86007D34AA /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FF27885B86007D34AA /* CurrencyData.swift */; };
@@ -67,6 +70,9 @@
 		78041C242786F9FB00C4D861 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		78041C272786F9FB00C4D861 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		78041C292786F9FB00C4D861 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		780AA2E6280ACE9000ECC3C4 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlide.swift; sourceTree = "<group>"; };
+		780AA2EC280AEA8D00ECC3C4 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		7813102727D75FE000065410 /* SMailComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMailComposeViewController.swift; sourceTree = "<group>"; };
 		7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyNetworking.swift; sourceTree = "<group>"; };
 		7838F8FF27885B86007D34AA /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
@@ -161,6 +167,7 @@
 				7813102727D75FE000065410 /* SMailComposeViewController.swift */,
 				78BD46DE27F07460002AFDA1 /* PopupView.swift */,
 				78B9F5602801BBAA0030ECF4 /* SortingSection.swift */,
+				780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */,
 				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
 			);
 			path = Model;
@@ -237,6 +244,7 @@
 				7841735D27E6460000A35530 /* ProTableViewCell.swift */,
 				78B9F55C2801B9B50030ECF4 /* MainSortTableViewCell.swift */,
 				78B9F55E2801B9F10030ECF4 /* SubSortTableViewCell.swift */,
+				780AA2EC280AEA8D00ECC3C4 /* OnboardingCollectionViewCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -254,6 +262,7 @@
 				786C01A227DE50E300868EBE /* TipJarTableViewController.swift */,
 				7841735B27E645DE00A35530 /* ProViewController.swift */,
 				78B9F55A2801B5900030ECF4 /* SortingTableViewController.swift */,
+				780AA2E6280ACE9000ECC3C4 /* OnboardingViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -394,13 +403,16 @@
 				786479AA27981E410077ABC7 /* ConverterTableViewController.swift in Sources */,
 				7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */,
 				78F2716B27CFDF6000381CA9 /* StartViewTableViewController.swift in Sources */,
+				780AA2EB280ADF7F00ECC3C4 /* OnboardingSlide.swift in Sources */,
 				787D551927C9364400587653 /* SettingsTableViewController.swift in Sources */,
 				786479AC279825DF0077ABC7 /* ConverterTableViewCell.swift in Sources */,
 				78041C232786F9FA00C4D861 /* Kursvalut.xcdatamodeld in Sources */,
 				78F13FF127CE9AC60076613A /* CurrencyPreviewTableViewCell.swift in Sources */,
 				78B40A1027D659BB0016D9E6 /* TermsOfUseViewController.swift in Sources */,
+				780AA2E7280ACE9000ECC3C4 /* OnboardingViewController.swift in Sources */,
 				78B9F55D2801B9B50030ECF4 /* MainSortTableViewCell.swift in Sources */,
 				78B9F5612801BBAA0030ECF4 /* SortingSection.swift in Sources */,
+				780AA2ED280AEA8D00ECC3C4 /* OnboardingCollectionViewCell.swift in Sources */,
 				7841735E27E6460000A35530 /* ProTableViewCell.swift in Sources */,
 				787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */,
 				78B49AE427CBD3D5003C975D /* DecimalsTableViewController.swift in Sources */,
