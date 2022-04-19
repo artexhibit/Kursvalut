@@ -29,7 +29,7 @@ class OnboardingViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
         
         let indexPath = IndexPath(item: currentPage, section: 0)
-        collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
     
     @IBAction func closeButtonClicked(_ sender: UIButton) {
@@ -53,6 +53,15 @@ class OnboardingViewController: UIViewController {
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
     }
+    
+    @IBAction func pageControlDotClicked(_ sender: UIPageControl) {
+        let page = sender.currentPage
+        var frame = collectionView.frame
+        frame.origin.x = frame.size.width * CGFloat(page)
+        frame.origin.y = 0
+        collectionView.scrollRectToVisible(frame, animated: false)
+    }
+    
 }
 
 //MARK: - CollectionView Delegate Methods
@@ -77,6 +86,7 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
             cell.imageView.image = slides[indexPath.row].image
             cell.titleLabel.text = slides[indexPath.row].title
             cell.subtitleLabel.text = slides[indexPath.row].subtitle
+            cell.imageView.layer.cornerRadius = 10
             return cell
         }
     }
