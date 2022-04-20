@@ -24,12 +24,20 @@ class OnboardingViewController: UIViewController {
         pageControl.numberOfPages = slides.count
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        collectionView.collectionViewLayout.invalidateLayout()
         
-        let indexPath = IndexPath(item: currentPage, section: 0)
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        coordinator.animate { _ in
+            self.collectionView.collectionViewLayout.invalidateLayout()
+
+            let indexPath = IndexPath(item: self.currentPage, section: 0)
+            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
     }
     
     @IBAction func closeButtonClicked(_ sender: UIButton) {
