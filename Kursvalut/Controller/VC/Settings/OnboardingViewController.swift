@@ -91,10 +91,10 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OnboardingCell", for: indexPath) as! OnboardingCollectionViewCell
             
-            cell.imageView.image = slides[indexPath.row].image
-            cell.titleLabel.text = slides[indexPath.row].title
-            cell.subtitleLabel.text = slides[indexPath.row].subtitle
-            cell.imageView.layer.cornerRadius = 10
+            cell.imageView = slides[indexPath.row].image
+            cell.titleLabel = slides[indexPath.row].title
+            cell.subtitleLabel = slides[indexPath.row].subtitle
+            cell.tableView.reloadData()
             return cell
         }
     }
