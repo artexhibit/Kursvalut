@@ -1,10 +1,10 @@
 
 import UIKit
 
-class SubSortTableViewCell: UITableViewCell {
+class TutorialTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    var isPressed = false
+    @IBOutlet weak var tutorialImage: UIImageView!
+    @IBOutlet weak var tutorialTextLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

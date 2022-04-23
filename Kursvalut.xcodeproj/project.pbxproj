@@ -19,6 +19,7 @@
 		780AA2EB280ADF7F00ECC3C4 /* OnboardingSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */; };
 		780AA2ED280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780AA2EC280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift */; };
 		7813102827D75FE000065410 /* SMailComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813102727D75FE000065410 /* SMailComposeViewController.swift */; };
+		7828734E28145BAC00B65D6F /* TutorialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7828734D28145BAC00B65D6F /* TutorialTableViewCell.swift */; };
 		7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */; };
 		7838F90027885B86007D34AA /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FF27885B86007D34AA /* CurrencyData.swift */; };
 		783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */; };
@@ -76,6 +77,7 @@
 		780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlide.swift; sourceTree = "<group>"; };
 		780AA2EC280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeOnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		7813102727D75FE000065410 /* SMailComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMailComposeViewController.swift; sourceTree = "<group>"; };
+		7828734D28145BAC00B65D6F /* TutorialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialTableViewCell.swift; sourceTree = "<group>"; };
 		7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyNetworking.swift; sourceTree = "<group>"; };
 		7838F8FF27885B86007D34AA /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
 		783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalsTableViewCell.swift; sourceTree = "<group>"; };
@@ -204,6 +206,26 @@
 			path = "Support Files";
 			sourceTree = "<group>";
 		};
+		7828734F28146AD700B65D6F /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				780AA2EC280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift */,
+				78EF7D7D280B3767000CFB46 /* OnboardingCollectionViewCell.swift */,
+				78CEB9AA2813F83900AE0903 /* OnboardingTableViewCell.swift */,
+				7828734D28145BAC00B65D6F /* TutorialTableViewCell.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		7828735028146B0000B65D6F /* Sorting */ = {
+			isa = PBXGroup;
+			children = (
+				78B9F55C2801B9B50030ECF4 /* MainSortTableViewCell.swift */,
+				78B9F55E2801B9F10030ECF4 /* SubSortTableViewCell.swift */,
+			);
+			path = Sorting;
+			sourceTree = "<group>";
+		};
 		78425CD527E104DA007F78F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,11 +268,8 @@
 				789A767127DA74F700B8EE06 /* AboutAppDataProvidersTableViewCell.swift */,
 				786C01A427DE511400868EBE /* TipJarTableViewCell.swift */,
 				7841735D27E6460000A35530 /* ProTableViewCell.swift */,
-				78B9F55C2801B9B50030ECF4 /* MainSortTableViewCell.swift */,
-				78B9F55E2801B9F10030ECF4 /* SubSortTableViewCell.swift */,
-				780AA2EC280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift */,
-				78EF7D7D280B3767000CFB46 /* OnboardingCollectionViewCell.swift */,
-				78CEB9AA2813F83900AE0903 /* OnboardingTableViewCell.swift */,
+				7828735028146B0000B65D6F /* Sorting */,
+				7828734F28146AD700B65D6F /* Onboarding */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -396,6 +415,7 @@
 				78D531902793058B00EF65B2 /* CurrencyCoreDataManager.swift in Sources */,
 				786C01A327DE50E300868EBE /* TipJarTableViewController.swift in Sources */,
 				78C6FAF527D3C160002E35E9 /* ThemeTableViewController.swift in Sources */,
+				7828734E28145BAC00B65D6F /* TutorialTableViewCell.swift in Sources */,
 				789A767227DA74F700B8EE06 /* AboutAppDataProvidersTableViewCell.swift in Sources */,
 				7802A17727D924E200769693 /* AboutAppDeveloperTableViewCell.swift in Sources */,
 				78EF7D7E280B3767000CFB46 /* OnboardingCollectionViewCell.swift in Sources */,

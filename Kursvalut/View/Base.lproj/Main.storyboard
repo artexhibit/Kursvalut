@@ -2536,16 +2536,16 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="412" height="568"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <view key="tableFooterView" contentMode="scaleToFill" id="dbM-M9-hmU" userLabel="Footer View">
-                                                        <rect key="frame" x="0.0" y="506" width="412" height="70"/>
+                                                        <rect key="frame" x="0.0" y="560" width="412" height="70"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     </view>
                                                     <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="onboardingTableCell" rowHeight="439" id="oxf-be-a8Q" customClass="OnboardingTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="44.5" width="412" height="439"/>
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="onboardingTableCell" rowHeight="423" id="oxf-be-a8Q" customClass="OnboardingTableViewCell" customModule="Kursvalut" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="44.5" width="412" height="423"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oxf-be-a8Q" id="9m8-w7-EMC">
-                                                                <rect key="frame" x="0.0" y="0.0" width="412" height="439"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="412" height="423"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="currencyViewLight" translatesAutoresizingMaskIntoConstraints="NO" id="l1C-ms-Uk3">
@@ -2564,9 +2564,8 @@
                                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7al-wN-eYN">
-                                                                        <rect key="frame" x="30" y="340" width="352" height="88"/>
-                                                                        <string key="text">Следите за изменением курса валют ЦБ РФ по отношению к рублю. Если у вас есть Pro версия, то включив в настройках свою сортировку, вы можете сделать свайп справа налево по любой из ячеек и активировать режим перемещения, нажав на синюю иконку</string>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Следите за изменением курса валют ЦБ РФ по отношению к рублю. Если у вас есть Pro версия:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7al-wN-eYN">
+                                                                        <rect key="frame" x="30" y="340" width="352" height="72"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                         <color key="textColor" systemColor="systemGrayColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -2591,6 +2590,41 @@
                                                                 <outlet property="subtitleLabel" destination="7al-wN-eYN" id="gqb-jO-FN5"/>
                                                                 <outlet property="tableImage" destination="l1C-ms-Uk3" id="FZd-NC-wnF"/>
                                                                 <outlet property="titleLabel" destination="UWh-oh-rHn" id="o0y-sJ-vox"/>
+                                                            </connections>
+                                                        </tableViewCell>
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tutorialCell" rowHeight="70" id="9N9-B4-obq" customClass="TutorialTableViewCell" customModule="Kursvalut" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="467.5" width="412" height="70"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9N9-B4-obq" id="QBH-MX-Pom">
+                                                                <rect key="frame" x="0.0" y="0.0" width="412" height="70"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1.circle" translatesAutoresizingMaskIntoConstraints="NO" id="XIG-Ty-Y4H">
+                                                                        <rect key="frame" x="35" y="22.5" width="25" height="25"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="25" id="3Sg-TN-3i1"/>
+                                                                            <constraint firstAttribute="width" constant="25" id="oPD-uc-Q1h"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="В настройках откройте раздел сортировка и выберите опцию Своя" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMb-mp-O1D">
+                                                                        <rect key="frame" x="75" y="11" width="317" height="48"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <color key="textColor" systemColor="systemGrayColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="XIG-Ty-Y4H" firstAttribute="leading" secondItem="QBH-MX-Pom" secondAttribute="leading" constant="35" id="FWH-TT-Sah"/>
+                                                                    <constraint firstItem="wMb-mp-O1D" firstAttribute="leading" secondItem="XIG-Ty-Y4H" secondAttribute="trailing" constant="15" id="SCo-5F-gI7"/>
+                                                                    <constraint firstAttribute="bottomMargin" secondItem="wMb-mp-O1D" secondAttribute="bottom" id="TCP-1s-PtQ"/>
+                                                                    <constraint firstItem="wMb-mp-O1D" firstAttribute="top" secondItem="QBH-MX-Pom" secondAttribute="topMargin" id="WLj-2c-mMG"/>
+                                                                    <constraint firstAttribute="trailingMargin" secondItem="wMb-mp-O1D" secondAttribute="trailing" id="thh-Na-bq6"/>
+                                                                    <constraint firstItem="XIG-Ty-Y4H" firstAttribute="centerY" secondItem="QBH-MX-Pom" secondAttribute="centerY" id="xHy-vJ-eUk"/>
+                                                                </constraints>
+                                                            </tableViewCellContentView>
+                                                            <connections>
+                                                                <outlet property="tutorialImage" destination="XIG-Ty-Y4H" id="nbJ-Qc-hRM"/>
+                                                                <outlet property="tutorialTextLabel" destination="wMb-mp-O1D" id="3uK-Sc-f0O"/>
                                                             </connections>
                                                         </tableViewCell>
                                                     </prototypes>
@@ -2620,6 +2654,7 @@
                                     <constraint firstAttribute="height" constant="30" id="ZSb-mh-QNP"/>
                                     <constraint firstAttribute="width" constant="30" id="zcR-rJ-sHq"/>
                                 </constraints>
+                                <color key="tintColor" systemColor="systemGray4Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal">
                                     <imageReference key="backgroundImage" image="xmark.circle.fill" symbolScale="default"/>
@@ -2765,6 +2800,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="1.circle" width="11" height="11"/>
         <image name="EUR" width="512" height="512"/>
         <image name="RUB" width="512" height="512"/>
         <image name="USD" width="512" height="512"/>
@@ -2807,6 +2843,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

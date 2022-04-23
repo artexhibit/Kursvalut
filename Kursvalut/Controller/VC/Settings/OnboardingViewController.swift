@@ -12,9 +12,9 @@ class OnboardingViewController: UIViewController {
             pageControl.currentPage = currentPage
         }
     }
-    let slides = [
-        OnboardingSlide(title: "Kursvalut", subtitle: "Конвертер валют по курсу ЦБ РФ, который Вам понравится", image: UIImage(named: "app.icon")!),
-        OnboardingSlide(title: "Валюты", subtitle: "Следите за изменением курса валют ЦБ РФ по отношению к рублю. Если у вас Pro версия: выберите режим сортировки в настройках - Своя. Сделав свайп к левой части экрана, как на картинке, активируется режим перемещения. Расположите валюты в нужном порядке и сохраните результат.", image: UIImage(named: "currencyViewLight")!)
+    private let slides = [
+        OnboardingSlide(title: "Kursvalut", subtitle: "Конвертер валют по курсу ЦБ РФ, который Вам понравится", imageName: "app.icon", tutorialData: nil),
+        OnboardingSlide(title: "Валюты", subtitle: "Следите за изменением курса валют ЦБ РФ по отношению к рублю. Если у вас Pro версия, то вы можете расположить валюты в любом порядке: ", imageName: "currencyViewLight", tutorialData: [(icon: "1.circle", text: "Откройте Настройки -> Сортировка -> Своя -> Включить"), (icon: "2.circle", text: "Смахните справа налево по любой из ячеек"), (icon: "3.circle", text: "Нажмите на синюю иконку с тремя линиями")])
     ]
     
     override func viewDidLoad() {
@@ -84,16 +84,17 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
         if indexPath.row == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WelcomeOnboardingCell", for: indexPath) as! WelcomeOnboardingCollectionViewCell
             
-            cell.imageView.image = slides[indexPath.row].image
+            cell.imageView.image = UIImage(named: "\(slides[indexPath.row].imageName)")
             cell.titleLabel.text = slides[indexPath.row].title
             cell.subtitleLabel.text = slides[indexPath.row].subtitle
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OnboardingCell", for: indexPath) as! OnboardingCollectionViewCell
             
-            cell.imageView = slides[indexPath.row].image
+            cell.imageName = slides[indexPath.row].imageName
             cell.titleLabel = slides[indexPath.row].title
             cell.subtitleLabel = slides[indexPath.row].subtitle
+            cell.tutorialData = slides[indexPath.row].tutorialData ?? [(icon: "", text: "")]
             cell.tableView.reloadData()
             return cell
         }
