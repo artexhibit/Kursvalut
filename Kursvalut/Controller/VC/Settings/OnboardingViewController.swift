@@ -13,8 +13,8 @@ class OnboardingViewController: UIViewController {
         }
     }
     private let slides = [
-        OnboardingSlide(title: "Kursvalut", subtitle: "Конвертер валют по курсу ЦБ РФ, который Вам понравится", imageName: "app.icon", tutorialData: nil),
-        OnboardingSlide(title: "Валюты", subtitle: "Следите за изменением курса валют ЦБ РФ по отношению к рублю. Если у вас Pro версия, то вы можете расположить валюты в любом порядке: ", imageName: "currencyViewLight", tutorialData: [(icon: "1.circle", text: "Откройте Настройки -> Сортировка -> Своя -> Включить"), (icon: "2.circle", text: "Смахните справа налево по любой из ячеек"), (icon: "3.circle", text: "Нажмите на синюю иконку с тремя линиями")])
+        OnboardingSlide(title: "Kursvalut", iconName: nil, subtitle: "Конвертер валют по курсу ЦБ РФ, который Вам понравится", imageName: "app.icon", tutorialData: nil),
+        OnboardingSlide(title: "Валюты", iconName: "globe.europe.africa.fill", subtitle: "Здесь вы можете следить за актуальным курсом валют, видеть насколько он изменился по сравнению со вчерашним днём. \n \n Если есть Pro версия, то сможете настроить свой порядок:", imageName: "changeCellOrder", tutorialData: [(icon: "1.circle", text: "Откройте Настройки → Сортировка → Своя → Включить"), (icon: "2.circle", text: "Смахните справа налево по любой из ячеек (как на картинке)"), (icon: "3.circle", text: "Нажмите на синюю иконку с тремя линиями"), (icon: "4.circle", text: "Удерживая палец на иконке с тремя линиями перемещайте ячейку вверх/вниз"), (icon: "checkmark.circle", text: "Нажмите «Готово». Всё! 🎉")])
     ]
     
     override func viewDidLoad() {
@@ -24,18 +24,11 @@ class OnboardingViewController: UIViewController {
         pageControl.numberOfPages = slides.count
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView.collectionViewLayout.invalidateLayout()
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        coordinator.animate { _ in
-            self.collectionView.collectionViewLayout.invalidateLayout()
 
-            let indexPath = IndexPath(item: self.currentPage, section: 0)
+        let indexPath = IndexPath(item: self.currentPage, section: 0)
+        DispatchQueue.main.async {
             self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
     }
@@ -92,6 +85,7 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OnboardingCell", for: indexPath) as! OnboardingCollectionViewCell
             
             cell.imageName = slides[indexPath.row].imageName
+            cell.iconName = slides[indexPath.row].iconName ?? ""
             cell.titleLabel = slides[indexPath.row].title
             cell.subtitleLabel = slides[indexPath.row].subtitle
             cell.tutorialData = slides[indexPath.row].tutorialData ?? [(icon: "", text: "")]

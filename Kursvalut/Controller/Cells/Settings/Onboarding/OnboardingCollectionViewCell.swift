@@ -6,14 +6,13 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var tableView: UITableView!
     
     var imageName: String = ""
+    var iconName: String = ""
     var titleLabel: String?
     var subtitleLabel: String?
     var tutorialData: [(icon: String, text: String)] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        tableView.delegate = self
-        tableView.dataSource = self
     }
 }
 
@@ -26,6 +25,7 @@ extension OnboardingCollectionViewCell: UITableViewDataSource, UITableViewDelega
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "onboardingTableCell", for: indexPath) as! OnboardingTableViewCell
             cell.tableImage.image = UIImage(named: "\(imageName)")
+            cell.iconView.image = UIImage(named: "\(iconName)")
             cell.titleLabel.text = titleLabel
             cell.subtitleLabel.text = subtitleLabel
             return cell
