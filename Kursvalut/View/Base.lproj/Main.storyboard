@@ -2614,7 +2614,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="В настройках откройте раздел сортировка и выберите опцию Своя" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMb-mp-O1D">
-                                                                        <rect key="frame" x="75" y="11" width="317" height="48"/>
+                                                                        <rect key="frame" x="75" y="11" width="307" height="48"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <color key="textColor" systemColor="systemGrayColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -2625,7 +2625,7 @@
                                                                     <constraint firstItem="wMb-mp-O1D" firstAttribute="leading" secondItem="XIG-Ty-Y4H" secondAttribute="trailing" constant="15" id="SCo-5F-gI7"/>
                                                                     <constraint firstAttribute="bottomMargin" secondItem="wMb-mp-O1D" secondAttribute="bottom" id="TCP-1s-PtQ"/>
                                                                     <constraint firstItem="wMb-mp-O1D" firstAttribute="top" secondItem="QBH-MX-Pom" secondAttribute="topMargin" id="WLj-2c-mMG"/>
-                                                                    <constraint firstAttribute="trailingMargin" secondItem="wMb-mp-O1D" secondAttribute="trailing" id="thh-Na-bq6"/>
+                                                                    <constraint firstAttribute="trailingMargin" secondItem="wMb-mp-O1D" secondAttribute="trailing" constant="10" id="thh-Na-bq6"/>
                                                                     <constraint firstItem="XIG-Ty-Y4H" firstAttribute="centerY" secondItem="QBH-MX-Pom" secondAttribute="centerY" id="xHy-vJ-eUk"/>
                                                                 </constraints>
                                                             </tableViewCellContentView>
@@ -2749,6 +2749,7 @@
                         <outlet property="collectionView" destination="kdi-An-XIR" id="llX-CC-orG"/>
                         <outlet property="navigationView" destination="oB8-X7-7oG" id="2lm-mJ-nSk"/>
                         <outlet property="pageControl" destination="fLT-4F-54J" id="vXW-3V-jfU"/>
+                        <outlet property="previousButton" destination="1Z8-8C-hwv" id="0Em-ZY-LTP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kU2-fG-Ud3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2833,8 +2834,8 @@
         <image name="doc.text.fill" width="9" height="11"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="globe" width="11" height="11"/>
-        <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
         <image name="globe.europe.africa.fill" width="11" height="11"/>
+        <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
         <image name="heart.fill" width="10" height="10"/>
         <image name="info.circle" width="11" height="11"/>
         <image name="iphone.and.arrow.forward" width="8" height="11"/>

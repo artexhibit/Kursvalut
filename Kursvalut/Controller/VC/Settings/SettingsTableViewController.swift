@@ -113,6 +113,8 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         if queue.transactions.isEmpty {
             PopupView().showPopup(title: "Ошибка", message: "Pro не покупался", type: .failure)
+        } else if proPurchased {
+            PopupView().showPopup(title: "Всё в порядке", message: "Pro уже восстановлен", type: .lock)
         } else {
             PopupView().showPopup(title: "Успешно", message: "Покупка восстановлена", type: .restore)
         }
