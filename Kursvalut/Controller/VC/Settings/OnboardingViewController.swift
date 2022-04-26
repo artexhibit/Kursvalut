@@ -106,10 +106,10 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let width = scrollView.frame.width
-        currentPage = Int(scrollView.contentOffset.x / width)
-        pageControl.currentPage = currentPage
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let visibleRectangle = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+        let visiblePoint = CGPoint(x: visibleRectangle.midX, y: visibleRectangle.midY)
+        currentPage = collectionView.indexPathForItem(at: visiblePoint)?.row ?? 0
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
