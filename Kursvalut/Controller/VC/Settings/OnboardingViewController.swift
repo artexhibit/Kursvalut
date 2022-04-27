@@ -10,8 +10,10 @@ class OnboardingViewController: UIViewController {
     
     private var currentPage = 0 {
         didSet {
-            pageControl.currentPage = currentPage
-            currentPage == 0 ? hidePreviousButton() : showPreviousButton()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.pageControl.currentPage = self.currentPage
+                self.currentPage == 0 ? self.hidePreviousButton() : self.showPreviousButton()
+            }
         }
     }
     private let slides = [
@@ -60,7 +62,7 @@ class OnboardingViewController: UIViewController {
         collectionView.scrollRectToVisible(frame, animated: false)
     }
     
-    //MARK: - User Interface Layout Methods
+    //MARK: - Navigation View Layout Methods
     
     func showPreviousButton() {
         previousButton.setBackgroundImage(UIImage(named: "chevron.backward.circle.fill"), for: .normal)
