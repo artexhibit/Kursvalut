@@ -4,6 +4,8 @@ import CoreData
 
 class ConverterTableViewController: UITableViewController {
     
+    @IBOutlet weak var doneEditingButton: UIBarButtonItem!
+    
     private var fetchedResultsController: NSFetchedResultsController<Currency>!
     private let coreDataManager = CurrencyCoreDataManager()
     private let converterManager = ConverterManager()
@@ -27,12 +29,11 @@ class ConverterTableViewController: UITableViewController {
         return UserDefaults.standard.integer(forKey: "savedAmount")
     }
     
-    @IBOutlet weak var doneEditingButton: UIBarButtonItem!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFetchedResultsController()
         setupKeyboardHide()
+        currencyManager.configureContentInset(for: tableView, top: 10)
         
         if pickedStartView == "Конвертер" {
             currencyNetworking.checkOnFirstLaunchToday()

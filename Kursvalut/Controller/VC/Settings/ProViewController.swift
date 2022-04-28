@@ -5,6 +5,7 @@ import StoreKit
 class ProViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var closeButtonView: UIVisualEffectView!
     @IBOutlet weak var purchaseButton: UIButton!
     @IBOutlet weak var purchaseView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
@@ -30,6 +31,7 @@ class ProViewController: UIViewController {
         fetchForPro()
         purchaseView.layer.cornerRadius = 20
         purchaseButton.layer.cornerRadius = 12
+        closeButtonView.layer.cornerRadius = closeButtonView.frame.height / 2
         priceSpinner.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
         SKPaymentQueue.default().add(self)
         
@@ -45,8 +47,8 @@ class ProViewController: UIViewController {
         }
     }
     
-    @IBAction func dismissButtonPressed(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    @IBAction func closeButtonPressed(_ sender: UIButton) {
+        dismiss(animated: true)
     }
     
     @IBAction func purchaseButtonPressed(_ sender: UIButton) {
@@ -57,7 +59,6 @@ class ProViewController: UIViewController {
         purchaseButton.isHidden = true
         purchaseSpinner.startAnimating()
     }
-    
 }
 
 //MARK: - TableView DataSource Methods

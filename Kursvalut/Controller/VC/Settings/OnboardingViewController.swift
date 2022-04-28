@@ -7,6 +7,7 @@ class OnboardingViewController: UIViewController {
     @IBOutlet weak var navigationView: UIVisualEffectView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var previousButton: UIButton!
+    @IBOutlet weak var closeButtonView: UIVisualEffectView!
     
     private var buttonScroll = false
     private var currentPage = 0 {
@@ -26,6 +27,7 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationView.layer.cornerRadius = 20
+        closeButtonView.layer.cornerRadius = closeButtonView.frame.height / 2
         collectionView.contentInsetAdjustmentBehavior = .never
         pageControl.numberOfPages = slides.count
         currentPage == 0 ? hidePreviousButton() : showPreviousButton()

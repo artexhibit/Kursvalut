@@ -3,6 +3,11 @@ import UIKit
 import CoreData
 
 class CurrencyViewController: UIViewController {
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var updateTimeLabel: UILabel!
+    @IBOutlet weak var doneEditingButton: UIBarButtonItem!
+    
     private let userDefaults = UserDefaults.standard
     private var currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
@@ -24,10 +29,6 @@ class CurrencyViewController: UIViewController {
     private var pickedSection: String {
         return UserDefaults.standard.string(forKey: "pickedSection") ?? ""
     }
-    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var updateTimeLabel: UILabel!
-    @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
