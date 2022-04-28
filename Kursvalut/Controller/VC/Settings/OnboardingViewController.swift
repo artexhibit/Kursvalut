@@ -8,12 +8,11 @@ class OnboardingViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var previousButton: UIButton!
     
+    private var buttonScroll = false
     private var currentPage = 0 {
         didSet {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.pageControl.currentPage = self.currentPage
-                self.currentPage == 0 ? self.hidePreviousButton() : self.showPreviousButton()
-            }
+            pageControl.currentPage = currentPage
+            currentPage == 0 ? hidePreviousButton() : showPreviousButton()
         }
     }
     private let slides = [
@@ -40,6 +39,7 @@ class OnboardingViewController: UIViewController {
         if currentPage != 0 {
             currentPage -= 1
             let indexPath = IndexPath(item: currentPage, section: 0)
+            buttonScroll = true
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
     }
@@ -50,6 +50,7 @@ class OnboardingViewController: UIViewController {
         } else {
             currentPage += 1
             let indexPath = IndexPath(item: currentPage, section: 0)
+            buttonScroll = true
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
     }
@@ -109,9 +110,15 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !buttonScroll {
         let visibleRectangle = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
         let visiblePoint = CGPoint(x: visibleRectangle.midX, y: visibleRectangle.midY)
         currentPage = collectionView.indexPathForItem(at: visiblePoint)?.row ?? 0
+        }
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        buttonScroll = false
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
