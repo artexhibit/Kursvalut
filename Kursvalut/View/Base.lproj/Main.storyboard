@@ -1546,14 +1546,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startViewCell" id="hyY-vn-r54" userLabel="Start View Cell" customClass="StartViewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hyY-vn-r54" id="Dx2-ce-Ru7">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Валюты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbc-hr-FHJ" userLabel="viewNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1591,14 +1591,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="M1Q-1H-VHB" userLabel="Theme Cell" customClass="ThemeTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M1Q-1H-VHB" id="3sk-ff-s1w">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Как в системе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrU-4i-37D" userLabel="themeNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -2356,7 +2356,7 @@
                                     <constraint firstAttribute="height" constant="30" id="7Ir-e7-azJ"/>
                                     <constraint firstAttribute="width" constant="30" id="Ac2-vk-VzU"/>
                                 </constraints>
-                                <blurEffect style="systemMaterial"/>
+                                <blurEffect style="systemThinMaterial"/>
                             </visualEffectView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="N5e-HE-zGy"/>
@@ -2630,16 +2630,28 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="bottomMargin" secondItem="7al-wN-eYN" secondAttribute="bottom" id="BWQ-Fl-OcT"/>
                                                                     <constraint firstItem="JV6-MF-ixR" firstAttribute="centerX" secondItem="9m8-w7-EMC" secondAttribute="centerX" id="CN1-kU-aJg"/>
-                                                                    <constraint firstItem="7al-wN-eYN" firstAttribute="trailing" secondItem="9m8-w7-EMC" secondAttribute="trailingMargin" id="Hvf-1R-HwC"/>
+                                                                    <constraint firstItem="7al-wN-eYN" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="9m8-w7-EMC" secondAttribute="trailingMargin" id="Hvf-1R-HwC"/>
                                                                     <constraint firstItem="7al-wN-eYN" firstAttribute="top" secondItem="JV6-MF-ixR" secondAttribute="bottom" constant="15" id="Pdt-od-eth"/>
                                                                     <constraint firstItem="7al-wN-eYN" firstAttribute="centerX" secondItem="9m8-w7-EMC" secondAttribute="centerX" id="T2C-9k-xoH"/>
                                                                     <constraint firstItem="l1C-ms-Uk3" firstAttribute="centerX" secondItem="9m8-w7-EMC" secondAttribute="centerX" id="X0V-tP-vOE"/>
                                                                     <constraint firstItem="l1C-ms-Uk3" firstAttribute="leading" secondItem="9m8-w7-EMC" secondAttribute="leading" constant="20" id="b0r-Lj-uCY"/>
                                                                     <constraint firstAttribute="trailing" secondItem="l1C-ms-Uk3" secondAttribute="trailing" constant="20" id="kE1-j0-bgj"/>
                                                                     <constraint firstItem="l1C-ms-Uk3" firstAttribute="top" secondItem="9m8-w7-EMC" secondAttribute="top" constant="90" id="sE5-0J-Vua"/>
-                                                                    <constraint firstItem="7al-wN-eYN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9m8-w7-EMC" secondAttribute="leadingMargin" id="tj5-0g-YWG"/>
+                                                                    <constraint firstItem="7al-wN-eYN" firstAttribute="leading" secondItem="9m8-w7-EMC" secondAttribute="leadingMargin" id="tj5-0g-YWG"/>
                                                                     <constraint firstItem="JV6-MF-ixR" firstAttribute="top" secondItem="l1C-ms-Uk3" secondAttribute="bottom" constant="15" id="un3-Gq-DMK"/>
                                                                 </constraints>
+                                                                <variation key="default">
+                                                                    <mask key="constraints">
+                                                                        <exclude reference="b0r-Lj-uCY"/>
+                                                                        <exclude reference="kE1-j0-bgj"/>
+                                                                    </mask>
+                                                                </variation>
+                                                                <variation key="heightClass=regular">
+                                                                    <mask key="constraints">
+                                                                        <include reference="b0r-Lj-uCY"/>
+                                                                        <include reference="kE1-j0-bgj"/>
+                                                                    </mask>
+                                                                </variation>
                                                             </tableViewCellContentView>
                                                             <connections>
                                                                 <outlet property="iconView" destination="OUs-Pb-Zfp" id="RpX-E9-mla"/>
@@ -2746,7 +2758,7 @@
                                     <constraint firstAttribute="width" constant="30" id="ULO-XI-gTc"/>
                                     <constraint firstAttribute="height" constant="30" id="V7a-GP-ZNr"/>
                                 </constraints>
-                                <blurEffect style="systemMaterial"/>
+                                <blurEffect style="systemThinMaterial"/>
                             </visualEffectView>
                             <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oB8-X7-7oG">
                                 <rect key="frame" x="82" y="772" width="250" height="55"/>
