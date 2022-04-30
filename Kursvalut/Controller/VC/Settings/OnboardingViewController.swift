@@ -14,6 +14,7 @@ class OnboardingViewController: UIViewController {
         didSet {
             pageControl.currentPage = currentPage
             currentPage == 0 ? hidePreviousButton() : showPreviousButton()
+            currentPage == slides.count - 1 ? hideNavigationControls() : showNavigationControls()
         }
     }
     private let slides = [
@@ -76,6 +77,12 @@ class OnboardingViewController: UIViewController {
         previousButton.setBackgroundImage(UIImage(named: "chevron.left.circle"), for: .normal)
         previousButton.isUserInteractionEnabled = false
     }
+    
+    func hideNavigationControls() {
+    }
+    
+    func showNavigationControls() {
+    }
 }
 
 //MARK: - CollectionView Delegate Methods
@@ -87,7 +94,7 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row == 0 {
+        if indexPath.item == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WelcomeOnboardingCell", for: indexPath) as! WelcomeOnboardingCollectionViewCell
             
             cell.imageView.image = UIImage(named: "\(slides[indexPath.row].imageName)")
