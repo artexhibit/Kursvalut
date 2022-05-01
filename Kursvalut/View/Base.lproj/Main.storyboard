@@ -2903,8 +2903,8 @@
         <image name="doc.text.fill" width="9" height="11"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="globe" width="11" height="11"/>
-        <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
         <image name="globe.europe.africa.fill" width="11" height="11"/>
+        <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
         <image name="heart.fill" width="10" height="10"/>
         <image name="info.circle" width="11" height="11"/>
         <image name="iphone.and.arrow.forward" width="8" height="11"/>

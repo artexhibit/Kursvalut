@@ -17,6 +17,13 @@ class OnboardingViewController: UIViewController {
             currentPage == slides.count - 1 ? hideNavigationControls() : showNavigationControls()
         }
     }
+    private var activePage = 0 {
+        didSet {
+            if activePage != oldValue {
+                collectionView.reloadData()
+            }
+        }
+    }
     private let slides = [
         OnboardingSlide(title: "Kursvalut", iconName: nil, subtitle: "Конвертер валют по курсу ЦБ РФ, который Вам понравится", imageName: "app.icon", tutorialData: nil),
         OnboardingSlide(title: "Валюты", iconName: "globe.europe.africa.fill", subtitle: "Здесь вы можете следить за актуальным курсом валют, видеть насколько он изменился по сравнению со вчерашним днём. \n \n Пользователи Pro могут настроить свой порядок:", imageName: "changeCellOrder", tutorialData: [(icon: "1.circle", text: "Откройте Настройки → Сортировка → Своя → Включить"), (icon: "2.circle", text: "Смахните справа налево по любой из ячеек (как на картинке)"), (icon: "3.circle", text: "Нажмите на синюю иконку с тремя линиями"), (icon: "4.circle", text: "Удерживая палец на иконке с тремя линиями перемещайте ячейку вверх/вниз"), (icon: "checkmark.circle", text: "Нажмите «Готово». Всё! 🎉")]),
@@ -32,6 +39,7 @@ class OnboardingViewController: UIViewController {
         collectionView.contentInsetAdjustmentBehavior = .never
         pageControl.numberOfPages = slides.count
         currentPage == 0 ? hidePreviousButton() : showPreviousButton()
+        currentPage == slides.count - 1 ? hideNavigationControls() : showNavigationControls()
     }
     
     @IBAction func closeButtonClicked(_ sender: UIButton) {
@@ -109,7 +117,13 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
             cell.titleLabel = slides[indexPath.row].title
             cell.subtitleLabel = slides[indexPath.row].subtitle
             cell.tutorialData = slides[indexPath.row].tutorialData ?? [(icon: "", text: "")]
+            
+            if cell.tableView.window != nil {
+            cell.tableView.contentOffset = CGPoint.zero
+            cell.tableView.layoutIfNeeded()
             cell.tableView.reloadData()
+            }
+            
             return cell
         }
     }
@@ -120,13 +134,20 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if !buttonScroll {
-        let visibleRectangle = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
-        let visiblePoint = CGPoint(x: visibleRectangle.midX, y: visibleRectangle.midY)
-        currentPage = collectionView.indexPathForItem(at: visiblePoint)?.row ?? 0
+            let visibleRectangle = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+            let visiblePoint = CGPoint(x: visibleRectangle.midX, y: visibleRectangle.midY)
+            currentPage = collectionView.indexPathForItem(at: visiblePoint)?.row ?? 0
+        }
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        for cell in collectionView.visibleCells {
+            activePage = collectionView.indexPath(for: cell)?.row ?? 0
         }
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        collectionView.reloadData()
         buttonScroll = false
     }
     
