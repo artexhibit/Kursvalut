@@ -7,6 +7,9 @@ class OnboardingViewController: UIViewController {
     @IBOutlet weak var navigationView: UIVisualEffectView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var previousButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var closeNavigationButton: UIButton!
+    @IBOutlet weak var closeLabel: UILabel!
     @IBOutlet weak var closeButtonView: UIVisualEffectView!
     
     private var buttonScroll = false
@@ -14,7 +17,6 @@ class OnboardingViewController: UIViewController {
         didSet {
             pageControl.currentPage = currentPage
             currentPage == 0 ? hidePreviousButton() : showPreviousButton()
-            currentPage == slides.count - 1 ? hideNavigationControls() : showNavigationControls()
         }
     }
     private var activePage = 0 {
@@ -39,7 +41,6 @@ class OnboardingViewController: UIViewController {
         collectionView.contentInsetAdjustmentBehavior = .never
         pageControl.numberOfPages = slides.count
         currentPage == 0 ? hidePreviousButton() : showPreviousButton()
-        currentPage == slides.count - 1 ? hideNavigationControls() : showNavigationControls()
     }
     
     @IBAction func closeButtonClicked(_ sender: UIButton) {
@@ -56,14 +57,14 @@ class OnboardingViewController: UIViewController {
     }
     
     @IBAction func nextButtonClicked(_ sender: UIButton) {
-        if currentPage == slides.count - 1 {
-            //hide onboarding
-        } else {
-            currentPage += 1
-            let indexPath = IndexPath(item: currentPage, section: 0)
-            buttonScroll = true
-            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        }
+        currentPage += 1
+        let indexPath = IndexPath(item: currentPage, section: 0)
+        buttonScroll = true
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
+    
+    @IBAction func closeNavigationButtonClicked(_ sender: UIButton) {
+        dismiss(animated: true)
     }
     
     @IBAction func pageControlDotClicked(_ sender: UIPageControl) {
@@ -87,9 +88,34 @@ class OnboardingViewController: UIViewController {
     }
     
     func hideNavigationControls() {
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut) {
+            self.previousButton.transform = CGAffineTransform(translationX: 0, y: 50)
+            self.nextButton.transform = CGAffineTransform(translationX: 0, y: 50)
+            self.pageControl.transform = CGAffineTransform(translationX: 0, y: 50)
+            self.closeButtonView.transform = CGAffineTransform(translationX: 50, y: 0)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.4, delay: 0.2, options: .curveEaseInOut) {
+                self.navigationView.contentView.backgroundColor = .systemBlue
+                self.closeLabel.alpha = 1.0
+                self.closeNavigationButton.isHidden = false
+                self.closeLabel.isHidden = false
+            }
+        }
     }
     
     func showNavigationControls() {
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut) {
+            self.navigationView.contentView.backgroundColor = .clear
+            self.closeNavigationButton.isHidden = true
+            self.closeLabel.alpha = 0
+        } completion: { _ in
+            UIView.animate(withDuration: 0.4, delay: 0.2, options: .curveEaseInOut) {
+                self.previousButton.transform = .identity
+                self.nextButton.transform = .identity
+                self.pageControl.transform = .identity
+                self.closeButtonView.transform = .identity
+            }
+        }
     }
 }
 
@@ -138,6 +164,7 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
             let visiblePoint = CGPoint(x: visibleRectangle.midX, y: visibleRectangle.midY)
             currentPage = collectionView.indexPathForItem(at: visiblePoint)?.row ?? 0
         }
+        currentPage == slides.count - 1 ? hideNavigationControls() : showNavigationControls()
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

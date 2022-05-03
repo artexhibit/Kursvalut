@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kPs-c4-rso">
-    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -2801,13 +2801,32 @@
                                                 <action selector="nextButtonClicked:" destination="f2q-hd-gcQ" eventType="touchUpInside" id="3pb-40-Z3z"/>
                                             </connections>
                                         </button>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaz-mp-736">
+                                            <rect key="frame" x="0.0" y="0.0" width="250" height="55"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <connections>
+                                                <action selector="closeNavigationButtonClicked:" destination="f2q-hd-gcQ" eventType="touchUpInside" id="RkF-KU-VkJ"/>
+                                            </connections>
+                                        </button>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Закрыть" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAa-8H-7rB">
+                                            <rect key="frame" x="78.5" y="14" width="93.5" height="27.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="1Z8-8C-hwv" firstAttribute="centerY" secondItem="Rpq-6I-858" secondAttribute="centerY" id="2Qe-sK-X9k"/>
                                         <constraint firstItem="5RW-Ep-lKu" firstAttribute="centerY" secondItem="Rpq-6I-858" secondAttribute="centerY" id="345-9i-4nA"/>
                                         <constraint firstItem="fLT-4F-54J" firstAttribute="centerY" secondItem="Rpq-6I-858" secondAttribute="centerY" id="7vt-zb-DP3"/>
+                                        <constraint firstAttribute="trailing" secondItem="kaz-mp-736" secondAttribute="trailing" id="ASz-FU-FnG"/>
+                                        <constraint firstItem="kaz-mp-736" firstAttribute="leading" secondItem="Rpq-6I-858" secondAttribute="leading" id="AY4-gV-2lM"/>
+                                        <constraint firstAttribute="bottom" secondItem="kaz-mp-736" secondAttribute="bottom" id="JoP-mc-CZW"/>
+                                        <constraint firstItem="FAa-8H-7rB" firstAttribute="centerX" secondItem="Rpq-6I-858" secondAttribute="centerX" id="PYX-hQ-eu3"/>
                                         <constraint firstItem="1Z8-8C-hwv" firstAttribute="leading" secondItem="Rpq-6I-858" secondAttribute="leading" constant="10" id="bTi-Tq-nxm"/>
                                         <constraint firstItem="fLT-4F-54J" firstAttribute="centerX" secondItem="Rpq-6I-858" secondAttribute="centerX" id="hh0-dh-fPD"/>
+                                        <constraint firstItem="FAa-8H-7rB" firstAttribute="centerY" secondItem="Rpq-6I-858" secondAttribute="centerY" id="j27-fP-0Xj"/>
+                                        <constraint firstItem="kaz-mp-736" firstAttribute="top" secondItem="Rpq-6I-858" secondAttribute="top" id="moQ-Do-nOx"/>
                                         <constraint firstAttribute="trailing" secondItem="5RW-Ep-lKu" secondAttribute="trailing" constant="10" id="wdD-4q-UEh"/>
                                     </constraints>
                                 </view>
@@ -2833,8 +2852,11 @@
                     </view>
                     <connections>
                         <outlet property="closeButtonView" destination="PNe-6E-CkC" id="zkL-Vk-nJh"/>
+                        <outlet property="closeLabel" destination="FAa-8H-7rB" id="WV1-tQ-eeR"/>
+                        <outlet property="closeNavigationButton" destination="kaz-mp-736" id="F0h-N4-5AS"/>
                         <outlet property="collectionView" destination="kdi-An-XIR" id="llX-CC-orG"/>
                         <outlet property="navigationView" destination="oB8-X7-7oG" id="2lm-mJ-nSk"/>
+                        <outlet property="nextButton" destination="5RW-Ep-lKu" id="nt1-PV-xHq"/>
                         <outlet property="pageControl" destination="fLT-4F-54J" id="vXW-3V-jfU"/>
                         <outlet property="previousButton" destination="1Z8-8C-hwv" id="0Em-ZY-LTP"/>
                     </connections>
