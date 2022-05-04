@@ -13,6 +13,7 @@ class OnboardingViewController: UIViewController {
     @IBOutlet weak var closeButtonView: UIVisualEffectView!
     
     private var buttonScroll = false
+    private var orientationChanged = false
     private var currentPage = 0 {
         didSet {
             pageControl.currentPage = currentPage
@@ -107,7 +108,7 @@ class OnboardingViewController: UIViewController {
         UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut) {
             self.navigationView.contentView.backgroundColor = .clear
             self.closeNavigationButton.isHidden = true
-            self.closeLabel.alpha = 0
+            self.closeLabel.alpha = 0.0
         } completion: { _ in
             UIView.animate(withDuration: 0.4, delay: 0.2, options: .curveEaseInOut) {
                 self.previousButton.transform = .identity
@@ -145,11 +146,10 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
             cell.tutorialData = slides[indexPath.row].tutorialData ?? [(icon: "", text: "")]
             
             if cell.tableView.window != nil {
-            cell.tableView.contentOffset = CGPoint.zero
+            cell.tableView.contentOffset = .zero
             cell.tableView.layoutIfNeeded()
             cell.tableView.reloadData()
             }
-            
             return cell
         }
     }
@@ -164,7 +164,10 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
             let visiblePoint = CGPoint(x: visibleRectangle.midX, y: visibleRectangle.midY)
             currentPage = collectionView.indexPathForItem(at: visiblePoint)?.row ?? 0
         }
-        currentPage == slides.count - 1 ? hideNavigationControls() : showNavigationControls()
+        
+        if !orientationChanged {
+            currentPage == slides.count - 1 ? hideNavigationControls() : showNavigationControls()
+        }
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -176,6 +179,7 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         collectionView.reloadData()
         buttonScroll = false
+        orientationChanged = false
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -184,6 +188,10 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
         let indexPath = IndexPath(item: self.currentPage, section: 0)
         DispatchQueue.main.async {
             self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
+        
+        if currentPage != 4 {
+            orientationChanged = true
         }
     }
 }
