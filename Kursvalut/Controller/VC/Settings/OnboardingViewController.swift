@@ -44,6 +44,11 @@ class OnboardingViewController: UIViewController {
         currentPage == 0 ? hidePreviousButton() : showPreviousButton()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        collectionView.visibleCells.forEach { ($0 as? WelcomeOnboardingCollectionViewCell)?.animate() }
+    }
+    
     @IBAction func closeButtonClicked(_ sender: UIButton) {
         dismiss(animated: true)
     }
@@ -74,49 +79,6 @@ class OnboardingViewController: UIViewController {
         frame.origin.x = frame.size.width * CGFloat(page)
         frame.origin.y = 0
         collectionView.scrollRectToVisible(frame, animated: false)
-    }
-    
-    //MARK: - Navigation View Layout Methods
-    
-    func showPreviousButton() {
-        previousButton.setBackgroundImage(UIImage(named: "chevron.backward.circle.fill"), for: .normal)
-        previousButton.isUserInteractionEnabled = true
-    }
-    
-    func hidePreviousButton() {
-        previousButton.setBackgroundImage(UIImage(named: "chevron.left.circle"), for: .normal)
-        previousButton.isUserInteractionEnabled = false
-    }
-    
-    func hideNavigationControls() {
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut) {
-            self.previousButton.transform = CGAffineTransform(translationX: 0, y: 50)
-            self.nextButton.transform = CGAffineTransform(translationX: 0, y: 50)
-            self.pageControl.transform = CGAffineTransform(translationX: 0, y: 50)
-            self.closeButtonView.transform = CGAffineTransform(translationX: 50, y: 0)
-        } completion: { _ in
-            UIView.animate(withDuration: 0.4, delay: 0.2, options: .curveEaseInOut) {
-                self.navigationView.contentView.backgroundColor = .systemBlue
-                self.closeLabel.alpha = 1.0
-                self.closeNavigationButton.isHidden = false
-                self.closeLabel.isHidden = false
-            }
-        }
-    }
-    
-    func showNavigationControls() {
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut) {
-            self.navigationView.contentView.backgroundColor = .clear
-            self.closeNavigationButton.isHidden = true
-            self.closeLabel.alpha = 0.0
-        } completion: { _ in
-            UIView.animate(withDuration: 0.4, delay: 0.2, options: .curveEaseInOut) {
-                self.previousButton.transform = .identity
-                self.nextButton.transform = .identity
-                self.pageControl.transform = .identity
-                self.closeButtonView.transform = .identity
-            }
-        }
     }
 }
 
@@ -192,6 +154,52 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
         
         if currentPage != 4 {
             orientationChanged = true
+        }
+    }
+}
+
+//MARK: - Navigation View Layout Methods
+
+extension OnboardingViewController {
+
+    func showPreviousButton() {
+        previousButton.setBackgroundImage(UIImage(named: "chevron.backward.circle.fill"), for: .normal)
+        previousButton.isUserInteractionEnabled = true
+    }
+    
+    func hidePreviousButton() {
+        previousButton.setBackgroundImage(UIImage(named: "chevron.left.circle"), for: .normal)
+        previousButton.isUserInteractionEnabled = false
+    }
+    
+    func hideNavigationControls() {
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut) {
+            self.previousButton.transform = CGAffineTransform(translationX: 0, y: 50)
+            self.nextButton.transform = CGAffineTransform(translationX: 0, y: 50)
+            self.pageControl.transform = CGAffineTransform(translationX: 0, y: 50)
+            self.closeButtonView.transform = CGAffineTransform(translationX: 50, y: 0)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.4, delay: 0.2, options: .curveEaseInOut) {
+                self.navigationView.contentView.backgroundColor = .systemBlue
+                self.closeLabel.alpha = 1.0
+                self.closeNavigationButton.isHidden = false
+                self.closeLabel.isHidden = false
+            }
+        }
+    }
+    
+    func showNavigationControls() {
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut) {
+            self.navigationView.contentView.backgroundColor = .clear
+            self.closeNavigationButton.isHidden = true
+            self.closeLabel.alpha = 0.0
+        } completion: { _ in
+            UIView.animate(withDuration: 0.4, delay: 0.2, options: .curveEaseInOut) {
+                self.previousButton.transform = .identity
+                self.nextButton.transform = .identity
+                self.pageControl.transform = .identity
+                self.closeButtonView.transform = .identity
+            }
         }
     }
 }

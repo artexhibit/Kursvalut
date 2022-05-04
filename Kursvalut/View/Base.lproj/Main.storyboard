@@ -2535,22 +2535,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="412" height="568"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app.icon" translatesAutoresizingMaskIntoConstraints="NO" id="Eex-c0-WMt">
-                                                    <rect key="frame" x="151" y="174" width="110" height="110"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app.icon" translatesAutoresizingMaskIntoConstraints="NO" id="Eex-c0-WMt">
+                                                    <rect key="frame" x="178.5" y="166" width="55" height="55"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="110" id="Sbv-Ot-qzH"/>
-                                                        <constraint firstAttribute="width" constant="110" id="tON-7q-uSN"/>
+                                                        <constraint firstAttribute="height" constant="55" id="Sbv-Ot-qzH"/>
+                                                        <constraint firstAttribute="width" constant="55" id="tON-7q-uSN"/>
                                                     </constraints>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Kursvalut" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHJ-QF-zHj">
-                                                    <rect key="frame" x="20" y="289" width="372" height="36"/>
+                                                    <rect key="frame" x="20" y="266" width="372" height="36"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                                     <color key="textColor" name="AccentColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Красивый конвертер валют по курсу ЦБ РФ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7d2-WL-rSN">
-                                                    <rect key="frame" x="30" y="335" width="352" height="43"/>
+                                                    <rect key="frame" x="30" y="312" width="352" height="43"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2559,11 +2559,11 @@
                                                 <constraint firstItem="7d2-WL-rSN" firstAttribute="centerX" secondItem="2tZ-m7-ZrV" secondAttribute="centerX" id="5u7-1L-C9m"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="7d2-WL-rSN" secondAttribute="bottom" id="CCl-du-VVo"/>
                                                 <constraint firstItem="7d2-WL-rSN" firstAttribute="top" secondItem="bHJ-QF-zHj" secondAttribute="bottom" constant="10" id="CsQ-bO-fhf"/>
-                                                <constraint firstItem="bHJ-QF-zHj" firstAttribute="top" secondItem="Eex-c0-WMt" secondAttribute="bottom" constant="5" id="KpH-wU-Y2j"/>
+                                                <constraint firstItem="bHJ-QF-zHj" firstAttribute="top" secondItem="Eex-c0-WMt" secondAttribute="bottom" constant="45" id="KpH-wU-Y2j"/>
                                                 <constraint firstItem="7d2-WL-rSN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2tZ-m7-ZrV" secondAttribute="leading" constant="30" id="OTV-sx-T1l"/>
                                                 <constraint firstAttribute="trailing" secondItem="7d2-WL-rSN" secondAttribute="trailing" constant="30" id="Ugs-MM-KEz"/>
                                                 <constraint firstItem="bHJ-QF-zHj" firstAttribute="leading" secondItem="2tZ-m7-ZrV" secondAttribute="leading" constant="20" id="XLE-Sw-6iO"/>
-                                                <constraint firstItem="Eex-c0-WMt" firstAttribute="bottom" secondItem="2tZ-m7-ZrV" secondAttribute="centerY" id="nsz-WK-xM1"/>
+                                                <constraint firstItem="bHJ-QF-zHj" firstAttribute="centerY" secondItem="2tZ-m7-ZrV" secondAttribute="centerY" id="dmH-up-t3M"/>
                                                 <constraint firstAttribute="trailing" secondItem="bHJ-QF-zHj" secondAttribute="trailing" constant="20" id="uES-Xj-8FB"/>
                                                 <constraint firstItem="Eex-c0-WMt" firstAttribute="centerX" secondItem="2tZ-m7-ZrV" secondAttribute="centerX" id="vfM-7b-IyA"/>
                                             </constraints>
@@ -2925,8 +2925,8 @@
         <image name="doc.text.fill" width="9" height="11"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="globe" width="11" height="11"/>
-        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
+        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="heart.fill" width="10" height="10"/>
         <image name="info.circle" width="11" height="11"/>
         <image name="iphone.and.arrow.forward" width="8" height="11"/>
