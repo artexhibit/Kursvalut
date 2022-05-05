@@ -44,11 +44,6 @@ class OnboardingViewController: UIViewController {
         currentPage == 0 ? hidePreviousButton() : showPreviousButton()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        collectionView.visibleCells.forEach { ($0 as? WelcomeOnboardingCollectionViewCell)?.animate() }
-    }
-    
     @IBAction func closeButtonClicked(_ sender: UIButton) {
         dismiss(animated: true)
     }
@@ -97,6 +92,7 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
             cell.imageView.image = UIImage(named: "\(slides[indexPath.row].imageName)")
             cell.titleLabel.text = slides[indexPath.row].title
             cell.subtitleLabel.text = slides[indexPath.row].subtitle
+            cell.readyToAnimate = true
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OnboardingCell", for: indexPath) as! OnboardingCollectionViewCell
@@ -152,7 +148,7 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
             self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
         
-        if currentPage != 4 {
+        if currentPage != slides.count - 1 {
             orientationChanged = true
         }
     }
