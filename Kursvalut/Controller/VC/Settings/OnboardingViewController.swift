@@ -44,6 +44,11 @@ class OnboardingViewController: UIViewController {
         currentPage == 0 ? hidePreviousButton() : showPreviousButton()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UserDefaults.standard.set(true, forKey: "userHasOnboarded")
+    }
+    
     @IBAction func closeButtonClicked(_ sender: UIButton) {
         dismiss(animated: true)
     }

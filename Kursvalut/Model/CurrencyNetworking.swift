@@ -63,6 +63,9 @@ struct CurrencyNetworking {
         var currencyUpdateTime: String {
             return UserDefaults.standard.string(forKey: "currencyUpdateTime") ?? ""
         }
+        var userHasOnboarded: Bool {
+            return UserDefaults.standard.bool(forKey: "userHasOnboarded")
+        }
         
         if wasLaunched == today {
             DispatchQueue.main.async {
@@ -78,7 +81,10 @@ struct CurrencyNetworking {
                 } else {
                     DispatchQueue.main.async {
                         label.text = currencyUpdateTime
+                        
+                        if userHasOnboarded {
                         PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
+                        }
                     }
                     UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
                 }

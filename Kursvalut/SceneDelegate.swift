@@ -14,17 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
-        loadStartViewController()
-        window?.overrideUserInterfaceStyle = currencyManager.switchTheme()
-    }
-    
-    func loadStartViewController() {
-        var pickedStartView: String {
-            return UserDefaults.standard.string(forKey: "startView") ?? ""
-        }
         
-        guard let tabBarController = self.window!.rootViewController as? UITabBarController else { return }
-        tabBarController.selectedIndex = pickedStartView == "Валюты" ? 0 : 1
+        guard let tabBarController = self.window?.rootViewController as? UITabBarController else { return }
+        tabBarController.selectedIndex = UserDefaults.standard.string(forKey: "startView") == "Валюты" ? 0 : 1
+        window?.overrideUserInterfaceStyle = currencyManager.switchTheme()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -57,7 +50,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
-
 }
 

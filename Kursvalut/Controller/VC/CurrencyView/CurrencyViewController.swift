@@ -29,6 +29,9 @@ class CurrencyViewController: UIViewController {
     private var pickedSection: String {
         return UserDefaults.standard.string(forKey: "pickedSection") ?? ""
     }
+    private var userHasOnboarded: Bool {
+        return UserDefaults.standard.bool(forKey: "userHasOnboarded")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +47,14 @@ class CurrencyViewController: UIViewController {
         super.viewWillAppear(animated)
         updateDecimalsNumber()
         setupFetchedResultsController()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !userHasOnboarded {
+            performSegue(withIdentifier: "showOnboarding", sender: self)
+        }
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
