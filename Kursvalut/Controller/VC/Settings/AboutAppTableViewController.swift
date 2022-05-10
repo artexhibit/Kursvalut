@@ -15,6 +15,9 @@ class AboutAppTableViewController: UITableViewController {
         guard let version = dictionary["CFBundleShortVersionString"] else { return "" }
         return "Версия \(version)"
     }
+    private var appColor: String {
+        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +49,7 @@ class AboutAppTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "aboutAppDataProvidersCell", for: indexPath) as! AboutAppDataProvidersTableViewCell
             cell.providerNameLabel.text = dataArray[pickedSection].data[indexPath.row].name
             cell.descriptionLabel.text = dataArray[pickedSection].data[indexPath.row].description
+            cell.globeImageView.tintColor = UIColor(named: "\(appColor)")
             return cell
         }
     }
@@ -62,6 +66,7 @@ class AboutAppTableViewController: UITableViewController {
             let link = dataArray[pickedSection].data[pickedCell].link
             guard let urlString = URL(string: link) else { return }
             let safariWebView = SFSafariViewController(url: urlString)
+            safariWebView.preferredControlTintColor = UIColor(named: "\(appColor)")
             present(safariWebView, animated: true)
         }
     }

@@ -17,8 +17,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="1l9-uK-Rcv">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="1l9-uK-Rcv" userLabel="background">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coins" translatesAutoresizingMaskIntoConstraints="NO" id="bEc-Rc-vS1">
+                                <rect key="frame" x="102" y="398" width="210" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="86b-Op-icd"/>
+                                    <constraint firstAttribute="width" constant="210" id="qGN-cN-7hc"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -27,7 +34,9 @@
                             <constraint firstAttribute="bottom" secondItem="1l9-uK-Rcv" secondAttribute="bottom" id="2OZ-5C-ExG"/>
                             <constraint firstItem="1l9-uK-Rcv" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="360-bj-Ggz"/>
                             <constraint firstAttribute="trailing" secondItem="1l9-uK-Rcv" secondAttribute="trailing" id="FBv-DP-cJj"/>
+                            <constraint firstItem="bEc-Rc-vS1" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Xra-DB-dbY"/>
                             <constraint firstItem="1l9-uK-Rcv" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="kzA-ul-Stm"/>
+                            <constraint firstItem="bEc-Rc-vS1" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="pb4-Yn-qUJ"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -38,6 +47,7 @@
     </scenes>
     <resources>
         <image name="background" width="500" height="500"/>
+        <image name="coins" width="382" height="185"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

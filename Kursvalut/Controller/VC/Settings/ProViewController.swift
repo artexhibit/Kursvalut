@@ -15,6 +15,9 @@ class ProViewController: UIViewController {
     private var proPurchased: Bool {
         return UserDefaults.standard.bool(forKey: "kursvalutPro")
     }
+    private var appColor: String {
+        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+    }
     private var proPurchase: SKProduct?
     private let dataArray = [
         (backColor: UIColor(red: 255/255, green: 235/255, blue: 100/255, alpha: 0.3), icon: UIImage(named: "apps.iphone"), iconColor: UIColor.systemYellow, title: "Стартовый экран", description: "Экономьте время - нужный экран будет открываться мгновенно."),
@@ -32,6 +35,7 @@ class ProViewController: UIViewController {
         purchaseView.layer.cornerRadius = 20
         purchaseButton.layer.cornerRadius = 12
         closeButtonView.layer.cornerRadius = closeButtonView.frame.height / 2
+        closeButtonView.tintColor = UIColor(named: "\(appColor)")
         priceSpinner.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
         SKPaymentQueue.default().add(self)
         

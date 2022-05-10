@@ -15,11 +15,15 @@ class PickCurrencyTableViewController: UITableViewController {
     private var amountOfPickedCurrencies: Int {
         return UserDefaults.standard.integer(forKey: "savedAmount")
     }
+    private var appColor: String {
+        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFetchedResultsController()
         setupSearchController()
+        tableView.tintColor = UIColor(named: "\(appColor)")
     }
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {

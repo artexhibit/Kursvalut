@@ -11,8 +11,13 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     var subtitleLabel: String?
     var tutorialData: [(icon: String, text: String)] = []
     
+    private var appColor: String {
+        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.tintColor = UIColor(named: "\(appColor)")
     }
 }
 

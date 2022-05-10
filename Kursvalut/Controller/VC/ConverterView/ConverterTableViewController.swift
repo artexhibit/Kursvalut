@@ -28,6 +28,9 @@ class ConverterTableViewController: UITableViewController {
     private var amountOfPickedCurrencies: Int {
         return UserDefaults.standard.integer(forKey: "savedAmount")
     }
+    private var appColor: String {
+        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,7 +161,7 @@ class ConverterTableViewController: UITableViewController {
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         setupToolbar(with: textField)
-        textField.textColor = UIColor(named: "BlueColor")
+        textField.textColor = UIColor(named: "\(appColor)")
         
         if textField.text == "0" {
             numberFromTextField = 0
@@ -228,6 +231,8 @@ extension ConverterTableViewController {
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(image: UIImage(named: "chevron.down"), style: .done, target: self, action: #selector(dismissKeyboard))
         let clearButton = UIBarButtonItem(image: UIImage(named:"xmark.circle"), style: .plain, target: self, action: #selector(clearTextField))
+        doneButton.tintColor = UIColor(named: "\(appColor)")
+        clearButton.tintColor = UIColor(named: "\(appColor)")
         
         bar.items = [clearButton, flexSpace, doneButton]
         bar.sizeToFit()

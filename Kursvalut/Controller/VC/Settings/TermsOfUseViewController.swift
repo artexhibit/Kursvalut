@@ -13,17 +13,20 @@ class TermsOfUseViewController: UIViewController {
         (header: "Бесплатная версия", text: "Приложение можно использовать бесплатно. Доступен базовый функционал с ограничениями."),
         (header: "Pro Версия", text: "Приобретается единоразово и разблокирует все возможности приложения.")
     ]
+    private var appColor: String {
+        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         contactButton.layer.cornerRadius = 15
+        contactButton.backgroundColor = UIColor(named: "\(appColor)")
         currencyManager.configureContentInset(for: tableView, top: 20)
     }
     
     @IBAction func closeButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
-    
     
     @IBAction func contactButtonPressed(_ sender: UIButton) {
         let subject = "Вопрос по условиям использования"

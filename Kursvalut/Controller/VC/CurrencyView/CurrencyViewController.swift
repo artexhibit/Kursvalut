@@ -45,8 +45,8 @@ class CurrencyViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateDecimalsNumber()
         setupFetchedResultsController()
+        updateDecimalsNumber()
     }
     
     override func viewDidAppear(_ animated: Bool) {

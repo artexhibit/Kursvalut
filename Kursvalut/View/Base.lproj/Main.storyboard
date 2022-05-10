@@ -424,7 +424,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kursvalut Pro" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="y5M-Wo-yK0" userLabel="Name Label">
                                                                             <rect key="frame" x="0.0" y="0.0" width="121.5" height="23"/>
                                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                                                            <color key="textColor" name="BlueColor"/>
+                                                                            <color key="textColor" name="OrangeColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cw3-NX-EJA" userLabel="Purchase Button">
@@ -1865,7 +1865,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KURSVALUT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UkE-pU-RrE">
                                                             <rect key="frame" x="2.5" y="0.0" width="135" height="30"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                                            <color key="textColor" name="BlueColor"/>
+                                                            <color key="textColor" name="OrangeColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="K73-Ho-AOg">
@@ -1964,6 +1964,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="Atd-pP-ZHs" id="haW-UB-N67"/>
+                                    <outlet property="globeImageView" destination="25b-LJ-WoD" id="bcl-gi-hJp"/>
                                     <outlet property="providerNameLabel" destination="FQy-7b-xhj" id="Adf-j2-H5R"/>
                                 </connections>
                             </tableViewCell>
@@ -2233,7 +2234,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kursvalut Pro" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="61A-O9-pVz">
                                                     <rect key="frame" x="0.0" y="0.0" width="106" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                    <color key="textColor" name="BlueColor"/>
+                                                    <color key="textColor" name="OrangeColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4GX-K5-3CF">
@@ -2547,7 +2548,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Kursvalut" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHJ-QF-zHj">
                                                     <rect key="frame" x="20" y="266" width="372" height="36"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
-                                                    <color key="textColor" name="AccentColor"/>
+                                                    <color key="textColor" name="OrangeColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Красивый конвертер валют по курсу ЦБ РФ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7d2-WL-rSN">
@@ -2905,7 +2906,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zHs-jY-LdV"/>
+        <segue reference="ktb-yU-lAj"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="1.circle" width="11" height="11"/>
@@ -2930,8 +2931,8 @@
         <image name="doc.text.fill" width="9" height="11"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="globe" width="11" height="11"/>
-        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
+        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="heart.fill" width="10" height="10"/>
         <image name="info.circle" width="11" height="11"/>
         <image name="iphone.and.arrow.forward" width="8" height="11"/>
@@ -2947,7 +2948,10 @@
             <color red="0.20399999618530273" green="0.47099998593330383" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="GrayColor">
-            <color red="0.94521504639999998" green="0.94878321889999995" blue="0.96470814940000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.94499999284744263" green="0.94900000095367432" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="OrangeColor">
+            <color red="0.95057564969999997" green="0.67871195080000002" blue="0.22728884220000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="RedColor">
             <color red="0.81000000238418579" green="0.32199999690055847" blue="0.31799998879432678" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
