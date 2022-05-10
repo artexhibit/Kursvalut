@@ -1547,14 +1547,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startViewCell" id="hyY-vn-r54" userLabel="Start View Cell" customClass="StartViewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hyY-vn-r54" id="Dx2-ce-Ru7">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Валюты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbc-hr-FHJ" userLabel="viewNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1592,14 +1592,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="M1Q-1H-VHB" userLabel="Theme Cell" customClass="ThemeTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M1Q-1H-VHB" id="3sk-ff-s1w">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Как в системе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrU-4i-37D" userLabel="themeNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -2601,7 +2601,7 @@
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="changeCellOrder" translatesAutoresizingMaskIntoConstraints="NO" id="l1C-ms-Uk3">
                                                                         <rect key="frame" x="20" y="90" width="372" height="220"/>
-                                                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                                                        <color key="backgroundColor" name="GrayColor"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="220" id="ano-2I-yl7"/>
                                                                         </constraints>
@@ -2911,7 +2911,7 @@
         <image name="1.circle" width="11" height="11"/>
         <image name="EUR" width="512" height="512"/>
         <image name="RUB" width="512" height="512"/>
-        <image name="USD" width="512" height="512"/>
+        <image name="USD" width="1067" height="699"/>
         <image name="app.icon" width="341" height="341"/>
         <image name="apps.iphone" width="7" height="11"/>
         <image name="arrow.left.arrow.right" catalog="system" width="119" height="128"/>
@@ -2946,14 +2946,14 @@
         <namedColor name="BlueColor">
             <color red="0.20399999618530273" green="0.47099998593330383" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <namedColor name="GrayColor">
+            <color red="0.94521504639999998" green="0.94878321889999995" blue="0.96470814940000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="RedColor">
             <color red="0.81000000238418579" green="0.32199999690055847" blue="0.31799998879432678" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
