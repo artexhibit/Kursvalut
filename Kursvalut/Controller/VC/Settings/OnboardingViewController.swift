@@ -43,10 +43,9 @@ class OnboardingViewController: UIViewController {
         navigationView.layer.cornerRadius = 20
         navigationView.tintColor = UIColor(named: "\(appColor)")
         closeButtonView.layer.cornerRadius = closeButtonView.frame.height / 2
-        collectionView.contentInsetAdjustmentBehavior = .never
+        closeButtonView.tintColor = UIColor(named: "\(appColor)")
         pageControl.numberOfPages = slides.count
         pageControl.currentPageIndicatorTintColor = UIColor(named: "\(appColor)")
-        closeButtonView.tintColor = UIColor(named: "\(appColor)")
         currentPage == 0 ? hidePreviousButton() : showPreviousButton()
     }
     
@@ -112,8 +111,11 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
             cell.iconName = slides[indexPath.row].iconName ?? ""
             cell.titleLabel = slides[indexPath.row].title
             cell.subtitleLabel = slides[indexPath.row].subtitle
-            cell.tutorialData = slides[indexPath.row].tutorialData ?? [(icon: "", text: "")]
             
+            cell.notifyControllerAction = { [weak self] in
+                self?.performSegue(withIdentifier: "goToTutorial", sender: self)
+            }
+                        
             if cell.tableView.window != nil {
             cell.tableView.contentOffset = .zero
             cell.tableView.layoutIfNeeded()
@@ -123,8 +125,16 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToTutorial" {
+            let destinationVC = segue.destination as! TutorialViewController
+            destinationVC.gifName = slides[currentPage].imageName
+            destinationVC.tutorialData = slides[currentPage].tutorialData ?? [(icon: "", text: "")]
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        return CGSize(width: collectionView.frame.width , height: collectionView.frame.height - (collectionView.safeAreaInsets.top + collectionView.safeAreaInsets.bottom))
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

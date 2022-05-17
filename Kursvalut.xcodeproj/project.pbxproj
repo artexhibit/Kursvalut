@@ -19,7 +19,14 @@
 		780AA2EB280ADF7F00ECC3C4 /* OnboardingSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */; };
 		780AA2ED280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780AA2EC280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift */; };
 		7813102827D75FE000065410 /* SMailComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813102727D75FE000065410 /* SMailComposeViewController.swift */; };
-		7828734E28145BAC00B65D6F /* TutorialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7828734D28145BAC00B65D6F /* TutorialTableViewCell.swift */; };
+		78137FD72833A78400F4621E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78137FD62833A78400F4621E /* TutorialViewController.swift */; };
+		78137FD92833D9AE00F4621E /* TutorialImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78137FD82833D9AE00F4621E /* TutorialImageTableViewCell.swift */; };
+		78137FDB2833EC1200F4621E /* SetGifImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78137FDA2833EC1200F4621E /* SetGifImage.swift */; };
+		78137FE52834047400F4621E /* changeCellOrder.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FE42834047400F4621E /* changeCellOrder.gif */; };
+		78137FEB28340EBB00F4621E /* updateCellData.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FEA28340EBB00F4621E /* updateCellData.gif */; };
+		78137FED2834127300F4621E /* changeConverterCell.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FEC2834127300F4621E /* changeConverterCell.gif */; };
+		78137FF12834185D00F4621E /* pickCurrencyForConverter.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FF02834185D00F4621E /* pickCurrencyForConverter.gif */; };
+		7828734E28145BAC00B65D6F /* TutorialDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7828734D28145BAC00B65D6F /* TutorialDescriptionTableViewCell.swift */; };
 		7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */; };
 		7838F90027885B86007D34AA /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FF27885B86007D34AA /* CurrencyData.swift */; };
 		783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */; };
@@ -77,7 +84,14 @@
 		780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlide.swift; sourceTree = "<group>"; };
 		780AA2EC280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeOnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		7813102727D75FE000065410 /* SMailComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMailComposeViewController.swift; sourceTree = "<group>"; };
-		7828734D28145BAC00B65D6F /* TutorialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialTableViewCell.swift; sourceTree = "<group>"; };
+		78137FD62833A78400F4621E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		78137FD82833D9AE00F4621E /* TutorialImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialImageTableViewCell.swift; sourceTree = "<group>"; };
+		78137FDA2833EC1200F4621E /* SetGifImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGifImage.swift; sourceTree = "<group>"; };
+		78137FE42834047400F4621E /* changeCellOrder.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = changeCellOrder.gif; sourceTree = "<group>"; };
+		78137FEA28340EBB00F4621E /* updateCellData.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = updateCellData.gif; sourceTree = "<group>"; };
+		78137FEC2834127300F4621E /* changeConverterCell.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = changeConverterCell.gif; sourceTree = "<group>"; };
+		78137FF02834185D00F4621E /* pickCurrencyForConverter.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pickCurrencyForConverter.gif; sourceTree = "<group>"; };
+		7828734D28145BAC00B65D6F /* TutorialDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyNetworking.swift; sourceTree = "<group>"; };
 		7838F8FF27885B86007D34AA /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
 		783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalsTableViewCell.swift; sourceTree = "<group>"; };
@@ -174,6 +188,7 @@
 				78BD46DE27F07460002AFDA1 /* PopupView.swift */,
 				78B9F5602801BBAA0030ECF4 /* SortingSection.swift */,
 				780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */,
+				78137FDA2833EC1200F4621E /* SetGifImage.swift */,
 				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
 			);
 			path = Model;
@@ -199,11 +214,23 @@
 		78041C322786FD3D00C4D861 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				78137FF22834190C00F4621E /* Tutorial Gifs */,
 				78041C242786F9FB00C4D861 /* Assets.xcassets */,
 				78041C262786F9FB00C4D861 /* LaunchScreen.storyboard */,
 				78BD46DA27F06B6D002AFDA1 /* PopupView.xib */,
 			);
 			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		78137FF22834190C00F4621E /* Tutorial Gifs */ = {
+			isa = PBXGroup;
+			children = (
+				78137FF02834185D00F4621E /* pickCurrencyForConverter.gif */,
+				78137FEC2834127300F4621E /* changeConverterCell.gif */,
+				78137FEA28340EBB00F4621E /* updateCellData.gif */,
+				78137FE42834047400F4621E /* changeCellOrder.gif */,
+			);
+			path = "Tutorial Gifs";
 			sourceTree = "<group>";
 		};
 		7828734F28146AD700B65D6F /* Onboarding */ = {
@@ -212,7 +239,8 @@
 				780AA2EC280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift */,
 				78EF7D7D280B3767000CFB46 /* OnboardingCollectionViewCell.swift */,
 				78CEB9AA2813F83900AE0903 /* OnboardingTableViewCell.swift */,
-				7828734D28145BAC00B65D6F /* TutorialTableViewCell.swift */,
+				78137FD82833D9AE00F4621E /* TutorialImageTableViewCell.swift */,
+				7828734D28145BAC00B65D6F /* TutorialDescriptionTableViewCell.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -288,6 +316,7 @@
 				7841735B27E645DE00A35530 /* ProViewController.swift */,
 				78B9F55A2801B5900030ECF4 /* SortingTableViewController.swift */,
 				780AA2E6280ACE9000ECC3C4 /* OnboardingViewController.swift */,
+				78137FD62833A78400F4621E /* TutorialViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -386,7 +415,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				78D3DA0A2787313D00A91511 /* Main.storyboard in Resources */,
+				78137FED2834127300F4621E /* changeConverterCell.gif in Resources */,
+				78137FE52834047400F4621E /* changeCellOrder.gif in Resources */,
 				78041C282786F9FB00C4D861 /* LaunchScreen.storyboard in Resources */,
+				78137FF12834185D00F4621E /* pickCurrencyForConverter.gif in Resources */,
+				78137FEB28340EBB00F4621E /* updateCellData.gif in Resources */,
 				78BD46DB27F06B6D002AFDA1 /* PopupView.xib in Resources */,
 				78871A4B2789F4F700321E98 /* README.md in Resources */,
 				78041C252786F9FB00C4D861 /* Assets.xcassets in Resources */,
@@ -402,6 +435,7 @@
 			files = (
 				78E9B79C27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift in Sources */,
 				7838F90027885B86007D34AA /* CurrencyData.swift in Sources */,
+				78137FDB2833EC1200F4621E /* SetGifImage.swift in Sources */,
 				783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */,
 				78B9F55F2801B9F10030ECF4 /* SubSortTableViewCell.swift in Sources */,
 				7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */,
@@ -415,7 +449,7 @@
 				78D531902793058B00EF65B2 /* CurrencyCoreDataManager.swift in Sources */,
 				786C01A327DE50E300868EBE /* TipJarTableViewController.swift in Sources */,
 				78C6FAF527D3C160002E35E9 /* ThemeTableViewController.swift in Sources */,
-				7828734E28145BAC00B65D6F /* TutorialTableViewCell.swift in Sources */,
+				7828734E28145BAC00B65D6F /* TutorialDescriptionTableViewCell.swift in Sources */,
 				789A767227DA74F700B8EE06 /* AboutAppDataProvidersTableViewCell.swift in Sources */,
 				7802A17727D924E200769693 /* AboutAppDeveloperTableViewCell.swift in Sources */,
 				78EF7D7E280B3767000CFB46 /* OnboardingCollectionViewCell.swift in Sources */,
@@ -423,6 +457,7 @@
 				78CEB9AB2813F83900AE0903 /* OnboardingTableViewCell.swift in Sources */,
 				78E9B79A27D7956300BB5249 /* PrivacyPolicyViewController.swift in Sources */,
 				78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */,
+				78137FD72833A78400F4621E /* TutorialViewController.swift in Sources */,
 				786C01A527DE511400868EBE /* TipJarTableViewCell.swift in Sources */,
 				78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */,
 				78041C1B2786F9FA00C4D861 /* SceneDelegate.swift in Sources */,
@@ -441,6 +476,7 @@
 				78B9F55D2801B9B50030ECF4 /* MainSortTableViewCell.swift in Sources */,
 				78B9F5612801BBAA0030ECF4 /* SortingSection.swift in Sources */,
 				780AA2ED280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift in Sources */,
+				78137FD92833D9AE00F4621E /* TutorialImageTableViewCell.swift in Sources */,
 				7841735E27E6460000A35530 /* ProTableViewCell.swift in Sources */,
 				787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */,
 				78B49AE427CBD3D5003C975D /* DecimalsTableViewController.swift in Sources */,

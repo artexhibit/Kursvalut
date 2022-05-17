@@ -7,13 +7,35 @@ class OnboardingTableViewCell: UITableViewCell {
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var openTutorialButton: UIButton!
+    
+    private var appColor: String {
+        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+    }
+    var openOnboardingAction: (() -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        tableImage.layer.cornerRadius = 10
-    }
+        setupShadowView()
+        openTutorialButton.tintColor = UIColor(named: "\(appColor)")
+        openTutorialButton.addTarget(self, action: #selector(openTutorialButtonPressed(_:)), for: .touchUpInside)
+  }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    @IBAction func openTutorialButtonPressed(_ sender: UIButton) {
+        openOnboardingAction?()
+    }
+    
+    private func setupShadowView() {
+        shadowView.layer.shadowColor = UIColor.gray.cgColor
+        shadowView.layer.shadowOpacity = 0.7
+        shadowView.layer.shadowRadius = 20
+        shadowView.layer.shadowOffset = CGSize(width: 0, height: -15)
+        shadowView.layer.cornerRadius = 30
+    }
+
 }
