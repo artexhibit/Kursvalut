@@ -9,6 +9,7 @@ class OnboardingTableViewCell: UITableViewCell {
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var openTutorialButton: UIButton!
+    @IBOutlet weak var openTutorialIconButton: UIButton!
     
     private var appColor: String {
         return UserDefaults.standard.string(forKey: "appColor") ?? ""
@@ -20,6 +21,7 @@ class OnboardingTableViewCell: UITableViewCell {
         setupShadowView()
         openTutorialButton.tintColor = UIColor(named: "\(appColor)")
         openTutorialButton.addTarget(self, action: #selector(openTutorialButtonPressed(_:)), for: .touchUpInside)
+        openTutorialIconButton.addTarget(self, action: #selector(openTutorialButtonPressed(_:)), for: .touchUpInside)
   }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

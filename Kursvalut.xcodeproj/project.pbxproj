@@ -21,7 +21,7 @@
 		7813102827D75FE000065410 /* SMailComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813102727D75FE000065410 /* SMailComposeViewController.swift */; };
 		78137FD72833A78400F4621E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78137FD62833A78400F4621E /* TutorialViewController.swift */; };
 		78137FD92833D9AE00F4621E /* TutorialImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78137FD82833D9AE00F4621E /* TutorialImageTableViewCell.swift */; };
-		78137FDB2833EC1200F4621E /* SetGifImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78137FDA2833EC1200F4621E /* SetGifImage.swift */; };
+		78137FDB2833EC1200F4621E /* SetGifImage + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78137FDA2833EC1200F4621E /* SetGifImage + extension.swift */; };
 		78137FE52834047400F4621E /* changeCellOrder.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FE42834047400F4621E /* changeCellOrder.gif */; };
 		78137FEB28340EBB00F4621E /* updateCellData.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FEA28340EBB00F4621E /* updateCellData.gif */; };
 		78137FED2834127300F4621E /* changeConverterCell.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FEC2834127300F4621E /* changeConverterCell.gif */; };
@@ -86,7 +86,7 @@
 		7813102727D75FE000065410 /* SMailComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMailComposeViewController.swift; sourceTree = "<group>"; };
 		78137FD62833A78400F4621E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		78137FD82833D9AE00F4621E /* TutorialImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialImageTableViewCell.swift; sourceTree = "<group>"; };
-		78137FDA2833EC1200F4621E /* SetGifImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGifImage.swift; sourceTree = "<group>"; };
+		78137FDA2833EC1200F4621E /* SetGifImage + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SetGifImage + extension.swift"; sourceTree = "<group>"; };
 		78137FE42834047400F4621E /* changeCellOrder.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = changeCellOrder.gif; sourceTree = "<group>"; };
 		78137FEA28340EBB00F4621E /* updateCellData.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = updateCellData.gif; sourceTree = "<group>"; };
 		78137FEC2834127300F4621E /* changeConverterCell.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = changeConverterCell.gif; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 				78BD46DE27F07460002AFDA1 /* PopupView.swift */,
 				78B9F5602801BBAA0030ECF4 /* SortingSection.swift */,
 				780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */,
-				78137FDA2833EC1200F4621E /* SetGifImage.swift */,
+				78137FDA2833EC1200F4621E /* SetGifImage + extension.swift */,
 				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
 			);
 			path = Model;
@@ -435,7 +435,7 @@
 			files = (
 				78E9B79C27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift in Sources */,
 				7838F90027885B86007D34AA /* CurrencyData.swift in Sources */,
-				78137FDB2833EC1200F4621E /* SetGifImage.swift in Sources */,
+				78137FDB2833EC1200F4621E /* SetGifImage + extension.swift in Sources */,
 				783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */,
 				78B9F55F2801B9F10030ECF4 /* SubSortTableViewCell.swift in Sources */,
 				7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */,
