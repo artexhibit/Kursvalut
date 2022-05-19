@@ -1545,14 +1545,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startViewCell" id="hyY-vn-r54" userLabel="Start View Cell" customClass="StartViewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hyY-vn-r54" id="Dx2-ce-Ru7">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Валюты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbc-hr-FHJ" userLabel="viewNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1590,14 +1590,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="M1Q-1H-VHB" userLabel="Theme Cell" customClass="ThemeTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M1Q-1H-VHB" id="3sk-ff-s1w">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Как в системе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrU-4i-37D" userLabel="themeNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -2931,6 +2931,7 @@
                                                     <color key="backgroundColor" name="TutorialGrayColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="300" id="G8g-sZ-qwR"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="Ma0-rg-Dhk"/>
                                                         <constraint firstAttribute="width" priority="750" constant="355" id="aE1-CX-lLb"/>
                                                     </constraints>
                                                     <variation key="default">
@@ -2949,6 +2950,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="PuO-sn-TKe" secondAttribute="trailing" constant="30" id="594-Dx-hXy"/>
                                                 <constraint firstAttribute="bottom" secondItem="PuO-sn-TKe" secondAttribute="bottom" constant="35" id="Fxd-RZ-euR"/>
                                                 <constraint firstItem="PuO-sn-TKe" firstAttribute="top" secondItem="Dxk-mZ-cuQ" secondAttribute="top" constant="55" id="Idt-8J-u0u"/>
+                                                <constraint firstItem="PuO-sn-TKe" firstAttribute="centerX" secondItem="Dxk-mZ-cuQ" secondAttribute="centerX" id="X4L-db-RuP"/>
                                                 <constraint firstItem="PuO-sn-TKe" firstAttribute="leading" secondItem="Dxk-mZ-cuQ" secondAttribute="leading" constant="30" id="hfZ-sn-OmQ"/>
                                                 <constraint firstItem="PuO-sn-TKe" firstAttribute="centerX" secondItem="Dxk-mZ-cuQ" secondAttribute="centerX" id="wO4-FI-lnq"/>
                                             </constraints>
@@ -2973,6 +2975,10 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="gifImage" destination="PuO-sn-TKe" id="YyB-8t-Yft"/>
+                                            <outlet property="heightConstraint" destination="G8g-sZ-qwR" id="9MB-mC-D5f"/>
+                                            <outlet property="leadingConstraint" destination="hfZ-sn-OmQ" id="ALI-oB-cB2"/>
+                                            <outlet property="trailingConstraint" destination="594-Dx-hXy" id="6Ec-U7-uAn"/>
+                                            <outlet property="widthConstraint" destination="Ma0-rg-Dhk" id="y4T-fK-BxC"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tutorialDescriptionCell" rowHeight="114" id="nTz-oK-B4q" customClass="TutorialDescriptionTableViewCell" customModule="Kursvalut" customModuleProvider="target">
@@ -3026,8 +3032,10 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="centerConstraint" destination="oLL-us-BoP" id="TE7-gb-bBA"/>
                                             <outlet property="descriptionIcon" destination="Kfp-9V-iY8" id="BT9-5G-l8A"/>
                                             <outlet property="descriptionLabel" destination="4Jn-Az-6x3" id="rZa-TK-bpH"/>
+                                            <outlet property="leadingConstraint" destination="zGZ-RY-Ond" id="mwp-Pl-4mI"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -3158,8 +3166,8 @@
         <image name="doc.text.fill" width="9" height="11"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="globe" width="11" height="11"/>
-        <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
         <image name="globe.europe.africa.fill" width="11" height="11"/>
+        <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
         <image name="hand.wave" width="10" height="10"/>
         <image name="heart.fill" width="10" height="10"/>
         <image name="info.circle" width="11" height="11"/>

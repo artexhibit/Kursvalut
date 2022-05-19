@@ -44,13 +44,6 @@ class ProViewController: UIViewController {
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        if proPurchased {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pro"), object: nil)
-        }
-    }
-    
     @IBAction func closeButtonPressed(_ sender: UIButton) {
         dismiss(animated: true)
     }
@@ -88,7 +81,6 @@ extension ProViewController: UITableViewDelegate, UITableViewDataSource {
 //MARK: - In-App Purchase Methods
 
 extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver {
-    
     func fetchForPro() {
         if SKPaymentQueue.canMakePayments() {
             let request = SKProductsRequest(productIdentifiers: ["ru.igorcodes.kursvalut.pro"])
@@ -136,6 +128,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
     
     func setPurchasedButton() {
         UserDefaults.standard.set(true, forKey: "kursvalutPro")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pro"), object: nil)
         purchaseButton.backgroundColor = UIColor.systemGreen
         purchaseButton.setTitle("КУПЛЕНО", for: .normal)
         purchaseButton.isUserInteractionEnabled = false

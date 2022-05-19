@@ -7,7 +7,6 @@ class TutorialViewController: UIViewController {
     
     var gifName: String?
     var tutorialData: [(icon: String, text: String)]?
-    
     private var appColor: String {
         return UserDefaults.standard.string(forKey: "appColor") ?? ""
     }

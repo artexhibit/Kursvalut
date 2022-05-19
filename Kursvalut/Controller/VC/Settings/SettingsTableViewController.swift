@@ -43,7 +43,9 @@ class SettingsTableViewController: UITableViewController {
     }
     
     @objc func reloadData(notification: NSNotification) {
-        self.tableView.reloadData()
+        if proPurchased {
+            unlockPro(for: proLabel)
+        }
     }
     
     //MARK: - TableView DataSource Methods
