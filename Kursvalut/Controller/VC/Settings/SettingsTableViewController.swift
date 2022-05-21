@@ -60,7 +60,7 @@ class SettingsTableViewController: UITableViewController {
             setupMailController()
         } else if pickedSection == 2 && pickedCell == 1 {
             proPurchased ? PopupView().showPopup(title: "Всё в порядке", message: "Pro уже восстановлен", type: .lock) : startProVersionRestore()
-        } else if pickedSection == 1 && (pickedCell == 0 || pickedCell == 1 || pickedCell == 2) {
+        } else if pickedSection == 1 && (pickedCell == 1 || pickedCell == 2 || pickedCell == 3) {
             if proPurchased {
                unlockPro(for: pickedCell)
             } else {
@@ -83,11 +83,11 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
     
     func unlockPro(for cell: Int) {
         switch cell {
-        case 0:
-            performSegue(withIdentifier: "decimalsSegue", sender: self)
         case 1:
-            performSegue(withIdentifier: "startViewSegue", sender: self)
+            performSegue(withIdentifier: "decimalsSegue", sender: self)
         case 2:
+            performSegue(withIdentifier: "startViewSegue", sender: self)
+        case 3:
             performSegue(withIdentifier: "themeSegue", sender: self)
         default:
             return

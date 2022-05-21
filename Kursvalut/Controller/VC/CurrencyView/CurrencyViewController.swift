@@ -41,6 +41,7 @@ class CurrencyViewController: UIViewController {
         setupRefreshControl()
         currencyNetworking.checkOnFirstLaunchToday(with: updateTimeLabel)
         currencyManager.configureContentInset(for: tableView, top: -10)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -195,26 +196,7 @@ extension CurrencyViewController: UISearchResultsUpdating {
 extension CurrencyViewController {
     func setupRefreshControl() {
         tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
-    }
-    
-    @objc func didPullToRefresh() {
-        currencyNetworking.performRequest { errorCode in
-            if errorCode != nil {
-                DispatchQueue.main.async {
-                    self.tableView.refreshControl?.endRefreshing()
-                    PopupView().showPopup(title: "Ошибка \(errorCode ?? 0)", message: "Повторите ещё раз позже", type: .failure)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.updateTimeLabel.text = self.currencyUpdateTime
-                    self.tableView.refreshControl?.endRefreshing()
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
-                }
-            }
-        }
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
 }
 
@@ -291,5 +273,24 @@ extension CurrencyViewController {
             tableView.reloadData()
         }
         userDefaults.set(false, forKey: "decimalsNumberChanged")
+    }
+    
+    @objc func refreshData() {
+        currencyNetworking.performRequest { errorCode in
+            if errorCode != nil {
+                DispatchQueue.main.async {
+                    self.tableView.refreshControl?.endRefreshing()
+                    PopupView().showPopup(title: "Ошибка \(errorCode ?? 0)", message: "Повторите ещё раз позже", type: .failure)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.updateTimeLabel.text = self.currencyUpdateTime
+                    self.tableView.refreshControl?.endRefreshing()
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
+                }
+            }
+        }
     }
 }
