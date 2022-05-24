@@ -6,45 +6,88 @@ import UIKit
 struct CurrencyNetworking {
     private let coreDataManager = CurrencyCoreDataManager()
     private let currencyManager = CurrencyManager()
-    private let urlString = "https://www.cbr-xml-daily.ru/daily_json.js"
+    private var pickedDataSource: String {
+        return "ЦБ РФ"
+    }
     private var updateTime: String {
         return currencyManager.showTime(with: "\("Обновлено") dd MMM \("в") HH:mm")
+    }
+    private var pickedBaseCurrency: String {
+        return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
+    }
+    private var latestBankOfRussiaURL: URL {
+        return URL(string: "https://www.cbr-xml-daily.ru/daily_json.js") ?? URL(fileURLWithPath: "")
+    }
+    private var latestForexURL: URL {
+        return URL(string: "https://api.exchangerate.host/latest?base=\(pickedBaseCurrency)&places=9&v=1")!
+    }
+    private var historicalForexURL: URL {
+        return URL(string: "https://api.exchangerate.host/2022-05-21?base=\(pickedBaseCurrency)&places=9")!
     }
     
     //MARK: - Networking Methods
     
     func performRequest(_ completion: @escaping (Int?) -> Void) {
-        if let url = URL(string: urlString) {
+        let group = DispatchGroup()
+        var urlArray = [URL]()
+        var dataDict = [URL: Data]()
+        var completed = 0
+        
+        if pickedDataSource == "ЦБ РФ" {
+            urlArray.append(latestBankOfRussiaURL)
+        } else {
+            urlArray.append(latestForexURL)
+            urlArray.append(historicalForexURL)
+        }
+        
+        urlArray.forEach { url in
+            group.enter()
             let session = URLSession(configuration: .ephemeral)
             let task = session.dataTask(with: url) { data, _, error in
+                defer { group.leave() }
+                
                 if error != nil {
                     guard let error = error as NSError? else { return }
                     completion(error.code)
-                    return
-                }
-                if let data = data {
-                    DispatchQueue.main.async {
-                        self.parseJSON(with: data)
-                    }
-                    UserDefaults.standard.setValue(updateTime, forKey: "currencyUpdateTime")
-                    completion(nil)
+                    session.invalidateAndCancel()
+                } else if let data = data {
+                    completed += 1
+                    dataDict[url] = data
                 }
             }
             task.resume()
         }
-    }
-    
-    func parseJSON(with currencyData: Data) {
-        let decoder = JSONDecoder()
-        do {
-            let decodedData = try decoder.decode(CurrencyData.self, from: currencyData)
-            
-            for valute in decodedData.Valute.values {
-                if valute.CharCode != "XDR" {
-                    coreDataManager.createOrUpdateCurrency(with: valute)
+        
+        group.notify(queue: .main) {
+            if completed == urlArray.count {
+                dataDict.forEach { url, data in
+                    DispatchQueue.main.async {
+                        self.parseJSON(with: data, from: url)
+                    }
                 }
             }
-            coreDataManager.createRubleCurrency()
+            UserDefaults.standard.setValue(updateTime, forKey: "currencyUpdateTime")
+            completion(nil)
+        }
+    }
+    
+    func parseJSON(with currencyData: Data, from url: URL) {
+        let decoder = JSONDecoder()
+        do {
+            if url == latestBankOfRussiaURL {
+                let decodedData = try decoder.decode(CurrencyData.self, from: currencyData)
+                
+                for valute in decodedData.Valute.values {
+                    if valute.CharCode != "XDR" {
+                        coreDataManager.createOrUpdateCurrency(with: valute)
+                    }
+                }
+                coreDataManager.createRubleCurrency()
+            } else if url == latestForexURL {
+                print("decode latest Forex")
+            } else {
+                print("decode historical forex")
+            }
         } catch {
             print("Error with JSON parsing, \(error)")
         }
