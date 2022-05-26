@@ -73,18 +73,18 @@ struct CurrencyManager {
         return differenceAttributes.Color
     }
     
-    mutating func showDifference(with currentValue: Double, and previousValue: Double) -> String {
-        difference = currentValue - previousValue
-        let differencePercentage = (abs(difference) / ((currentValue + previousValue)/2)) * 100
+    mutating func showDifference(with absoluteValue: Double, and previousValue: Double) -> String {
+        difference = absoluteValue - previousValue
+        let differencePercentage = (abs(difference) / ((absoluteValue + previousValue)/2)) * 100
         let formattedDifference = String(format: "%.2f", abs(difference))
         let formattedPercentage = String(format: "%.2f", differencePercentage)
         return "\(differenceAttributes.Sign)\(formattedDifference) (\(formattedPercentage)%)\(differenceAttributes.Symbol)"
     }
     
-    func showTime(with text: String) -> String {
+    func showTime(with text: String, from date: Date = Date()) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = text
-        return formatter.string(from: Date())
+        return formatter.string(from: date)
     }
     
     //MARK: - ViewController Configuration Methods

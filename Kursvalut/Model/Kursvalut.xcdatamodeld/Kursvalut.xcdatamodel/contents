@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Currency" representedClassName="Currency" syncable="YES" codeGenerationType="class">
         <attribute name="absoluteValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="currentValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -13,7 +13,21 @@
         <attribute name="searchName" attributeType="String"/>
         <attribute name="shortName" attributeType="String"/>
     </entity>
+    <entity name="ForexCurrency" representedClassName="ForexCurrency" syncable="YES" codeGenerationType="class">
+        <attribute name="absoluteValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="currentValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fullName" optional="YES" attributeType="String"/>
+        <attribute name="isForConverter" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isForCurrencyScreen" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="nominal" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="previousValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="rowForConverter" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rowForCurrency" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="searchName" optional="YES" attributeType="String"/>
+        <attribute name="shortName" attributeType="String"/>
+    </entity>
     <elements>
         <element name="Currency" positionX="-63" positionY="-18" width="128" height="194"/>
+        <element name="ForexCurrency" positionX="-63" positionY="63" width="128" height="194"/>
     </elements>
 </model>

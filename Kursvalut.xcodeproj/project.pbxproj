@@ -28,7 +28,7 @@
 		78137FF12834185D00F4621E /* pickCurrencyForConverter.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FF02834185D00F4621E /* pickCurrencyForConverter.gif */; };
 		7828734E28145BAC00B65D6F /* TutorialDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7828734D28145BAC00B65D6F /* TutorialDescriptionTableViewCell.swift */; };
 		7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */; };
-		7838F90027885B86007D34AA /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FF27885B86007D34AA /* CurrencyData.swift */; };
+		7838F90027885B86007D34AA /* BankOfRussiaCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FF27885B86007D34AA /* BankOfRussiaCurrencyData.swift */; };
 		783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */; };
 		7841735C27E645DE00A35530 /* ProViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7841735B27E645DE00A35530 /* ProViewController.swift */; };
 		7841735E27E6460000A35530 /* ProTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7841735D27E6460000A35530 /* ProTableViewCell.swift */; };
@@ -62,6 +62,7 @@
 		78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */; };
 		78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0D2787687400A91511 /* CurrencyManager.swift */; };
 		78D531902793058B00EF65B2 /* CurrencyCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */; };
+		78E00279283EA57100EE9B4C /* ForexCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E00278283EA57100EE9B4C /* ForexCurrencyData.swift */; };
 		78E9B79A27D7956300BB5249 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E9B79927D7956300BB5249 /* PrivacyPolicyViewController.swift */; };
 		78E9B79C27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E9B79B27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift */; };
 		78EF7D7E280B3767000CFB46 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EF7D7D280B3767000CFB46 /* OnboardingCollectionViewCell.swift */; };
@@ -96,7 +97,7 @@
 		78137FF02834185D00F4621E /* pickCurrencyForConverter.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pickCurrencyForConverter.gif; sourceTree = "<group>"; };
 		7828734D28145BAC00B65D6F /* TutorialDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyNetworking.swift; sourceTree = "<group>"; };
-		7838F8FF27885B86007D34AA /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
+		7838F8FF27885B86007D34AA /* BankOfRussiaCurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankOfRussiaCurrencyData.swift; sourceTree = "<group>"; };
 		783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalsTableViewCell.swift; sourceTree = "<group>"; };
 		7841735B27E645DE00A35530 /* ProViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProViewController.swift; sourceTree = "<group>"; };
 		7841735D27E6460000A35530 /* ProTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProTableViewCell.swift; sourceTree = "<group>"; };
@@ -129,6 +130,7 @@
 		78D3DA0B278731DD00A91511 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		78D3DA0D2787687400A91511 /* CurrencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
 		78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCoreDataManager.swift; sourceTree = "<group>"; };
+		78E00278283EA57100EE9B4C /* ForexCurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForexCurrencyData.swift; sourceTree = "<group>"; };
 		78E9B79927D7956300BB5249 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		78E9B79B27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyTableViewCell.swift; sourceTree = "<group>"; };
 		78EF7D7D280B3767000CFB46 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -185,11 +187,11 @@
 		78041C2F2786FD0400C4D861 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				78E0027A283EA91C00EE9B4C /* CurrencyJSONDecodingModels */,
 				78D3DA0D2787687400A91511 /* CurrencyManager.swift */,
 				787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */,
 				7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */,
 				78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */,
-				7838F8FF27885B86007D34AA /* CurrencyData.swift */,
 				7813102727D75FE000065410 /* SMailComposeViewController.swift */,
 				78BD46DE27F07460002AFDA1 /* PopupView.swift */,
 				78B9F5602801BBAA0030ECF4 /* SortingSection.swift */,
@@ -286,6 +288,15 @@
 				78F2716427CFDD1800381CA9 /* Settings */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		78E0027A283EA91C00EE9B4C /* CurrencyJSONDecodingModels */ = {
+			isa = PBXGroup;
+			children = (
+				7838F8FF27885B86007D34AA /* BankOfRussiaCurrencyData.swift */,
+				78E00278283EA57100EE9B4C /* ForexCurrencyData.swift */,
+			);
+			path = CurrencyJSONDecodingModels;
 			sourceTree = "<group>";
 		};
 		78F2716427CFDD1800381CA9 /* Settings */ = {
@@ -443,7 +454,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				78E9B79C27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift in Sources */,
-				7838F90027885B86007D34AA /* CurrencyData.swift in Sources */,
+				7838F90027885B86007D34AA /* BankOfRussiaCurrencyData.swift in Sources */,
 				78137FDB2833EC1200F4621E /* UIImage+extension.swift in Sources */,
 				783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */,
 				78B9F55F2801B9F10030ECF4 /* SubSortTableViewCell.swift in Sources */,
@@ -472,6 +483,7 @@
 				786C01A527DE511400868EBE /* TipJarTableViewCell.swift in Sources */,
 				78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */,
 				78041C1B2786F9FA00C4D861 /* SceneDelegate.swift in Sources */,
+				78E00279283EA57100EE9B4C /* ForexCurrencyData.swift in Sources */,
 				78522961279B1A1B00507877 /* PickCurrencyTableViewCell.swift in Sources */,
 				78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */,
 				786479AA27981E410077ABC7 /* ConverterTableViewController.swift in Sources */,

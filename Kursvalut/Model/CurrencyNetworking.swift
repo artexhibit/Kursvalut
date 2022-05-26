@@ -15,14 +15,21 @@ struct CurrencyNetworking {
     private var pickedBaseCurrency: String {
         return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
     }
-    private var latestBankOfRussiaURL: URL {
+    private var yesterdaysDate: String {
+        let nextDate = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
+        return currencyManager.showTime(with: "yyyy-MM-dd", from: nextDate)
+    }
+    private var todaysDate: String {
+        return currencyManager.showTime(with: "yyyy-MM-dd")
+    }
+    private var currentBankOfRussiaURL: URL {
         return URL(string: "https://www.cbr-xml-daily.ru/daily_json.js") ?? URL(fileURLWithPath: "")
     }
-    private var latestForexURL: URL {
-        return URL(string: "https://api.exchangerate.host/latest?base=\(pickedBaseCurrency)&places=9&v=1")!
+    private var currentForexURL: URL {
+        return URL(string: "https://api.exchangerate.host/latest?base=\(pickedBaseCurrency)&v=\(todaysDate)&places=9")!
     }
     private var historicalForexURL: URL {
-        return URL(string: "https://api.exchangerate.host/2022-05-21?base=\(pickedBaseCurrency)&places=9")!
+        return URL(string: "https://api.exchangerate.host/\(yesterdaysDate)?base=\(pickedBaseCurrency)&places=9")!
     }
     
     //MARK: - Networking Methods
@@ -34,9 +41,9 @@ struct CurrencyNetworking {
         var completed = 0
         
         if pickedDataSource == "ЦБ РФ" {
-            urlArray.append(latestBankOfRussiaURL)
+            urlArray.append(currentBankOfRussiaURL)
         } else {
-            urlArray.append(latestForexURL)
+            urlArray.append(currentForexURL)
             urlArray.append(historicalForexURL)
         }
         
@@ -74,19 +81,15 @@ struct CurrencyNetworking {
     func parseJSON(with currencyData: Data, from url: URL) {
         let decoder = JSONDecoder()
         do {
-            if url == latestBankOfRussiaURL {
-                let decodedData = try decoder.decode(CurrencyData.self, from: currencyData)
-                
-                for valute in decodedData.Valute.values {
-                    if valute.CharCode != "XDR" {
-                        coreDataManager.createOrUpdateCurrency(with: valute)
-                    }
-                }
+            if url == currentBankOfRussiaURL {
+                let decodedData = try decoder.decode(BankOfRussiaCurrencyData.self, from: currencyData)
+                let filteredData = decodedData.Valute.filter({ $0.value.CharCode != "XDR" }).values
+                coreDataManager.createOrUpdateBankOfRussiaCurrency(with: filteredData)
                 coreDataManager.createRubleCurrency()
-            } else if url == latestForexURL {
-                print("decode latest Forex")
             } else {
-                print("decode historical forex")
+                let decodedData = try decoder.decode(ForexCurrencyData.self, from: currencyData)
+                let filteredData = decodedData.rates.filter({ $0.key != "BTC" })
+                url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData)
             }
         } catch {
             print("Error with JSON parsing, \(error)")

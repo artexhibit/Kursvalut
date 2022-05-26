@@ -1,7 +1,7 @@
 
 import Foundation
 
-struct CurrencyData: Codable {
+struct BankOfRussiaCurrencyData: Codable {
     let Valute: [String: Details]
 }
 
