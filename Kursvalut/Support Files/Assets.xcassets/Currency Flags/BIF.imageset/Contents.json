@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "BIF.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
