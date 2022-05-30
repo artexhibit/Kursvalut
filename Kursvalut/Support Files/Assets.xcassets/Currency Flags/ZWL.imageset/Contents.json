@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ZWL.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

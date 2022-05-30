@@ -6,6 +6,7 @@ import UIKit
 struct CurrencyNetworking {
     private let coreDataManager = CurrencyCoreDataManager()
     private let currencyManager = CurrencyManager()
+    private let dataToFilterOut = Set(["BTC", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPD", "XPF", "XPT"])
     private var pickedDataSource: String {
         return "ЦБ РФ"
     }
@@ -83,12 +84,12 @@ struct CurrencyNetworking {
         do {
             if url == currentBankOfRussiaURL {
                 let decodedData = try decoder.decode(BankOfRussiaCurrencyData.self, from: currencyData)
-                let filteredData = decodedData.Valute.filter({ $0.value.CharCode != "XDR" }).values
+                let filteredData = decodedData.Valute.filter({ dataToFilterOut.contains($0.value.CharCode) == false }).values
                 coreDataManager.createOrUpdateBankOfRussiaCurrency(with: filteredData)
                 coreDataManager.createRubleCurrency()
             } else {
                 let decodedData = try decoder.decode(ForexCurrencyData.self, from: currencyData)
-                let filteredData = decodedData.rates.filter({ $0.key != "BTC" })
+                let filteredData = decodedData.rates.filter({ dataToFilterOut.contains($0.key) == false })
                 url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData)
             }
         } catch {

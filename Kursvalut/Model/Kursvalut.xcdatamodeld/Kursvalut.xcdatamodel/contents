@@ -16,14 +16,14 @@
     <entity name="ForexCurrency" representedClassName="ForexCurrency" syncable="YES" codeGenerationType="class">
         <attribute name="absoluteValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="currentValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="fullName" optional="YES" attributeType="String"/>
+        <attribute name="fullName" attributeType="String"/>
         <attribute name="isForConverter" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isForCurrencyScreen" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nominal" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="previousValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="rowForConverter" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="rowForCurrency" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="searchName" optional="YES" attributeType="String"/>
+        <attribute name="searchName" attributeType="String"/>
         <attribute name="shortName" attributeType="String"/>
     </entity>
     <elements>
