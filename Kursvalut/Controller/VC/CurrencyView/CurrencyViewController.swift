@@ -12,7 +12,8 @@ class CurrencyViewController: UIViewController {
     private var currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
     private let coreDataManager = CurrencyCoreDataManager()
-    private var fetchedResultsController: NSFetchedResultsController<Currency>!
+    private var bankOfRussiaFRC: NSFetchedResultsController<Currency>!
+    private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let searchController = UISearchController(searchResultsController: nil)
     private var decimalsNumberChanged: Bool {
         return userDefaults.bool(forKey: "decimalsNumberChanged")
@@ -32,6 +33,9 @@ class CurrencyViewController: UIViewController {
     private var userHasOnboarded: Bool {
         return UserDefaults.standard.bool(forKey: "userHasOnboarded")
     }
+    private var pickedDataSource: String {
+        return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +50,9 @@ class CurrencyViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       if pickedDataSource != "ЦБ РФ" {
+        coreDataManager.filterOutForexBaseCurrency()
+       }
         setupFetchedResultsController()
         updateDecimalsNumber()
     }
@@ -68,21 +75,33 @@ class CurrencyViewController: UIViewController {
 
 extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections![section].numberOfObjects
+        return pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].numberOfObjects : forexFRC.sections![section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell", for: indexPath) as! CurrencyTableViewCell
-        let currency = fetchedResultsController.object(at: indexPath)
         
-        cell.selectionStyle = .none
-        cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
-        cell.shortName.text = currency.shortName
-        cell.fullName.text = currency.fullName
-        cell.rate.text = currencyManager.showRate(with: currency.absoluteValue)
-        cell.rateDifference.text = currencyManager.showDifference(with: currency.currentValue, and: currency.previousValue)
-        cell.rateDifference.textColor = currencyManager.showColor()
-        
+        if pickedDataSource == "ЦБ РФ" {
+            let currency = bankOfRussiaFRC.object(at: indexPath)
+            
+            cell.selectionStyle = .none
+            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+            cell.shortName.text = currency.shortName
+            cell.fullName.text = currency.fullName
+            cell.rate.text = currencyManager.showRate(with: currency.absoluteValue)
+            cell.rateDifference.text = currencyManager.showDifference(with: currency.currentValue, and: currency.previousValue)
+            cell.rateDifference.textColor = currencyManager.showColor()
+        } else {
+            let currency = forexFRC.object(at: indexPath)
+            
+            cell.selectionStyle = .none
+            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+            cell.shortName.text = currency.shortName
+            cell.fullName.text = currency.fullName
+            cell.rate.text = currencyManager.showRate(with: currency.absoluteValue)
+            cell.rateDifference.text = currencyManager.showDifference(with: currency.currentValue, and: currency.previousValue)
+            cell.rateDifference.textColor = currencyManager.showColor()
+        }
         return cell
     }
     
@@ -137,14 +156,26 @@ extension CurrencyViewController {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        var currencies = fetchedResultsController.fetchedObjects!
-        let currency = fetchedResultsController.object(at: sourceIndexPath)
-        
-        currencies.remove(at: sourceIndexPath.row)
-        currencies.insert(currency, at: destinationIndexPath.row)
-        
-        for (index, currency) in currencies.enumerated() {
-            currency.rowForCurrency = Int32(index)
+        if pickedDataSource == "ЦБ РФ" {
+            var bankOfRussiaCurrencies = bankOfRussiaFRC.fetchedObjects!
+            let bankOFRussiaCurrency = bankOfRussiaFRC.object(at: sourceIndexPath)
+            
+            bankOfRussiaCurrencies.remove(at: sourceIndexPath.row)
+            bankOfRussiaCurrencies.insert(bankOFRussiaCurrency, at: destinationIndexPath.row)
+            
+            for (index, bankOfRussiaCurrency) in bankOfRussiaCurrencies.enumerated() {
+                bankOfRussiaCurrency.rowForCurrency = Int32(index)
+            }
+        } else {
+            var forexCurrencies = forexFRC.fetchedObjects!
+            let forexCurrency = forexFRC.object(at: sourceIndexPath)
+            
+            forexCurrencies.remove(at: sourceIndexPath.row)
+            forexCurrencies.insert(forexCurrency, at: destinationIndexPath.row)
+            
+            for (index, forexCurrency) in forexCurrencies.enumerated() {
+                forexCurrency.rowForCurrency = Int32(index)
+            }
         }
         coreDataManager.save()
         tableView.reloadData()
@@ -209,8 +240,14 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
     }
     
     func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
-        if searchPredicate != nil {
-            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: searchPredicate)
+        if searchPredicate != nil && pickedDataSource == "ЦБ РФ" {
+            bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: searchPredicate)
+            bankOfRussiaFRC.delegate = self
+            try? bankOfRussiaFRC.performFetch()
+        } else if searchPredicate != nil && pickedDataSource != "ЦБ РФ" {
+            forexFRC = coreDataManager.createForexCurrencyFRC(with: searchPredicate)
+            forexFRC.delegate = self
+            try? forexFRC.performFetch()
         } else {
             let predicate = NSPredicate(format: "isForCurrencyScreen == YES")
             
@@ -225,10 +262,16 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
                     return NSSortDescriptor(key: "rowForCurrency", ascending: true)
                 }
             }
-            fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate, and: sortDescriptor)
+            if pickedDataSource == "ЦБ РФ" {
+                bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: predicate, and: sortDescriptor)
+                bankOfRussiaFRC.delegate = self
+                try? bankOfRussiaFRC.performFetch()
+            } else {
+                forexFRC = coreDataManager.createForexCurrencyFRC(with: predicate, and: sortDescriptor)
+                forexFRC.delegate = self
+                try? forexFRC.performFetch()
+            }
         }
-        fetchedResultsController.delegate = self
-        try? fetchedResultsController.performFetch()
         tableView.reloadData()
     }
     
@@ -276,6 +319,11 @@ extension CurrencyViewController {
     }
     
     @objc func refreshData() {
+       if pickedDataSource != "ЦБ РФ" {
+        coreDataManager.filterOutForexBaseCurrency()
+       }
+        setupFetchedResultsController()
+        
         currencyNetworking.performRequest { errorCode in
             if errorCode != nil {
                 DispatchQueue.main.async {
@@ -286,6 +334,7 @@ extension CurrencyViewController {
                 DispatchQueue.main.async {
                     self.updateTimeLabel.text = self.currencyUpdateTime
                     self.tableView.refreshControl?.endRefreshing()
+                    self.tableView.reloadData()
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)

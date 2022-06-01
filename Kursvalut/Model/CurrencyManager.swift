@@ -181,6 +181,9 @@ struct CurrencyManager {
     private var converterScreenDecimalsAmount: Int {
         return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
     }
+    private var pickedBaseCurrency: String {
+        return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
+    }
     
     func showCurrencyFlag(_ shortName: String) -> UIImage? {
         guard let image = UIImage(named: "\(shortName)") else { return UIImage(named: "notFound") }
@@ -188,7 +191,7 @@ struct CurrencyManager {
     }
     
     func showRate(with value: Double, forConverter: Bool = false) -> String {
-        let format = forConverter ? "%.\(converterScreenDecimalsAmount)f" : "%.\(currencyScreenDecimalsAmount)f RUB"
+        let format = forConverter ? "%.\(converterScreenDecimalsAmount)f" : "%.\(currencyScreenDecimalsAmount)f \(pickedBaseCurrency)"
         let formattedRate = String(format: format, value)
         let formattedDecimalSign = formattedRate.replacingOccurrences(of: ".", with: ",")
         return formattedDecimalSign

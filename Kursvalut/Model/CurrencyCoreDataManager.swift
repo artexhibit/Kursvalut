@@ -168,11 +168,47 @@ struct CurrencyCoreDataManager {
         currency.absoluteValue = currency.currentValue / Double(currency.nominal)
     }
     
+    func filterOutForexBaseCurrency() {
+        var pickedBaseCurrency: String {
+            return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
+        }
+        
+        let request: NSFetchRequest<ForexCurrency> = ForexCurrency.fetchRequest()
+        request.predicate = NSPredicate(format: "shortName = %@", pickedBaseCurrency)
+        
+        do {
+            let fetchCurrencies = try context.fetch(request)
+            fetchCurrencies.forEach { currency in
+                currency.isForCurrencyScreen = currency.shortName == pickedBaseCurrency ? false : true
+            }
+        } catch {
+            print(error)
+        }
+        save()
+    }
+    
    //MARK: - FetchResultsController Setup
     
-    func createCurrencyFetchedResultsController(with predicate: NSPredicate? = nil, and sortDescriptor: NSSortDescriptor? = nil) -> NSFetchedResultsController<Currency> {
+    func createBankOfRussiaCurrencyFRC(with predicate: NSPredicate? = nil, and sortDescriptor: NSSortDescriptor? = nil) -> NSFetchedResultsController<Currency> {
         var sectionName: String?
         let request: NSFetchRequest<Currency> = Currency.fetchRequest()
+        let baseSortDescriptor = NSSortDescriptor(key: "shortName", ascending: true)
+        request.predicate = predicate
+        
+        if let additionalSortDescriptor = sortDescriptor {
+            request.sortDescriptors = [additionalSortDescriptor, baseSortDescriptor]
+            sectionName = pickCurrencyRequest ? "fullName.firstStringCharacter" : nil
+            UserDefaults.standard.set(false, forKey: "pickCurrencyRequest")
+        } else {
+            request.sortDescriptors = [baseSortDescriptor]
+            sectionName = nil
+        }
+        return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionName, cacheName: nil)
+    }
+    
+    func createForexCurrencyFRC(with predicate: NSPredicate? = nil, and sortDescriptor: NSSortDescriptor? = nil) -> NSFetchedResultsController<ForexCurrency> {
+        var sectionName: String?
+        let request: NSFetchRequest<ForexCurrency> = ForexCurrency.fetchRequest()
         let baseSortDescriptor = NSSortDescriptor(key: "shortName", ascending: true)
         request.predicate = predicate
         

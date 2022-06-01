@@ -257,7 +257,7 @@ extension ConverterTableViewController: NSFetchedResultsControllerDelegate {
     func setupFetchedResultsController() {
         let predicate = NSPredicate(format: "isForConverter == YES")
         let sortDescriptor = NSSortDescriptor(key: "rowForConverter", ascending: true)
-        fetchedResultsController = coreDataManager.createCurrencyFetchedResultsController(with: predicate, and: sortDescriptor)
+        fetchedResultsController = coreDataManager.createBankOfRussiaCurrencyFRC(with: predicate, and: sortDescriptor)
         fetchedResultsController.delegate = self
         try? fetchedResultsController.performFetch()
     }

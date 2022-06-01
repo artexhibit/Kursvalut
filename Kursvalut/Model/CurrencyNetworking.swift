@@ -8,7 +8,7 @@ struct CurrencyNetworking {
     private let currencyManager = CurrencyManager()
     private let dataToFilterOut = Set(["BTC", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPD", "XPF", "XPT"])
     private var pickedDataSource: String {
-        return "ЦБ РФ"
+        return UserDefaults.standard.string(forKey: "baseSource") ?? ""
     }
     private var updateTime: String {
         return currencyManager.showTime(with: "\("Обновлено") dd MMM \("в") HH:mm")

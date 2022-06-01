@@ -4,6 +4,7 @@ import UIKit
 class CurrencyDataSourceTableViewController: UITableViewController {
     
     private var currencyManager = CurrencyManager()
+    private let currencyNetworking = CurrencyNetworking()
     private let sourceOptions = ["Forex (Биржа)", "ЦБ РФ"]
     private let sectionsArray = [
         (header: "", footer: ["Данные по курсам будут сразу загружены при выборе источника"]),
@@ -85,6 +86,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
             } else {
                 UserDefaults.standard.set("EUR", forKey: "baseCurrency")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
             }
             tableView.reloadSections(IndexSet(integer: 1), with: .fade)
         }
