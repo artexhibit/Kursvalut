@@ -4,7 +4,8 @@ import CoreData
 
 class PickCurrencyTableViewController: UITableViewController {
     
-    private var fetchedResultsController: NSFetchedResultsController<Currency>!
+    private var bankOfRussiaFRC: NSFetchedResultsController<Currency>!
+    private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let searchController = UISearchController(searchResultsController: nil)
     private var currencyManager = CurrencyManager()
     private let coreDataManager = CurrencyCoreDataManager()
@@ -12,8 +13,14 @@ class PickCurrencyTableViewController: UITableViewController {
     private var proPurchased: Bool {
         return UserDefaults.standard.bool(forKey: "kursvalutPro")
     }
-    private var amountOfPickedCurrencies: Int {
-        return UserDefaults.standard.integer(forKey: "savedAmount")
+    private var pickedDataSource: String {
+        return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+    }
+    private var amountOfPickedBankOfRussiaCurrencies: Int {
+        return UserDefaults.standard.integer(forKey: "savedAmountForBankOfRussia")
+    }
+    private var amountOfPickedForexCurrencies: Int {
+        return UserDefaults.standard.integer(forKey: "savedAmountForForex")
     }
     private var appColor: String {
         return UserDefaults.standard.string(forKey: "appColor") ?? ""
@@ -33,62 +40,102 @@ class PickCurrencyTableViewController: UITableViewController {
     // MARK: - TableView Delegate & DataSource Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections!.count
+        return pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections!.count : forexFRC.sections!.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return fetchedResultsController.sections![section].name
+        return pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].name : forexFRC.sections![section].name
     }
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        guard let sections = fetchedResultsController?.sections else { return nil }
         var sectionTitles = [String]()
         
-        for section in sections {
-            guard let firstCharacter = section.name.first else { return nil }
-            sectionTitles.append(String(firstCharacter))
+        if pickedDataSource == "ЦБ РФ" {
+            guard let sections = bankOfRussiaFRC?.sections else { return nil }
+            
+            for section in sections {
+                guard let firstCharacter = section.name.first else { return nil }
+                sectionTitles.append(String(firstCharacter))
+            }
+        } else {
+            guard let sections = forexFRC?.sections else { return nil }
+            
+            for section in sections {
+                guard let firstCharacter = section.name.first else { return nil }
+                sectionTitles.append(String(firstCharacter))
+            }
         }
         return sectionTitles
     }
     
     func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return fetchedResultsController.section(forSectionIndexTitle: title, at: index)
+        return pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.section(forSectionIndexTitle: title, at: index) : forexFRC.section(forSectionIndexTitle: title, at: index)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections![section].numberOfObjects
+        return pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].numberOfObjects : forexFRC.sections![section].numberOfObjects
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "pickCurrencyCell", for: indexPath) as! PickCurrencyTableViewCell
-        let currency = fetchedResultsController.object(at: indexPath)
         
-        cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
-        cell.shortName.text = currency.shortName
-        cell.fullName.text = currency.fullName
-        cell.picker.image = currency.isForConverter ? UIImage(named: "checkmark.circle.fill") : UIImage(named: "circle")
-        
+        if pickedDataSource == "ЦБ РФ" {
+            let currency = bankOfRussiaFRC.object(at: indexPath)
+            
+            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+            cell.shortName.text = currency.shortName
+            cell.fullName.text = currency.fullName
+            cell.picker.image = currency.isForConverter ? UIImage(named: "checkmark.circle.fill") : UIImage(named: "circle")
+        } else {
+            let currency = forexFRC.object(at: indexPath)
+            
+            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+            cell.shortName.text = currency.shortName
+            cell.fullName.text = currency.fullName
+            cell.picker.image = currency.isForConverter ? UIImage(named: "checkmark.circle.fill") : UIImage(named: "circle")
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currency = fetchedResultsController.object(at: indexPath)
-        let currencies = fetchedResultsController.fetchedObjects!
-        var currentAmount = amountOfPickedCurrencies
-        
-        currency.isForConverter = !currency.isForConverter
-        currency.isForConverter ? (currentAmount += 1) : (currentAmount -= 1)
-
-        if proPurchased {
-            converterManager.setRow(for: currency, in: currencies)
-        } else if !proPurchased && currentAmount <= 3 {
-            converterManager.setRow(for: currency, in: currencies)
-            UserDefaults.standard.set(currentAmount, forKey: "savedAmount")
+        if pickedDataSource == "ЦБ РФ" {
+            var currentAmount = amountOfPickedBankOfRussiaCurrencies
+            let bankOfRussiaCurrencies = bankOfRussiaFRC.fetchedObjects!
+            let bankOfRussiaCurrency = bankOfRussiaFRC.object(at: indexPath)
+            
+            bankOfRussiaCurrency.isForConverter = !bankOfRussiaCurrency.isForConverter
+            bankOfRussiaCurrency.isForConverter ? (currentAmount += 1) : (currentAmount -= 1)
+            
+            if proPurchased {
+                converterManager.setRow(for: bankOfRussiaCurrency, in: bankOfRussiaCurrencies)
+            } else if !proPurchased && currentAmount <= 3 {
+                converterManager.setRow(for: bankOfRussiaCurrency, in: bankOfRussiaCurrencies)
+                UserDefaults.standard.set(currentAmount, forKey: "savedAmountForBankOfRussia")
+            } else {
+                bankOfRussiaCurrency.isForConverter = false
+                currentAmount -= 1
+                UserDefaults.standard.set(currentAmount, forKey: "savedAmountForBankOfRussia")
+                PopupView().showPopup(title: "Максимум 3 валюты", message: "Безлимитно в Pro", type: .lock)
+            }
         } else {
-            currency.isForConverter = false
-            currentAmount -= 1
-            UserDefaults.standard.set(currentAmount, forKey: "savedAmount")
-            PopupView().showPopup(title: "Максимум 3 валюты", message: "Безлимитно в Pro", type: .lock)
+            var currentAmount = amountOfPickedForexCurrencies
+            let forexCurrencies = forexFRC.fetchedObjects!
+            let forexCurrency = forexFRC.object(at: indexPath)
+            
+            forexCurrency.isForConverter = !forexCurrency.isForConverter
+            forexCurrency.isForConverter ? (currentAmount += 1) : (currentAmount -= 1)
+            
+            if proPurchased {
+                converterManager.setRow(for: forexCurrency, in: forexCurrencies)
+            } else if !proPurchased && currentAmount <= 3 {
+                converterManager.setRow(for: forexCurrency, in: forexCurrencies)
+                UserDefaults.standard.set(currentAmount, forKey: "savedAmountForForex")
+            } else {
+                forexCurrency.isForConverter = false
+                currentAmount -= 1
+                UserDefaults.standard.set(currentAmount, forKey: "savedAmountForForex")
+                PopupView().showPopup(title: "Максимум 3 валюты", message: "Безлимитно в Pro", type: .lock)
+            }
         }
         coreDataManager.save()
     }
@@ -98,11 +145,19 @@ class PickCurrencyTableViewController: UITableViewController {
 
 extension PickCurrencyTableViewController: NSFetchedResultsControllerDelegate {
     func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
-        UserDefaults.standard.set(true, forKey: "pickCurrencyRequest")
-        let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
-        fetchedResultsController = coreDataManager.createBankOfRussiaCurrencyFRC(with: searchPredicate, and: sortDescriptor)
-        fetchedResultsController.delegate = self
-        try? fetchedResultsController.performFetch()
+        if pickedDataSource == "ЦБ РФ" {
+            UserDefaults.standard.set(true, forKey: "pickCurrencyRequest")
+            let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
+            bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: searchPredicate, and: sortDescriptor)
+            bankOfRussiaFRC.delegate = self
+            try? bankOfRussiaFRC.performFetch()
+        } else {
+            UserDefaults.standard.set(true, forKey: "pickCurrencyRequest")
+            let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
+            forexFRC = coreDataManager.createForexCurrencyFRC(with: searchPredicate, and: sortDescriptor)
+            forexFRC.delegate = self
+            try? forexFRC.performFetch()
+        }
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
