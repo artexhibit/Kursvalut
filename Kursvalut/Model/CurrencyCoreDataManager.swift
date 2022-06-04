@@ -57,7 +57,7 @@ struct CurrencyCoreDataManager {
         if currency.shortName == "USD" {
             currency.rowForConverter = 1
             currency.isForConverter = true
-            UserDefaults.standard.set(2, forKey: "savedAmount")
+            UserDefaults.standard.set(2, forKey: "savedAmountForBankOfRussia")
         }
     }
     

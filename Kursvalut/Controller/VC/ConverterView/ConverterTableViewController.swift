@@ -6,13 +6,15 @@ class ConverterTableViewController: UITableViewController {
     
     @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
-    private var fetchedResultsController: NSFetchedResultsController<Currency>!
+    private var bankOfRussiaFRC: NSFetchedResultsController<Currency>!
+    private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let coreDataManager = CurrencyCoreDataManager()
     private let converterManager = ConverterManager()
     private var currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
     private var numberFromTextField: Double?
-    private var pickedCurrency: Currency?
+    private var pickedBankOfRussiaCurrency: Currency?
+    private var pickedForexCurrency: ForexCurrency?
     private var isInEdit = false
     private var pickedNameArray = [String]()
     private var pickedTextField = UITextField()
@@ -25,22 +27,34 @@ class ConverterTableViewController: UITableViewController {
     private var proPurchased: Bool {
         return UserDefaults.standard.bool(forKey: "kursvalutPro")
     }
-    private var amountOfPickedCurrencies: Int {
-        return UserDefaults.standard.integer(forKey: "savedAmount")
+    private var amountOfPickedBankOfRussiaCurrencies: Int {
+        return UserDefaults.standard.integer(forKey: "savedAmountForBankOfRussia")
+    }
+    private var amountOfPickedForexCurrencies: Int {
+        return UserDefaults.standard.integer(forKey: "savedAmountForForex")
     }
     private var appColor: String {
         return UserDefaults.standard.string(forKey: "appColor") ?? ""
     }
+    private var pickedDataSource: String {
+        return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupFetchedResultsController()
         setupKeyboardHide()
         currencyManager.configureContentInset(for: tableView, top: 10)
         
         if pickedStartView == "Конвертер" {
             currencyNetworking.checkOnFirstLaunchToday()
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(setupFetchedResultsController), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setTextFieldToZero), name: NSNotification.Name(rawValue: "setTextFieldToZero"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupFetchedResultsController()
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
@@ -52,23 +66,36 @@ class ConverterTableViewController: UITableViewController {
     // MARK: - TableView DataSource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let section = fetchedResultsController.sections?[section] else { return 0 }
-        return section.numberOfObjects
+        return pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].numberOfObjects : forexFRC.sections![section].numberOfObjects
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "converterCell", for: indexPath) as! ConverterTableViewCell
         
-        let currency = fetchedResultsController.object(at: indexPath)
-        cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
-        cell.shortName.text = currency.shortName
-        cell.fullName.text = currency.fullName
-        cell.numberTextField.delegate = self
-        
-        cell.numberTextField.isHidden = isInEdit ? true : false
-        
-        if let number = numberFromTextField, let pickedCurrency = pickedCurrency {
-            cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
+        if pickedDataSource == "ЦБ РФ" {
+            let currency = bankOfRussiaFRC.object(at: indexPath)
+            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+            cell.shortName.text = currency.shortName
+            cell.fullName.text = currency.fullName
+            cell.numberTextField.delegate = self
+            
+            cell.numberTextField.isHidden = isInEdit ? true : false
+            
+            if let number = numberFromTextField, let pickedCurrency = pickedBankOfRussiaCurrency {
+                cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
+            }
+        } else {
+            let currency = forexFRC.object(at: indexPath)
+            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+            cell.shortName.text = currency.shortName
+            cell.fullName.text = currency.fullName
+            cell.numberTextField.delegate = self
+            
+            cell.numberTextField.isHidden = isInEdit ? true : false
+            
+            if let number = numberFromTextField, let pickedCurrency = pickedForexCurrency {
+                cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
+            }
         }
         return cell
     }
@@ -87,16 +114,29 @@ class ConverterTableViewController: UITableViewController {
         move.backgroundColor = UIColor(named: "BlueColor")
         
         let delete = UIContextualAction(style: .destructive, title: nil) { [self] (action, view, completionHandler) in
-            let currencies = fetchedResultsController.fetchedObjects!
-            let currency = fetchedResultsController.object(at: indexPath)
-            var currentAmount = amountOfPickedCurrencies
-            
-            currency.isForConverter = false
-            if !proPurchased {
-                currentAmount -= 1
-                UserDefaults.standard.set(currentAmount, forKey: "savedAmount")
+            if pickedDataSource == "ЦБ РФ" {
+                var currentAmount = amountOfPickedBankOfRussiaCurrencies
+                let currencies = bankOfRussiaFRC.fetchedObjects!
+                let currency = bankOfRussiaFRC.object(at: indexPath)
+                
+                currency.isForConverter = false
+                if !proPurchased {
+                    currentAmount -= 1
+                    UserDefaults.standard.set(currentAmount, forKey: "savedAmountForBankOfRussia")
+                }
+                converterManager.deleteRow(for: currency, in: currencies)
+            } else {
+                var currentAmount = amountOfPickedForexCurrencies
+                let currencies = forexFRC.fetchedObjects!
+                let currency = forexFRC.object(at: indexPath)
+                
+                currency.isForConverter = false
+                if !proPurchased {
+                    currentAmount -= 1
+                    UserDefaults.standard.set(currentAmount, forKey: "savedAmountForForex")
+                }
+                converterManager.deleteRow(for: currency, in: currencies)
             }
-            converterManager.deleteRow(for: currency, in: currencies)
             coreDataManager.save()
             completionHandler(true)
         }
@@ -133,16 +173,27 @@ class ConverterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        var currencies = fetchedResultsController.fetchedObjects!
-        let currency = fetchedResultsController.object(at: sourceIndexPath)
-                
-        currencies.remove(at: sourceIndexPath.row)
-        currencies.insert(currency, at: destinationIndexPath.row)
-        
-        for (index, currency) in currencies.enumerated() {
-            currency.rowForConverter = Int32(index)
+        if pickedDataSource == "ЦБ РФ" {
+            var currencies = bankOfRussiaFRC.fetchedObjects!
+            let currency = bankOfRussiaFRC.object(at: sourceIndexPath)
+            
+            currencies.remove(at: sourceIndexPath.row)
+            currencies.insert(currency, at: destinationIndexPath.row)
+            
+            for (index, currency) in currencies.enumerated() {
+                currency.rowForConverter = Int32(index)
+            }
+        } else {
+            var currencies = forexFRC.fetchedObjects!
+            let currency = forexFRC.object(at: sourceIndexPath)
+            
+            currencies.remove(at: sourceIndexPath.row)
+            currencies.insert(currency, at: destinationIndexPath.row)
+            
+            for (index, currency) in currencies.enumerated() {
+                currency.rowForConverter = Int32(index)
+            }
         }
-        
         coreDataManager.save()
         tableView.reloadData()
     }
@@ -182,21 +233,42 @@ extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         pickedTextField = textField
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
-        pickedCurrency = fetchedResultsController.object(at: pickedCurrencyIndexPath)
-        guard let currencyName = pickedCurrency?.shortName else { return }
-        converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
         
-        pickedNameArray.append(currencyName)
-        
-        for name in pickedNameArray {
-            guard let currencyName = pickedCurrency?.shortName else { return }
-            if name != currencyName {
-                numberFromTextField = 0
-                textField.placeholder = "0"
-                textField.text = ""
+        if pickedDataSource == "ЦБ РФ" {
+            pickedBankOfRussiaCurrency = bankOfRussiaFRC.object(at: pickedCurrencyIndexPath)
+            guard let currencyName = pickedBankOfRussiaCurrency?.shortName else { return }
+            converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
+            
+            pickedNameArray.append(currencyName)
+            
+            for name in pickedNameArray {
+                guard let currencyName = pickedBankOfRussiaCurrency?.shortName else { return }
+                if name != currencyName {
+                    numberFromTextField = 0
+                    textField.placeholder = "0"
+                    textField.text = ""
+                }
+                if pickedNameArray.count > 1 {
+                    pickedNameArray.remove(at: 0)
+                }
             }
-            if pickedNameArray.count > 1 {
-                pickedNameArray.remove(at: 0)
+        } else {
+            pickedForexCurrency = forexFRC.object(at: pickedCurrencyIndexPath)
+            guard let currencyName = pickedForexCurrency?.shortName else { return }
+            converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
+            
+            pickedNameArray.append(currencyName)
+            
+            for name in pickedNameArray {
+                guard let currencyName = pickedForexCurrency?.shortName else { return }
+                if name != currencyName {
+                    numberFromTextField = 0
+                    textField.placeholder = "0"
+                    textField.text = ""
+                }
+                if pickedNameArray.count > 1 {
+                    pickedNameArray.remove(at: 0)
+                }
             }
         }
     }
@@ -249,17 +321,31 @@ extension ConverterTableViewController {
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: pickedTextField, and: tableView)
         converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
     }
+    
+    @objc func setTextFieldToZero() {
+        numberFromTextField = 0
+        tableView.reloadData()
+    }
 }
 
 //MARK: - NSFetchedResultsController Setup & Delegates
 
 extension ConverterTableViewController: NSFetchedResultsControllerDelegate {
-    func setupFetchedResultsController() {
-        let predicate = NSPredicate(format: "isForConverter == YES")
-        let sortDescriptor = NSSortDescriptor(key: "rowForConverter", ascending: true)
-        fetchedResultsController = coreDataManager.createBankOfRussiaCurrencyFRC(with: predicate, and: sortDescriptor)
-        fetchedResultsController.delegate = self
-        try? fetchedResultsController.performFetch()
+    @objc func setupFetchedResultsController() {
+        if pickedDataSource == "ЦБ РФ" {
+            let predicate = NSPredicate(format: "isForConverter == YES")
+            let sortDescriptor = NSSortDescriptor(key: "rowForConverter", ascending: true)
+            bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: predicate, and: sortDescriptor)
+            bankOfRussiaFRC.delegate = self
+            try? bankOfRussiaFRC.performFetch()
+        } else {
+            let predicate = NSPredicate(format: "isForConverter == YES")
+            let sortDescriptor = NSSortDescriptor(key: "rowForConverter", ascending: true)
+            forexFRC = coreDataManager.createForexCurrencyFRC(with: predicate, and: sortDescriptor)
+            forexFRC.delegate = self
+            try? forexFRC.performFetch()
+        }
+        tableView.reloadData()
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

@@ -57,6 +57,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             if pickedDataSource == "ЦБ РФ" {
                 cell.backgroundColor = .systemGray5
                 cell.isUserInteractionEnabled = false
+            } else {
+                cell.backgroundColor = .none
+                cell.isUserInteractionEnabled = true
             }
             return cell
         }
@@ -84,9 +87,13 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             if pickedOption == "ЦБ РФ" {
                 UserDefaults.standard.set("RUB", forKey: "baseCurrency")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setTextFieldToZero"), object: nil)
             } else {
                 UserDefaults.standard.set("EUR", forKey: "baseCurrency")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setTextFieldToZero"), object: nil)
             }
             tableView.reloadSections(IndexSet(integer: 1), with: .fade)
         }

@@ -28,9 +28,13 @@ class PickCurrencyTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupFetchedResultsController()
         setupSearchController()
         tableView.tintColor = UIColor(named: "\(appColor)")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupFetchedResultsController()
     }
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
@@ -158,6 +162,7 @@ extension PickCurrencyTableViewController: NSFetchedResultsControllerDelegate {
             forexFRC.delegate = self
             try? forexFRC.performFetch()
         }
+        tableView.reloadData()
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

@@ -22,8 +22,14 @@ struct ConverterManager {
         return formatter
     }
     
-    func performCalculation(with number: Double, _ pickedCurrency: Currency, _ cellCurrency: Currency) -> String {
-        let unformattedNumber = (pickedCurrency.currentValue/Double(pickedCurrency.nominal))/(cellCurrency.currentValue/Double(cellCurrency.nominal)) * number
+    func performCalculation(with number: Double, _ pickedBankOfRussiaCurrency: Currency, _ cellCurrency: Currency) -> String {
+        let unformattedNumber = (pickedBankOfRussiaCurrency.currentValue/Double(pickedBankOfRussiaCurrency.nominal))/(cellCurrency.currentValue/Double(cellCurrency.nominal)) * number
+        let formatter = setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount)
+        return formatter.string(from: NSNumber(value: unformattedNumber)) ?? "0"
+    }
+    
+    func performCalculation(with number: Double, _ pickedForexCurrency: ForexCurrency, _ cellCurrency: ForexCurrency) -> String {
+        let unformattedNumber = (pickedForexCurrency.currentValue/Double(pickedForexCurrency.nominal))/(cellCurrency.currentValue/Double(cellCurrency.nominal)) * number
         let formatter = setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount)
         return formatter.string(from: NSNumber(value: unformattedNumber)) ?? "0"
     }

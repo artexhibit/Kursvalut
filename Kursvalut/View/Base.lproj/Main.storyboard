@@ -3277,7 +3277,7 @@
         <image name="circle" width="11" height="11"/>
         <image name="circle.lefthalf.filled" width="11" height="11"/>
         <image name="clock.arrow.circlepath" width="12" height="11"/>
-        <image name="comma" width="512" height="512"/>
+        <image name="comma" width="96" height="96"/>
         <image name="doc.text.fill" width="9" height="11"/>
         <image name="eurosign" width="96" height="96"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
