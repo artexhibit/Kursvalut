@@ -127,6 +127,12 @@ struct CurrencyCoreDataManager {
         currency.rowForCurrency = rowForCurrency
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = abslValue
+        
+        if currency.shortName == "USD" || currency.shortName == "EUR" {
+            currency.rowForConverter = currency.shortName == "USD" ? 1 : 2
+            currency.isForConverter = true
+            UserDefaults.standard.set(2, forKey: "savedAmountForForex")
+        }
     }
     
     func createOrUpdateYesterdayForexCurrency(from dictionary: [String:String]) {
@@ -166,6 +172,12 @@ struct CurrencyCoreDataManager {
         currency.rowForCurrency = rowForCurrency
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = currency.currentValue / Double(currency.nominal)
+        
+        if currency.shortName == "USD" || currency.shortName == "EUR" {
+            currency.rowForConverter = currency.shortName == "USD" ? 1 : 2
+            currency.isForConverter = true
+            UserDefaults.standard.set(2, forKey: "savedAmountForForex")
+        }
     }
     
     func filterOutForexBaseCurrency() {
