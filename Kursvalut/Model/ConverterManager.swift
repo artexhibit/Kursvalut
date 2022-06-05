@@ -29,7 +29,7 @@ struct ConverterManager {
     }
     
     func performCalculation(with number: Double, _ pickedForexCurrency: ForexCurrency, _ cellCurrency: ForexCurrency) -> String {
-        let unformattedNumber = (pickedForexCurrency.currentValue/Double(pickedForexCurrency.nominal))/(cellCurrency.currentValue/Double(cellCurrency.nominal)) * number
+        let unformattedNumber = (cellCurrency.currentValue/Double(cellCurrency.nominal)/(pickedForexCurrency.currentValue/Double(pickedForexCurrency.nominal))) * number
         let formatter = setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount)
         return formatter.string(from: NSNumber(value: unformattedNumber)) ?? "0"
     }

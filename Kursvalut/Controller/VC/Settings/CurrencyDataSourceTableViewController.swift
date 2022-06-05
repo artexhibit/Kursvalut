@@ -20,6 +20,11 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         currencyManager.configureContentInset(for: tableView, top: 40)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshBaseCurrency), name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
+    }
+    
+    @objc func refreshBaseCurrency() {
+        tableView.reloadData()
     }
 
     //MARK: - TableView DataSource Methods
@@ -51,7 +56,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             cell.accessoryType = cell.sourceNameLabel.text == pickedDataSource ? .checkmark : .none
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "baseCurrencyCell", for: indexPath) as! BaseCurrencyTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "pickedBaseCurrencyCell", for: indexPath) as! PickedBaseCurrencyTableViewCell
             cell.pickedBaseCurrencyLabel.text = pickedBaseCurrency
             
             if pickedDataSource == "ЦБ РФ" {
@@ -86,14 +91,13 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             
             if pickedOption == "ЦБ РФ" {
                 UserDefaults.standard.set("RUB", forKey: "baseCurrency")
+                UserDefaults.standard.set(true, forKey: "setTextFieldToZero")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setTextFieldToZero"), object: nil)
             } else {
-                UserDefaults.standard.set("EUR", forKey: "baseCurrency")
+                UserDefaults.standard.set(true, forKey: "setTextFieldToZero")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setTextFieldToZero"), object: nil)
             }
             tableView.reloadSections(IndexSet(integer: 1), with: .fade)
         }

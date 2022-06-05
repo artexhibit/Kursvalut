@@ -39,6 +39,9 @@ class ConverterTableViewController: UITableViewController {
     private var pickedDataSource: String {
         return UserDefaults.standard.string(forKey: "baseSource") ?? ""
     }
+    private var setTextFieldToZero: Bool {
+        UserDefaults.standard.bool(forKey: "setTextFieldToZero")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +52,6 @@ class ConverterTableViewController: UITableViewController {
             currencyNetworking.checkOnFirstLaunchToday()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(setupFetchedResultsController), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(setTextFieldToZero), name: NSNotification.Name(rawValue: "setTextFieldToZero"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,7 +80,6 @@ class ConverterTableViewController: UITableViewController {
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
-            
             cell.numberTextField.isHidden = isInEdit ? true : false
             
             if let number = numberFromTextField, let pickedCurrency = pickedBankOfRussiaCurrency {
@@ -90,12 +91,16 @@ class ConverterTableViewController: UITableViewController {
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
-            
             cell.numberTextField.isHidden = isInEdit ? true : false
             
             if let number = numberFromTextField, let pickedCurrency = pickedForexCurrency {
                 cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
             }
+        }
+        
+        if setTextFieldToZero {
+            cell.numberTextField.text = "0"
+            numberFromTextField = 0
         }
         return cell
     }
@@ -219,6 +224,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
             textField.placeholder = "0"
             textField.text = ""
         }
+        UserDefaults.standard.set(false, forKey: "setTextFieldToZero")
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
@@ -320,11 +326,6 @@ extension ConverterTableViewController {
         numberFromTextField = 0
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: pickedTextField, and: tableView)
         converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
-    }
-    
-    @objc func setTextFieldToZero() {
-        numberFromTextField = 0
-        tableView.reloadData()
     }
 }
 

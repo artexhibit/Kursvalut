@@ -393,6 +393,116 @@
             </objects>
             <point key="canvasLocation" x="258" y="3052"/>
         </scene>
+        <!--Base Currency Table View Controller-->
+        <scene sceneID="8PY-6c-4qG">
+            <objects>
+                <tableViewController id="qIR-CE-XXx" userLabel="Base Currency Table View Controller" customClass="BaseCurrencyTableViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="W2k-f0-3yd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="baseCurrencyCell" rowHeight="72" id="2rY-ZW-plI" userLabel="baseCurrencyCell" customClass="BaseCurrencyTableViewCell" customModule="Kursvalut" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="72"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2rY-ZW-plI" id="6VQ-tN-JJ9">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="qSc-Mg-pTt">
+                                            <rect key="frame" x="20" y="0.0" width="374" height="72"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" translatesAutoresizingMaskIntoConstraints="NO" id="5bJ-kw-pEy" userLabel="Pick View">
+                                                    <rect key="frame" x="0.0" y="21" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="Ldz-c6-lBV"/>
+                                                        <constraint firstAttribute="width" constant="30" id="dEY-eo-fTw"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4mX-WX-zcP">
+                                                    <rect key="frame" x="45" y="6" width="329" height="60"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FqO-KH-qqr" userLabel="Flag View">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
+                                                            <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RUB" translatesAutoresizingMaskIntoConstraints="NO" id="DBA-dt-dCL" userLabel="Flag">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="50" id="Qrx-NP-LwJ"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="60" id="7nU-jm-9Zp"/>
+                                                                <constraint firstAttribute="bottom" secondItem="DBA-dt-dCL" secondAttribute="bottom" id="F9S-nx-OVM"/>
+                                                                <constraint firstItem="DBA-dt-dCL" firstAttribute="leading" secondItem="FqO-KH-qqr" secondAttribute="leading" id="eEX-j0-4QV"/>
+                                                                <constraint firstItem="DBA-dt-dCL" firstAttribute="top" secondItem="FqO-KH-qqr" secondAttribute="top" id="eYj-C2-7So"/>
+                                                                <constraint firstAttribute="trailing" secondItem="DBA-dt-dCL" secondAttribute="trailing" id="jLL-xi-CLk"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="Gts-3L-I2I" userLabel="1 Stack View">
+                                                            <rect key="frame" x="60" y="10.5" width="269" height="39.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUu-DZ-dWJ">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="269" height="26.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Российский Рубль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qxv-CK-FYn">
+                                                                    <rect key="frame" x="0.0" y="23.5" width="269" height="16"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="16" id="uEb-ee-bNh"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <color key="textColor" systemColor="systemGrayColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="SUu-DZ-dWJ" firstAttribute="leading" secondItem="Gts-3L-I2I" secondAttribute="leading" id="1qL-uw-7b1"/>
+                                                                <constraint firstAttribute="trailing" secondItem="qxv-CK-FYn" secondAttribute="trailing" id="JhG-pJ-rVd"/>
+                                                                <constraint firstItem="SUu-DZ-dWJ" firstAttribute="top" secondItem="Gts-3L-I2I" secondAttribute="top" id="RXO-Bx-nWT"/>
+                                                                <constraint firstItem="qxv-CK-FYn" firstAttribute="leading" secondItem="Gts-3L-I2I" secondAttribute="leading" id="YDg-VJ-jfC"/>
+                                                                <constraint firstAttribute="bottom" secondItem="qxv-CK-FYn" secondAttribute="bottom" id="ijX-LJ-IFt"/>
+                                                                <constraint firstAttribute="trailing" secondItem="SUu-DZ-dWJ" secondAttribute="trailing" id="je8-c7-JYN"/>
+                                                            </constraints>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="qSc-Mg-pTt" secondAttribute="bottom" id="BBc-BT-FHx"/>
+                                        <constraint firstAttribute="trailing" secondItem="qSc-Mg-pTt" secondAttribute="trailing" constant="20" id="GzF-vM-Quc"/>
+                                        <constraint firstItem="qSc-Mg-pTt" firstAttribute="leading" secondItem="6VQ-tN-JJ9" secondAttribute="leading" constant="20" id="Xrw-lz-1Zc"/>
+                                        <constraint firstItem="qSc-Mg-pTt" firstAttribute="top" secondItem="6VQ-tN-JJ9" secondAttribute="top" id="c90-zL-pdP"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="63" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="flag" destination="DBA-dt-dCL" id="Qr8-KK-g70"/>
+                                    <outlet property="fullName" destination="qxv-CK-FYn" id="SVB-AQ-pH0"/>
+                                    <outlet property="picker" destination="5bJ-kw-pEy" id="jzF-FJ-czS"/>
+                                    <outlet property="shortName" destination="SUu-DZ-dWJ" id="gII-A1-I6p"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="qIR-CE-XXx" id="9u0-KM-J29"/>
+                            <outlet property="delegate" destination="qIR-CE-XXx" id="j9E-ba-GCF"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Все Валюты" id="Vwu-WU-9mb"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o9D-HW-ou4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8370" y="4538"/>
+        </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="Wxi-4f-yBY">
             <objects>
@@ -1593,14 +1703,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startViewCell" id="hyY-vn-r54" userLabel="Start View Cell" customClass="StartViewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hyY-vn-r54" id="Dx2-ce-Ru7">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Валюты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbc-hr-FHJ" userLabel="viewNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1638,14 +1748,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="M1Q-1H-VHB" userLabel="Theme Cell" customClass="ThemeTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M1Q-1H-VHB" id="3sk-ff-s1w">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Как в системе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrU-4i-37D" userLabel="themeNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -2950,10 +3060,10 @@
             </objects>
             <point key="canvasLocation" x="7640.579710144928" y="3051.5625"/>
         </scene>
-        <!--Источники данных-->
+        <!--Currency Data Source Table View Controller-->
         <scene sceneID="Jsb-NM-nGQ">
             <objects>
-                <tableViewController id="MMP-1X-DrB" customClass="CurrencyDataSourceTableViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="MMP-1X-DrB" userLabel="Currency Data Source Table View Controller" customClass="CurrencyDataSourceTableViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="GYE-S1-Dvg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2978,7 +3088,7 @@
                                     <outlet property="sourceNameLabel" destination="L5y-BT-8oU" id="4KO-XR-6vt"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="baseCurrencyCell" textLabel="VlW-zU-cpT" detailTextLabel="WlK-ch-hdr" rowHeight="45" style="IBUITableViewCellStyleValue1" id="PBw-Mm-FMB" customClass="BaseCurrencyTableViewCell" customModule="Kursvalut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="pickedBaseCurrencyCell" textLabel="VlW-zU-cpT" detailTextLabel="WlK-ch-hdr" rowHeight="45" style="IBUITableViewCellStyleValue1" id="PBw-Mm-FMB" customClass="PickedBaseCurrencyTableViewCell" customModule="Kursvalut" customModuleProvider="target">
                                 <rect key="frame" x="20" y="77" width="374" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PBw-Mm-FMB" id="xfJ-pG-vRD">
@@ -3003,6 +3113,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="pickedBaseCurrencyLabel" destination="WlK-ch-hdr" id="KTh-rJ-1cT"/>
+                                    <segue destination="hKh-aJ-Qps" kind="presentation" id="PKi-P7-EJe"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -3254,6 +3365,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LQb-vq-lDk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3991" y="2363"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7M4-5M-Myb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hKh-aJ-Qps" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jYe-lx-Bd0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qIR-CE-XXx" kind="relationship" relationship="rootViewController" id="ctz-MS-hJ3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8vM-Pt-MJe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8369.5652173913059" y="3784.8214285714284"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

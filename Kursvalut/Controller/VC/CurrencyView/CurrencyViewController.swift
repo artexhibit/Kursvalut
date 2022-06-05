@@ -319,9 +319,11 @@ extension CurrencyViewController {
     }
     
     @objc func refreshData() {
-       if pickedDataSource != "ЦБ РФ" {
-        coreDataManager.filterOutForexBaseCurrency()
-       }
+        if pickedDataSource != "ЦБ РФ" {
+            DispatchQueue.main.async {
+                self.coreDataManager.filterOutForexBaseCurrency()
+            }
+        }
         setupFetchedResultsController()
         
         currencyNetworking.performRequest { errorCode in

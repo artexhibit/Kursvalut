@@ -184,9 +184,7 @@ struct CurrencyCoreDataManager {
         var pickedBaseCurrency: String {
             return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
         }
-        
         let request: NSFetchRequest<ForexCurrency> = ForexCurrency.fetchRequest()
-        request.predicate = NSPredicate(format: "shortName = %@", pickedBaseCurrency)
         
         do {
             let fetchCurrencies = try context.fetch(request)

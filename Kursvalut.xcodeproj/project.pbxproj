@@ -39,7 +39,7 @@
 		786479AC279825DF0077ABC7 /* ConverterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786479AB279825DF0077ABC7 /* ConverterTableViewCell.swift */; };
 		786A00292839327500D0DAA4 /* CurrencyDataSourceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786A00282839327500D0DAA4 /* CurrencyDataSourceTableViewController.swift */; };
 		786A002B283935CA00D0DAA4 /* DataSourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786A002A283935CA00D0DAA4 /* DataSourceTableViewCell.swift */; };
-		786A002D2839361300D0DAA4 /* BaseCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786A002C2839361300D0DAA4 /* BaseCurrencyTableViewCell.swift */; };
+		786A002D2839361300D0DAA4 /* PickedBaseCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786A002C2839361300D0DAA4 /* PickedBaseCurrencyTableViewCell.swift */; };
 		786C01A327DE50E300868EBE /* TipJarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786C01A227DE50E300868EBE /* TipJarTableViewController.swift */; };
 		786C01A527DE511400868EBE /* TipJarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786C01A427DE511400868EBE /* TipJarTableViewCell.swift */; };
 		787D551927C9364400587653 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787D551827C9364400587653 /* SettingsTableViewController.swift */; };
@@ -55,6 +55,8 @@
 		78B9F5612801BBAA0030ECF4 /* SortingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B9F5602801BBAA0030ECF4 /* SortingSection.swift */; };
 		78BD46DB27F06B6D002AFDA1 /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78BD46DA27F06B6D002AFDA1 /* PopupView.xib */; };
 		78BD46DF27F07460002AFDA1 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BD46DE27F07460002AFDA1 /* PopupView.swift */; };
+		78C39E05284CBF8600376365 /* BaseCurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C39E04284CBF8600376365 /* BaseCurrencyTableViewController.swift */; };
+		78C39E07284CC0A000376365 /* BaseCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C39E06284CC0A000376365 /* BaseCurrencyTableViewCell.swift */; };
 		78C6FAF527D3C160002E35E9 /* ThemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C6FAF427D3C160002E35E9 /* ThemeTableViewController.swift */; };
 		78C6FAF727D3C188002E35E9 /* ThemeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C6FAF627D3C188002E35E9 /* ThemeTableViewCell.swift */; };
 		78CEB9AB2813F83900AE0903 /* OnboardingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CEB9AA2813F83900AE0903 /* OnboardingTableViewCell.swift */; };
@@ -108,7 +110,7 @@
 		786479AB279825DF0077ABC7 /* ConverterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterTableViewCell.swift; sourceTree = "<group>"; };
 		786A00282839327500D0DAA4 /* CurrencyDataSourceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyDataSourceTableViewController.swift; sourceTree = "<group>"; };
 		786A002A283935CA00D0DAA4 /* DataSourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceTableViewCell.swift; sourceTree = "<group>"; };
-		786A002C2839361300D0DAA4 /* BaseCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCurrencyTableViewCell.swift; sourceTree = "<group>"; };
+		786A002C2839361300D0DAA4 /* PickedBaseCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedBaseCurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		786C01A227DE50E300868EBE /* TipJarTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarTableViewController.swift; sourceTree = "<group>"; };
 		786C01A427DE511400868EBE /* TipJarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarTableViewCell.swift; sourceTree = "<group>"; };
 		787D551827C9364400587653 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +126,8 @@
 		78B9F5602801BBAA0030ECF4 /* SortingSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingSection.swift; sourceTree = "<group>"; };
 		78BD46DA27F06B6D002AFDA1 /* PopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupView.xib; sourceTree = "<group>"; };
 		78BD46DE27F07460002AFDA1 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
+		78C39E04284CBF8600376365 /* BaseCurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCurrencyTableViewController.swift; sourceTree = "<group>"; };
+		78C39E06284CC0A000376365 /* BaseCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		78C6FAF427D3C160002E35E9 /* ThemeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableViewController.swift; sourceTree = "<group>"; };
 		78C6FAF627D3C188002E35E9 /* ThemeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableViewCell.swift; sourceTree = "<group>"; };
 		78CEB9AA2813F83900AE0903 /* OnboardingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTableViewCell.swift; sourceTree = "<group>"; };
@@ -314,7 +318,8 @@
 				786C01A427DE511400868EBE /* TipJarTableViewCell.swift */,
 				7841735D27E6460000A35530 /* ProTableViewCell.swift */,
 				786A002A283935CA00D0DAA4 /* DataSourceTableViewCell.swift */,
-				786A002C2839361300D0DAA4 /* BaseCurrencyTableViewCell.swift */,
+				786A002C2839361300D0DAA4 /* PickedBaseCurrencyTableViewCell.swift */,
+				78C39E06284CC0A000376365 /* BaseCurrencyTableViewCell.swift */,
 				7828735028146B0000B65D6F /* Sorting */,
 				7828734F28146AD700B65D6F /* Onboarding */,
 			);
@@ -337,6 +342,7 @@
 				780AA2E6280ACE9000ECC3C4 /* OnboardingViewController.swift */,
 				78137FD62833A78400F4621E /* TutorialViewController.swift */,
 				786A00282839327500D0DAA4 /* CurrencyDataSourceTableViewController.swift */,
+				78C39E04284CBF8600376365 /* BaseCurrencyTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -460,7 +466,7 @@
 				78B9F55F2801B9F10030ECF4 /* SubSortTableViewCell.swift in Sources */,
 				7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */,
 				78B40A1327D659F60016D9E6 /* TermsOfUseTableViewCell.swift in Sources */,
-				786A002D2839361300D0DAA4 /* BaseCurrencyTableViewCell.swift in Sources */,
+				786A002D2839361300D0DAA4 /* PickedBaseCurrencyTableViewCell.swift in Sources */,
 				78F13FF327CE9AD80076613A /* ConverterPreviewTableViewCell.swift in Sources */,
 				7813102827D75FE000065410 /* SMailComposeViewController.swift in Sources */,
 				7852295F279B19E300507877 /* PickCurrencyTableViewController.swift in Sources */,
@@ -504,7 +510,9 @@
 				7841735E27E6460000A35530 /* ProTableViewCell.swift in Sources */,
 				787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */,
 				78B49AE427CBD3D5003C975D /* DecimalsTableViewController.swift in Sources */,
+				78C39E05284CBF8600376365 /* BaseCurrencyTableViewController.swift in Sources */,
 				7841735C27E645DE00A35530 /* ProViewController.swift in Sources */,
+				78C39E07284CC0A000376365 /* BaseCurrencyTableViewCell.swift in Sources */,
 				78B9F55B2801B5900030ECF4 /* SortingTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,12 +1,9 @@
 
 import UIKit
 
-class BaseCurrencyTableViewCell: UITableViewCell {
+class PickedBaseCurrencyTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var flag: UIImageView!
-    @IBOutlet weak var picker: UIImageView!
-    @IBOutlet weak var shortName: UILabel!
-    @IBOutlet weak var fullName: UILabel!
+    @IBOutlet weak var pickedBaseCurrencyLabel: UILabel!
     
     private var appColor: String {
         return UserDefaults.standard.string(forKey: "appColor") ?? ""
