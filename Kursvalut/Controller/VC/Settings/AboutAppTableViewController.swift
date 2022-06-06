@@ -4,9 +4,11 @@ import SafariServices
 
 class AboutAppTableViewController: UITableViewController {
     
+    @IBOutlet weak var appVersionLabel: UILabel!
+    
     private let dataArray = [
-        (header: "", data: [(name: "", description: "Привет 👋🏻. Меня зовут Игорь, и я единственный разработчик Kursvalut. Спасибо, что пользуетесь приложением.  \n \n Если Вам не хватает какой-то функции, то пишите мне на почту. Вы лучшие! 🔝", link: "")]),
-        (header: "Источники данных", data: [(name: "cbr-xml-daily.ru", description: "Курсы валют по ЦБ РФ", link: "https://www.cbr-xml-daily.ru")]),
+        (header: "", data: [(name: "", description: "Привет 👋🏻. Спасибо, что пользуетесь приложением. Если Вам не хватает какой-то функции, то пишите мне на почту. Вы лучшие! 🔝", link: "")]),
+        (header: "Источники данных", data: [(name: "cbr-xml-daily.ru", description: "Курсы валют по ЦБ РФ", link: "https://www.cbr-xml-daily.ru"), (name: "exchangerate.host", description: "Forex курс", link: "https://exchangerate.host")]),
         (header: "Иконки", data: [(name: "Flaticon", description: "Флаги стран", link: "https://www.flaticon.com"), (name: "SFSymbols", description: "Системные иконки", link: "https://developer.apple.com/sf-symbols/")])
     ]
     private let sectionNumber = (aboutAppCell: 0, providerNameFirst: 1, providerNameSecond: 2)
@@ -21,6 +23,7 @@ class AboutAppTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        appVersionLabel.text = appVersion
     }
     
     //MARK: - TableView DataSource Methods
@@ -43,7 +46,6 @@ class AboutAppTableViewController: UITableViewController {
         if pickedSection == sectionNumber.aboutAppCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "aboutAppDeveloperCell", for: indexPath) as! AboutAppDeveloperTableViewCell
             cell.descriptionLabel.text = dataArray[pickedSection].data[indexPath.row].description
-            cell.appVersionLabel.text = appVersion
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "aboutAppDataProvidersCell", for: indexPath) as! AboutAppDataProvidersTableViewCell
@@ -73,5 +75,9 @@ class AboutAppTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
        return tableView.estimatedSectionHeaderHeight
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1.0
     }
 }
