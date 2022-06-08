@@ -24,6 +24,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         super.viewDidLoad()
         currencyManager.configureContentInset(for: tableView, top: 40)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshBaseCurrency), name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(activatedCurrencyVC), name: NSNotification.Name(rawValue: "refreshDataFromDataSourceVC"), object: nil)
     }
     
     @objc func refreshBaseCurrency() {
@@ -106,7 +107,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         }
     }
     
-    func activatedCurrencyVC() {
+   @objc func activatedCurrencyVC() {
         wasActiveCurrencyVC ? NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil) : refreshData()
     }
     

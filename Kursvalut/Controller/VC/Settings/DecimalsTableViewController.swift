@@ -9,20 +9,24 @@ class DecimalsTableViewController: UITableViewController {
     private let sectionsArray = [
         (header: "Экран Валюты", footer: ""),
         (header: "", footer: "Количество десятичных знаков для отображения на экране Валюты"),
+        (header: "", footer: "Количество десятичных знаков для отображения в курсовой разнице и процентном соотношении"),
         (header: "Экран Конвертер", footer: ""),
         (header: "", footer: "Количество десятичных знаков для отображения на экране Конвертер")
     ]
-    private let sectionNumber = (decimalCell: (firstCell: 1, secondCell: 3),
+    private let sectionNumber = (decimalCell: (firstCell: 1, secondCell: 2, thirdCell: 4),
                          currencyCell: (row: 0, section: 0),
-                         converterCell: (row: 0, section: 2)
+                         converterCell: (row: 0, section: 3)
     )
-    private let previewNumber = (forCurrencyScreen: 100.1234, forConverterScreen: 90.1234)
+    private let previewNumber = (forCurrencyScreen: 65.1234, forConverterScreen: 60.1234, forCurrencyPercentageOne: 57.9855, forCurrencyPercentageTwo: 65.4128)
     
     private var currencyScreenDecimalsAmount: Int {
         return userDefaults.integer(forKey: "currencyScreenDecimals")
     }
     private var converterScreenDecimalsAmount: Int {
         return userDefaults.integer(forKey: "converterScreenDecimals")
+    }
+    private var currencyScreenPercentageAmount: Int {
+        return userDefaults.integer(forKey: "currencyScreenPercentageDecimals")
     }
     
     override func viewDidLoad() {
@@ -36,7 +40,7 @@ class DecimalsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == sectionNumber.decimalCell.firstCell || section == sectionNumber.decimalCell.secondCell {
+        if section == sectionNumber.decimalCell.firstCell || section == sectionNumber.decimalCell.secondCell || section == sectionNumber.decimalCell.thirdCell {
             return optionsArray.count
         } else {
             return 1
@@ -54,10 +58,16 @@ class DecimalsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let pickedSection = indexPath.section
         var loadDecimalsAmount: Int {
-            pickedSection == sectionNumber.decimalCell.firstCell ? currencyScreenDecimalsAmount : converterScreenDecimalsAmount
+            if pickedSection == sectionNumber.decimalCell.firstCell {
+                return currencyScreenDecimalsAmount
+            } else if pickedSection == sectionNumber.decimalCell.secondCell {
+                return currencyScreenPercentageAmount
+            } else {
+                return converterScreenDecimalsAmount
+            }
         }
         
-        if pickedSection == sectionNumber.decimalCell.firstCell || pickedSection == sectionNumber.decimalCell.secondCell {
+        if pickedSection == sectionNumber.decimalCell.firstCell || pickedSection == sectionNumber.decimalCell.secondCell || pickedSection == sectionNumber.decimalCell.thirdCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "decimalsCell", for: indexPath) as! DecimalsTableViewCell
             cell.numberLabel.text = optionsArray[indexPath.row]
             cell.accessoryType = cell.numberLabel.text == String(loadDecimalsAmount) ? .checkmark : .none
@@ -65,6 +75,7 @@ class DecimalsTableViewController: UITableViewController {
         } else if pickedSection == sectionNumber.currencyCell.section {
             let cell = tableView.dequeueReusableCell(withIdentifier: "currencyPreviewCell", for: indexPath) as! CurrencyPreviewTableViewCell
             cell.rateLabel.text = currencyManager.showRate(with: previewNumber.forCurrencyScreen)
+            cell.percentageLabel.text = currencyManager.showDifference(with: previewNumber.forCurrencyPercentageOne, and: previewNumber.forCurrencyPercentageTwo)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "converterPreviewCell", for: indexPath) as! ConverterPreviewTableViewCell
@@ -95,6 +106,10 @@ class DecimalsTableViewController: UITableViewController {
             userDefaults.set(true, forKey: "decimalsNumberChanged")
             tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
         } else if pickedSection == sectionNumber.decimalCell.secondCell {
+            userDefaults.set(pickedOption, forKey: "currencyScreenPercentageDecimals")
+            userDefaults.set(true, forKey: "decimalsNumberChanged")
+            tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
+        } else {
             userDefaults.set(pickedOption, forKey: "converterScreenDecimals")
             tableView.reloadRows(at: [IndexPath(row: sectionNumber.converterCell.row, section: sectionNumber.converterCell.section)], with: .none)
         }

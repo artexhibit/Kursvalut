@@ -4,6 +4,7 @@ import UIKit
 class CurrencyPreviewTableViewCell: UITableViewCell {
 
     @IBOutlet weak var rateLabel: UILabel!
+    @IBOutlet weak var percentageLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

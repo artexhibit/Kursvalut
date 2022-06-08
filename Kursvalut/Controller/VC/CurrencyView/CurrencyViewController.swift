@@ -101,7 +101,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
             cell.rate.text = currencyManager.showRate(with: currency.absoluteValue)
-            cell.rateDifference.text = currencyManager.showDifference(with: currency.currentValue, and: currency.previousValue)
+            cell.rateDifference.text = currencyManager.showDifference(with: currency.absoluteValue, and: currency.previousValue)
             cell.rateDifference.textColor = currencyManager.showColor()
         }
         return cell

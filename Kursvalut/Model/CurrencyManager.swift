@@ -181,6 +181,9 @@ struct CurrencyManager {
     private var converterScreenDecimalsAmount: Int {
         return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
     }
+    private var currencyScreenPercentageAmount: Int {
+        return UserDefaults.standard.integer(forKey: "currencyScreenPercentageDecimals")
+    }
     private var pickedBaseCurrency: String {
         return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
     }
@@ -204,8 +207,8 @@ struct CurrencyManager {
     mutating func showDifference(with absoluteValue: Double, and previousValue: Double) -> String {
         difference = absoluteValue - previousValue
         let differencePercentage = (abs(difference) / ((absoluteValue + previousValue)/2)) * 100
-        let formattedDifference = String(format: "%.2f", abs(difference))
-        let formattedPercentage = String(format: "%.2f", differencePercentage)
+        let formattedDifference = String(format: "%.\(currencyScreenPercentageAmount)f", abs(difference))
+        let formattedPercentage = String(format: "%.\(currencyScreenPercentageAmount)f", differencePercentage)
         return "\(differenceAttributes.Sign)\(formattedDifference) (\(formattedPercentage)%)\(differenceAttributes.Symbol)"
     }
     

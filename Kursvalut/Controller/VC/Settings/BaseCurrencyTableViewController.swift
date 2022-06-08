@@ -72,7 +72,7 @@ class BaseCurrencyTableViewController: UITableViewController {
         searchController.isActive = false
         UserDefaults.standard.set(forexCurrency.shortName, forKey: "baseCurrency")
         cell.picker.image = forexCurrency.shortName == pickedBaseCurrency ? UIImage(named: "checkmark.circle.fill") : UIImage(named: "circle")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshDataFromDataSourceVC"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
         dismiss(animated: true)
     }
