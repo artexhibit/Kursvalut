@@ -8,10 +8,11 @@ class AboutAppTableViewController: UITableViewController {
     
     private let dataArray = [
         (header: "", data: [(name: "", description: "Привет 👋🏻. Спасибо, что пользуетесь приложением. Если Вам не хватает какой-то функции, то пишите мне на почту. Вы лучшие! 🔝", link: "")]),
+        (header: "Контакт разработчика", data: [(name: "igorcodes.ru", description: "Сайт", link: "https://igorcodes.ru")]),
         (header: "Источники данных", data: [(name: "cbr-xml-daily.ru", description: "Курсы валют по ЦБ РФ", link: "https://www.cbr-xml-daily.ru"), (name: "exchangerate.host", description: "Forex курс", link: "https://exchangerate.host")]),
         (header: "Иконки", data: [(name: "Flaticon", description: "Флаги стран", link: "https://www.flaticon.com"), (name: "SFSymbols", description: "Системные иконки", link: "https://developer.apple.com/sf-symbols/")])
     ]
-    private let sectionNumber = (aboutAppCell: 0, providerNameFirst: 1, providerNameSecond: 2)
+    private let sectionNumber = (aboutAppCell: 0, devContactData: 1, dataProviderName: 2, iconsProviderName: 3)
     private var appVersion: String {
         guard let dictionary = Bundle.main.infoDictionary else { return "" }
         guard let version = dictionary["CFBundleShortVersionString"] else { return "" }

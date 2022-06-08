@@ -16,6 +16,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     private var pickedDataSource: String {
         return UserDefaults.standard.string(forKey: "baseSource") ?? ""
     }
+    private var wasActiveCurrencyVC: Bool {
+        return UserDefaults.standard.bool(forKey: "isActiveCurrencyVC")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,14 +95,30 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             if pickedOption == "ЦБ РФ" {
                 UserDefaults.standard.set("RUB", forKey: "baseCurrency")
                 UserDefaults.standard.set(true, forKey: "setTextFieldToZero")
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
+                activatedCurrencyVC()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
             } else {
                 UserDefaults.standard.set(true, forKey: "setTextFieldToZero")
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
+                activatedCurrencyVC()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
             }
             tableView.reloadSections(IndexSet(integer: 1), with: .fade)
+        }
+    }
+    
+    func activatedCurrencyVC() {
+        wasActiveCurrencyVC ? NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil) : refreshData()
+    }
+    
+    func refreshData() {
+        currencyNetworking.performRequest { errorCode in
+            DispatchQueue.main.async {
+                if errorCode != nil {
+                    PopupView().showPopup(title: "Ошибка \(errorCode ?? 0)", message: "Повторите ещё раз позже", type: .failure)
+                } else {
+                    PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
+                }
+            }
         }
     }
     

@@ -43,6 +43,7 @@ class CurrencyViewController: UIViewController {
         tableView.dataSource = self
         setupSearchController()
         setupRefreshControl()
+        userDefaults.set(true, forKey: "isActiveCurrencyVC")
         currencyNetworking.checkOnFirstLaunchToday(with: updateTimeLabel)
         currencyManager.configureContentInset(for: tableView, top: -10)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
@@ -55,6 +56,7 @@ class CurrencyViewController: UIViewController {
        }
         setupFetchedResultsController()
         updateDecimalsNumber()
+        updateTimeLabel.text = currencyUpdateTime
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -308,7 +310,7 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
         }
     }
 }
-//MARK: - CurrencyViewController Manage Methods
+//MARK: - CurrencyViewController UI Manage Methods
 
 extension CurrencyViewController {
     func updateDecimalsNumber() {

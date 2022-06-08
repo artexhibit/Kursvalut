@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
         UserDefaults.standard.register(defaults: ["currencyScreenDecimals" : 2, "converterScreenDecimals" : 2, "startView": "Валюты", "pickedTheme": "Как в системе", "pickedSection": "По короткому имени", "pickedOrder": "По возрастанию (А→Я)", "pickedSectionNumber": 1, "userHasOnboarded": false, "baseSource": "ЦБ РФ", "baseCurrency" : "EUR"])
         
+        UserDefaults.standard.set(false, forKey: "isActiveCurrencyVC")
         return true
     }
 
