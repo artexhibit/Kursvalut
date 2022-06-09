@@ -8,10 +8,13 @@ class SortingTableViewController: UITableViewController {
         return UserDefaults.standard.bool(forKey: "kursvalutPro")
     }
     private var pickedOrder: String {
-        return UserDefaults.standard.string(forKey: "pickedOrder") ?? ""
+        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedOrder") ?? "")
     }
     private var pickedSectionNumber: Int {
-        return UserDefaults.standard.integer(forKey: "pickedSectionNumber")
+        return pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.integer(forKey: "bankOfRussiaPickedSectionNumber") : UserDefaults.standard.integer(forKey: "forexPickedSectionNumber")
+    }
+    private var pickedDataSource: String {
+        return UserDefaults.standard.string(forKey: "baseSource") ?? ""
     }
     private var sections = [
     SortingSection(title: "По имени", subtitle: "Российский рубль", options: ["По возрастанию (А→Я)", "По убыванию (Я→А)"]),
@@ -73,7 +76,7 @@ class SortingTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "На экране Валюты" : ""
+        return section == 0 ? "На экране Валюты для \(pickedDataSource)" : ""
     }
     
     //MARK: - TableView Delegate Methods
@@ -114,9 +117,15 @@ class SortingTableViewController: UITableViewController {
                 }
                 cell.accessoryType = .checkmark
             }
-            UserDefaults.standard.set(pickedOrder, forKey: "pickedOrder")
-            UserDefaults.standard.set(pickedSection, forKey: "pickedSection")
-            UserDefaults.standard.set(virtualSection, forKey: "pickedSectionNumber")
+            if pickedDataSource == "ЦБ РФ" {
+                UserDefaults.standard.set(pickedOrder, forKey: "bankOfRussiaPickedOrder")
+                UserDefaults.standard.set(pickedSection, forKey: "bankOfRussiaPickedSection")
+                UserDefaults.standard.set(virtualSection, forKey: "bankOfRussiaPickedSectionNumber")
+            } else {
+                UserDefaults.standard.set(pickedOrder, forKey: "forexPickedOrder")
+                UserDefaults.standard.set(pickedSection, forKey: "forexPickedSection")
+                UserDefaults.standard.set(virtualSection, forKey: "forexPickedSectionNumber")
+            }
         }
     }
     

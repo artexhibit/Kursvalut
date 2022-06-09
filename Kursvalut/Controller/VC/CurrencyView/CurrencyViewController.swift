@@ -21,17 +21,17 @@ class CurrencyViewController: UIViewController {
     private var proPurchased: Bool {
         return UserDefaults.standard.bool(forKey: "kursvalutPro")
     }
+    private var pickedDataSource: String {
+        return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+    }
     private var pickedOrder: String {
         return UserDefaults.standard.string(forKey: "pickedOrder") ?? ""
     }
     private var pickedSection: String {
-        return UserDefaults.standard.string(forKey: "pickedSection") ?? ""
+        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedSection") ?? "")
     }
     private var userHasOnboarded: Bool {
         return UserDefaults.standard.bool(forKey: "userHasOnboarded")
-    }
-    private var pickedDataSource: String {
-        return UserDefaults.standard.string(forKey: "baseSource") ?? ""
     }
     private var currencyUpdateTime: String {
         return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (UserDefaults.standard.string(forKey: "forexUpdateTime") ?? "")
