@@ -18,9 +18,6 @@ class CurrencyViewController: UIViewController {
     private var decimalsNumberChanged: Bool {
         return userDefaults.bool(forKey: "decimalsNumberChanged")
     }
-    private var currencyUpdateTime: String {
-        return userDefaults.string(forKey: "currencyUpdateTime") ?? ""
-    }
     private var proPurchased: Bool {
         return UserDefaults.standard.bool(forKey: "kursvalutPro")
     }
@@ -35,6 +32,9 @@ class CurrencyViewController: UIViewController {
     }
     private var pickedDataSource: String {
         return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+    }
+    private var currencyUpdateTime: String {
+        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (UserDefaults.standard.string(forKey: "forexUpdateTime") ?? "")
     }
     
     override func viewDidLoad() {
@@ -338,10 +338,10 @@ extension CurrencyViewController {
                 DispatchQueue.main.async {
                     self.updateTimeLabel.text = self.currencyUpdateTime
                     self.tableView.refreshControl?.endRefreshing()
-                    self.tableView.reloadData()
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
+                    self.tableView.reloadData()
                 }
             }
         }

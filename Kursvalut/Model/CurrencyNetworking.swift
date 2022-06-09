@@ -74,7 +74,7 @@ struct CurrencyNetworking {
                     }
                 }
             }
-            UserDefaults.standard.setValue(updateTime, forKey: "currencyUpdateTime")
+            pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.standard.setValue(updateTime, forKey: "forexUpdateTime")
             completion(nil)
         }
     }
@@ -108,7 +108,7 @@ struct CurrencyNetworking {
             return currencyManager.showTime(with: "MM/dd/yyyy")
         }
         var currencyUpdateTime: String {
-            return UserDefaults.standard.string(forKey: "currencyUpdateTime") ?? ""
+            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (UserDefaults.standard.string(forKey: "forexUpdateTime") ?? "")
         }
         var userHasOnboarded: Bool {
             return UserDefaults.standard.bool(forKey: "userHasOnboarded")

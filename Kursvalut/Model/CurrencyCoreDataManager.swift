@@ -7,6 +7,9 @@ struct CurrencyCoreDataManager {
     private var pickCurrencyRequest: Bool {
         return UserDefaults.standard.bool(forKey: "pickCurrencyRequest")
     }
+    var pickedBaseCurrency: String {
+        return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
+    }
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     func save() {
@@ -181,9 +184,6 @@ struct CurrencyCoreDataManager {
     }
     
     func filterOutForexBaseCurrency() {
-        var pickedBaseCurrency: String {
-            return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
-        }
         let request: NSFetchRequest<ForexCurrency> = ForexCurrency.fetchRequest()
         
         do {
@@ -194,7 +194,6 @@ struct CurrencyCoreDataManager {
         } catch {
             print(error)
         }
-        save()
     }
     
    //MARK: - FetchResultsController Setup
