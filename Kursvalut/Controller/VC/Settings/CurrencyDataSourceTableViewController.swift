@@ -5,11 +5,12 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     private var currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
-    private let sourceOptions = ["Forex (Биржа)", "ЦБ РФ"]
-    private let sectionsArray = [
+    private let dataSourceOptions = ["Forex (Биржа)", "ЦБ РФ"]
+    private let sectionsData = [
         (header: "", footer: ["Данные по курсам будут сразу загружены при выборе источника"]),
         (header: "", footer: ["В зависимости от выбранной базовой валюты будут отображаться соответствующие данные", "Для источника курсов по ЦБ РФ базовая валюта - только RUB"])
     ]
+    private let sections = (dataSource: 0, baseCurrency: 1)
     private var pickedBaseCurrency: String {
         return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
     }
@@ -25,6 +26,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         currencyManager.configureContentInset(for: tableView, top: 40)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshBaseCurrency), name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(activatedCurrencyVC), name: NSNotification.Name(rawValue: "refreshDataFromDataSourceVC"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(stopActivityIndicatorInDataSourceCell), name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
     }
     
     @objc func refreshBaseCurrency() {
@@ -34,29 +36,29 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     //MARK: - TableView DataSource Methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionsArray.count
+        return sectionsData.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? sourceOptions.count : 1
+        return section == sections.dataSource ? dataSourceOptions.count : 1
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionsArray[section].header
+        return sectionsData[section].header
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if section == 1 {
-            return pickedDataSource == "ЦБ РФ" ? sectionsArray[section].footer[1] : sectionsArray[section].footer[0]
+        if section == sections.baseCurrency {
+            return pickedDataSource == "ЦБ РФ" ? sectionsData[section].footer[1] : sectionsData[section].footer[0]
         } else {
-            return sectionsArray[section].footer[0]
+            return sectionsData[section].footer[0]
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "dataSourceCell", for: indexPath) as! DataSourceTableViewCell
-            cell.sourceNameLabel.text = sourceOptions[indexPath.row]
+            cell.sourceNameLabel.text = dataSourceOptions[indexPath.row]
             cell.accessoryType = cell.sourceNameLabel.text == pickedDataSource ? .checkmark : .none
             return cell
         } else {
@@ -79,18 +81,11 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.section == 0 {
+        if indexPath.section == sections.dataSource {
             guard let cell = tableView.cellForRow(at: indexPath) as? DataSourceTableViewCell else { return }
-            let pickedSection = 0
             let pickedOption = cell.sourceNameLabel.text ?? ""
             
-            if cell.accessoryType != .checkmark {
-                for row in 0..<tableView.numberOfRows(inSection: pickedSection) {
-                    guard let cell = tableView.cellForRow(at: IndexPath(row: row, section: pickedSection)) else { return }
-                    cell.accessoryType = .none
-                }
-                cell.accessoryType = .checkmark
-            }
+            cell.dataUpdateSpinner.startAnimating()
             UserDefaults.standard.set(pickedOption, forKey: "baseSource")
             
             if pickedOption == "ЦБ РФ" {
@@ -103,7 +98,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 activatedCurrencyVC()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
             }
-            tableView.reloadSections(IndexSet(integer: 1), with: .fade)
+            tableView.reloadSections(IndexSet(integer: sections.baseCurrency), with: .fade)
         }
     }
     
@@ -119,8 +114,17 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 } else {
                     PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
                 }
+                self.stopActivityIndicatorInDataSourceCell()
             }
         }
+    }
+    
+   @objc func stopActivityIndicatorInDataSourceCell() {
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "dataSourceCell") as? DataSourceTableViewCell else { return }
+        
+        cell.dataUpdateSpinner.stopAnimating()
+        cell.accessoryType = .checkmark
+       self.tableView.reloadSections(IndexSet(integer: sections.dataSource), with: .none)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

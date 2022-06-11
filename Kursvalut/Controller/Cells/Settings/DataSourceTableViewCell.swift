@@ -4,6 +4,7 @@ import UIKit
 class DataSourceTableViewCell: UITableViewCell {
     
     @IBOutlet weak var sourceNameLabel: UILabel!
+    @IBOutlet weak var dataUpdateSpinner: UIActivityIndicatorView!
     
     private var appColor: String {
         return UserDefaults.standard.string(forKey: "appColor") ?? ""

@@ -1704,14 +1704,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startViewCell" id="hyY-vn-r54" userLabel="Start View Cell" customClass="StartViewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hyY-vn-r54" id="Dx2-ce-Ru7">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Валюты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbc-hr-FHJ" userLabel="viewNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1749,14 +1749,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="M1Q-1H-VHB" userLabel="Theme Cell" customClass="ThemeTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
+                                <rect key="frame" x="20" y="32" width="374" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M1Q-1H-VHB" id="3sk-ff-s1w">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Как в системе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrU-4i-37D" userLabel="themeNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -3076,24 +3076,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dataSourceCell" textLabel="L5y-BT-8oU" rowHeight="45" style="IBUITableViewCellStyleDefault" id="mhV-XH-8AX" customClass="DataSourceTableViewCell" customModule="Kursvalut" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dataSourceCell" rowHeight="45" id="mhV-XH-8AX" customClass="DataSourceTableViewCell" customModule="Kursvalut" customModuleProvider="target">
                                 <rect key="frame" x="20" y="32" width="374" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mhV-XH-8AX" id="GvZ-VA-b8T">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Forex (Биржа)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L5y-BT-8oU">
-                                            <rect key="frame" x="20" y="0.0" width="334" height="45"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forex (Биржа)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOg-7O-wz3">
+                                            <rect key="frame" x="20" y="11" width="314" height="23"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="WLh-60-zug">
+                                            <rect key="frame" x="334" y="11" width="20" height="23"/>
+                                        </activityIndicatorView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="WLh-60-zug" firstAttribute="centerY" secondItem="GvZ-VA-b8T" secondAttribute="centerY" id="Dgp-J0-cQn"/>
+                                        <constraint firstItem="rOg-7O-wz3" firstAttribute="centerY" secondItem="GvZ-VA-b8T" secondAttribute="centerY" id="S2P-Ka-cWx"/>
+                                        <constraint firstItem="rOg-7O-wz3" firstAttribute="top" secondItem="GvZ-VA-b8T" secondAttribute="topMargin" id="T0f-Cu-bNd"/>
+                                        <constraint firstItem="WLh-60-zug" firstAttribute="leading" secondItem="rOg-7O-wz3" secondAttribute="trailing" id="WPk-Au-rIr"/>
+                                        <constraint firstItem="rOg-7O-wz3" firstAttribute="leading" secondItem="GvZ-VA-b8T" secondAttribute="leadingMargin" id="cgL-cP-SDU"/>
+                                        <constraint firstItem="WLh-60-zug" firstAttribute="trailing" secondItem="GvZ-VA-b8T" secondAttribute="trailingMargin" id="lNC-5K-USy"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="rOg-7O-wz3" secondAttribute="bottom" id="mxL-CO-Qtk"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="WLh-60-zug" secondAttribute="bottom" id="tbh-PM-FIl"/>
+                                        <constraint firstItem="WLh-60-zug" firstAttribute="top" secondItem="GvZ-VA-b8T" secondAttribute="topMargin" id="whG-TF-e6e"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="sourceNameLabel" destination="L5y-BT-8oU" id="4KO-XR-6vt"/>
+                                    <outlet property="dataUpdateSpinner" destination="WLh-60-zug" id="eFQ-EU-iWh"/>
+                                    <outlet property="sourceNameLabel" destination="rOg-7O-wz3" id="1t2-U9-HJS"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="pickedBaseCurrencyCell" textLabel="VlW-zU-cpT" detailTextLabel="WlK-ch-hdr" rowHeight="45" style="IBUITableViewCellStyleValue1" id="PBw-Mm-FMB" customClass="PickedBaseCurrencyTableViewCell" customModule="Kursvalut" customModuleProvider="target">
@@ -3420,8 +3434,8 @@
         <image name="eurosign" width="96" height="96"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="globe" width="11" height="11"/>
-        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
+        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="hand.wave" width="10" height="10"/>
         <image name="heart.fill" width="10" height="10"/>
         <image name="info.circle" width="11" height="11"/>
