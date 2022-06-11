@@ -20,7 +20,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     private var wasActiveCurrencyVC: Bool {
         return UserDefaults.standard.bool(forKey: "isActiveCurrencyVC")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         currencyManager.configureContentInset(for: tableView, top: 40)
@@ -32,13 +32,13 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     @objc func refreshBaseCurrency() {
         tableView.reloadData()
     }
-
+    
     //MARK: - TableView DataSource Methods
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sectionsData.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == sections.dataSource ? dataSourceOptions.count : 1
     }
@@ -102,7 +102,17 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         }
     }
     
-   @objc func activatedCurrencyVC() {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        tableView.estimatedSectionHeaderHeight
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return tableView.estimatedSectionFooterHeight
+    }
+    
+    //MARK: - User Interface Handling Methods
+    
+    @objc func activatedCurrencyVC() {
         wasActiveCurrencyVC ? NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil) : refreshData()
     }
     
@@ -119,19 +129,11 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         }
     }
     
-   @objc func stopActivityIndicatorInDataSourceCell() {
+    @objc func stopActivityIndicatorInDataSourceCell() {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "dataSourceCell") as? DataSourceTableViewCell else { return }
         
         cell.dataUpdateSpinner.stopAnimating()
         cell.accessoryType = .checkmark
-       self.tableView.reloadSections(IndexSet(integer: sections.dataSource), with: .none)
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        tableView.estimatedSectionHeaderHeight
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return tableView.estimatedSectionFooterHeight
+        self.tableView.reloadSections(IndexSet(integer: sections.dataSource), with: .none)
     }
 }
