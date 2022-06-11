@@ -44,7 +44,7 @@ class BaseCurrencyTableViewController: UITableViewController {
         return sectionTitles
     }
     
-    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+    func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
         return forexFRC.section(forSectionIndexTitle: title, at: index)
     }
     

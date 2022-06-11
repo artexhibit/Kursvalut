@@ -40,6 +40,7 @@ struct CurrencyNetworking {
         var urlArray = [URL]()
         var dataDict = [URL: Data]()
         var completed = 0
+        var errorCode: Int?
         
         if pickedDataSource == "ЦБ РФ" {
             urlArray.append(currentBankOfRussiaURL)
@@ -56,7 +57,7 @@ struct CurrencyNetworking {
                 
                 if error != nil {
                     guard let error = error as NSError? else { return }
-                    completion(error.code)
+                    errorCode = error.code
                     session.invalidateAndCancel()
                 } else if let data = data {
                     completed += 1
@@ -67,11 +68,12 @@ struct CurrencyNetworking {
         }
         
         group.notify(queue: .main) {
-            if completed == urlArray.count {
+            if errorCode != nil {
+                completion(errorCode)
+                return
+            } else if completed == urlArray.count {
                 dataDict.forEach { url, data in
-                    DispatchQueue.main.async {
-                        self.parseJSON(with: data, from: url)
-                    }
+                    self.parseJSON(with: data, from: url)
                 }
             }
             pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.standard.setValue(updateTime, forKey: "forexUpdateTime")

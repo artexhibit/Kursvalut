@@ -15,6 +15,9 @@ class CurrencyViewController: UIViewController {
     private var bankOfRussiaFRC: NSFetchedResultsController<Currency>!
     private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let searchController = UISearchController(searchResultsController: nil)
+    private var biggestTopSafeAreaInset: CGFloat = 0
+    private let updateLabelTopInset: CGFloat = 10
+    private var userPulledToRefresh: Bool = false
     private var decimalsNumberChanged: Bool {
         return userDefaults.bool(forKey: "decimalsNumberChanged")
     }
@@ -41,11 +44,12 @@ class CurrencyViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        tabBarController?.delegate = self
         setupSearchController()
         setupRefreshControl()
         userDefaults.set(true, forKey: "isActiveCurrencyVC")
         currencyNetworking.checkOnFirstLaunchToday(with: updateTimeLabel)
-        currencyManager.configureContentInset(for: tableView, top: -10)
+        currencyManager.configureContentInset(for: tableView, top: -updateLabelTopInset)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
     }
     
@@ -134,7 +138,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-//MARK: - Method for Trailing Swipe Action
+//MARK: - Method For Trailing Swipe Action
 
 extension CurrencyViewController {
     func turnEditing() {
@@ -343,6 +347,35 @@ extension CurrencyViewController {
                     PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
                     self.tableView.reloadData()
                 }
+            }
+        }
+    }
+}
+//MARK: - UITabBarControllerDelegate Methods To Scroll VC Up
+
+extension CurrencyViewController: UITabBarControllerDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        userPulledToRefresh = true
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        if !userPulledToRefresh {
+            self.biggestTopSafeAreaInset = max(view.safeAreaInsets.top, biggestTopSafeAreaInset)
+        }
+        userPulledToRefresh = false
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if tabBarController.selectedIndex == 0 {
+            let navigationVC = viewController as? UINavigationController
+            let firstVC = navigationVC?.viewControllers.first as? CurrencyViewController
+            guard let scrollView = firstVC?.view.subviews.first(where: { $0 is UIScrollView }) as? UIScrollView else { return }
+            
+            if traitCollection.verticalSizeClass == .compact {
+                scrollView.setContentOffset(CGPoint(x: 0, y: -(view.safeAreaInsets.top - updateLabelTopInset)), animated: true)
+            } else {
+                scrollView.setContentOffset(CGPoint(x: 0, y: -(biggestTopSafeAreaInset - updateLabelTopInset)), animated: true)
             }
         }
     }
