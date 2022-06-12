@@ -18,6 +18,7 @@ class CurrencyViewController: UIViewController {
     private var biggestTopSafeAreaInset: CGFloat = 0
     private let updateLabelTopInset: CGFloat = 10
     private var userPulledToRefresh: Bool = false
+    private var viewWasSwitched: Bool = false
     private var decimalsNumberChanged: Bool {
         return userDefaults.bool(forKey: "decimalsNumberChanged")
     }
@@ -69,6 +70,11 @@ class CurrencyViewController: UIViewController {
         if !userHasOnboarded {
             performSegue(withIdentifier: "showOnboarding", sender: self)
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewWasSwitched = true
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
@@ -378,6 +384,13 @@ extension CurrencyViewController: UITabBarControllerDelegate {
                 scrollView.setContentOffset(CGPoint(x: 0, y: -(view.safeAreaInsets.top - updateLabelTopInset)), animated: true)
             } else {
                 scrollView.setContentOffset(CGPoint(x: 0, y: -(biggestTopSafeAreaInset - updateLabelTopInset)), animated: true)
+                
+                if viewWasSwitched {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        navigationVC?.navigationBar.sizeToFit()
+                    }
+                    viewWasSwitched = false
+                }
             }
         }
     }

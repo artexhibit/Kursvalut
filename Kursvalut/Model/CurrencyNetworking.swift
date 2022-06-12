@@ -73,7 +73,9 @@ struct CurrencyNetworking {
                 return
             } else if completed == urlArray.count {
                 dataDict.forEach { url, data in
-                    self.parseJSON(with: data, from: url)
+                    DispatchQueue.main.async {
+                        self.parseJSON(with: data, from: url)
+                    }
                 }
             }
             pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.standard.setValue(updateTime, forKey: "forexUpdateTime")
