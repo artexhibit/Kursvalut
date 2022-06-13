@@ -113,7 +113,12 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     //MARK: - User Interface Handling Methods
     
     @objc func activatedCurrencyVC() {
-        wasActiveCurrencyVC ? NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil) : refreshData()
+        if wasActiveCurrencyVC {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
+            UserDefaults.standard.set(true, forKey: "newDataSourcePicked")
+        } else {
+            refreshData()
+        }
     }
     
     func refreshData() {

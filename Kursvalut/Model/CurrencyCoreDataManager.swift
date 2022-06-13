@@ -89,6 +89,18 @@ struct CurrencyCoreDataManager {
         }
     }
     
+    func fetchAllBankOfRussiaCurrencies() -> [Currency] {
+        var fetchCurrencies = [Currency]()
+        let request: NSFetchRequest<Currency> = Currency.fetchRequest()
+        
+        do {
+            fetchCurrencies = try context.fetch(request)
+        } catch {
+            print(error)
+        }
+        return fetchCurrencies
+    }
+    
    //MARK: - CRUD for Forex Currency
     
     func createOrUpdateLatestForexCurrency(from dictionary: [String:String]) {
@@ -194,6 +206,18 @@ struct CurrencyCoreDataManager {
         } catch {
             print(error)
         }
+    }
+    
+    func fetchAllForexCurrencies() -> [ForexCurrency] {
+        var fetchCurrencies = [ForexCurrency]()
+        let request: NSFetchRequest<ForexCurrency> = ForexCurrency.fetchRequest()
+        
+        do {
+            fetchCurrencies = try context.fetch(request)
+        } catch {
+            print(error)
+        }
+        return fetchCurrencies
     }
     
    //MARK: - FetchResultsController Setup

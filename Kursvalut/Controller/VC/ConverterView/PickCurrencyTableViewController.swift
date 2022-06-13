@@ -100,7 +100,7 @@ class PickCurrencyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if pickedDataSource == "ЦБ РФ" {
             var currentAmount = amountOfPickedBankOfRussiaCurrencies
-            let bankOfRussiaCurrencies = bankOfRussiaFRC.fetchedObjects!
+            let bankOfRussiaCurrencies = coreDataManager.fetchAllBankOfRussiaCurrencies()
             let bankOfRussiaCurrency = bankOfRussiaFRC.object(at: indexPath)
             
             bankOfRussiaCurrency.isForConverter = !bankOfRussiaCurrency.isForConverter
@@ -119,7 +119,7 @@ class PickCurrencyTableViewController: UITableViewController {
             }
         } else {
             var currentAmount = amountOfPickedForexCurrencies
-            let forexCurrencies = forexFRC.fetchedObjects!
+            let forexCurrencies = coreDataManager.fetchAllForexCurrencies()
             let forexCurrency = forexFRC.object(at: indexPath)
             
             forexCurrency.isForConverter = !forexCurrency.isForConverter
@@ -202,6 +202,7 @@ extension PickCurrencyTableViewController: UISearchResultsUpdating {
         searchController.searchBar.placeholder = "Поиск"
         definesPresentationContext = true
         navigationItem.searchController = searchController
+        navigationController?.navigationBar.sizeToFit()
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -214,6 +215,5 @@ extension PickCurrencyTableViewController: UISearchResultsUpdating {
             return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName, searchName])
         }
         searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: searchPredicate)
-        tableView.reloadData()
     }
 }

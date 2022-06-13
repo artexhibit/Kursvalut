@@ -40,6 +40,9 @@ class CurrencyViewController: UIViewController {
     private var currencyUpdateTime: String {
         return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (UserDefaults.standard.string(forKey: "forexUpdateTime") ?? "")
     }
+    private var newDataSourcePicked: Bool {
+        return UserDefaults.standard.bool(forKey: "newDataSourcePicked")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +65,7 @@ class CurrencyViewController: UIViewController {
         setupFetchedResultsController()
         updateDecimalsNumber()
         updateTimeLabel.text = currencyUpdateTime
+        scrollVCUp()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -121,6 +125,8 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         let move = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
             if self.pickedSection != "Своя" {
                 PopupView().showPopup(title: "Включите в настройках", message: "Сортировка → Своя", type: .lock)
+            } else if self.searchController.isActive {
+                PopupView().showPopup(title: "Пока нельзя", message: "Сначала завершите поиск", type: .lock)
             } else {
                 self.turnEditing()
                 self.turnEditing()
@@ -211,7 +217,7 @@ extension CurrencyViewController: UISearchResultsUpdating {
         searchController.searchBar.placeholder = "Поиск"
         definesPresentationContext = true
         navigationItem.searchController = searchController
-        navigationController!.navigationBar.sizeToFit()
+        navigationController?.navigationBar.sizeToFit()
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -230,7 +236,6 @@ extension CurrencyViewController: UISearchResultsUpdating {
         }
         
         searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: filterPredicate)
-        tableView.reloadData()
     }
 }
 
@@ -374,23 +379,40 @@ extension CurrencyViewController: UITabBarControllerDelegate {
         userPulledToRefresh = false
     }
     
+    func setVCOffset(with viewInset: CGFloat, and labelInset: CGFloat, delay: Bool = false, delayValue: Double = 0.0) {
+        let firstVC = navigationController?.viewControllers.first as? CurrencyViewController
+        guard let scrollView = firstVC?.view.subviews.first(where: { $0 is UIScrollView }) as? UIScrollView else { return }
+        
+        if delay {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayValue) {
+                scrollView.setContentOffset(CGPoint(x: 0, y: -(viewInset - labelInset)), animated: true)
+            }
+        } else {
+            scrollView.setContentOffset(CGPoint(x: 0, y: -(viewInset - labelInset)), animated: true)
+        }
+    }
+    
+    func showLargeTitle(delay: Double = 0.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            self.navigationController?.navigationBar.sizeToFit()
+        }
+    }
+    
+    func scrollVCUp() {
+        if newDataSourcePicked {
+            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset, delay: true, delayValue: 0.1) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset, delay: true, delayValue: 0.1)
+            showLargeTitle(delay: 0.4)
+            UserDefaults.standard.set(false, forKey: "newDataSourcePicked")
+        }
+    }
+    
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if tabBarController.selectedIndex == 0 {
-            let navigationVC = viewController as? UINavigationController
-            let firstVC = navigationVC?.viewControllers.first as? CurrencyViewController
-            guard let scrollView = firstVC?.view.subviews.first(where: { $0 is UIScrollView }) as? UIScrollView else { return }
+            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset)
             
-            if traitCollection.verticalSizeClass == .compact {
-                scrollView.setContentOffset(CGPoint(x: 0, y: -(view.safeAreaInsets.top - updateLabelTopInset)), animated: true)
-            } else {
-                scrollView.setContentOffset(CGPoint(x: 0, y: -(biggestTopSafeAreaInset - updateLabelTopInset)), animated: true)
-                
-                if viewWasSwitched {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        navigationVC?.navigationBar.sizeToFit()
-                    }
-                    viewWasSwitched = false
-                }
+            if viewWasSwitched {
+                showLargeTitle(delay: 0.3)
+                viewWasSwitched = false
             }
         }
     }
