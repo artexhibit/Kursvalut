@@ -59,9 +59,9 @@ class CurrencyViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       if pickedDataSource != "ЦБ РФ" {
-        coreDataManager.filterOutForexBaseCurrency()
-       }
+        if pickedDataSource != "ЦБ РФ" {
+            coreDataManager.filterOutForexBaseCurrency()
+        }
         setupFetchedResultsController()
         updateDecimalsNumber()
         updateTimeLabel.text = currencyUpdateTime
@@ -407,10 +407,12 @@ extension CurrencyViewController: UITabBarControllerDelegate {
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        guard let navigationBar = navigationController?.navigationBar else { return }
+        
         if tabBarController.selectedIndex == 0 {
             traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset)
             
-            if viewWasSwitched {
+            if viewWasSwitched && !navigationBar.prefersLargeTitles {
                 showLargeTitle(delay: 0.3)
                 viewWasSwitched = false
             }
