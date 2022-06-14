@@ -58,6 +58,8 @@ class SettingsTableViewController: UITableViewController {
         
         if pickedSection == 4 && pickedCell == 2 {
             setupMailController()
+        } else if pickedSection == 4 && pickedCell == 3 {
+            presentShareSheet(in: tableView, near: pickedCell, inside: pickedSection)
         } else if pickedSection == 2 && pickedCell == 1 {
             proPurchased ? PopupView().showPopup(title: "Всё в порядке", message: "Pro уже восстановлен", type: .lock) : startProVersionRestore()
         } else if pickedSection == 1 && (pickedCell == 1 || pickedCell == 2 || pickedCell == 3) {
@@ -67,6 +69,19 @@ class SettingsTableViewController: UITableViewController {
                 PopupView().showPopup(title: "Закрыто", message: "Доступно только в Pro", type: .lock)
             }
         }
+    }
+    
+//MARK: - UIActivityViewController Setup
+    
+    func presentShareSheet(in sender: UITableView, near row: Int, inside section: Int) {
+        guard let url = URL(string: "https://apps.apple.com/ru/app/kursvalut-%D0%BA%D0%BE%D0%BD%D0%B2%D0%B5%D1%80%D1%82%D0%B5%D1%80-%D0%B2%D0%B0%D0%BB%D1%8E%D1%82/id1614298661") else { return }
+        let indexPath = IndexPath(row: row, section: section)
+        
+        let shareSheetVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        shareSheetVC.popoverPresentationController?.sourceView = sender
+        shareSheetVC.popoverPresentationController?.sourceRect = sender.rectForRow(at: indexPath)
+        
+        present(shareSheetVC, animated: true)
     }
 }
 
