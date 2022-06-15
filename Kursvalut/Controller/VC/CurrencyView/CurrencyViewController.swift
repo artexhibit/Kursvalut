@@ -46,6 +46,9 @@ class CurrencyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if pickedDataSource != "ЦБ РФ" {
+            coreDataManager.filterOutForexBaseCurrency()
+        }
         tableView.delegate = self
         tableView.dataSource = self
         tabBarController?.delegate = self
@@ -59,9 +62,6 @@ class CurrencyViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if pickedDataSource != "ЦБ РФ" {
-            coreDataManager.filterOutForexBaseCurrency()
-        }
         setupFetchedResultsController()
         updateDecimalsNumber()
         updateTimeLabel.text = currencyUpdateTime
@@ -392,30 +392,19 @@ extension CurrencyViewController: UITabBarControllerDelegate {
         }
     }
     
-    func showLargeTitle(delay: Double = 0.0) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            self.navigationController?.navigationBar.sizeToFit()
-        }
-    }
-    
     func scrollVCUp() {
         if newDataSourcePicked {
             traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset, delay: true, delayValue: 0.1) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset, delay: true, delayValue: 0.1)
-            showLargeTitle(delay: 0.4)
             UserDefaults.standard.set(false, forKey: "newDataSourcePicked")
         }
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        guard let navigationBar = navigationController?.navigationBar else { return }
-        
         if tabBarController.selectedIndex == 0 {
-            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset)
-            
-            if viewWasSwitched && !navigationBar.prefersLargeTitles {
-                showLargeTitle(delay: 0.3)
-                viewWasSwitched = false
+            if !viewWasSwitched {
+                traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset)
             }
+            viewWasSwitched = false
         }
     }
 }
