@@ -29,7 +29,7 @@ class CurrencyViewController: UIViewController {
         return UserDefaults.standard.string(forKey: "baseSource") ?? ""
     }
     private var pickedOrder: String {
-        return UserDefaults.standard.string(forKey: "pickedOrder") ?? ""
+        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedOrder") ?? "")
     }
     private var pickedSection: String {
         return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedSection") ?? "")
