@@ -8,10 +8,10 @@ class DecimalsTableViewController: UITableViewController {
     private let optionsArray = ["1", "2", "3", "4"]
     private let sectionsArray = [
         (header: "Экран Валюты", footer: ""),
-        (header: "", footer: "Количество десятичных знаков для показа на экране Валюты"),
-        (header: "", footer: "Количество десятичных знаков для показа в разнице и процентах на экране Валюты"),
+        (header: "", footer: "Количество десятичных знаков для показа"),
+        (header: "", footer: "Количество десятичных знаков для показа разницы и процентов"),
         (header: "Экран Конвертер", footer: ""),
-        (header: "", footer: "Количество десятичных знаков для показа на экране Конвертер")
+        (header: "", footer: "Количество десятичных знаков для показа")
     ]
     private let sectionNumber = (decimalCell: (firstCell: 1, secondCell: 2, thirdCell: 4),
                          currencyCell: (row: 0, section: 0),
