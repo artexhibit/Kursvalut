@@ -345,17 +345,17 @@ extension CurrencyViewController {
         
         currencyNetworking.performRequest { errorCode in
             if errorCode != nil {
+                self.tableView.refreshControl?.endRefreshing()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
                 DispatchQueue.main.async {
-                    self.tableView.refreshControl?.endRefreshing()
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
                     PopupView().showPopup(title: "Ошибка \(errorCode ?? 0)", message: "Повторите ещё раз позже", type: .failure)
                 }
             } else {
                 DispatchQueue.main.async {
                     self.updateTimeLabel.text = self.currencyUpdateTime
-                    self.tableView.refreshControl?.endRefreshing()
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
                 }
+                self.tableView.refreshControl?.endRefreshing()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
                     self.tableView.reloadData()
