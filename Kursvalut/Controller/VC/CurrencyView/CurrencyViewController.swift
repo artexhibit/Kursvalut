@@ -55,7 +55,7 @@ class CurrencyViewController: UIViewController {
         setupSearchController()
         setupRefreshControl()
         userDefaults.set(true, forKey: "isActiveCurrencyVC")
-        currencyNetworking.checkOnFirstLaunchToday(with: updateTimeLabel)
+        currencyNetworking.checkOnFirstLaunchToday(with: updateTimeLabel, in: tableView)
         currencyManager.configureContentInset(for: tableView, top: -updateLabelTopInset)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
     }

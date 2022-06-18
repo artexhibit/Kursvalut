@@ -104,7 +104,7 @@ struct CurrencyNetworking {
     
     //MARK: - Check For Today's First Launch Method
     
-    func checkOnFirstLaunchToday(with label: UILabel = UILabel()) {
+    func checkOnFirstLaunchToday(with label: UILabel = UILabel(), in tableView: UITableView = UITableView()) {
         var wasLaunched: String {
             return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
         }
@@ -125,17 +125,17 @@ struct CurrencyNetworking {
         } else {
             performRequest { errorCode in
                 if errorCode != nil {
-                    DispatchQueue.main.async {
-                        PopupView().showPopup(title: "Ошибка \(errorCode ?? 0)", message: "Повторите ещё раз позже", type: .failure)
-                    }
+                    PopupView().showPopup(title: "Ошибка \(errorCode ?? 0)", message: "Повторите ещё раз позже", type: .failure)
                     return
                 } else {
                     DispatchQueue.main.async {
                         label.text = currencyUpdateTime
-                        
-                        if userHasOnboarded {
+                    }
+                    if userHasOnboarded {
                         PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
-                        }
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        tableView.reloadData()
                     }
                     UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
                 }
