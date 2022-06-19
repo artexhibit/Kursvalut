@@ -70,16 +70,15 @@ struct CurrencyNetworking {
         group.notify(queue: .main) {
             if errorCode != nil {
                 completion(errorCode)
-                return
             } else if completed == urlArray.count {
                 dataDict.forEach { url, data in
                     DispatchQueue.main.async {
                         self.parseJSON(with: data, from: url)
                     }
                 }
+                completion(nil)
             }
             pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.standard.setValue(updateTime, forKey: "forexUpdateTime")
-            completion(nil)
         }
     }
     
@@ -126,7 +125,6 @@ struct CurrencyNetworking {
             performRequest { errorCode in
                 if errorCode != nil {
                     PopupView().showPopup(title: "Ошибка \(errorCode ?? 0)", message: "Повторите ещё раз позже", type: .failure)
-                    return
                 } else {
                     DispatchQueue.main.async {
                         label.text = currencyUpdateTime

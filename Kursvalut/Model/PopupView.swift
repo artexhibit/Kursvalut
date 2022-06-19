@@ -8,8 +8,10 @@ class PopupView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
-    private var isRemovedBySwipe = false
-    private var yAdjustment: CGFloat = 0
+    private var timer: Timer?
+    private let animationDuration: TimeInterval = 0.1
+    private var topConstraint: NSLayoutConstraint!
+    private var bottomConstraint: NSLayoutConstraint!
     
     enum PopupType {
         case success
@@ -22,59 +24,53 @@ class PopupView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        Bundle.main.loadNibNamed("PopupView", owner: self)
-        configurePopup()
-        animatePopup()
-        configureTapGesture()
+        configureXibView()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        configureXibView()
     }
     
-    private func configurePopup() {
-        guard let window = UIApplication.shared.windows.first(where: {$0.isKeyWindow}) else { return }
-        popupView.layer.cornerRadius = 20
-        popupView.clipsToBounds = true
-        popupView.center.x = window.frame.midX
-        popupView.isUserInteractionEnabled = false
-        popupView.translatesAutoresizingMaskIntoConstraints = true
-        window.addSubview(popupView)
-    }
-    
-    private func animatePopup() {
-        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear) {
-            self.popupView.center.y += 40
-            self.yAdjustment = self.popupView.frame.origin.y
-        } completion: { _ in
-            UIView.animate(withDuration: 0.1, delay: 3.0, options: .curveLinear) {
-                self.popupView.center.y -= 50
-            } completion: { _ in
-                if !self.isRemovedBySwipe {
-                    self.popupView.removeFromSuperview()
-                }
-            }
+    private func configureXibView() {
+        if let views = Bundle.main.loadNibNamed("PopupView", owner: self) {
+            guard let view = views.first as? UIView else { return }
+            view.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(view)
+            
+            NSLayoutConstraint.activate([
+                view.topAnchor.constraint(equalTo: topAnchor, constant: 0.0),
+                view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0.0),
+                view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0.0),
+                view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0.0)
+            ])
         }
     }
     
-    private func configureTapGesture() {
-        guard let window = UIApplication.shared.windows.first(where: {$0.isKeyWindow}) else { return }
-        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(didSwipe(_:)))
-        swipe.direction = .up
-        window.addGestureRecognizer(swipe)
+    private func configurePopup() {
+        guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+        self.translatesAutoresizingMaskIntoConstraints = false
+        window.addSubview(self)
+        
+        self.centerXAnchor.constraint(equalTo: window.centerXAnchor).isActive = true
+        bottomConstraint = self.bottomAnchor.constraint(equalTo: window.topAnchor, constant: -2.0)
+        topConstraint = self.topAnchor.constraint(equalTo: window.topAnchor, constant: 35.0)
+        
+        bottomConstraint.isActive = true
+        
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
     }
     
-    @objc private func didSwipe(_ sender:UISwipeGestureRecognizer) {
-        var tappedArea = sender.location(in: popupView)
-        tappedArea.y -= (yAdjustment - popupView.frame.origin.y)
-        
-        if sender.direction == .up, popupView.bounds.contains(tappedArea) {
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear) {
-                self.popupView.center.y -= 50
-            } completion: { _ in
-                self.popupView.removeFromSuperview()
-            }
-            self.isRemovedBySwipe = true
+    private func configurePanGesture() {
+        let swipe = UIPanGestureRecognizer(target: self, action: #selector(didTriggerPan(_:)))
+        self.addGestureRecognizer(swipe)
+    }
+    
+    @objc private func didTriggerPan(_ sender:UIPanGestureRecognizer) {
+        if sender.translation(in: self).y < 0, let timer = timer, timer.isValid {
+            timer.invalidate()
+            animateOut()
         }
     }
     
@@ -95,6 +91,43 @@ class PopupView: UIView {
             self.symbol.image = UIImage(named: "thumbsUp")
         case .lock:
             self.symbol.image = UIImage(named: "indexPoint")
+        }
+        
+        self.backgroundColor = .clear
+        self.layer.cornerRadius = 20
+        self.clipsToBounds = true
+        
+        configurePopup()
+        configurePanGesture()
+        
+        DispatchQueue.main.async {
+            self.animateIn()
+        }
+    }
+    
+    private func animateIn() {
+        guard let superView = superview else { return }
+        self.bottomConstraint.isActive = false
+        self.topConstraint.isActive = true
+        
+        UIView.animate(withDuration: animationDuration, delay: 0.0, options: .curveEaseInOut) {
+            superView.layoutIfNeeded()
+        } completion: { [weak self] _ in
+            guard let self = self else { return }
+            self.timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.animateOut), userInfo: nil, repeats: false)
+        }
+    }
+    
+    @objc private func animateOut() {
+        guard let superView = superview else { return }
+        self.topConstraint.isActive = false
+        self.bottomConstraint.isActive = true
+        
+        UIView.animate(withDuration: animationDuration, delay: 0.0, options: .curveEaseInOut) {
+            superView.layoutIfNeeded()
+        } completion: { [weak self] _ in
+            guard let self = self else { return }
+            self.removeFromSuperview()
         }
     }
 }
