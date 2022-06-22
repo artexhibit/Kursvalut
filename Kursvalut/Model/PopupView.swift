@@ -9,7 +9,7 @@ class PopupView: UIView {
     @IBOutlet weak var descriptionLabel: UILabel!
     
     private var timer: Timer?
-    private let animationDuration: TimeInterval = 0.1
+    private let animationDuration: TimeInterval = 0.3
     private var topConstraint: NSLayoutConstraint!
     private var bottomConstraint: NSLayoutConstraint!
     

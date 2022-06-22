@@ -17,8 +17,8 @@ struct CurrencyNetworking {
         return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
     }
     private var yesterdaysDate: String {
-        let nextDate = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
-        return currencyManager.showTime(with: "yyyy-MM-dd", from: nextDate)
+        let date = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
+        return currencyManager.showTime(with: "yyyy-MM-dd", from: date)
     }
     private var todaysDate: String {
         return currencyManager.showTime(with: "yyyy-MM-dd")
@@ -72,13 +72,14 @@ struct CurrencyNetworking {
                 completion(errorCode)
             } else if completed == urlArray.count {
                 dataDict.forEach { url, data in
-                    DispatchQueue.main.async {
-                        self.parseJSON(with: data, from: url)
-                    }
+                    self.parseJSON(with: data, from: url)
                 }
-                completion(nil)
+            }
+            DispatchQueue.main.async {
+                coreDataManager.save()
             }
             pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.standard.setValue(updateTime, forKey: "forexUpdateTime")
+            completion(nil)
         }
     }
     
@@ -98,7 +99,6 @@ struct CurrencyNetworking {
         } catch {
             print("Error with JSON parsing, \(error)")
         }
-        coreDataManager.save()
     }
     
     //MARK: - Check For Today's First Launch Method
@@ -128,12 +128,10 @@ struct CurrencyNetworking {
                 } else {
                     DispatchQueue.main.async {
                         label.text = currencyUpdateTime
+                        tableView.reloadData()
                     }
                     if userHasOnboarded {
                         PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        tableView.reloadData()
                     }
                     UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
                 }
