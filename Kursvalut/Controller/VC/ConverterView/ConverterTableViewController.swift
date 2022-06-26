@@ -47,16 +47,16 @@ class ConverterTableViewController: UITableViewController {
         super.viewDidLoad()
         setupKeyboardHide()
         currencyManager.configureContentInset(for: tableView, top: 10)
-        
-        if pickedStartView == "Конвертер" {
-            currencyNetworking.checkOnFirstLaunchToday()
-        }
         NotificationCenter.default.addObserver(self, selector: #selector(setupFetchedResultsController), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupFetchedResultsController()
+        
+        if pickedStartView == "Конвертер" {
+            currencyNetworking.checkOnFirstLaunchToday()
+        }
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {

@@ -35,12 +35,12 @@ struct CurrencyNetworking {
     
     //MARK: - Networking Methods
     
-    func performRequest(_ completion: @escaping (Int?) -> Void) {
+    func performRequest(_ completion: @escaping (Error?) -> Void) {
         let group = DispatchGroup()
         var urlArray = [URL]()
         var dataDict = [URL: Data]()
         var completed = 0
-        var errorCode: Int?
+        var errorToShow: Error?
         
         if pickedDataSource == "ЦБ РФ" {
             urlArray.append(currentBankOfRussiaURL)
@@ -56,8 +56,8 @@ struct CurrencyNetworking {
                 defer { group.leave() }
                 
                 if error != nil {
-                    guard let error = error as NSError? else { return }
-                    errorCode = error.code
+                    guard let error = error else { return }
+                    errorToShow = error
                     session.invalidateAndCancel()
                 } else if let data = data {
                     completed += 1
@@ -68,18 +68,19 @@ struct CurrencyNetworking {
         }
         
         group.notify(queue: .main) {
-            if errorCode != nil {
-                completion(errorCode)
+            if errorToShow != nil {
+                guard let errorToShow = errorToShow else { return }
+                completion(errorToShow)
             } else if completed == urlArray.count {
                 dataDict.forEach { url, data in
                     self.parseJSON(with: data, from: url)
                 }
-            }
-            DispatchQueue.main.async {
-                coreDataManager.save()
+                DispatchQueue.main.async {
+                    coreDataManager.save()
+                }
+                completion(nil)
             }
             pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.standard.setValue(updateTime, forKey: "forexUpdateTime")
-            completion(nil)
         }
     }
     
@@ -122,9 +123,10 @@ struct CurrencyNetworking {
                 label.text = currencyUpdateTime
             }
         } else {
-            performRequest { errorCode in
-                if errorCode != nil {
-                    PopupView().showPopup(title: "Ошибка \(errorCode ?? 0)", message: "Повторите ещё раз позже", type: .failure)
+            performRequest { error in
+                if error != nil {
+                    guard let error = error else { return }
+                    PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
                 } else {
                     DispatchQueue.main.async {
                         label.text = currencyUpdateTime

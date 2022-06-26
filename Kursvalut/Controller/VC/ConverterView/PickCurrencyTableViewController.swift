@@ -115,7 +115,7 @@ class PickCurrencyTableViewController: UITableViewController {
                 bankOfRussiaCurrency.isForConverter = false
                 currentAmount -= 1
                 UserDefaults.standard.set(currentAmount, forKey: "savedAmountForBankOfRussia")
-                PopupView().showPopup(title: "Максимум 3 валюты", message: "Безлимитно в Pro", type: .lock)
+                PopupView().showPopup(title: "Максимум 3 валюты", message: "Безлимит доступен в Pro", type: .lock)
             }
         } else {
             var currentAmount = amountOfPickedForexCurrencies
@@ -134,7 +134,7 @@ class PickCurrencyTableViewController: UITableViewController {
                 forexCurrency.isForConverter = false
                 currentAmount -= 1
                 UserDefaults.standard.set(currentAmount, forKey: "savedAmountForForex")
-                PopupView().showPopup(title: "Максимум 3 валюты", message: "Безлимитно в Pro", type: .lock)
+                PopupView().showPopup(title: "Максимум 3 валюты", message: "Безлимит доступен в Pro", type: .lock)
             }
         }
         coreDataManager.save()

@@ -66,11 +66,11 @@ extension TermsOfUseViewController:  MFMailComposeViewControllerDelegate {
         case .saved:
             dismiss(animated: true, completion: nil)
         case .sent:
-            PopupView().showPopup(title: "Письмо отправлено", message: "Скоро вам отвечу", type: .success)
+            PopupView().showPopup(title: "Письмо отправлено", message: "Скоро вам отвечу!", type: .success)
             dismiss(animated: true, completion: nil)
         case .failed:
-            guard let error = error as? NSError else { return }
-            PopupView().showPopup(title: "Ошибка \(error.code)", message: "Не удалось отправить", type: .failure)
+            guard let error = error else { return }
+            PopupView().showPopup(title: "Ошибка", message: "Не удалось отправить: \(error.localizedDescription)", type: .failure)
             dismiss(animated: true, completion: nil)
         @unknown default:
             dismiss(animated: true, completion: nil)

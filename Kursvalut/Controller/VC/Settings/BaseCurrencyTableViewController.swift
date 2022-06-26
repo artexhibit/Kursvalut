@@ -69,13 +69,15 @@ class BaseCurrencyTableViewController: UITableViewController {
         let cell = tableView.cellForRow(at: indexPath) as! BaseCurrencyTableViewCell
         let forexCurrency = forexFRC.object(at: indexPath)
         
-        searchController.isActive = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.searchController.isActive = false
+        }
         UserDefaults.standard.set(forexCurrency.shortName, forKey: "baseCurrency")
         cell.picker.image = forexCurrency.shortName == pickedBaseCurrency ? UIImage(named: "checkmark.circle.fill") : UIImage(named: "circle")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshDataFromDataSourceVC"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.dismiss(animated: true)
         }
     }

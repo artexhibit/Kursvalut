@@ -122,10 +122,11 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     func refreshData() {
-        currencyNetworking.performRequest { errorCode in
+        currencyNetworking.performRequest { error in
             DispatchQueue.main.async {
-                if errorCode != nil {
-                    PopupView().showPopup(title: "Ошибка \(errorCode ?? 0)", message: "Повторите ещё раз позже", type: .failure)
+                if error != nil {
+                    guard let error = error else { return }
+                    PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
                 } else {
                     PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
                 }

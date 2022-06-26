@@ -55,7 +55,6 @@ class CurrencyViewController: UIViewController {
         setupSearchController()
         setupRefreshControl()
         userDefaults.set(true, forKey: "isActiveCurrencyVC")
-        currencyNetworking.checkOnFirstLaunchToday(with: updateTimeLabel, in: tableView)
         currencyManager.configureContentInset(for: tableView, top: -updateLabelTopInset)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
     }
@@ -63,6 +62,7 @@ class CurrencyViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupFetchedResultsController()
+        currencyNetworking.checkOnFirstLaunchToday(with: updateTimeLabel, in: tableView)
         updateDecimalsNumber()
         updateTimeLabel.text = currencyUpdateTime
         scrollVCUp()
@@ -124,7 +124,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let move = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
             if self.pickedSection != "Своя" {
-                PopupView().showPopup(title: "Включите в настройках", message: "Сортировка → Своя", type: .lock)
+                PopupView().showPopup(title: "Пока нельзя", message: "Сначала включите в настройках: раздел Сортировка → Своя", type: .lock)
             } else if self.searchController.isActive {
                 PopupView().showPopup(title: "Пока нельзя", message: "Сначала завершите поиск", type: .lock)
             } else {
@@ -343,12 +343,13 @@ extension CurrencyViewController {
         }
         setupFetchedResultsController()
         
-        currencyNetworking.performRequest { errorCode in
-            if errorCode != nil {
+        currencyNetworking.performRequest { error in
+            if error != nil {
+                guard let error = error else { return }
                 self.tableView.refreshControl?.endRefreshing()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
                 DispatchQueue.main.async {
-                    PopupView().showPopup(title: "Ошибка \(errorCode ?? 0)", message: "Повторите ещё раз позже", type: .failure)
+                    PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
                 }
             } else {
                 DispatchQueue.main.async {

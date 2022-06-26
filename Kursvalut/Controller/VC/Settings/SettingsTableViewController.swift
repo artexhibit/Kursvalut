@@ -94,7 +94,7 @@ class SettingsTableViewController: UITableViewController {
         if UIApplication.shared.canOpenURL(appStoreReviewURL) {
             UIApplication.shared.open(appStoreReviewURL, options: [:], completionHandler: nil)
         } else {
-            PopupView().showPopup(title: "Ошибка", message: "Не могу открыть App Store", type: .failure)
+            PopupView().showPopup(title: "Ошибка", message: "Не получается открыть App Store", type: .failure)
         }
     }
 }
@@ -143,7 +143,7 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         if queue.transactions.isEmpty {
-            PopupView().showPopup(title: "Ошибка", message: "Pro не покупался", type: .failure)
+            PopupView().showPopup(title: "Ошибка", message: "Pro ранее не покупался", type: .failure)
         } else {
             PopupView().showPopup(title: "Успешно", message: "Покупка восстановлена", type: .restore)
         }
@@ -151,8 +151,7 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
     }
     
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-        guard let error = error as NSError? else { return }
-        PopupView().showPopup(title: "Ошибка \(error.code)", message: "Не удалось восстановить", type: .failure)
+        PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
         restoreSpinner.stopAnimating()
     }
 }
@@ -167,11 +166,11 @@ extension SettingsTableViewController:  MFMailComposeViewControllerDelegate {
         case .saved:
             dismiss(animated: true, completion: nil)
         case .sent:
-            PopupView().showPopup(title: "Письмо отправлено", message: "Скоро вам отвечу", type: .success)
+            PopupView().showPopup(title: "Письмо отправлено", message: "Скоро вам отвечу!", type: .success)
             dismiss(animated: true, completion: nil)
         case .failed:
-            guard let error = error as? NSError else { return }
-            PopupView().showPopup(title: "Ошибка \(error.code)", message: "Не удалось отправить", type: .failure)
+            guard let error = error else { return }
+            PopupView().showPopup(title: "Ошибка", message: "Не удалось отправить: \(error.localizedDescription)", type: .failure)
             dismiss(animated: true, completion: nil)
         @unknown default:
             dismiss(animated: true, completion: nil)
