@@ -75,10 +75,10 @@ struct CurrencyNetworking {
                 dataDict.forEach { url, data in
                     self.parseJSON(with: data, from: url)
                 }
-                DispatchQueue.main.async {
-                    coreDataManager.save()
-                }
                 completion(nil)
+            }
+            DispatchQueue.main.async {
+                coreDataManager.save()
             }
             pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.standard.setValue(updateTime, forKey: "forexUpdateTime")
         }

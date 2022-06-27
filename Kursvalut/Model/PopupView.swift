@@ -3,7 +3,7 @@ import UIKit
 
 class PopupView: UIView {
     
-    @IBOutlet weak var popupView: UIVisualEffectView!
+    @IBOutlet weak var cornerView: UIView!
     @IBOutlet weak var symbol: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -85,6 +85,17 @@ class PopupView: UIView {
         self.layoutIfNeeded()
     }
     
+    private func configureLabels() {
+        if isScrollable {
+            secondDescriptionLabel.isHidden = false
+            descriptionLabelLeftConstraint.constant = mainLabelLeadingBuffer
+            setupGradient(on: labelView)
+        } else {
+            descriptionLabel.centerXAnchor.constraint(equalTo: labelView.centerXAnchor).isActive = true
+            secondDescriptionLabel.isHidden = true
+        }
+    }
+    
     private func configurePanGesture() {
         let swipe = UIPanGestureRecognizer(target: self, action: #selector(didTriggerPan(_:)))
         self.addGestureRecognizer(swipe)
@@ -97,44 +108,49 @@ class PopupView: UIView {
         }
     }
     
-    private func configureLabels() {
-        if isScrollable {
-            secondDescriptionLabel.isHidden = false
-            descriptionLabelLeftConstraint.constant = mainLabelLeadingBuffer
-            setupGradient(on: labelView)
-        } else {
-            descriptionLabel.centerXAnchor.constraint(equalTo: labelView.centerXAnchor).isActive = true
-            secondDescriptionLabel.isHidden = true
+    private func popupImageFor(type: PopupType) -> UIImage {
+        var imageName: String = ""
+        
+        switch type {
+        case .success:
+            imageName = "okHand"
+        case .failure:
+            imageName = "thinkingFace"
+        case .purchase:
+            imageName = "heartEyesEmoji"
+        case .emailContact:
+            imageName = "compGuy"
+        case .restore:
+            imageName = "thumbsUp"
+        case .lock:
+            imageName = "indexPoint"
         }
+        return UIImage(named: "\(imageName)") ?? UIImage(named: "notFound")!
+    }
+    
+    func configurePopupDesign() {
+        self.backgroundColor = .clear
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 0.2
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 6.0)
+        self.layer.shadowRadius = 5.0
+        self.layer.masksToBounds = false
+        
+        cornerView.layer.masksToBounds = true
+        cornerView.clipsToBounds = true
+        cornerView.layer.cornerRadius = 20
     }
     
     func showPopup(title: String, message: String, type: PopupType) {
         titleLabel.text = title
         descriptionLabel.text = message
         secondDescriptionLabel.text = message
-        
-        switch type {
-        case .success:
-            self.symbol.image = UIImage(named: "okHand")
-        case .failure:
-            self.symbol.image = UIImage(named: "thinkingFace")
-        case .purchase:
-            self.symbol.image = UIImage(named: "heartEyesEmoji")
-        case .emailContact:
-            self.symbol.image = UIImage(named: "compGuy")
-        case .restore:
-            self.symbol.image = UIImage(named: "thumbsUp")
-        case .lock:
-            self.symbol.image = UIImage(named: "indexPoint")
-        }
-        
-        self.backgroundColor = .clear
-        self.layer.cornerRadius = 20
-        self.clipsToBounds = true
+        symbol.image = popupImageFor(type: type)
         
         configurePopup()
         configureLabels()
         configurePanGesture()
+        configurePopupDesign()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.animateIn()
