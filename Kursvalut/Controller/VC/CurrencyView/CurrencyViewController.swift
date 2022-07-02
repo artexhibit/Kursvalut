@@ -62,7 +62,7 @@ class CurrencyViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupFetchedResultsController()
-        currencyNetworking.checkOnFirstLaunchToday(with: updateTimeLabel, in: tableView)
+        currencyManager.checkOnFirstLaunchToday(with: updateTimeLabel, in: tableView)
         updateDecimalsNumber()
         updateTimeLabel.text = currencyUpdateTime
         scrollVCUp()

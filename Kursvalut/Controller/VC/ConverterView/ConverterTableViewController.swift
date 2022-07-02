@@ -55,7 +55,7 @@ class ConverterTableViewController: UITableViewController {
         setupFetchedResultsController()
         
         if pickedStartView == "Конвертер" {
-            currencyNetworking.checkOnFirstLaunchToday()
+            currencyManager.checkOnFirstLaunchToday()
         }
     }
     

@@ -130,10 +130,10 @@ class PopupView: UIView {
     
     func configurePopupDesign() {
         self.backgroundColor = .clear
-        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowColor = UIColor.darkGray.cgColor
         self.layer.shadowOpacity = 0.2
         self.layer.shadowOffset = CGSize(width: 0.0, height: 6.0)
-        self.layer.shadowRadius = 5.0
+        self.layer.shadowRadius = 6.0
         self.layer.masksToBounds = false
         
         cornerView.layer.masksToBounds = true

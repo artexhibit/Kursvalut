@@ -101,43 +101,4 @@ struct CurrencyNetworking {
             print("Error with JSON parsing, \(error)")
         }
     }
-    
-    //MARK: - Check For Today's First Launch Method
-    
-    func checkOnFirstLaunchToday(with label: UILabel = UILabel(), in tableView: UITableView = UITableView()) {
-        var wasLaunched: String {
-            return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
-        }
-        var today: String {
-            return currencyManager.showTime(with: "MM/dd/yyyy")
-        }
-        var currencyUpdateTime: String {
-            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (UserDefaults.standard.string(forKey: "forexUpdateTime") ?? "")
-        }
-        var userHasOnboarded: Bool {
-            return UserDefaults.standard.bool(forKey: "userHasOnboarded")
-        }
-        
-        if wasLaunched == today {
-            DispatchQueue.main.async {
-                label.text = currencyUpdateTime
-            }
-        } else {
-            performRequest { error in
-                if error != nil {
-                    guard let error = error else { return }
-                    PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
-                } else {
-                    DispatchQueue.main.async {
-                        label.text = currencyUpdateTime
-                        tableView.reloadData()
-                    }
-                    if userHasOnboarded {
-                        PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
-                    }
-                    UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
-                }
-            }
-        }
-    }
 }
