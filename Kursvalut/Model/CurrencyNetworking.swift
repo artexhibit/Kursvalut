@@ -40,7 +40,7 @@ struct CurrencyNetworking {
         var urlArray = [URL]()
         var dataDict = [URL: Data]()
         var completed = 0
-        var errorToShow: Error?
+        var errorToShow: Error!
         
         if pickedDataSource == "ЦБ РФ" {
             urlArray.append(currentBankOfRussiaURL)
@@ -69,17 +69,16 @@ struct CurrencyNetworking {
         
         group.notify(queue: .main) {
             if errorToShow != nil {
-                guard let errorToShow = errorToShow else { return }
                 completion(errorToShow)
             } else if completed == urlArray.count {
-                dataDict.forEach { url, data in
-                    self.parseJSON(with: data, from: url)
+                DispatchQueue.main.async {
+                    dataDict.forEach { url, data in
+                        self.parseJSON(with: data, from: url)
+                    }
                 }
                 completion(nil)
             }
-            DispatchQueue.main.async {
-                coreDataManager.save()
-            }
+            coreDataManager.save()
             pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.standard.setValue(updateTime, forKey: "forexUpdateTime")
         }
     }
