@@ -5,17 +5,16 @@ class DecimalsTableViewController: UITableViewController {
     
     private var currencyManager = CurrencyManager()
     private let userDefaults = UserDefaults.standard
-    private let optionsArray = ["1", "2", "3", "4"]
+    private let optionsArray = ["Количество знаков для цифры с курсом", "Количество знаков для процентов", "Количество знаков для цифры с курсом"]
     private let sectionsArray = [
         (header: "Экран Валюты", footer: ""),
-        (header: "", footer: "Количество десятичных знаков для показа"),
-        (header: "", footer: "Количество десятичных знаков для показа разницы и процентов"),
+        (header: "", footer: ""),
         (header: "Экран Конвертер", footer: ""),
-        (header: "", footer: "Количество десятичных знаков для показа")
+        (header: "", footer: "")
     ]
-    private let sectionNumber = (decimalCell: (firstCell: 1, secondCell: 2, thirdCell: 4),
+    private let sectionNumber = (decimalCell: (firstCell: 1, secondCell: 3),
                          currencyCell: (row: 0, section: 0),
-                         converterCell: (row: 0, section: 3)
+                         converterCell: (row: 0, section: 2)
     )
     private let previewNumber = (forCurrencyScreen: 65.1234, forConverterScreen: 60.1234, forCurrencyPercentageOne: 57.9855, forCurrencyPercentageTwo: 65.4128)
     
@@ -40,37 +39,33 @@ class DecimalsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == sectionNumber.decimalCell.firstCell || section == sectionNumber.decimalCell.secondCell || section == sectionNumber.decimalCell.thirdCell {
-            return optionsArray.count
-        } else {
-            return 1
-        }
+        return section == sectionNumber.decimalCell.firstCell ? 2 : 1
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionsArray[section].header
     }
     
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return sectionsArray[section].footer
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let pickedSection = indexPath.section
+        let pickedRow = indexPath.row
+        
         var loadDecimalsAmount: Int {
-            if pickedSection == sectionNumber.decimalCell.firstCell {
+            if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 0 {
                 return currencyScreenDecimalsAmount
-            } else if pickedSection == sectionNumber.decimalCell.secondCell {
+            } else if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 1 {
                 return currencyScreenPercentageAmount
             } else {
                 return converterScreenDecimalsAmount
             }
         }
         
-        if pickedSection == sectionNumber.decimalCell.firstCell || pickedSection == sectionNumber.decimalCell.secondCell || pickedSection == sectionNumber.decimalCell.thirdCell {
+        if pickedSection == sectionNumber.decimalCell.firstCell || pickedSection == sectionNumber.decimalCell.secondCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "decimalsCell", for: indexPath) as! DecimalsTableViewCell
-            cell.numberLabel.text = optionsArray[indexPath.row]
-            cell.accessoryType = cell.numberLabel.text == String(loadDecimalsAmount) ? .checkmark : .none
+            cell.delegate = self
+            cell.numberLabel.text = String(loadDecimalsAmount)
+            cell.stepper.value = Double(loadDecimalsAmount)
+            cell.titleLabel.text = optionsArray[indexPath.row]
             return cell
         } else if pickedSection == sectionNumber.currencyCell.section {
             let cell = tableView.dequeueReusableCell(withIdentifier: "currencyPreviewCell", for: indexPath) as! CurrencyPreviewTableViewCell
@@ -86,40 +81,32 @@ class DecimalsTableViewController: UITableViewController {
     
     //MARK: - TableView Delegate Methods
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        guard let cell = tableView.cellForRow(at: indexPath) as? DecimalsTableViewCell else { return }
-        let pickedSection = indexPath.section
-        let pickedOption = Int(cell.numberLabel.text ?? "2") ?? 2
-        
-        if cell.accessoryType != .checkmark {
-            for row in 0..<tableView.numberOfRows(inSection: pickedSection) {
-                guard let cell = tableView.cellForRow(at: IndexPath(row: row, section: pickedSection)) else { return }
-                cell.accessoryType = .none
-            }
-            cell.accessoryType = .checkmark
-        }
-        
-        if pickedSection == sectionNumber.decimalCell.firstCell {
-            userDefaults.set(pickedOption, forKey: "currencyScreenDecimals")
-            userDefaults.set(true, forKey: "decimalsNumberChanged")
-            tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
-        } else if pickedSection == sectionNumber.decimalCell.secondCell {
-            userDefaults.set(pickedOption, forKey: "currencyScreenPercentageDecimals")
-            userDefaults.set(true, forKey: "decimalsNumberChanged")
-            tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
-        } else {
-            userDefaults.set(pickedOption, forKey: "converterScreenDecimals")
-            tableView.reloadRows(at: [IndexPath(row: sectionNumber.converterCell.row, section: sectionNumber.converterCell.section)], with: .none)
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        tableView.estimatedSectionHeaderHeight
+        return section == 1 || section == 3 ? 5.0 : tableView.estimatedSectionHeaderHeight
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return tableView.estimatedSectionFooterHeight
+        return section == 0 || section == 2 ? 5.0 : tableView.estimatedSectionFooterHeight
+    }
+}
+
+extension DecimalsTableViewController: StepperDelegate {
+    func stepperWasPressed(cell: UITableViewCell, number: Int) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let pickedSection = indexPath.section
+        let pickedRow = indexPath.row
+        
+        if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 0 {
+            userDefaults.set(number, forKey: "currencyScreenDecimals")
+            userDefaults.set(true, forKey: "decimalsNumberChanged")
+            tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
+        } else if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 1 {
+            userDefaults.set(number, forKey: "currencyScreenPercentageDecimals")
+            userDefaults.set(true, forKey: "decimalsNumberChanged")
+            tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
+        } else {
+            userDefaults.set(number, forKey: "converterScreenDecimals")
+            tableView.reloadRows(at: [IndexPath(row: sectionNumber.converterCell.row, section: sectionNumber.converterCell.section)], with: .none)
+        }
     }
 }

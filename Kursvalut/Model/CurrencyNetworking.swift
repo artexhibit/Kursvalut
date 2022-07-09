@@ -71,13 +71,13 @@ struct CurrencyNetworking {
             if errorToShow != nil {
                 completion(errorToShow)
             } else if completed == urlArray.count {
-                DispatchQueue.main.async {
-                    dataDict.forEach { url, data in
-                        self.parseJSON(with: data, from: url)
-                    }
-                    coreDataManager.save()
+                dataDict.forEach { url, data in
+                    self.parseJSON(with: data, from: url)
                 }
                 completion(nil)
+            }
+            DispatchQueue.main.async {
+                self.coreDataManager.save()
             }
             pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.standard.setValue(updateTime, forKey: "forexUpdateTime")
         }
