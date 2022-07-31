@@ -193,18 +193,18 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gnh-tt-WDk" userLabel="1 Stack View">
-                                                    <rect key="frame" x="51" y="18.5" width="110" height="35"/>
+                                                    <rect key="frame" x="51" y="19.5" width="110" height="33"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4op-Cx-0Iz">
-                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="21.5"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Российский Рубль" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zq-F1-bUn">
-                                                            <rect key="frame" x="0.0" y="20.5" width="109" height="14.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <rect key="frame" x="0.0" y="19.5" width="110" height="13.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
                                                             <size key="shadowOffset" width="0.0" height="0.0"/>
@@ -213,14 +213,17 @@
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="4op-Cx-0Iz" secondAttribute="trailing" id="2us-hi-o8a"/>
                                                         <constraint firstItem="4op-Cx-0Iz" firstAttribute="top" secondItem="gnh-tt-WDk" secondAttribute="top" id="4OB-fC-UlY"/>
-                                                        <constraint firstAttribute="width" constant="110" id="Vc4-yi-hSc"/>
+                                                        <constraint firstAttribute="bottom" secondItem="0Zq-F1-bUn" secondAttribute="bottom" id="FPy-if-aY6"/>
+                                                        <constraint firstAttribute="trailing" secondItem="0Zq-F1-bUn" secondAttribute="trailing" id="ctz-ap-z4m"/>
+                                                        <constraint firstItem="0Zq-F1-bUn" firstAttribute="leading" secondItem="gnh-tt-WDk" secondAttribute="leading" id="lNg-5U-Ym5"/>
                                                         <constraint firstItem="4op-Cx-0Iz" firstAttribute="leading" secondItem="gnh-tt-WDk" secondAttribute="leading" id="wDj-OL-Z0n"/>
+                                                        <constraint firstAttribute="width" constant="110" id="z6i-S1-sge"/>
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="i8V-zC-tOh" userLabel="2 Stack View">
                                                     <rect key="frame" x="167" y="17.5" width="187" height="37.5"/>
                                                     <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dtx-EN-ZX9">
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="Dtx-EN-ZX9">
                                                             <rect key="frame" x="0.0" y="0.0" width="187" height="37.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
@@ -234,6 +237,10 @@
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gnh-tt-WDk" firstAttribute="centerY" secondItem="cGY-qt-ui7" secondAttribute="centerY" id="6XW-Sb-0Hm"/>
+                                                <constraint firstItem="7fS-Am-ALx" firstAttribute="centerY" secondItem="cGY-qt-ui7" secondAttribute="centerY" id="EjB-ZF-cod"/>
+                                            </constraints>
                                         </stackView>
                                     </subviews>
                                     <constraints>
@@ -3434,7 +3441,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zHs-jY-LdV"/>
+        <segue reference="ktb-yU-lAj"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="1.circle" width="11" height="11"/>
@@ -3460,8 +3467,8 @@
         <image name="eurosign" width="96" height="96"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="globe" width="11" height="11"/>
-        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
+        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="hand.wave" width="10" height="10"/>
         <image name="heart.fill" width="10" height="10"/>
         <image name="info.circle" width="11" height="11"/>

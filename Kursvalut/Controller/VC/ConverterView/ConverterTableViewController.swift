@@ -354,8 +354,9 @@ extension ConverterTableViewController: UITextFieldDelegate {
             }
         }
         if string == "D" {
-            let firstNumber = formatter.string(from: (Double(numbersArray.first?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "") ?? 0) as NSNumber) ?? ""
-            let secondNumber = formatter.string(from: (Double(numbersArray.last?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "") ?? 0) as NSNumber) ?? ""
+            let firstNumber = formatter.string(from: (Double(numbersArray.first?.replacingOccurrences(of: "D", with: "").replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "") ?? 0) as NSNumber) ?? ""
+            let secondNumber = formatter.string(from: (Double(numbersArray.last?.replacingOccurrences(of: "D", with: "").replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "") ?? 0) as NSNumber) ?? ""
+            print(secondNumber)
             
             if numberString.contains(symbol) && numberString.first != "-" {
                 textField.text = lastCharacter == Character(symbol) ? "\(firstNumber)\(symbol)" : "\(firstNumber)\(symbol)\(secondNumber)"
