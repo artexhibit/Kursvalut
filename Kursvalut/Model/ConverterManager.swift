@@ -9,16 +9,16 @@ struct ConverterManager {
     
     //MARK: - Calculation Methods
     
-    func setupNumberFormatter(withMaxFractionDigits digits: Int = 0, roundDown: Bool = false) -> NumberFormatter {
+    func setupNumberFormatter(withMaxFractionDigits digits: Int = 0, roundDown: Bool = false, needMinFractionDigits: Bool = false) -> NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        formatter.groupingSeparator = " "
+        formatter.locale = .current
+        formatter.minimumFractionDigits = needMinFractionDigits ? 1 : 0
         formatter.maximumFractionDigits = digits
         
         if roundDown {
             formatter.roundingMode = .down
         }
-        
         return formatter
     }
     

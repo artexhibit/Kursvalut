@@ -80,6 +80,7 @@ class ConverterTableViewController: UITableViewController {
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
+            cell.numberTextField.inputView = NumpadView(target: cell.numberTextField, view: view)
             cell.numberTextField.isHidden = isInEdit ? true : false
             
             if let number = numberFromTextField, let pickedCurrency = pickedBankOfRussiaCurrency {
@@ -91,6 +92,7 @@ class ConverterTableViewController: UITableViewController {
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
+            cell.numberTextField.inputView = NumpadView(target: cell.numberTextField, view: view)
             cell.numberTextField.isHidden = isInEdit ? true : false
             
             if let number = numberFromTextField, let pickedCurrency = pickedForexCurrency {
@@ -216,7 +218,6 @@ class ConverterTableViewController: UITableViewController {
 
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        setupToolbar(with: textField)
         textField.textColor = UIColor(named: "\(appColor)")
         
         if textField.text == "0" {
@@ -280,23 +281,181 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount, roundDown: true)
-        let textString = textField.text ?? ""
-        guard let range = Range(range, in: textString) else { return false }
-        let updatedString = textString.replacingCharacters(in: range, with: string)
-        let correctDecimalString = updatedString.replacingOccurrences(of: ",", with: ".")
-        let completeString = correctDecimalString.replacingOccurrences(of: formatter.groupingSeparator, with: "")
+        let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount, roundDown: true, needMinFractionDigits: true)
         
-        numberFromTextField = completeString.isEmpty ? 0 : Double(completeString)
-        guard completeString.count <= 12 else { return false }
-        guard !completeString.isEmpty else { return true }
+        let numberString = "\(textField.text ?? "")".replacingOccurrences(of: formatter.groupingSeparator, with: "")
+        let rangeString = (((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)).replacingOccurrences(of: formatter.groupingSeparator, with: "")
         
-        textField.text = formatter.string(for: numberFromTextField)
-        return string == formatter.decimalSeparator
+        let lastCharacter = numberString.last ?? "."
+        var symbol: String {
+            var tempArray = [String]()
+            let mathSymbols = "+-÷x"
+            for character in numberString {
+                if mathSymbols.contains(character) {
+                    tempArray.append(String(character))
+                }
+            }
+            return tempArray.last ?? "/"
+        }
+        var numbersArray: [String] {
+            if rangeString.first == "-" {
+                let positiveString = rangeString.dropFirst()
+                var tempArray = positiveString.components(separatedBy: symbol)
+                tempArray[0] = "-\(tempArray[0])"
+                return tempArray
+            } else {
+                return rangeString.components(separatedBy: symbol)
+            }
+        }
+        //turn numbers into Float and create a String from them to be able to receive a correct result from NSExpression
+        var floatNumberArray: [Float] {
+            if numberString.first == "-" {
+                let tempString = lastCharacter == Character(formatter.decimalSeparator) ? numberString.dropFirst().dropLast() : numberString.dropFirst()
+                var tempArray = tempString.components(separatedBy: symbol)
+                tempArray[0] = "-\(tempArray[0])"
+                return tempArray.compactMap { Float($0.replacingOccurrences(of: formatter.decimalSeparator, with: ".")) }
+            } else {
+                return numberString.components(separatedBy: symbol).compactMap { Float($0.replacingOccurrences(of: formatter.decimalSeparator, with: ".")) }
+            }
+        }
+        var floatNumberString: String {
+            if numberString.contains("x") {
+                return "\(floatNumberArray.first ?? 0)\("*")\(floatNumberArray.last ?? 0)"
+            } else if numberString.contains("÷") {
+                return "\(floatNumberArray.first ?? 0)\("/")\(floatNumberArray.last ?? 0)"
+            } else {
+                return "\(floatNumberArray.first ?? 0)\(symbol)\(floatNumberArray.last ?? 0)"
+            }
+        }
+        var numberForTextField: Double {
+            let tempString = textField.text?.first == "-" ? textField.text?.dropFirst().replacingOccurrences(of: formatter.groupingSeparator, with: "").replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "0" : textField.text?.replacingOccurrences(of: formatter.groupingSeparator, with: "").replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "0"
+            
+            var containsSymbol = false
+            let mathSymbols = "+-÷x"
+            for character in tempString {
+                if mathSymbols.contains(character) {
+                    containsSymbol = true
+                }
+            }
+            return containsSymbol ? numberFromTextField ?? 0 : Double(tempString) ?? 0
+        }
+        
+        //allow to insert 0 after the decimal symbol to avoid formatting i.e. 2.04
+        formatter.minimumFractionDigits = numberString.last == Character(formatter.decimalSeparator) && string == "0" ? 1 : 0
+        
+        //allow string to be modified by backspace button
+        if string == "" { return false }
+        if string == "=" {
+            if lastCharacter == Character(symbol) {
+                textField.text = "\(formatter.string(for: Double(numberString.dropLast())) ?? "")"
+                return false
+            } else if !numberString.contains(symbol) {
+                return false
+            }
+        }
+        if string == "D" {
+            let firstNumber = formatter.string(from: (Double(numbersArray.first?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "") ?? 0) as NSNumber) ?? ""
+            let secondNumber = formatter.string(from: (Double(numbersArray.last?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "") ?? 0) as NSNumber) ?? ""
+            
+            if numberString.contains(symbol) && numberString.first != "-" {
+                textField.text = lastCharacter == Character(symbol) ? "\(firstNumber)\(symbol)" : "\(firstNumber)\(symbol)\(secondNumber)"
+            } else if numberString.first == "-" {
+                if !numberString.dropFirst().contains(symbol) {
+                    textField.text = firstNumber
+                    numberFromTextField = Double(firstNumber)
+                    
+                    if firstNumber == "0" {
+                        textField.placeholder = "0"
+                        textField.text = ""
+                    }
+                } else {
+                    textField.text = lastCharacter == Character(symbol) ? "\(firstNumber)\(symbol)" : "\(firstNumber)\(symbol)\(secondNumber)"
+                }
+            } else {
+                textField.text = formatter.string(from: numberForTextField as NSNumber) ?? ""
+                numberFromTextField = numberForTextField
+            }
+            
+            if numberString.isEmpty {
+                numberFromTextField = 0
+                textField.placeholder = "0"
+                textField.text = ""
+            }
+            reloadCurrencyRows()
+            return false
+        }
+        if string == "C" {
+            numberFromTextField = 0
+            textField.placeholder = "0"
+            textField.text = ""
+            reloadCurrencyRows()
+            return false
+        }
+        //allow numbers as a first character, except math symbols
+        if numberString == "" {
+            if Character(string).isNumber {
+                textField.text = string
+            } else if string == formatter.decimalSeparator {
+                textField.text = "0" + string
+            } else {
+                return false
+            }
+        }
+        //allow only one decimal symbol per number
+        for number in numbersArray {
+            let amountOfDecimalSigns = number.filter({$0 == "."}).count
+            if amountOfDecimalSigns > 1 { return false }
+        }
+         
+        if numbersArray.count > 1 {
+        //if number is entered
+            if Character(string).isNumber {
+                textField.text = "\(formatter.string(for: Double("\(numbersArray.first?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "")") ?? 0) ?? "")\(symbol)\(formatter.string(for: Double("\(numbersArray.last?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "")") ?? 0) ?? "")"
+        //if symbol is entered
+            } else if string == formatter.decimalSeparator {
+                textField.text = "\(textField.text ?? "")\(string)"
+            } else {
+        //perform calculation if last entered character is a number
+                if lastCharacter.isNumber {
+                    if floatNumberArray.count == 2 {
+                        let result = performCalculation(format: floatNumberString)
+                        numberFromTextField = result as? Double
+                        textField.text = string == "=" ? "\(formatter.string(from: result) ?? "")" : "\(formatter.string(from: result) ?? "")\(string)"
+                    } else {
+                        textField.text = "\(textField.text ?? "")\(string)"
+                    }
+        //perform calculation if last entered character is a decimal symbol
+                } else if lastCharacter == Character(formatter.decimalSeparator) {
+                    let result = performCalculation(format: floatNumberString)
+                    numberFromTextField = result as? Double
+                    textField.text = string == "=" ? "\(formatter.string(from: result) ?? "")" : "\(formatter.string(from: result) ?? "")\(string)"
+        //change math symbol before enter a second number
+                } else {
+                    textField.text = "\(textField.text?.dropLast() ?? "")\(string)"
+                }
+            }
+        } else {
+        //if number is entered
+            if Character(string).isNumber {
+                textField.text = "\(formatter.string(for: Double("\(numbersArray.first?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "")") ?? 0) ?? "")"
+            } else {
+        //if math symbol is entered
+                if lastCharacter.isNumber {
+                    textField.text = "\(textField.text ?? "")\(string)"
+                }
+            }
+        }
+        numberFromTextField = numberForTextField
+        reloadCurrencyRows()
+        return false
+    }
+    
+    func performCalculation(format: String) -> NSNumber {
+        let expression = NSExpression(format: format)
+        let answer = expression.expressionValue(with: nil, context: nil)
+        return answer as! NSNumber
     }
 }
-
-//MARK: - Keyboard Handling Methods
 
 extension ConverterTableViewController {
     func setupKeyboardHide() {
@@ -304,26 +463,11 @@ extension ConverterTableViewController {
         view.addGestureRecognizer(tap)
     }
     
-    func setupToolbar(with textField: UITextField) {
-        let bar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 20))
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(image: UIImage(named: "chevron.down"), style: .done, target: self, action: #selector(dismissKeyboard))
-        let clearButton = UIBarButtonItem(image: UIImage(named:"xmark.circle"), style: .plain, target: self, action: #selector(clearTextField))
-        doneButton.tintColor = UIColor(named: "\(appColor)")
-        clearButton.tintColor = UIColor(named: "\(appColor)")
-        
-        bar.items = [clearButton, flexSpace, doneButton]
-        bar.sizeToFit()
-        textField.inputAccessoryView = bar
-    }
-    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
-    @objc func clearTextField() {
-        pickedTextField.text = ""
-        numberFromTextField = 0
+    func reloadCurrencyRows() {
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: pickedTextField, and: tableView)
         converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
     }

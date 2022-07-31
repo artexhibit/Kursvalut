@@ -46,6 +46,9 @@
 		787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */; };
 		78871A4B2789F4F700321E98 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 78871A4A2789F4F700321E98 /* README.md */; };
 		789A767227DA74F700B8EE06 /* AboutAppDataProvidersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A767127DA74F700B8EE06 /* AboutAppDataProvidersTableViewCell.swift */; };
+		789FD81C288F065C0084468F /* NumpadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 789FD81B288F065C0084468F /* NumpadView.xib */; };
+		789FD81E288F06B80084468F /* NumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789FD81D288F06B80084468F /* NumpadView.swift */; };
+		789FD820288F06E70084468F /* NumpadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789FD81F288F06E70084468F /* NumpadButton.swift */; };
 		78B40A1027D659BB0016D9E6 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B40A0F27D659BB0016D9E6 /* TermsOfUseViewController.swift */; };
 		78B40A1327D659F60016D9E6 /* TermsOfUseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B40A1227D659F60016D9E6 /* TermsOfUseTableViewCell.swift */; };
 		78B49AE427CBD3D5003C975D /* DecimalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */; };
@@ -117,6 +120,9 @@
 		787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterManager.swift; sourceTree = "<group>"; };
 		78871A4A2789F4F700321E98 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		789A767127DA74F700B8EE06 /* AboutAppDataProvidersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppDataProvidersTableViewCell.swift; sourceTree = "<group>"; };
+		789FD81B288F065C0084468F /* NumpadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumpadView.xib; sourceTree = "<group>"; };
+		789FD81D288F06B80084468F /* NumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadView.swift; sourceTree = "<group>"; };
+		789FD81F288F06E70084468F /* NumpadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadButton.swift; sourceTree = "<group>"; };
 		78B40A0F27D659BB0016D9E6 /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		78B40A1227D659F60016D9E6 /* TermsOfUseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseTableViewCell.swift; sourceTree = "<group>"; };
 		78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalsTableViewController.swift; sourceTree = "<group>"; };
@@ -191,6 +197,7 @@
 		78041C2F2786FD0400C4D861 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				789FD821288F31970084468F /* Numpad */,
 				78E0027A283EA91C00EE9B4C /* CurrencyJSONDecodingModels */,
 				78D3DA0D2787687400A91511 /* CurrencyManager.swift */,
 				787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */,
@@ -230,6 +237,7 @@
 				78041C242786F9FB00C4D861 /* Assets.xcassets */,
 				78041C262786F9FB00C4D861 /* LaunchScreen.storyboard */,
 				78BD46DA27F06B6D002AFDA1 /* PopupView.xib */,
+				789FD81B288F065C0084468F /* NumpadView.xib */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -292,6 +300,15 @@
 				78F2716427CFDD1800381CA9 /* Settings */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		789FD821288F31970084468F /* Numpad */ = {
+			isa = PBXGroup;
+			children = (
+				789FD81D288F06B80084468F /* NumpadView.swift */,
+				789FD81F288F06E70084468F /* NumpadButton.swift */,
+			);
+			path = Numpad;
 			sourceTree = "<group>";
 		};
 		78E0027A283EA91C00EE9B4C /* CurrencyJSONDecodingModels */ = {
@@ -441,6 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				78D3DA0A2787313D00A91511 /* Main.storyboard in Resources */,
+				789FD81C288F065C0084468F /* NumpadView.xib in Resources */,
 				78137FED2834127300F4621E /* changeConverterCell.gif in Resources */,
 				78137FE52834047400F4621E /* changeCellOrder.gif in Resources */,
 				78041C282786F9FB00C4D861 /* LaunchScreen.storyboard in Resources */,
@@ -490,6 +508,7 @@
 				78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */,
 				78041C1B2786F9FA00C4D861 /* SceneDelegate.swift in Sources */,
 				78E00279283EA57100EE9B4C /* ForexCurrencyData.swift in Sources */,
+				789FD820288F06E70084468F /* NumpadButton.swift in Sources */,
 				78522961279B1A1B00507877 /* PickCurrencyTableViewCell.swift in Sources */,
 				78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */,
 				786479AA27981E410077ABC7 /* ConverterTableViewController.swift in Sources */,
@@ -502,6 +521,7 @@
 				78041C232786F9FA00C4D861 /* Kursvalut.xcdatamodeld in Sources */,
 				78F13FF127CE9AC60076613A /* CurrencyPreviewTableViewCell.swift in Sources */,
 				78B40A1027D659BB0016D9E6 /* TermsOfUseViewController.swift in Sources */,
+				789FD81E288F06B80084468F /* NumpadView.swift in Sources */,
 				780AA2E7280ACE9000ECC3C4 /* OnboardingViewController.swift in Sources */,
 				78B9F55D2801B9B50030ECF4 /* MainSortTableViewCell.swift in Sources */,
 				78B9F5612801BBAA0030ECF4 /* SortingSection.swift in Sources */,
@@ -677,7 +697,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -706,7 +726,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

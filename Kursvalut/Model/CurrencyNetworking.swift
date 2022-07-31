@@ -61,7 +61,9 @@ struct CurrencyNetworking {
                     session.invalidateAndCancel()
                 } else if let data = data {
                     completed += 1
-                    dataDict[url] = data
+                    DispatchQueue.main.async {
+                        dataDict[url] = data
+                    }
                 }
             }
             task.resume()
