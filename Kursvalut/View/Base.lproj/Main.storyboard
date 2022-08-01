@@ -185,13 +185,35 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="cGY-qt-ui7">
                                             <rect key="frame" x="10" y="0.0" width="354" height="72"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RUB" translatesAutoresizingMaskIntoConstraints="NO" id="7fS-Am-ALx" userLabel="Flag">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="now-j9-YAW" userLabel="Flag View">
                                                     <rect key="frame" x="0.0" y="6" width="45" height="60"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RUB" translatesAutoresizingMaskIntoConstraints="NO" id="7fS-Am-ALx" userLabel="Flag">
+                                                            <rect key="frame" x="0.0" y="15" width="45" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="Vgg-sF-zjS"/>
+                                                                <constraint firstAttribute="width" constant="45" id="ukM-js-zC8"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <button hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ftE-ud-l6J">
+                                                            <rect key="frame" x="37" y="35" width="13" height="13"/>
+                                                            <color key="backgroundColor" name="OrangeColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="13" id="4Jp-xr-NUx"/>
+                                                                <constraint firstAttribute="height" constant="13" id="d3D-qh-5Rh"/>
+                                                            </constraints>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        </button>
+                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="45" id="Mru-UV-q2o"/>
-                                                        <constraint firstAttribute="height" priority="750" constant="60" id="cRl-RO-Za2"/>
+                                                        <constraint firstAttribute="height" constant="60" id="5uB-YK-yrP"/>
+                                                        <constraint firstItem="7fS-Am-ALx" firstAttribute="centerY" secondItem="now-j9-YAW" secondAttribute="centerY" id="Sy5-DT-xHD"/>
+                                                        <constraint firstAttribute="width" constant="45" id="avR-BL-ILw"/>
+                                                        <constraint firstItem="7fS-Am-ALx" firstAttribute="bottom" secondItem="ftE-ud-l6J" secondAttribute="bottom" constant="-3" id="ecl-ll-opd"/>
+                                                        <constraint firstItem="7fS-Am-ALx" firstAttribute="centerX" secondItem="now-j9-YAW" secondAttribute="centerX" id="lEx-Yx-pe2"/>
+                                                        <constraint firstItem="7fS-Am-ALx" firstAttribute="trailing" secondItem="ftE-ud-l6J" secondAttribute="trailing" constant="-5" id="qNz-my-8PQ"/>
                                                     </constraints>
-                                                </imageView>
+                                                </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gnh-tt-WDk" userLabel="1 Stack View">
                                                     <rect key="frame" x="51" y="19.5" width="110" height="33"/>
                                                     <subviews>
@@ -239,7 +261,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="gnh-tt-WDk" firstAttribute="centerY" secondItem="cGY-qt-ui7" secondAttribute="centerY" id="6XW-Sb-0Hm"/>
-                                                <constraint firstItem="7fS-Am-ALx" firstAttribute="centerY" secondItem="cGY-qt-ui7" secondAttribute="centerY" id="EjB-ZF-cod"/>
+                                                <constraint firstItem="now-j9-YAW" firstAttribute="centerY" secondItem="cGY-qt-ui7" secondAttribute="centerY" id="klx-CU-Uti"/>
                                             </constraints>
                                         </stackView>
                                     </subviews>
@@ -252,6 +274,7 @@
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="62" minY="0.0" maxX="13" maxY="0.0"/>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="ftE-ud-l6J" id="Qej-3U-KIB"/>
                                     <outlet property="flag" destination="7fS-Am-ALx" id="bGJ-r4-TbI"/>
                                     <outlet property="fullName" destination="0Zq-F1-bUn" id="gfk-Bh-w1a"/>
                                     <outlet property="numberTextField" destination="Dtx-EN-ZX9" id="Rel-Er-lPJ"/>
@@ -282,7 +305,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2BI-ex-Q7P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="258" y="1588"/>
+            <point key="canvasLocation" x="257.97101449275362" y="1587.7232142857142"/>
         </scene>
         <!--Pick Currency Table View Controller-->
         <scene sceneID="X79-H2-AaX">

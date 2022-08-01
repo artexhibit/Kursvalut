@@ -16,6 +16,7 @@ class ConverterTableViewController: UITableViewController {
     private var pickedBankOfRussiaCurrency: Currency?
     private var pickedForexCurrency: ForexCurrency?
     private var isInEdit = false
+    private var pickedCellShortName = ""
     private var pickedNameArray = [String]()
     private var pickedTextField = UITextField()
     private var converterScreenDecimalsAmount: Int {
@@ -82,6 +83,7 @@ class ConverterTableViewController: UITableViewController {
             cell.numberTextField.delegate = self
             cell.numberTextField.inputView = NumpadView(target: cell.numberTextField, view: view)
             cell.numberTextField.isHidden = isInEdit ? true : false
+            cell.activityIndicator.isHidden = cell.shortName.text == pickedCellShortName ? false : true
             
             if let number = numberFromTextField, let pickedCurrency = pickedBankOfRussiaCurrency {
                 cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
@@ -94,6 +96,7 @@ class ConverterTableViewController: UITableViewController {
             cell.numberTextField.delegate = self
             cell.numberTextField.inputView = NumpadView(target: cell.numberTextField, view: view)
             cell.numberTextField.isHidden = isInEdit ? true : false
+            cell.activityIndicator.isHidden = cell.shortName.text == pickedCellShortName ? false : true
             
             if let number = numberFromTextField, let pickedCurrency = pickedForexCurrency {
                 cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
@@ -218,6 +221,7 @@ class ConverterTableViewController: UITableViewController {
 
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        switchCellActivityIndicator(with: textField)
         textField.textColor = UIColor(named: "\(appColor)")
         
         if textField.text == "0" {
@@ -455,6 +459,20 @@ extension ConverterTableViewController: UITextFieldDelegate {
         let expression = NSExpression(format: format)
         let answer = expression.expressionValue(with: nil, context: nil)
         return answer as! NSNumber
+    }
+    
+    func switchCellActivityIndicator(with textField: UITextField) {
+        for row in 0..<tableView.numberOfRows(inSection: 0) {
+            let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! ConverterTableViewCell
+            cell.activityIndicator.isHidden = true
+        }
+        
+        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
+        let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as! ConverterTableViewCell
+        if cell.numberTextField.isFirstResponder {
+            cell.activityIndicator.isHidden = false
+        }
+        pickedCellShortName = cell.shortName.text ?? ""
     }
 }
 
