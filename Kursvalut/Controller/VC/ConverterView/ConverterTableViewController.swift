@@ -84,6 +84,9 @@ class ConverterTableViewController: UITableViewController {
             cell.numberTextField.inputView = NumpadView(target: cell.numberTextField, view: view)
             cell.numberTextField.isHidden = isInEdit ? true : false
             cell.activityIndicator.isHidden = cell.shortName.text == pickedCellShortName ? false : true
+            if numberFromTextField == 0 {
+                cell.activityIndicator.isHidden = true
+            }
             
             if let number = numberFromTextField, let pickedCurrency = pickedBankOfRussiaCurrency {
                 cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
@@ -97,6 +100,9 @@ class ConverterTableViewController: UITableViewController {
             cell.numberTextField.inputView = NumpadView(target: cell.numberTextField, view: view)
             cell.numberTextField.isHidden = isInEdit ? true : false
             cell.activityIndicator.isHidden = cell.shortName.text == pickedCellShortName ? false : true
+            if numberFromTextField == 0 {
+                cell.activityIndicator.isHidden = true
+            }
             
             if let number = numberFromTextField, let pickedCurrency = pickedForexCurrency {
                 cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
@@ -221,7 +227,7 @@ class ConverterTableViewController: UITableViewController {
 
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        switchCellActivityIndicator(with: textField)
+        turnOnCellActivityIndicator(with: textField)
         textField.textColor = UIColor(named: "\(appColor)")
         
         if textField.text == "0" {
@@ -236,9 +242,8 @@ extension ConverterTableViewController: UITextFieldDelegate {
         textField.textColor = UIColor(named: "BlackColor")
         
         guard let text = textField.text else { return }
-        if text.isEmpty {
-            textField.text = "0"
-        }
+        if text.isEmpty { textField.text = "0" }
+        turnOffCellActivityIndicator(with: textField)
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -360,7 +365,6 @@ extension ConverterTableViewController: UITextFieldDelegate {
         if string == "D" {
             let firstNumber = formatter.string(from: (Double(numbersArray.first?.replacingOccurrences(of: "D", with: "").replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "") ?? 0) as NSNumber) ?? ""
             let secondNumber = formatter.string(from: (Double(numbersArray.last?.replacingOccurrences(of: "D", with: "").replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "") ?? 0) as NSNumber) ?? ""
-            print(secondNumber)
             
             if numberString.contains(symbol) && numberString.first != "-" {
                 textField.text = lastCharacter == Character(symbol) ? "\(firstNumber)\(symbol)" : "\(firstNumber)\(symbol)\(secondNumber)"
@@ -461,7 +465,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         return answer as! NSNumber
     }
     
-    func switchCellActivityIndicator(with textField: UITextField) {
+    func turnOnCellActivityIndicator(with textField: UITextField) {
         for row in 0..<tableView.numberOfRows(inSection: 0) {
             let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! ConverterTableViewCell
             cell.activityIndicator.isHidden = true
@@ -473,6 +477,15 @@ extension ConverterTableViewController: UITextFieldDelegate {
             cell.activityIndicator.isHidden = false
         }
         pickedCellShortName = cell.shortName.text ?? ""
+    }
+    
+    func turnOffCellActivityIndicator(with textField: UITextField) {
+        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
+        let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as! ConverterTableViewCell
+        
+        if !cell.numberTextField.isFirstResponder && numberFromTextField == 0 {
+            cell.activityIndicator.isHidden = true
+        }
     }
 }
 

@@ -27,7 +27,7 @@ extension UIScreen {
         case unknown = 0
     }
     
-    fileprivate var sizeType: SizeType {
+    var sizeType: SizeType {
         return UIScreen.SizeType(rawValue: UIScreen.main.nativeBounds.height) ?? .unknown
     }
 }

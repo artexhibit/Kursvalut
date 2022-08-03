@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kPs-c4-rso">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -215,17 +215,17 @@
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gnh-tt-WDk" userLabel="1 Stack View">
-                                                    <rect key="frame" x="51" y="19.5" width="110" height="33"/>
+                                                    <rect key="frame" x="51" y="19.5" width="101" height="33"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4op-Cx-0Iz">
-                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="101" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Российский Рубль" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zq-F1-bUn">
-                                                            <rect key="frame" x="0.0" y="19.5" width="110" height="13.5"/>
+                                                            <rect key="frame" x="0.0" y="19.5" width="101" height="13.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
@@ -239,14 +239,13 @@
                                                         <constraint firstAttribute="trailing" secondItem="0Zq-F1-bUn" secondAttribute="trailing" id="ctz-ap-z4m"/>
                                                         <constraint firstItem="0Zq-F1-bUn" firstAttribute="leading" secondItem="gnh-tt-WDk" secondAttribute="leading" id="lNg-5U-Ym5"/>
                                                         <constraint firstItem="4op-Cx-0Iz" firstAttribute="leading" secondItem="gnh-tt-WDk" secondAttribute="leading" id="wDj-OL-Z0n"/>
-                                                        <constraint firstAttribute="width" constant="110" id="z6i-S1-sge"/>
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="i8V-zC-tOh" userLabel="2 Stack View">
-                                                    <rect key="frame" x="167" y="17.5" width="187" height="37.5"/>
+                                                    <rect key="frame" x="158" y="17.5" width="196" height="37.5"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="Dtx-EN-ZX9">
-                                                            <rect key="frame" x="0.0" y="0.0" width="187" height="37.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="196" height="37.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                                         </textField>
@@ -277,6 +276,7 @@
                                     <outlet property="activityIndicator" destination="ftE-ud-l6J" id="Qej-3U-KIB"/>
                                     <outlet property="flag" destination="7fS-Am-ALx" id="bGJ-r4-TbI"/>
                                     <outlet property="fullName" destination="0Zq-F1-bUn" id="gfk-Bh-w1a"/>
+                                    <outlet property="fullNameWidth" destination="gnh-tt-WDk" id="636-X4-Ej1"/>
                                     <outlet property="numberTextField" destination="Dtx-EN-ZX9" id="Rel-Er-lPJ"/>
                                     <outlet property="shortName" destination="4op-Cx-0Iz" id="UUk-5S-ieR"/>
                                 </connections>
@@ -3490,8 +3490,8 @@
         <image name="eurosign" width="96" height="96"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="globe" width="11" height="11"/>
-        <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
         <image name="globe.europe.africa.fill" width="11" height="11"/>
+        <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
         <image name="hand.wave" width="10" height="10"/>
         <image name="heart.fill" width="10" height="10"/>
         <image name="info.circle" width="11" height="11"/>
