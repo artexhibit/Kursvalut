@@ -10,12 +10,16 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var purchaseButton: UIButton!
     @IBOutlet weak var pickedThemeLabel: UILabel!
     @IBOutlet weak var restoreSpinner: UIActivityIndicatorView!
+    @IBOutlet weak var keyboardSoundSwitch: UISwitch!
     
     private var pickedTheme: String {
         return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
     }
     private var proPurchased: Bool {
         return UserDefaults.standard.bool(forKey: "kursvalutPro")
+    }
+    private var keyboardWithSound: Bool {
+        return UserDefaults.standard.bool(forKey: "keyboardWithSound")
     }
     
     override func viewDidLoad() {
@@ -31,6 +35,23 @@ class SettingsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         pickedThemeLabel.text = pickedTheme
+        loadKeyboardSoundSwitchState()
+    }
+    
+    @IBAction func keyboardSoundSwitchPressed(_ sender: UISwitch) {
+        if keyboardSoundSwitch.isOn {
+            UserDefaults.standard.set(true, forKey: "keyboardWithSound")
+        } else {
+            UserDefaults.standard.set(false, forKey: "keyboardWithSound")
+        }
+    }
+    
+    func loadKeyboardSoundSwitchState() {
+        if keyboardWithSound {
+            keyboardSoundSwitch.setOn(true, animated: false)
+        } else {
+            keyboardSoundSwitch.setOn(false, animated: false)
+        }
     }
     
     func roundViewCorners() {

@@ -112,6 +112,7 @@ class ConverterTableViewController: UITableViewController {
         if setTextFieldToZero {
             cell.numberTextField.text = "0"
             numberFromTextField = 0
+            cell.activityIndicator.isHidden = true
         }
         return cell
     }

@@ -6,13 +6,18 @@ class NumpadView: UIView, UIInputViewAudioFeedback {
     @IBOutlet weak var resetButton: NumpadButton!
     @IBOutlet weak var decimalButton: NumpadButton!
     
-    var target: UITextInput?
-    var view: UIView?
-    var enableInputClicksWhenVisible: Bool { return true }
-    var decimalSeparator: String {
+    private var keyboardWithSound: Bool {
+        return UserDefaults.standard.bool(forKey: "keyboardWithSound")
+    }
+    private var target: UITextInput?
+    private var view: UIView?
+    var enableInputClicksWhenVisible: Bool {
+        return keyboardWithSound ? true : false
+    }
+    private var decimalSeparator: String {
         return Locale.current.decimalSeparator ?? "."
     }
-    let resetButtonTitle = (pressed: "AC", inAction: "C")
+    private let resetButtonTitle = (pressed: "AC", inAction: "C")
     
     init(target: UITextInput, view: UIView) {
         super.init(frame: .zero)
