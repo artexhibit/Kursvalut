@@ -35,7 +35,9 @@ class NumpadView: UIView, UIInputViewAudioFeedback {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        roundKeyboardCorners()
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            roundKeyboardCorners()
+        }
     }
     
     private func setupDecimalButton() {
@@ -53,7 +55,7 @@ class NumpadView: UIView, UIInputViewAudioFeedback {
     private func roundKeyboardCorners() {
         guard let superview = superview else { return }
         let maskLayer = CAShapeLayer()
-        let path = UIBezierPath(roundedRect: bounds, cornerRadius: 25)
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 25, height: 25))
         maskLayer.path = path.cgPath
         superview.layer.mask = maskLayer
     }
