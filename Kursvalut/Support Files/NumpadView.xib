@@ -16,7 +16,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clipsSubviews="YES" contentMode="scaleToFill" id="w35-oq-szw">
+        <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="w35-oq-szw">
             <rect key="frame" x="0.0" y="0.0" width="552" height="446"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>

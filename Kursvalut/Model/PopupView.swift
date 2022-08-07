@@ -128,7 +128,7 @@ class PopupView: UIView {
         return UIImage(named: "\(imageName)") ?? UIImage(named: "notFound")!
     }
     
-    func configurePopupDesign() {
+    private func configurePopupDesign() {
         self.backgroundColor = .clear
         self.layer.shadowColor = UIColor.darkGray.cgColor
         self.layer.shadowOpacity = 0.2
