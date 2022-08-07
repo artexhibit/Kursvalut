@@ -44,7 +44,7 @@ class NumpadButton: UIButton {
         //bottom shadow
         layer.shadowOffset = CGSize(width: 0, height: 1.8)
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        layer.shadowOpacity = 1.0
+        layer.shadowOpacity = 0.5
         layer.shadowRadius = 0.0
         layer.masksToBounds = false
     }

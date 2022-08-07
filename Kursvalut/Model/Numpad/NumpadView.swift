@@ -33,16 +33,29 @@ class NumpadView: UIView, UIInputViewAudioFeedback {
         setupDecimalButton()
     }
     
-    func setupDecimalButton() {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        roundKeyboardCorners()
+    }
+    
+    private func setupDecimalButton() {
         decimalButton.setTitle(decimalSeparator, for: .normal)
     }
     
-    func initializeSubview() {
+    private func initializeSubview() {
         let xibFileName = "NumpadView"
         let view = Bundle.main.loadNibNamed(xibFileName, owner: self, options: nil)![0] as! UIView
         self.addSubview(view)
         view.frame = self.bounds
         self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    }
+    
+    private func roundKeyboardCorners() {
+        guard let superview = superview else { return }
+        let maskLayer = CAShapeLayer()
+        let path = UIBezierPath(roundedRect: bounds, cornerRadius: 25)
+        maskLayer.path = path.cgPath
+        superview.layer.mask = maskLayer
     }
     
     @IBAction func numberButtonPressed(_ sender: NumpadButton) {
