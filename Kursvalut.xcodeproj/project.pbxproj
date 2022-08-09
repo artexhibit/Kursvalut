@@ -295,8 +295,8 @@
 		7852295C279B174700507877 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				78F2716927CFDDAB00381CA9 /* ConverterCell */,
 				78F2716827CFDD9F00381CA9 /* CurrencyCell */,
+				78F2716927CFDDAB00381CA9 /* ConverterCell */,
 				78F2716427CFDD1800381CA9 /* Settings */,
 			);
 			path = Cells;

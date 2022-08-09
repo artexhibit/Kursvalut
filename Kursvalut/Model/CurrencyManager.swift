@@ -187,10 +187,18 @@ struct CurrencyManager {
     private var pickedBaseCurrency: String {
         return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
     }
+    private var roundFlags: Bool {
+        return UserDefaults.standard.bool(forKey: "roundFlags")
+    }
     
     func showCurrencyFlag(_ shortName: String) -> UIImage? {
-        guard let image = UIImage(named: "\(shortName)") else { return UIImage(named: "notFound") }
-        return image
+        if roundFlags {
+            guard let image = UIImage(named: "\(shortName)Round") else { return UIImage(named: "notFoundRound") }
+            return image
+        } else {
+            guard let image = UIImage(named: "\(shortName)") else { return UIImage(named: "notFound") }
+            return image
+        }
     }
     
     func showRate(with value: Double, forConverter: Bool = false) -> String {

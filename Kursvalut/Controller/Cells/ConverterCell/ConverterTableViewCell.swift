@@ -9,11 +9,24 @@ class ConverterTableViewCell: UITableViewCell {
     @IBOutlet weak var fullName: UILabel!
     @IBOutlet weak var activityIndicator: UIButton!
     @IBOutlet weak var fullNameWidth: UIStackView!
+    @IBOutlet weak var flagHeight: NSLayoutConstraint!
+    @IBOutlet weak var activityIndicatorBottom: NSLayoutConstraint!
+    @IBOutlet weak var activityIndicatorTrailing: NSLayoutConstraint!
+    @IBOutlet weak var converterCellStackView: UIStackView!
+    
+    private var roundFlags: Bool {
+        return UserDefaults.standard.bool(forKey: "roundFlags")
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setupActivityIndicator()
         setupFontForSmallerScreen()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupFlagImageDesign()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -23,6 +36,13 @@ class ConverterTableViewCell: UITableViewCell {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         activityIndicator.layer.borderColor = UIColor(named: "ActivityIndicatorColor")?.cgColor
+    }
+    
+    func setupFlagImageDesign() {
+        flagHeight.constant = roundFlags ? 35.0 : 45.0
+        activityIndicatorBottom.constant = roundFlags ? -3.0 : 3.0
+        activityIndicatorTrailing.constant = roundFlags ? 5.0 : -5.0
+        converterCellStackView.spacing = roundFlags ? -1.0 : 6.0
     }
     
     func setupActivityIndicator() {

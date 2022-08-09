@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "MNTRound.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

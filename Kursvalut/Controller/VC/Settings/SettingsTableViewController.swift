@@ -11,6 +11,7 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var pickedThemeLabel: UILabel!
     @IBOutlet weak var restoreSpinner: UIActivityIndicatorView!
     @IBOutlet weak var keyboardSoundSwitch: UISwitch!
+    @IBOutlet weak var roundFlagsSwitch: UISwitch!
     
     private var pickedTheme: String {
         return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
@@ -20,6 +21,9 @@ class SettingsTableViewController: UITableViewController {
     }
     private var keyboardWithSound: Bool {
         return UserDefaults.standard.bool(forKey: "keyboardWithSound")
+    }
+    private var roundFlags: Bool {
+        return UserDefaults.standard.bool(forKey: "roundFlags")
     }
     
     override func viewDidLoad() {
@@ -36,6 +40,23 @@ class SettingsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         pickedThemeLabel.text = pickedTheme
         loadKeyboardSoundSwitchState()
+        loadFlagsSwitchState()
+    }
+    
+    @IBAction func roundFlagsSwitchPressed(_ sender: UISwitch) {
+        if roundFlagsSwitch.isOn {
+            UserDefaults.standard.set(true, forKey: "roundFlags")
+        } else {
+            UserDefaults.standard.set(false, forKey: "roundFlags")
+        }
+    }
+    
+    func loadFlagsSwitchState() {
+        if roundFlags {
+            roundFlagsSwitch.setOn(true, animated: false)
+        } else {
+            roundFlagsSwitch.setOn(false, animated: false)
+        }
     }
     
     @IBAction func keyboardSoundSwitchPressed(_ sender: UISwitch) {
@@ -127,6 +148,7 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
         for label in labels {
             label.isHidden = true
         }
+        roundFlagsSwitch.isEnabled = true
         purchaseButton.backgroundColor = UIColor.systemGreen
         purchaseButton.setTitle("Куплено", for: .normal)
     }
