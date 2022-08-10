@@ -9,6 +9,7 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet var proLabel: [UIView]!
     @IBOutlet weak var purchaseButton: UIButton!
     @IBOutlet weak var pickedThemeLabel: UILabel!
+    @IBOutlet weak var roundFlagsLabel: UILabel!
     @IBOutlet weak var restoreSpinner: UIActivityIndicatorView!
     @IBOutlet weak var keyboardSoundSwitch: UISwitch!
     @IBOutlet weak var roundFlagsSwitch: UISwitch!
@@ -30,6 +31,9 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         roundViewCorners()
         
+        if UIScreen().sizeType == .iPhoneSE {
+            roundFlagsLabel.text = "Круглые флаги"
+        }
         if proPurchased {
             unlockPro(for: proLabel)
         }
