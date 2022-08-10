@@ -20,14 +20,14 @@ class CurrencyPreviewTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupFlagImageDesign()
+        setupDesignForRoundFlag()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 
-    private func setupFlagImageDesign() {
+    private func setupDesignForRoundFlag() {
         flagHeight.constant = roundFlags ? 35.0 : 45.0
         flagWidth.constant = roundFlags ? 35.0 : 45.0
         flag.image = roundFlags ? UIImage(named: "EURRound") : UIImage(named: "EUR")

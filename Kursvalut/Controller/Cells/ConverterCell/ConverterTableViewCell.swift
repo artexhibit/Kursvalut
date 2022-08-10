@@ -28,7 +28,7 @@ class ConverterTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupFlagImageDesign()
+        setupDesignForRoundFlag()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -40,7 +40,8 @@ class ConverterTableViewCell: UITableViewCell {
         activityIndicator.layer.borderColor = UIColor(named: "ActivityIndicatorColor")?.cgColor
     }
     
-    private func setupFlagImageDesign() {
+    private func setupDesignForRoundFlag() {
+        self.separatorInset.left = roundFlags ? 50.0 : 62.0
         flagHeight.constant = roundFlags ? 35.0 : 45.0
         flagWidth.constant = roundFlags ? 35.0 : 45.0
         flag.layer.cornerRadius = roundFlags ? flagHeight.constant/2 : 0

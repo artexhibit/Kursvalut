@@ -25,14 +25,14 @@ class BaseCurrencyTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupFlagImageDesign()
+        setupDesignForRoundFlag()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    private func setupFlagImageDesign() {
+    private func setupDesignForRoundFlag() {
         flagHeight.constant = roundFlags ? 40.0 : 50.0
         flagWidth.constant = roundFlags ? 40.0 : 50.0
         flag.layer.cornerRadius = roundFlags ? flagHeight.constant/2 : 0
