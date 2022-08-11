@@ -1738,7 +1738,6 @@
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="bFn-f7-1aP" firstAttribute="centerX" secondItem="G4b-Jf-xUu" secondAttribute="centerX" id="6B1-q4-MBl"/>
                                                         <constraint firstAttribute="width" constant="45" id="Caf-0p-aCm"/>
@@ -1846,7 +1845,6 @@
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="60" id="6dd-cd-bmN"/>
                                                         <constraint firstAttribute="width" constant="45" id="8NL-Gm-LVA"/>
@@ -3656,7 +3654,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zHs-jY-LdV"/>
+        <segue reference="ktb-yU-lAj"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="1.circle" width="11" height="11"/>
