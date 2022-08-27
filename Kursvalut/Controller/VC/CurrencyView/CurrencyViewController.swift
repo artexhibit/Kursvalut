@@ -352,6 +352,7 @@ extension CurrencyViewController {
                     PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
                 }
             } else {
+                let updateDate = self.currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
                 DispatchQueue.main.async {
                     self.updateTimeLabel.text = self.currencyUpdateTime
                 }
@@ -361,6 +362,7 @@ extension CurrencyViewController {
                     PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
                     self.tableView.reloadData()
                 }
+                UserDefaults.standard.set(updateDate, forKey: "confirmedDate")
             }
         }
     }

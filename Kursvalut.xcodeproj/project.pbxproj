@@ -27,6 +27,7 @@
 		78137FED2834127300F4621E /* changeConverterCell.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FEC2834127300F4621E /* changeConverterCell.gif */; };
 		78137FF12834185D00F4621E /* pickCurrencyForConverter.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FF02834185D00F4621E /* pickCurrencyForConverter.gif */; };
 		7828734E28145BAC00B65D6F /* TutorialDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7828734D28145BAC00B65D6F /* TutorialDescriptionTableViewCell.swift */; };
+		7831DAEA28B0FAC4008A1758 /* DatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7831DAE928B0FAC4008A1758 /* DatePickerTableViewCell.swift */; };
 		7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */; };
 		7838F90027885B86007D34AA /* BankOfRussiaCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FF27885B86007D34AA /* BankOfRussiaCurrencyData.swift */; };
 		783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */; };
@@ -75,6 +76,7 @@
 		78F13FF327CE9AD80076613A /* ConverterPreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */; };
 		78F2716B27CFDF6000381CA9 /* StartViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */; };
 		78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2716C27CFE00400381CA9 /* StartViewTableViewCell.swift */; };
+		78FE672628AC15E90091A1A3 /* ConcreteDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FE672528AC15E90091A1A3 /* ConcreteDateTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +103,7 @@
 		78137FEC2834127300F4621E /* changeConverterCell.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = changeConverterCell.gif; sourceTree = "<group>"; };
 		78137FF02834185D00F4621E /* pickCurrencyForConverter.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pickCurrencyForConverter.gif; sourceTree = "<group>"; };
 		7828734D28145BAC00B65D6F /* TutorialDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		7831DAE928B0FAC4008A1758 /* DatePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyNetworking.swift; sourceTree = "<group>"; };
 		7838F8FF27885B86007D34AA /* BankOfRussiaCurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankOfRussiaCurrencyData.swift; sourceTree = "<group>"; };
 		783BCB9827CD288B00430992 /* DecimalsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalsTableViewCell.swift; sourceTree = "<group>"; };
@@ -148,6 +151,7 @@
 		78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterPreviewTableViewCell.swift; sourceTree = "<group>"; };
 		78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewTableViewController.swift; sourceTree = "<group>"; };
 		78F2716C27CFE00400381CA9 /* StartViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewTableViewCell.swift; sourceTree = "<group>"; };
+		78FE672528AC15E90091A1A3 /* ConcreteDateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreteDateTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +341,8 @@
 				786A002A283935CA00D0DAA4 /* DataSourceTableViewCell.swift */,
 				786A002C2839361300D0DAA4 /* PickedBaseCurrencyTableViewCell.swift */,
 				78C39E06284CC0A000376365 /* BaseCurrencyTableViewCell.swift */,
+				78FE672528AC15E90091A1A3 /* ConcreteDateTableViewCell.swift */,
+				7831DAE928B0FAC4008A1758 /* DatePickerTableViewCell.swift */,
 				7828735028146B0000B65D6F /* Sorting */,
 				7828734F28146AD700B65D6F /* Onboarding */,
 			);
@@ -477,6 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78FE672628AC15E90091A1A3 /* ConcreteDateTableViewCell.swift in Sources */,
 				78E9B79C27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift in Sources */,
 				7838F90027885B86007D34AA /* BankOfRussiaCurrencyData.swift in Sources */,
 				78137FDB2833EC1200F4621E /* UIImage+extension.swift in Sources */,
@@ -502,6 +509,7 @@
 				78C6FAF727D3C188002E35E9 /* ThemeTableViewCell.swift in Sources */,
 				78CEB9AB2813F83900AE0903 /* OnboardingTableViewCell.swift in Sources */,
 				78E9B79A27D7956300BB5249 /* PrivacyPolicyViewController.swift in Sources */,
+				7831DAEA28B0FAC4008A1758 /* DatePickerTableViewCell.swift in Sources */,
 				78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */,
 				78137FD72833A78400F4621E /* TutorialViewController.swift in Sources */,
 				786C01A527DE511400868EBE /* TipJarTableViewCell.swift in Sources */,
@@ -683,7 +691,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kursvalut/Info.plist;
@@ -712,7 +720,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kursvalut/Info.plist;

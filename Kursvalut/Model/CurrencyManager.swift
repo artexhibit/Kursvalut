@@ -220,10 +220,20 @@ struct CurrencyManager {
         return "\(differenceAttributes.Sign)\(formattedDifference) (\(formattedPercentage)%)\(differenceAttributes.Symbol)"
     }
     
-    func showTime(with text: String, from date: Date = Date()) -> String {
+    func createStringDate(with text: String, from date: Date = Date(), dateStyle: DateFormatter.Style?) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = text
+        
+        if let dateStyle = dateStyle {
+            formatter.dateStyle = dateStyle
+        }
         return formatter.string(from: date)
+    }
+    
+    func createDate(from string: String, dateStyle: DateFormatter.Style = .medium) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateStyle = dateStyle
+        return formatter.date(from: string) ?? Date()
     }
     
     //MARK: - ViewController Configuration Methods
@@ -250,12 +260,12 @@ struct CurrencyManager {
     
     func checkOnFirstLaunchToday(with label: UILabel = UILabel(), in tableView: UITableView = UITableView()) {
         let currencyNetworking = CurrencyNetworking()
-        
+        let updateDate = self.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
         var wasLaunched: String {
             return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
         }
         var today: String {
-            return self.showTime(with: "MM/dd/yyyy")
+            return self.createStringDate(with: "MM/dd/yyyy", dateStyle: nil)
         }
         var pickedDataSource: String {
             return UserDefaults.standard.string(forKey: "baseSource") ?? ""
@@ -285,6 +295,7 @@ struct CurrencyManager {
                         PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
                     }
                     UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
+                    UserDefaults.standard.set(updateDate, forKey: "confirmedDate")
                 }
             }
         }

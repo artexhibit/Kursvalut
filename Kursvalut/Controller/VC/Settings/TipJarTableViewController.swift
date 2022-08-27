@@ -8,7 +8,6 @@ class TipJarTableViewController: UITableViewController {
     @IBOutlet weak var loadCellsSpinner: UIActivityIndicatorView!
     
     private var currencyManager = CurrencyManager()
-    private var activityIndicator = UIActivityIndicatorView()
     private var tipsArray = [SKProduct]()
     private var transactionEnded: Bool = false
     private let tipsID = Set(["ru.igorcodes.kursvalut.smalltip", "ru.igorcodes.kursvalut.mediumtip", "ru.igorcodes.kursvalut.bigtip"])

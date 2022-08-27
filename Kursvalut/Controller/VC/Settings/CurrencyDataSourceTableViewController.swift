@@ -2,15 +2,16 @@
 import UIKit
 
 class CurrencyDataSourceTableViewController: UITableViewController {
-    
-    private var currencyManager = CurrencyManager()
+ 
+    private let currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
     private let dataSourceOptions = ["Forex (Биржа)", "ЦБ РФ"]
     private let sectionsData = [
         (header: "", footer: ["Данные по курсам будут сразу загружены при выборе источника"]),
-        (header: "", footer: ["В зависимости от выбранной базовой валюты будут отображаться соответствующие данные", "Для источника курсов по ЦБ РФ базовая валюта - только RUB"])
+        (header: "", footer: ["В зависимости от выбранной базовой валюты будут отображаться соответствующие данные", "Для источника курсов по ЦБ РФ базовая валюта - только RUB"]),
+        (header: "Курс на конкретную дату", footer: [""])
     ]
-    private let sections = (dataSource: 0, baseCurrency: 1)
+    private let sections = (dataSource: 0, baseCurrency: 1, concreteDate: 2)
     private var pickedBaseCurrency: String {
         return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
     }
@@ -20,10 +21,23 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     private var wasActiveCurrencyVC: Bool {
         return UserDefaults.standard.bool(forKey: "isActiveCurrencyVC")
     }
+    private var confirmedDate: String {
+        return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
+    }
+    private var pickDateSwitchIsOn: Bool {
+        return UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn")
+    }
+    private var pickedDate: String?
+    private var lastConfirmedDate: String?
+    private let datePickerTag = 99
+    private var targetIndexPath: NSIndexPath?
+    private let datePickerIndexPath = IndexPath(row: 1, section: 2)
+    private let dateIndexPath = IndexPath(row: 0, section: 2)
+    private var startDateSpinner = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currencyManager.configureContentInset(for: tableView, top: 40)
+        currencyManager.configureContentInset(for: tableView, top: 30)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshBaseCurrency), name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(activatedCurrencyVC), name: NSNotification.Name(rawValue: "refreshDataFromDataSourceVC"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(stopActivityIndicatorInDataSourceCell), name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
@@ -33,6 +47,88 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    func toggleDatePickerFor(indexPath: NSIndexPath) {
+        tableView.beginUpdates()
+        let cell = tableView.cellForRow(at: indexPath as IndexPath)
+        
+        if cell?.viewWithTag(datePickerTag) != nil {
+            tableView.deleteRows(at: [datePickerIndexPath], with: .fade)
+        } else {
+            tableView.insertRows(at: [datePickerIndexPath], with: .fade)
+        }
+        tableView.endUpdates()
+    }
+    
+    func displayInlineDatePickerAt(indexPath: NSIndexPath) {
+        tableView.beginUpdates()
+        let sameCellTapped = targetIndexPath?.row ?? 0 == indexPath.row + 1
+        
+        if targetIndexPath != nil {
+            tableView.deleteRows(at: [datePickerIndexPath], with: .fade)
+            targetIndexPath = nil
+        }
+        
+        if !sameCellTapped {
+            toggleDatePickerFor(indexPath: datePickerIndexPath as NSIndexPath)
+            targetIndexPath = datePickerIndexPath as NSIndexPath
+        }
+        tableView.endUpdates()
+    }
+    
+    @IBAction func dateSwitchPressed(_ sender: UISwitch) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "concreteDateCell") as! ConcreteDateTableViewCell
+        
+        if sender.isOn {
+            UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn")
+            displayInlineDatePickerAt(indexPath: dateIndexPath as NSIndexPath)
+            cell.selectionStyle = .default
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.tableView.reloadRows(at: [self.dateIndexPath], with: .none)
+            }
+        } else {
+            UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
+            pickedDate = currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
+            lastConfirmedDate = confirmedDate
+            cell.selectionStyle = .none
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.tableView.reloadRows(at: [self.dateIndexPath], with: .none)
+            }
+            
+            if targetIndexPath != nil {
+                displayInlineDatePickerAt(indexPath: dateIndexPath as NSIndexPath)
+            }
+            if pickedDate != confirmedDate {
+                startDateSpinner = true
+                UserDefaults.standard.set(self.pickedDate, forKey: "confirmedDate")
+                requestDataForConfirmedDate()
+            }
+        }
+    }
+    
+    @IBAction func datePickerPressed(_ sender: UIDatePicker) {
+        let senderDate = currencyManager.createStringDate(with: "dd.MM.yyyy", from: sender.date, dateStyle: .medium)
+        pickedDate = senderDate
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "datePickerCell") as! DatePickerTableViewCell
+        configureDatePicker(cell: cell)
+        tableView.reloadRows(at: [datePickerIndexPath], with: .none)
+    }
+    
+    @IBAction func confirmButtonPressed(_ sender: UIButton) {
+        lastConfirmedDate = confirmedDate
+        startDateSpinner = true
+        tableView.reloadRows(at: [dateIndexPath], with: .none)
+        UserDefaults.standard.set(self.pickedDate, forKey: "confirmedDate")
+        requestDataForConfirmedDate()
+    }
+    
+    @IBAction func cancelButtonPressed(_ sender: UIButton) {
+        pickedDate = confirmedDate
+        tableView.reloadRows(at: [datePickerIndexPath], with: .none)
+    }
+   
     //MARK: - TableView DataSource Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -40,7 +136,13 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == sections.dataSource ? dataSourceOptions.count : 1
+        if section == sections.dataSource {
+            return dataSourceOptions.count
+        } else if section == sections.baseCurrency {
+            return 1
+        } else {
+            return targetIndexPath != nil ? 2 : 1
+        }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -56,12 +158,12 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        if indexPath.section == sections.dataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "dataSourceCell", for: indexPath) as! DataSourceTableViewCell
             cell.sourceNameLabel.text = dataSourceOptions[indexPath.row]
             cell.accessoryType = cell.sourceNameLabel.text == pickedDataSource ? .checkmark : .none
             return cell
-        } else {
+        } else if indexPath.section == sections.baseCurrency {
             let cell = tableView.dequeueReusableCell(withIdentifier: "pickedBaseCurrencyCell", for: indexPath) as! PickedBaseCurrencyTableViewCell
             cell.pickedBaseCurrencyLabel.text = pickedBaseCurrency
             
@@ -73,6 +175,32 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 cell.isUserInteractionEnabled = true
             }
             return cell
+        } else {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "concreteDateCell", for: indexPath) as! ConcreteDateTableViewCell
+                cell.dateLabel.text = confirmedDate
+                
+                if pickDateSwitchIsOn {
+                    cell.pickDateSwitch.setOn(true, animated: false)
+                    cell.selectionStyle = .default
+                } else {
+                    cell.pickDateSwitch.setOn(false, animated: false)
+                    cell.selectionStyle = .none
+                }
+                
+                if startDateSpinner {
+                    cell.dateSpinner.isHidden = false
+                    cell.dateSpinner.startAnimating()
+                } else {
+                    cell.dateSpinner.stopAnimating()
+                    cell.dateSpinner.isHidden = true
+                }
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "datePickerCell", for: indexPath) as! DatePickerTableViewCell
+                configureDatePicker(cell: cell)
+                return cell
+            }
         }
     }
     
@@ -99,11 +227,15 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
             }
             tableView.reloadSections(IndexSet(integer: sections.baseCurrency), with: .fade)
+        } else if indexPath.section == sections.concreteDate {
+            if pickDateSwitchIsOn {
+                displayInlineDatePickerAt(indexPath: dateIndexPath as NSIndexPath)
+            }
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        tableView.estimatedSectionHeaderHeight
+       return tableView.estimatedSectionHeaderHeight
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -111,6 +243,26 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     //MARK: - User Interface Handling Methods
+    
+    func configureDatePicker(cell: DatePickerTableViewCell) {
+        if let dataForPickedDate = pickedDate {
+            cell.datePicker.date = currencyManager.createDate(from: dataForPickedDate)
+        } else {
+            cell.datePicker.date = currencyManager.createDate(from: confirmedDate)
+        }
+        
+        if let dataForPickedDate = pickedDate, confirmedDate != dataForPickedDate {
+            cell.confirmButton.isEnabled = true
+            cell.confirmButton.isHidden = false
+            cell.cancelButton.isEnabled = true
+            cell.cancelButton.isHidden = false
+        } else {
+            cell.confirmButton.isEnabled = false
+            cell.confirmButton.isHidden = true
+            cell.cancelButton.isEnabled = false
+            cell.cancelButton.isHidden = true
+        }
+    }
     
     @objc func activatedCurrencyVC() {
         if wasActiveCurrencyVC {
@@ -141,5 +293,34 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         cell.dataUpdateSpinner.stopAnimating()
         cell.accessoryType = .checkmark
         self.tableView.reloadSections(IndexSet(integer: sections.dataSource), with: .none)
+    }
+    
+    func requestDataForConfirmedDate() {
+        currencyNetworking.performRequest { error in
+            DispatchQueue.main.async {
+                if error != nil {
+                    guard let error = error else { return }
+                    if let lastConfirmedDate = self.lastConfirmedDate {
+                        self.pickedDate = lastConfirmedDate
+                        UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
+                        
+                        if !self.pickDateSwitchIsOn {
+                            UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn")
+                        }
+                        self.tableView.reloadRows(at: [self.datePickerIndexPath], with: .none)
+                    }
+                    PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
+                } else {
+                    UserDefaults.standard.set(self.pickedDate, forKey: "confirmedDate")
+
+                    if self.pickDateSwitchIsOn {
+                        self.displayInlineDatePickerAt(indexPath: self.dateIndexPath as NSIndexPath)
+                    }
+                    PopupView().showPopup(title: "Успешно", message: "Курсы на \(self.confirmedDate) загружены", type: .success)
+                }
+                self.startDateSpinner = false
+                self.tableView.reloadRows(at: [self.dateIndexPath], with: .none)
+            }
+        }
     }
 }

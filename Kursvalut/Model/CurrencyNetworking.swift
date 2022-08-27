@@ -10,24 +10,49 @@ struct CurrencyNetworking {
     private var pickedDataSource: String {
         return UserDefaults.standard.string(forKey: "baseSource") ?? ""
     }
-    private var updateTime: String {
-        return currencyManager.showTime(with: "\("Обновлено") dd MMM \("в") HH:mm")
-    }
     private var pickedBaseCurrency: String {
         return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
     }
-    private var yesterdaysDate: String {
-        let date = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
-        return currencyManager.showTime(with: "yyyy-MM-dd", from: date)
+    private var confirmedDate: String {
+        return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
     }
-    private var todaysDate: String {
-        return currencyManager.showTime(with: "yyyy-MM-dd")
+    private var updateTime: String {
+        return currencyManager.createStringDate(with: "\("Данные на") \(confirmedDate)\(",") HH:mm", dateStyle: nil)
+    }
+    private var yesterdaysDate: String {
+        let confirmedDate = currencyManager.createDate(from: confirmedDate)
+        let confirmedStringDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: confirmedDate, dateStyle: nil)
+        let todaysDate = currencyManager.createStringDate(with: "yyyy-MM-dd", dateStyle: nil)
+        
+        if confirmedStringDate != todaysDate {
+            let date = Calendar.current.date(byAdding: .day, value: -1, to: confirmedDate) ?? Date()
+            return currencyManager.createStringDate(with: "yyyy-MM-dd", from: date, dateStyle: nil)
+        } else {
+            let date = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
+            return currencyManager.createStringDate(with: "yyyy-MM-dd", from: date, dateStyle: nil)
+        }
     }
     private var currentBankOfRussiaURL: URL {
-        return URL(string: "https://www.cbr-xml-daily.ru/daily_json.js") ?? URL(fileURLWithPath: "")
+        let date = currencyManager.createDate(from: confirmedDate)
+        let confirmedDate = currencyManager.createStringDate(with: "yyyy/MM/dd", from: date, dateStyle: nil)
+        let todaysDate = currencyManager.createStringDate(with: "yyyy/MM/dd", dateStyle: nil)
+        
+        if confirmedDate != todaysDate {
+            return URL(string: "https://www.cbr-xml-daily.ru/archive/\(confirmedDate)/daily_json.js") ?? URL(fileURLWithPath: "")
+        } else {
+            return URL(string: "https://www.cbr-xml-daily.ru/daily_json.js") ?? URL(fileURLWithPath: "")
+        }
     }
     private var currentForexURL: URL {
-        return URL(string: "https://api.exchangerate.host/latest?base=\(pickedBaseCurrency)&v=\(todaysDate)&places=9")!
+        let date = currencyManager.createDate(from: confirmedDate)
+        let confirmedDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: date, dateStyle: nil)
+        let todaysDate = currencyManager.createStringDate(with: "yyyy-MM-dd", dateStyle: nil)
+        
+        if confirmedDate != todaysDate {
+        return URL(string: "https://api.exchangerate.host/\(confirmedDate)?base=\(pickedBaseCurrency)&places=9")!
+        } else {
+            return URL(string: "https://api.exchangerate.host/\(todaysDate)?base=\(pickedBaseCurrency)&places=9")!
+        }
     }
     private var historicalForexURL: URL {
         return URL(string: "https://api.exchangerate.host/\(yesterdaysDate)?base=\(pickedBaseCurrency)&places=9")!
