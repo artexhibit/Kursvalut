@@ -34,6 +34,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     private let datePickerIndexPath = IndexPath(row: 1, section: 2)
     private let dateIndexPath = IndexPath(row: 0, section: 2)
     private var startDateSpinner = false
+    private var dataSourceCellWasPressed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,11 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(refreshBaseCurrency), name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(activatedCurrencyVC), name: NSNotification.Name(rawValue: "refreshDataFromDataSourceVC"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(stopActivityIndicatorInDataSourceCell), name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadRows(at: [dateIndexPath], with: .none)
     }
     
     @objc func refreshBaseCurrency() {
@@ -212,20 +218,19 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         if indexPath.section == sections.dataSource {
             guard let cell = tableView.cellForRow(at: indexPath) as? DataSourceTableViewCell else { return }
             let pickedOption = cell.sourceNameLabel.text ?? ""
-            
+         
             cell.dataUpdateSpinner.startAnimating()
             UserDefaults.standard.set(pickedOption, forKey: "baseSource")
             
             if pickedOption == "ЦБ РФ" {
                 UserDefaults.standard.set("RUB", forKey: "baseCurrency")
                 UserDefaults.standard.set(true, forKey: "setTextFieldToZero")
-                activatedCurrencyVC()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
             } else {
                 UserDefaults.standard.set(true, forKey: "setTextFieldToZero")
-                activatedCurrencyVC()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
             }
+            activatedCurrencyVC()
             tableView.reloadSections(IndexSet(integer: sections.baseCurrency), with: .fade)
         } else if indexPath.section == sections.concreteDate {
             if pickDateSwitchIsOn {
@@ -266,24 +271,16 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     @objc func activatedCurrencyVC() {
         if wasActiveCurrencyVC {
+            UserDefaults.standard.set(true, forKey: "updateRequestFromCurrencyDataSource")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
             UserDefaults.standard.set(true, forKey: "newDataSourcePicked")
+            tableView.reloadRows(at: [dateIndexPath], with: .none)
         } else {
-            refreshData()
-        }
-    }
-    
-    func refreshData() {
-        currencyNetworking.performRequest { error in
-            DispatchQueue.main.async {
-                if error != nil {
-                    guard let error = error else { return }
-                    PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
-                } else {
-                    PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
-                }
-                self.stopActivityIndicatorInDataSourceCell()
+            if targetIndexPath == nil {
+                dataSourceCellWasPressed = true
             }
+            pickedDate = confirmedDate
+            requestDataForConfirmedDate()
         }
     }
     
@@ -295,30 +292,44 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         self.tableView.reloadSections(IndexSet(integer: sections.dataSource), with: .none)
     }
     
+    func resetStateToTheLastConfirmedDate() {
+        if let lastConfirmedDate = self.lastConfirmedDate {
+            self.pickedDate = lastConfirmedDate
+            UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
+            
+            if !self.pickDateSwitchIsOn {
+                UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn")
+            }
+            self.tableView.reloadRows(at: [self.datePickerIndexPath], with: .none)
+        }
+    }
+    
     func requestDataForConfirmedDate() {
-        currencyNetworking.performRequest { error in
+        currencyNetworking.performRequest { networkingError, parsingError in
             DispatchQueue.main.async {
-                if error != nil {
-                    guard let error = error else { return }
-                    if let lastConfirmedDate = self.lastConfirmedDate {
-                        self.pickedDate = lastConfirmedDate
-                        UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
-                        
-                        if !self.pickDateSwitchIsOn {
-                            UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn")
-                        }
-                        self.tableView.reloadRows(at: [self.datePickerIndexPath], with: .none)
-                    }
+                if networkingError != nil {
+                    guard let error = networkingError else { return }
+                    self.resetStateToTheLastConfirmedDate()
                     PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
+                } else if parsingError != nil {
+                    guard let parsingError = parsingError else { return }
+                    if parsingError.code == 4865 {
+                        PopupView().showPopup(title: "Ошибка", message: "Нет данных на выбранную дату. Попробуйте другую", type: .failure)
+                    } else {
+                        PopupView().showPopup(title: "Ошибка", message: "\(parsingError.localizedDescription)", type: .failure)
+                    }
+                    self.resetStateToTheLastConfirmedDate()
                 } else {
                     UserDefaults.standard.set(self.pickedDate, forKey: "confirmedDate")
-
-                    if self.pickDateSwitchIsOn {
+                    
+                    if self.pickDateSwitchIsOn && !self.dataSourceCellWasPressed {
                         self.displayInlineDatePickerAt(indexPath: self.dateIndexPath as NSIndexPath)
                     }
-                    PopupView().showPopup(title: "Успешно", message: "Курсы на \(self.confirmedDate) загружены", type: .success)
+                    PopupView().showPopup(title: "Успешно", message: "Курсы загружены", type: .success)
                 }
+                self.dataSourceCellWasPressed = false
                 self.startDateSpinner = false
+                self.stopActivityIndicatorInDataSourceCell()
                 self.tableView.reloadRows(at: [self.dateIndexPath], with: .none)
             }
         }

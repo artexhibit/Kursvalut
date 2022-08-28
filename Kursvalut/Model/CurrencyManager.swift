@@ -282,9 +282,9 @@ struct CurrencyManager {
                 label.text = currencyUpdateTime
             }
         } else {
-            currencyNetworking.performRequest { error in
-                if error != nil {
-                    guard let error = error else { return }
+            currencyNetworking.performRequest { networkingError, parsingError in
+                if networkingError != nil {
+                    guard let error = networkingError else { return }
                     PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
                 } else {
                     DispatchQueue.main.async {

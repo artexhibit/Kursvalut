@@ -60,12 +60,13 @@ struct CurrencyNetworking {
     
     //MARK: - Networking Methods
     
-    func performRequest(_ completion: @escaping (Error?) -> Void) {
+    func performRequest(_ completion: @escaping (Error?, NSError?) -> Void) {
         let group = DispatchGroup()
         var urlArray = [URL]()
         var dataDict = [URL: Data]()
         var completed = 0
         var errorToShow: Error!
+        var parsingError: NSError?
         
         if pickedDataSource == "ЦБ РФ" {
             urlArray.append(currentBankOfRussiaURL)
@@ -96,12 +97,12 @@ struct CurrencyNetworking {
         
         group.notify(queue: .main) {
             if errorToShow != nil {
-                completion(errorToShow)
+                completion(errorToShow, nil)
             } else if completed == urlArray.count {
                 dataDict.forEach { url, data in
-                    self.parseJSON(with: data, from: url)
+                    parsingError = self.parseJSON(with: data, from: url)
                 }
-                completion(nil)
+                completion(nil, parsingError)
             }
             DispatchQueue.main.async {
                 self.coreDataManager.save()
@@ -110,7 +111,7 @@ struct CurrencyNetworking {
         }
     }
     
-    func parseJSON(with currencyData: Data, from url: URL) {
+    func parseJSON(with currencyData: Data, from url: URL) -> NSError? {
         let decoder = JSONDecoder()
         do {
             if url == currentBankOfRussiaURL {
@@ -123,8 +124,9 @@ struct CurrencyNetworking {
                 let filteredData = decodedData.rates.filter({ dataToFilterOut.contains($0.key) == false })
                 url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData)
             }
+            return nil
         } catch {
-            print("Error with JSON parsing, \(error)")
+            return error as NSError
         }
     }
 }

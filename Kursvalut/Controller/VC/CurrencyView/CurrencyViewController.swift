@@ -336,6 +336,11 @@ extension CurrencyViewController {
     }
     
     @objc func refreshData() {
+        var updateRequestFromCurrencyDataSource: Bool {
+            return UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource")
+        }
+        let updateDate = self.currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
+        
         if pickedDataSource != "ЦБ РФ" {
             DispatchQueue.main.async {
                 self.coreDataManager.filterOutForexBaseCurrency()
@@ -343,26 +348,30 @@ extension CurrencyViewController {
         }
         setupFetchedResultsController()
         
-        currencyNetworking.performRequest { error in
-            if error != nil {
-                guard let error = error else { return }
+        currencyNetworking.performRequest { networkingError, parsingError in
+            if networkingError != nil {
+                guard let error = networkingError else { return }
                 self.tableView.refreshControl?.endRefreshing()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
+                
                 DispatchQueue.main.async {
                     PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
                 }
             } else {
-                let updateDate = self.currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
                 DispatchQueue.main.async {
                     self.updateTimeLabel.text = self.currencyUpdateTime
                 }
                 self.tableView.refreshControl?.endRefreshing()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
                     self.tableView.reloadData()
                 }
-                UserDefaults.standard.set(updateDate, forKey: "confirmedDate")
+                if !updateRequestFromCurrencyDataSource {
+                    UserDefaults.standard.set(updateDate, forKey: "confirmedDate")
+                }
+                UserDefaults.standard.set(false, forKey: "updateRequestFromCurrencyDataSource")
             }
         }
     }
