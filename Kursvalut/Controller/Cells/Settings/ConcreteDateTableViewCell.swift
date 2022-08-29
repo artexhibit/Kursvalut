@@ -18,6 +18,8 @@ class ConcreteDateTableViewCell: UITableViewCell {
         proLabel.layer.cornerRadius = 3.0
         calendarIconBackground.layer.cornerRadius = 6
         calendarIconBackground.backgroundColor = UIColor(named: appColor)
+        dateLabel.textColor = UIColor(named: appColor)
+        dateSpinner.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

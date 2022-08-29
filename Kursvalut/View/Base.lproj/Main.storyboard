@@ -3451,13 +3451,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="25 авг. 2022г." textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0DR-73-XtZ" userLabel="Title Label">
                                                     <rect key="frame" x="0.0" y="19.5" width="91.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" name="BlueColor"/>
+                                                    <color key="textColor" name="OrangeColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="YCv-iL-bWW">
-                                            <rect key="frame" x="159.5" y="28" width="20" height="20"/>
+                                            <rect key="frame" x="154.5" y="32" width="20" height="20"/>
                                         </activityIndicatorView>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4RG-Xg-Pyf">
                                             <rect key="frame" x="305" y="15" width="51" height="31"/>
@@ -3467,8 +3467,8 @@
                                         </switch>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="YCv-iL-bWW" secondAttribute="bottom" constant="2" id="3PT-un-cNL"/>
-                                        <constraint firstItem="YCv-iL-bWW" firstAttribute="leading" secondItem="kTC-5T-bum" secondAttribute="trailing" constant="5" id="C3m-4H-QFf"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="YCv-iL-bWW" secondAttribute="bottom" constant="-2" id="3PT-un-cNL"/>
+                                        <constraint firstItem="YCv-iL-bWW" firstAttribute="leading" secondItem="kTC-5T-bum" secondAttribute="trailing" id="C3m-4H-QFf"/>
                                         <constraint firstItem="ycJ-bS-V3Z" firstAttribute="centerY" secondItem="PDB-bW-PTS" secondAttribute="centerY" id="CJj-kD-qtA"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="kTC-5T-bum" secondAttribute="bottom" id="D3G-We-ztl"/>
                                         <constraint firstItem="kTC-5T-bum" firstAttribute="top" secondItem="PDB-bW-PTS" secondAttribute="topMargin" id="FDX-j7-zrT"/>
@@ -3842,7 +3842,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ktb-yU-lAj"/>
+        <segue reference="zHs-jY-LdV"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="1.circle" width="11" height="11"/>

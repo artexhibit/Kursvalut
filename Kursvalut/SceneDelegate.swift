@@ -11,6 +11,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     var currencyManager = CurrencyManager()
+    var newDataSourcePicked: Bool {
+        return UserDefaults.standard.bool(forKey: "newDataSourcePicked")
+    }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
@@ -30,10 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+        newDataSourcePicked ? UserDefaults.standard.set(true, forKey: "userClosedApp") : UserDefaults.standard.set(false, forKey: "userClosedApp")
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

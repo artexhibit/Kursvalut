@@ -24,6 +24,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     private var confirmedDate: String {
         return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
     }
+    private var todaysDate: String {
+        return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
+    }
     private var pickDateSwitchIsOn: Bool {
         return UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn")
     }
@@ -94,7 +97,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             }
         } else {
             UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
-            pickedDate = currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
+            pickedDate = todaysDate
             lastConfirmedDate = confirmedDate
             cell.selectionStyle = .none
             
@@ -273,6 +276,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         if wasActiveCurrencyVC {
             UserDefaults.standard.set(true, forKey: "updateRequestFromCurrencyDataSource")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
+            UserDefaults.standard.set(false, forKey: "userClosedApp")
             UserDefaults.standard.set(true, forKey: "newDataSourcePicked")
             tableView.reloadRows(at: [dateIndexPath], with: .none)
         } else {
@@ -324,6 +328,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                     
                     if self.pickDateSwitchIsOn && !self.dataSourceCellWasPressed {
                         self.displayInlineDatePickerAt(indexPath: self.dateIndexPath as NSIndexPath)
+                    }
+                    if self.pickedDate == self.todaysDate {
+                        UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
                     }
                     PopupView().showPopup(title: "Успешно", message: "Курсы загружены", type: .success)
                 }

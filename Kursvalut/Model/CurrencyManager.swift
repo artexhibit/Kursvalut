@@ -294,6 +294,7 @@ struct CurrencyManager {
                     if userHasOnboarded {
                         PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
                     }
+                    UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
                     UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
                     UserDefaults.standard.set(updateDate, forKey: "confirmedDate")
                 }

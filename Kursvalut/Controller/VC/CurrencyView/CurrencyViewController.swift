@@ -16,7 +16,7 @@ class CurrencyViewController: UIViewController {
     private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let searchController = UISearchController(searchResultsController: nil)
     private var biggestTopSafeAreaInset: CGFloat = 0
-    private let updateLabelTopInset: CGFloat = 10
+    private let updateLabelTopInset: CGFloat = 10.0
     private var userPulledToRefresh: Bool = false
     private var viewWasSwitched: Bool = false
     private var decimalsNumberChanged: Bool {
@@ -43,6 +43,9 @@ class CurrencyViewController: UIViewController {
     private var newDataSourcePicked: Bool {
         return UserDefaults.standard.bool(forKey: "newDataSourcePicked")
     }
+    private var userClosedApp: Bool {
+        return UserDefaults.standard.bool(forKey: "userClosedApp")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +68,10 @@ class CurrencyViewController: UIViewController {
         currencyManager.checkOnFirstLaunchToday(with: updateTimeLabel, in: tableView)
         updateDecimalsNumber()
         updateTimeLabel.text = currencyUpdateTime
-        scrollVCUp()
+        
+        if !userClosedApp {
+            scrollVCUp()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -371,6 +377,7 @@ extension CurrencyViewController {
                 if !updateRequestFromCurrencyDataSource {
                     UserDefaults.standard.set(updateDate, forKey: "confirmedDate")
                 }
+                UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
                 UserDefaults.standard.set(false, forKey: "updateRequestFromCurrencyDataSource")
             }
         }
@@ -391,11 +398,11 @@ extension CurrencyViewController: UITabBarControllerDelegate {
         userPulledToRefresh = false
     }
     
-    func setVCOffset(with viewInset: CGFloat, and labelInset: CGFloat, delay: Bool = false, delayValue: Double = 0.0) {
+    func setVCOffset(with viewInset: CGFloat, and labelInset: CGFloat, delayValue: Double = 0.0) {
         let firstVC = navigationController?.viewControllers.first as? CurrencyViewController
         guard let scrollView = firstVC?.view.subviews.first(where: { $0 is UIScrollView }) as? UIScrollView else { return }
         
-        if delay {
+        if delayValue > 0.0 {
             DispatchQueue.main.asyncAfter(deadline: .now() + delayValue) {
                 scrollView.setContentOffset(CGPoint(x: 0, y: -(viewInset - labelInset)), animated: true)
             }
@@ -406,7 +413,8 @@ extension CurrencyViewController: UITabBarControllerDelegate {
     
     func scrollVCUp() {
         if newDataSourcePicked {
-            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset, delay: true, delayValue: 0.1) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset, delay: true, delayValue: 0.1)
+            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset, delayValue: 0.01) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset, delayValue: 0.01)
+            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset, delayValue: 0.35) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset, delayValue: 0.35)
             UserDefaults.standard.set(false, forKey: "newDataSourcePicked")
         }
     }
