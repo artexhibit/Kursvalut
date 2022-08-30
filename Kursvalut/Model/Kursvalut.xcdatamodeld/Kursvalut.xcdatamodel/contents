@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G83" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Currency" representedClassName="Currency" syncable="YES" codeGenerationType="class">
         <attribute name="absoluteValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="currentValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="fullName" attributeType="String"/>
+        <attribute name="isBaseCurrency" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isForConverter" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isForCurrencyScreen" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nominal" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -17,6 +18,7 @@
         <attribute name="absoluteValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="currentValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="fullName" attributeType="String"/>
+        <attribute name="isBaseCurrency" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isForConverter" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isForCurrencyScreen" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nominal" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -27,7 +29,7 @@
         <attribute name="shortName" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Currency" positionX="-63" positionY="-18" width="128" height="194"/>
-        <element name="ForexCurrency" positionX="-63" positionY="63" width="128" height="194"/>
+        <element name="Currency" positionX="-63" positionY="-18" width="128" height="209"/>
+        <element name="ForexCurrency" positionX="-63" positionY="63" width="128" height="209"/>
     </elements>
 </model>

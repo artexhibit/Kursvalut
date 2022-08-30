@@ -49,9 +49,6 @@ class CurrencyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if pickedDataSource != "ЦБ РФ" {
-            coreDataManager.filterOutForexBaseCurrency()
-        }
         tableView.delegate = self
         tableView.dataSource = self
         tabBarController?.delegate = self
@@ -237,7 +234,7 @@ extension CurrencyViewController: UISearchResultsUpdating {
             return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName, searchName])
         }
         var filterPredicate: NSCompoundPredicate {
-            let filterBaseCurrency = NSPredicate(format: "isForCurrencyScreen == YES")
+            let filterBaseCurrency = NSPredicate(format: "isBaseCurrency == NO")
             return NSCompoundPredicate(type: .and, subpredicates: [searchPredicate, filterBaseCurrency])
         }
         
@@ -272,7 +269,11 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
             forexFRC.delegate = self
             try? forexFRC.performFetch()
         } else {
-            let predicate = NSPredicate(format: "isForCurrencyScreen == YES")
+            var currencyScreenViewPredicate: NSCompoundPredicate {
+                let firstPredicate = NSPredicate(format: "isForCurrencyScreen == YES")
+                let secondPredicate = NSPredicate(format: "isBaseCurrency == NO")
+                return NSCompoundPredicate(type: .and, subpredicates: [firstPredicate, secondPredicate])
+            }
             
             var sortDescriptor: NSSortDescriptor {
                 if pickedSection == "По имени" {
@@ -286,11 +287,11 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
                 }
             }
             if pickedDataSource == "ЦБ РФ" {
-                bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: predicate, and: sortDescriptor)
+                bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: currencyScreenViewPredicate, and: sortDescriptor)
                 bankOfRussiaFRC.delegate = self
                 try? bankOfRussiaFRC.performFetch()
             } else {
-                forexFRC = coreDataManager.createForexCurrencyFRC(with: predicate, and: sortDescriptor)
+                forexFRC = coreDataManager.createForexCurrencyFRC(with: currencyScreenViewPredicate, and: sortDescriptor)
                 forexFRC.delegate = self
                 try? forexFRC.performFetch()
             }

@@ -42,7 +42,7 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func createBankOfRussiaCurrency(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0) {
+    private func createBankOfRussiaCurrency(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, isBaseCurrency: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0) {
         let currency = Currency(context: self.context)
         
         currency.shortName = shortName
@@ -53,6 +53,7 @@ struct CurrencyCoreDataManager {
         currency.isForConverter = isForConverter
         currency.rowForConverter = rowForConverter
         currency.isForCurrencyScreen = isForCurrency
+        currency.isBaseCurrency = isBaseCurrency
         currency.rowForCurrency = rowForCurrency
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = currency.currentValue / Double(currency.nominal)
@@ -78,7 +79,7 @@ struct CurrencyCoreDataManager {
         do {
             let fetchRuble = try context.fetch(request)
             if fetchRuble.isEmpty {
-                createBankOfRussiaCurrency(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, abslValue: 1, isForConverter: true, rowForConverter: 0, isForCurrency: false)
+                createBankOfRussiaCurrency(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, abslValue: 1, isForConverter: true, isBaseCurrency: true, rowForConverter: 0)
             } else {
                 for ruble in fetchRuble {
                     updateBankOfRussiaCurrency(currency: ruble, currValue: 1.0, prevValue: 1.0, currNominal: 1, abslValue: 1)
@@ -129,7 +130,7 @@ struct CurrencyCoreDataManager {
         currency.absoluteValue = abslValue
     }
     
-    private func createLatestForex(shortName: String, fullName: String, currValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0) {
+    private func createLatestForex(shortName: String, fullName: String, currValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, isBaseCurrency: Bool = false, rowForCurrency: Int32 = 0) {
         let currency = ForexCurrency(context: self.context)
         
         currency.shortName = shortName
@@ -139,6 +140,7 @@ struct CurrencyCoreDataManager {
         currency.isForConverter = isForConverter
         currency.rowForConverter = rowForConverter
         currency.isForCurrencyScreen = isForCurrency
+        currency.isBaseCurrency = isBaseCurrency
         currency.rowForCurrency = rowForCurrency
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = abslValue
@@ -174,7 +176,7 @@ struct CurrencyCoreDataManager {
         currency.previousValue = 1.0 / prevValue
     }
     
-    private func createYesterdayForex(shortName: String, fullName: String, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0) {
+    private func createYesterdayForex(shortName: String, fullName: String, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, isBaseCurrency: Bool = false, rowForCurrency: Int32 = 0) {
         let currency = ForexCurrency(context: self.context)
         
         currency.shortName = shortName
@@ -184,6 +186,7 @@ struct CurrencyCoreDataManager {
         currency.isForConverter = isForConverter
         currency.rowForConverter = rowForConverter
         currency.isForCurrencyScreen = isForCurrency
+        currency.isBaseCurrency = isBaseCurrency
         currency.rowForCurrency = rowForCurrency
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = currency.currentValue / Double(currency.nominal)
@@ -201,7 +204,7 @@ struct CurrencyCoreDataManager {
         do {
             let fetchCurrencies = try context.fetch(request)
             fetchCurrencies.forEach { currency in
-                currency.isForCurrencyScreen = currency.shortName == pickedBaseCurrency ? false : true
+                currency.isBaseCurrency = currency.shortName == pickedBaseCurrency ? true : false
             }
         } catch {
             print(error)

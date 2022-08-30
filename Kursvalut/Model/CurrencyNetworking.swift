@@ -123,6 +123,10 @@ struct CurrencyNetworking {
                 let decodedData = try decoder.decode(ForexCurrencyData.self, from: currencyData)
                 let filteredData = decodedData.rates.filter({ dataToFilterOut.contains($0.key) == false })
                 url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData)
+                
+                if pickedDataSource != "ЦБ РФ" {
+                    coreDataManager.filterOutForexBaseCurrency()
+                }
             }
             return nil
         } catch {
