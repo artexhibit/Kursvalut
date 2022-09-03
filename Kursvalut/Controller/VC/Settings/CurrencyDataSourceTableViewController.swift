@@ -133,7 +133,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         requestDataForConfirmedDate()
     }
     
-    @IBAction func cancelButtonPressed(_ sender: UIButton) {
+    @IBAction func resetDateButtonPressed(_ sender: UIButton) {
         pickedDate = confirmedDate
         tableView.reloadRows(at: [datePickerIndexPath], with: .none)
     }
@@ -262,13 +262,13 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         if let dataForPickedDate = pickedDate, confirmedDate != dataForPickedDate {
             cell.confirmButton.isEnabled = true
             cell.confirmButton.isHidden = false
-            cell.cancelButton.isEnabled = true
-            cell.cancelButton.isHidden = false
+            cell.resetDateButton.isEnabled = true
+            cell.resetDateButton.isHidden = false
         } else {
             cell.confirmButton.isEnabled = false
             cell.confirmButton.isHidden = true
-            cell.cancelButton.isEnabled = false
-            cell.cancelButton.isHidden = true
+            cell.resetDateButton.isEnabled = false
+            cell.resetDateButton.isHidden = true
         }
     }
     
@@ -277,7 +277,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             UserDefaults.standard.set(true, forKey: "updateRequestFromCurrencyDataSource")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
             UserDefaults.standard.set(false, forKey: "userClosedApp")
-            UserDefaults.standard.set(true, forKey: "newDataSourcePicked")
+            UserDefaults.standard.set(true, forKey: "needToScrollUpViewController")
             tableView.reloadRows(at: [dateIndexPath], with: .none)
         } else {
             if targetIndexPath == nil {
@@ -332,6 +332,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                     if self.pickedDate == self.todaysDate {
                         UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
                     }
+                    UserDefaults.standard.set(true, forKey: "needToScrollUpViewController")
                     PopupView().showPopup(title: "Успешно", message: "Курсы загружены", type: .success)
                 }
                 self.dataSourceCellWasPressed = false

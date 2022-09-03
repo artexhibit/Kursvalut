@@ -11,8 +11,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     var currencyManager = CurrencyManager()
-    var newDataSourcePicked: Bool {
-        return UserDefaults.standard.bool(forKey: "newDataSourcePicked")
+    var needToScrollUpViewController: Bool {
+        return UserDefaults.standard.bool(forKey: "needToScrollUpViewController")
     }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        newDataSourcePicked ? UserDefaults.standard.set(true, forKey: "userClosedApp") : UserDefaults.standard.set(false, forKey: "userClosedApp")
+        needToScrollUpViewController ? UserDefaults.standard.set(true, forKey: "userClosedApp") : UserDefaults.standard.set(false, forKey: "userClosedApp")
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

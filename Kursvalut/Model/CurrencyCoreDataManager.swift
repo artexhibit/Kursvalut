@@ -7,6 +7,12 @@ struct CurrencyCoreDataManager {
     private var pickCurrencyRequest: Bool {
         return UserDefaults.standard.bool(forKey: "pickCurrencyRequest")
     }
+    private var amountOfPickedBankOfRussiaCurrencies: Int {
+        return UserDefaults.standard.integer(forKey: "savedAmountForBankOfRussia")
+    }
+    private var amountOfPickedForexCurrencies: Int {
+        return UserDefaults.standard.integer(forKey: "savedAmountForForex")
+    }
     var pickedBaseCurrency: String {
         return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
     }
@@ -65,11 +71,12 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func updateBankOfRussiaCurrency(currency: Currency, currValue: Double, prevValue: Double, currNominal: Int, abslValue: Double) {
+    private func updateBankOfRussiaCurrency(currency: Currency, currValue: Double, prevValue: Double, currNominal: Int, abslValue: Double, isForCurrency: Bool = true) {
         currency.currentValue = currValue
         currency.previousValue = prevValue
         currency.nominal = Int32(currNominal)
         currency.absoluteValue = abslValue
+        currency.isForCurrencyScreen = isForCurrency
     }
     
     func createRubleCurrency() {
@@ -102,6 +109,39 @@ struct CurrencyCoreDataManager {
         return fetchCurrencies
     }
     
+    func resetCurrencyScreenPropertyForBankOfRussiaCurrencies() {
+        let currencies = fetchAllBankOfRussiaCurrencies()
+        
+        if !currencies.isEmpty {
+            currencies.forEach { currency in
+                currency.isForCurrencyScreen = false
+            }
+        }
+    }
+    
+    func removeResetBankOfRussiaCurrenciesFromConverter() {
+        var currentAmount = amountOfPickedBankOfRussiaCurrencies
+        let currencies = fetchAllBankOfRussiaCurrencies()
+        var array = [Currency]()
+        
+        if !currencies.isEmpty {
+            currencies.forEach { currency in
+                if currency.isForCurrencyScreen == false && currency.isForConverter == true {
+                    currency.isForConverter = false
+                    currency.rowForConverter = 0
+                    currentAmount -= 1
+                } else if currency.isForCurrencyScreen == true && currency.isForConverter == true {
+                    array.append(currency)
+                }
+            }
+            UserDefaults.standard.set(currentAmount, forKey: "savedAmountForBankOfRussia")
+        }
+        array.sort(by: ({$0.rowForConverter < $1.rowForConverter}))
+        for (row, currency) in array.enumerated() {
+            currency.rowForConverter = Int32(row)
+        }
+    }
+    
    //MARK: - CRUD for Forex Currency
     
     func createOrUpdateLatestForexCurrency(from dictionary: [String:String]) {
@@ -124,10 +164,11 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func updateLatestForex(currency: ForexCurrency, currValue: Double, currNominal: Int, abslValue: Double) {
+    private func updateLatestForex(currency: ForexCurrency, currValue: Double, currNominal: Int, abslValue: Double, isForCurrency: Bool = true) {
         currency.currentValue = currValue
         currency.nominal = Int32(currNominal)
         currency.absoluteValue = abslValue
+        currency.isForCurrencyScreen = isForCurrency
     }
     
     private func createLatestForex(shortName: String, fullName: String, currValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, isBaseCurrency: Bool = false, rowForCurrency: Int32 = 0) {
@@ -172,8 +213,9 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func updateYesterdayForex(currency: ForexCurrency, prevValue: Double) {
+    private func updateYesterdayForex(currency: ForexCurrency, prevValue: Double, isForCurrency: Bool = true) {
         currency.previousValue = 1.0 / prevValue
+        currency.isForCurrencyScreen = isForCurrency
     }
     
     private func createYesterdayForex(shortName: String, fullName: String, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, isBaseCurrency: Bool = false, rowForCurrency: Int32 = 0) {
@@ -221,6 +263,39 @@ struct CurrencyCoreDataManager {
             print(error)
         }
         return fetchCurrencies
+    }
+    
+    func resetCurrencyScreenPropertyForForexCurrencies() {
+        let currencies = fetchAllForexCurrencies()
+        
+        if !currencies.isEmpty {
+            currencies.forEach { currency in
+                currency.isForCurrencyScreen = false
+            }
+        }
+    }
+    
+    func removeResetForexCurrenciesFromConverter() {
+        var currentAmount = amountOfPickedForexCurrencies
+        let currencies = fetchAllForexCurrencies()
+        var array = [ForexCurrency]()
+        
+        if !currencies.isEmpty {
+            currencies.forEach { currency in
+                if currency.isForCurrencyScreen == false && currency.isForConverter == true {
+                    currency.isForConverter = false
+                    currency.rowForConverter = 0
+                    currentAmount -= 1
+                } else if currency.isForCurrencyScreen == true && currency.isForConverter == true {
+                    array.append(currency)
+                }
+            }
+            UserDefaults.standard.set(currentAmount, forKey: "savedAmountForForex")
+        }
+        array.sort(by: ({$0.rowForConverter < $1.rowForConverter}))
+        for (row, currency) in array.enumerated() {
+            currency.rowForConverter = Int32(row)
+        }
     }
     
    //MARK: - FetchResultsController Setup

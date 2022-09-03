@@ -40,8 +40,8 @@ class CurrencyViewController: UIViewController {
     private var currencyUpdateTime: String {
         return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (UserDefaults.standard.string(forKey: "forexUpdateTime") ?? "")
     }
-    private var newDataSourcePicked: Bool {
-        return UserDefaults.standard.bool(forKey: "newDataSourcePicked")
+    private var needToScrollUpViewController: Bool {
+        return UserDefaults.standard.bool(forKey: "needToScrollUpViewController")
     }
     private var userClosedApp: Bool {
         return UserDefaults.standard.bool(forKey: "userClosedApp")
@@ -377,8 +377,8 @@ extension CurrencyViewController {
                 }
                 if !updateRequestFromCurrencyDataSource {
                     UserDefaults.standard.set(updateDate, forKey: "confirmedDate")
+                    UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
                 }
-                UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
                 UserDefaults.standard.set(false, forKey: "updateRequestFromCurrencyDataSource")
             }
         }
@@ -413,10 +413,10 @@ extension CurrencyViewController: UITabBarControllerDelegate {
     }
     
     func scrollVCUp() {
-        if newDataSourcePicked {
+        if needToScrollUpViewController {
             traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset, delayValue: 0.01) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset, delayValue: 0.01)
-            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset, delayValue: 0.35) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset, delayValue: 0.35)
-            UserDefaults.standard.set(false, forKey: "newDataSourcePicked")
+            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset, delayValue: 0.40) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset, delayValue: 0.40)
+            UserDefaults.standard.set(false, forKey: "needToScrollUpViewController")
         }
     }
     

@@ -106,18 +106,22 @@ class PickCurrencyTableViewController: UITableViewController {
             bankOfRussiaCurrency.isForConverter = !bankOfRussiaCurrency.isForConverter
             bankOfRussiaCurrency.isForConverter ? (currentAmount += 1) : (currentAmount -= 1)
             
-            if proPurchased {
-                converterManager.setRow(for: bankOfRussiaCurrency, in: bankOfRussiaCurrencies)
-            } else if !proPurchased && currentAmount <= 3 {
-                converterManager.setRow(for: bankOfRussiaCurrency, in: bankOfRussiaCurrencies)
-                UserDefaults.standard.set(currentAmount, forKey: "savedAmountForBankOfRussia")
+            if bankOfRussiaCurrency.isForConverter {
+                if proPurchased {
+                    converterManager.setRow(for: bankOfRussiaCurrency, in: bankOfRussiaCurrencies)
+                } else if !proPurchased && currentAmount <= 3 {
+                    converterManager.setRow(for: bankOfRussiaCurrency, in: bankOfRussiaCurrencies)
+                } else {
+                    bankOfRussiaCurrency.isForConverter = false
+                    currentAmount = 3
+                    PopupView().showPopup(title: "Максимум 3 валюты", message: "Безлимит доступен в Pro", type: .lock)
+                }
             } else {
                 bankOfRussiaCurrency.isForConverter = false
-                currentAmount -= 1
-                UserDefaults.standard.set(currentAmount, forKey: "savedAmountForBankOfRussia")
-                PopupView().showPopup(title: "Максимум 3 валюты", message: "Безлимит доступен в Pro", type: .lock)
+                bankOfRussiaCurrency.rowForConverter = 0
             }
-        } else {
+            UserDefaults.standard.set(currentAmount, forKey: "savedAmountForBankOfRussia")
+        } else if pickedDataSource == "Forex (Биржа)" {
             var currentAmount = amountOfPickedForexCurrencies
             let forexCurrencies = coreDataManager.fetchAllForexCurrencies()
             let forexCurrency = forexFRC.object(at: indexPath)
@@ -125,17 +129,21 @@ class PickCurrencyTableViewController: UITableViewController {
             forexCurrency.isForConverter = !forexCurrency.isForConverter
             forexCurrency.isForConverter ? (currentAmount += 1) : (currentAmount -= 1)
             
-            if proPurchased {
-                converterManager.setRow(for: forexCurrency, in: forexCurrencies)
-            } else if !proPurchased && currentAmount <= 3 {
-                converterManager.setRow(for: forexCurrency, in: forexCurrencies)
-                UserDefaults.standard.set(currentAmount, forKey: "savedAmountForForex")
+            if forexCurrency.isForConverter {
+                if proPurchased {
+                    converterManager.setRow(for: forexCurrency, in: forexCurrencies)
+                } else if !proPurchased && currentAmount <= 3 {
+                    converterManager.setRow(for: forexCurrency, in: forexCurrencies)
+                } else {
+                    forexCurrency.isForConverter = false
+                    currentAmount = 3
+                    PopupView().showPopup(title: "Максимум 3 валюты", message: "Безлимит доступен в Pro", type: .lock)
+                }
             } else {
                 forexCurrency.isForConverter = false
-                currentAmount -= 1
-                UserDefaults.standard.set(currentAmount, forKey: "savedAmountForForex")
-                PopupView().showPopup(title: "Максимум 3 валюты", message: "Безлимит доступен в Pro", type: .lock)
+                forexCurrency.rowForConverter = 0
             }
+            UserDefaults.standard.set(currentAmount, forKey: "savedAmountForForex")
         }
         coreDataManager.save()
     }
@@ -145,16 +153,24 @@ class PickCurrencyTableViewController: UITableViewController {
 
 extension PickCurrencyTableViewController: NSFetchedResultsControllerDelegate {
     func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
+        UserDefaults.standard.set(true, forKey: "pickCurrencyRequest")
+        let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
+        var searchCompoundPredicate: NSCompoundPredicate {
+            let additionalPredicate = NSPredicate(format: "isForCurrencyScreen == YES")
+            
+            if let searchPredicate = searchPredicate {
+                return NSCompoundPredicate(type: .and, subpredicates: [searchPredicate, additionalPredicate])
+            } else {
+                return NSCompoundPredicate(type: .and, subpredicates: [additionalPredicate])
+            }
+        }
+        
         if pickedDataSource == "ЦБ РФ" {
-            UserDefaults.standard.set(true, forKey: "pickCurrencyRequest")
-            let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
-            bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: searchPredicate, and: sortDescriptor)
+            bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: searchCompoundPredicate, and: sortDescriptor)
             bankOfRussiaFRC.delegate = self
             try? bankOfRussiaFRC.performFetch()
         } else {
-            UserDefaults.standard.set(true, forKey: "pickCurrencyRequest")
-            let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
-            forexFRC = coreDataManager.createForexCurrencyFRC(with: searchPredicate, and: sortDescriptor)
+            forexFRC = coreDataManager.createForexCurrencyFRC(with: searchCompoundPredicate, and: sortDescriptor)
             forexFRC.delegate = self
             try? forexFRC.performFetch()
         }
@@ -214,6 +230,10 @@ extension PickCurrencyTableViewController: UISearchResultsUpdating {
             let searchName = NSPredicate(format: "searchName CONTAINS[cd] %@", searchText)
             return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName, searchName])
         }
-        searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: searchPredicate)
+        var searchCompoundPredicate: NSCompoundPredicate {
+            let additionalPredicate = NSPredicate(format: "isForCurrencyScreen == YES")
+            return NSCompoundPredicate(type: .and, subpredicates: [searchPredicate, additionalPredicate])
+        }
+        searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: searchCompoundPredicate)
     }
 }

@@ -117,16 +117,20 @@ struct CurrencyNetworking {
             if url == currentBankOfRussiaURL {
                 let decodedData = try decoder.decode(BankOfRussiaCurrencyData.self, from: currencyData)
                 let filteredData = decodedData.Valute.filter({ dataToFilterOut.contains($0.value.CharCode) == false }).values
+                coreDataManager.resetCurrencyScreenPropertyForBankOfRussiaCurrencies()
                 coreDataManager.createOrUpdateBankOfRussiaCurrency(with: filteredData)
                 coreDataManager.createRubleCurrency()
+                coreDataManager.removeResetBankOfRussiaCurrenciesFromConverter()
             } else {
                 let decodedData = try decoder.decode(ForexCurrencyData.self, from: currencyData)
                 let filteredData = decodedData.rates.filter({ dataToFilterOut.contains($0.key) == false })
+                coreDataManager.resetCurrencyScreenPropertyForForexCurrencies()
                 url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData)
                 
                 if pickedDataSource != "ЦБ РФ" {
                     coreDataManager.filterOutForexBaseCurrency()
                 }
+                coreDataManager.removeResetForexCurrenciesFromConverter()
             }
             return nil
         } catch {

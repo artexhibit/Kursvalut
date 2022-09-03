@@ -162,7 +162,30 @@ struct CurrencyManager {
         "WST": (currencyName: "Самоанская тала", searchName: "Самоа"),
         "YER": (currencyName: "Йеменский риал", searchName: "Йемен"),
         "ZMW": (currencyName: "Замбийская квача", searchName: "Замбия"),
-        "ZWL": (currencyName: "Доллар Зимбабве", searchName: "Зимбабве")
+        "ZWL": (currencyName: "Доллар Зимбабве", searchName: "Зимбабве"),
+        "ATS": (currencyName: "Австрийский шиллинг", searchName: "Австрия"),
+        "BEF": (currencyName: "Бельгийский франк", searchName: "Бельгия"),
+        "BYR": (currencyName: "Белорусский рубль (старый)", searchName: "Белоруссия"),
+        "DEM": (currencyName: "Немецкая марка", searchName: "Германия"),
+        "ESP": (currencyName: "Испанская песета", searchName: "Испания"),
+        "FIM": (currencyName: "Финляндская марка", searchName: "Финляндия"),
+        "FRF": (currencyName: "Французский франк", searchName: "Франция"),
+        "GRD": (currencyName: "Греческая драхма", searchName: "Греция"),
+        "IEP": (currencyName: "Ирландский фунт", searchName: "Ирландия"),
+        "ITL": (currencyName: "Итальянская лира", searchName: "Италия"),
+        "NLG": (currencyName: "Нидерландский гульден", searchName: "Нидерланды"),
+        "PTE": (currencyName: "Португальский эскудо", searchName: "Португалия"),
+        "TRL": (currencyName: "Турецкая лира (старая)", searchName: "Турция"),
+        "EEK": (currencyName: "Эстонская крона", searchName: "Эстония"),
+        "LTL": (currencyName: "Литовский лит", searchName: "Литва"),
+        "LVL": (currencyName: "Латвийский лат", searchName: "Латвия"),
+        "CYP": (currencyName: "Кипрский фунт", searchName: "Кипр"),
+        "MTL": (currencyName: "Мальтийская лира", searchName: "Мальта"),
+        "ROL": (currencyName: "Румынский лей (старый)", searchName: "Румыния"),
+        "SIT": (currencyName: "Словенский толар", searchName: "Словения"),
+        "SKK": (currencyName: "Словацкая крона", searchName: "Словакия"),
+        "MRO": (currencyName: "Мавританская угия (старая)", searchName: "Мавритания"),
+        "VEF": (currencyName: "Венесуэльский боливар (старый)", searchName: "Венесуэла")
     ]
     
     private var difference: Double = 0.0

@@ -89,9 +89,20 @@ extension BaseCurrencyTableViewController: NSFetchedResultsControllerDelegate {
     func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
         UserDefaults.standard.set(true, forKey: "pickCurrencyRequest")
         let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
-        forexFRC = coreDataManager.createForexCurrencyFRC(with: searchPredicate, and: sortDescriptor)
+        var searchCompoundPredicate: NSCompoundPredicate {
+            let additionalPredicate = NSPredicate(format: "isForCurrencyScreen == YES")
+            
+            if let searchPredicate = searchPredicate {
+                return NSCompoundPredicate(type: .and, subpredicates: [searchPredicate, additionalPredicate])
+            } else {
+                return NSCompoundPredicate(type: .and, subpredicates: [additionalPredicate])
+            }
+        }
+        forexFRC = coreDataManager.createForexCurrencyFRC(with: searchCompoundPredicate, and: sortDescriptor)
         forexFRC.delegate = self
         try? forexFRC.performFetch()
+        
+        tableView.reloadData()
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -146,7 +157,10 @@ extension BaseCurrencyTableViewController: UISearchResultsUpdating {
             let searchName = NSPredicate(format: "searchName CONTAINS[cd] %@", searchText)
             return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName, searchName])
         }
-        searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: searchPredicate)
-        tableView.reloadData()
+        var searchCompoundPredicate: NSCompoundPredicate {
+            let additionalPredicate = NSPredicate(format: "isForCurrencyScreen == YES")
+            return NSCompoundPredicate(type: .and, subpredicates: [searchPredicate, additionalPredicate])
+        }
+        searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: searchCompoundPredicate)
     }
 }
