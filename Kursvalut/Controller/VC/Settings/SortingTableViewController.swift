@@ -163,7 +163,10 @@ class SortingTableViewController: UITableViewController {
             cell.titleLabel.text = sections[customSortCellSection].title
             cell.subtitleLabel.text = sections[customSortCellSection].subtitle
             cell.selectionStyle = .none
+            
             cell.proLabel.isHidden = !proPurchased ? false : true
+            cell.backgroundColor = !proPurchased ? .systemGray5 : .none
+            cell.customSortSwitch.isEnabled = !proPurchased ? false : true
             
             if customSortSwitchIsOn {
                 cell.customSortSwitch.setOn(true, animated: false)

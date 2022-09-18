@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kPs-c4-rso">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kPs-c4-rso">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -42,7 +42,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="currencyCell" id="3kb-HP-db3" customClass="CurrencyTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="57.5" width="414" height="78.5"/>
+                                        <rect key="frame" x="0.0" y="63" width="414" height="78.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3kb-HP-db3" id="g69-IX-gzk">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="78.5"/>
@@ -191,7 +191,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="converterCell" rowHeight="72" id="fx4-fq-y39" customClass="ConverterTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="72"/>
+                                <rect key="frame" x="20" y="38" width="374" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fx4-fq-y39" id="LRS-4u-sI9">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="72"/>
@@ -332,12 +332,12 @@
             <objects>
                 <tableViewController id="qRm-Ml-gMY" userLabel="Pick Currency Table View Controller" customClass="PickCurrencyTableViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="orr-JY-8xr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="pickCurrencyCell" rowHeight="72" id="anU-y8-0hG" userLabel="pickCurrencyCell" customClass="PickCurrencyTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="72"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="anU-y8-0hG" id="oed-ZW-6ga">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
@@ -451,12 +451,12 @@
             <objects>
                 <tableViewController id="qIR-CE-XXx" userLabel="Base Currency Table View Controller" customClass="BaseCurrencyTableViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="W2k-f0-3yd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="baseCurrencyCell" rowHeight="72" id="2rY-ZW-plI" userLabel="baseCurrencyCell" customClass="BaseCurrencyTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="72"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2rY-ZW-plI" id="6VQ-tN-JJ9">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
@@ -644,10 +644,10 @@
                             <tableViewSection headerTitle="Основные" id="7cF-xf-vr5">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="3Mh-xL-Geo" userLabel="Источник данных по курсам">
-                                        <rect key="frame" x="20" y="178" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="184" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Mh-xL-Geo" id="MM9-Au-ZhY">
-                                            <rect key="frame" x="0.0" y="0.0" width="345.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xbj-Qm-w7h" userLabel="iconView">
@@ -671,7 +671,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Источники данных" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t04-Ja-vki" userLabel="Источник данных по курсам">
-                                                    <rect key="frame" x="59" y="11.5" width="278.5" height="20.5"/>
+                                                    <rect key="frame" x="59" y="11.5" width="276.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -691,10 +691,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="t1H-pg-KEq" userLabel="Десятичные знаки">
-                                        <rect key="frame" x="20" y="221" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="227" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t1H-pg-KEq" id="l5A-0I-Mvl">
-                                            <rect key="frame" x="0.0" y="0.0" width="345.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yDb-4o-0FR" userLabel="iconView">
@@ -755,10 +755,10 @@
                                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="XEw-Gj-X6p" userLabel="Стартовый экран">
-                                        <rect key="frame" x="20" y="264" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="270" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XEw-Gj-X6p" id="1tl-Q3-OV2">
-                                            <rect key="frame" x="0.0" y="0.0" width="345.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Puh-Fj-HKC" userLabel="iconView">
@@ -819,10 +819,10 @@
                                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="hHO-mJ-MPI" userLabel="Тема">
-                                        <rect key="frame" x="20" y="307" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="313" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hHO-mJ-MPI" id="pN2-TZ-xaR">
-                                            <rect key="frame" x="0.0" y="0.0" width="345.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XI5-ld-pP8" userLabel="iconView">
@@ -846,7 +846,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Как в системе" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mbr-jw-0kB">
-                                                    <rect key="frame" x="224.5" y="10" width="113" height="20.5"/>
+                                                    <rect key="frame" x="222.5" y="10" width="113" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" systemColor="systemGrayColor"/>
                                                     <nil key="highlightedColor"/>
@@ -891,10 +891,10 @@
                                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="DPh-a9-rRV" userLabel="Сортировка">
-                                        <rect key="frame" x="20" y="350" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="356" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DPh-a9-rRV" id="ksg-eW-D2N">
-                                            <rect key="frame" x="0.0" y="0.0" width="345.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3Z-cD-fJp" userLabel="iconView">
@@ -918,7 +918,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сортировка" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T87-QR-zUq">
-                                                    <rect key="frame" x="59" y="11.5" width="278.5" height="20.5"/>
+                                                    <rect key="frame" x="59" y="11.5" width="276.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -938,7 +938,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="8cU-3R-fsM" userLabel="Круглые флаги стран">
-                                        <rect key="frame" x="20" y="393" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="399" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8cU-3R-fsM" id="bfI-Sn-4CP">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
@@ -1009,7 +1009,7 @@
                                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="GRa-Ku-k4D" userLabel="Щелчки клавиатуры">
-                                        <rect key="frame" x="20" y="436" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="442" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GRa-Ku-k4D" id="mfo-e6-VzO">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
@@ -1069,14 +1069,14 @@
                             <tableViewSection headerTitle="Pro версия" id="AoU-ey-PT8" userLabel="Pro версия">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="rNr-QQ-ObR" userLabel="Kursvalut Pro">
-                                        <rect key="frame" x="20" y="529" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="541" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rNr-QQ-ObR" id="een-Li-LFD">
-                                            <rect key="frame" x="0.0" y="0.0" width="345.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="hPK-Vs-nYE">
-                                                    <rect key="frame" x="15" y="0.0" width="330.5" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="328.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rQc-cb-kNm" userLabel="iconView">
                                                             <rect key="frame" x="0.0" y="7" width="29" height="29"/>
@@ -1099,7 +1099,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Приветственный экран" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDV-BH-YOD">
-                                                            <rect key="frame" x="44" y="11.5" width="286.5" height="20.5"/>
+                                                            <rect key="frame" x="44" y="11.5" width="284.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1120,7 +1120,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="bP5-EN-Aia" userLabel="Восстановить покупку">
-                                        <rect key="frame" x="20" y="572" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="584" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bP5-EN-Aia" id="0Li-1t-skP">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
@@ -1181,14 +1181,14 @@
                             <tableViewSection headerTitle="Юридическая информация" id="swK-Po-hFJ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="1VX-Hd-IdD" userLabel="Условия использования">
-                                        <rect key="frame" x="20" y="665" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="683" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1VX-Hd-IdD" id="p51-Fr-rM3">
-                                            <rect key="frame" x="0.0" y="0.0" width="345.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="xFS-1o-Fl4">
-                                                    <rect key="frame" x="15" y="0.0" width="330.5" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="328.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJU-9F-KZQ" userLabel="iconView">
                                                             <rect key="frame" x="0.0" y="7" width="29" height="29"/>
@@ -1211,7 +1211,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Условия использования" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xsf-4A-SlJ">
-                                                            <rect key="frame" x="44" y="11.5" width="286.5" height="20.5"/>
+                                                            <rect key="frame" x="44" y="11.5" width="284.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1232,14 +1232,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="ome-zf-fmC" userLabel="Политика конфиденциальности">
-                                        <rect key="frame" x="20" y="708" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="726" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ome-zf-fmC" id="hfh-G9-A7O">
-                                            <rect key="frame" x="0.0" y="0.0" width="345.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="SIr-Te-zJ8">
-                                                    <rect key="frame" x="15" y="0.0" width="330.5" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="328.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcc-yn-O7M" userLabel="iconView">
                                                             <rect key="frame" x="0.0" y="7" width="29" height="29"/>
@@ -1262,7 +1262,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Политика конфиденциальности" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgJ-bJ-ZnP">
-                                                            <rect key="frame" x="44" y="11.5" width="286.5" height="20.5"/>
+                                                            <rect key="frame" x="44" y="11.5" width="284.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1287,14 +1287,14 @@
                             <tableViewSection headerTitle="Контакты и ссылки" id="yIC-45-gF9">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="Txu-hD-yLR" userLabel="О приложении">
-                                        <rect key="frame" x="20" y="801" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="825" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Txu-hD-yLR" id="yij-Du-rUg">
-                                            <rect key="frame" x="0.0" y="0.0" width="345.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleAspectFit" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="SYZ-Cm-bLs">
-                                                    <rect key="frame" x="15" y="0.0" width="330.5" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="328.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bIl-RQ-7AO" userLabel="iconView">
                                                             <rect key="frame" x="0.0" y="7" width="29" height="29"/>
@@ -1317,7 +1317,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="О приложении" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3X5-gf-Ltv">
-                                                            <rect key="frame" x="44" y="11.5" width="286.5" height="20.5"/>
+                                                            <rect key="frame" x="44" y="11.5" width="284.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1338,14 +1338,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="EAh-gz-pEo" userLabel="Оставить чаевые">
-                                        <rect key="frame" x="20" y="844" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="868" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EAh-gz-pEo" id="cBd-wT-6WD">
-                                            <rect key="frame" x="0.0" y="0.0" width="345.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="iLl-pO-hXL">
-                                                    <rect key="frame" x="15" y="0.0" width="330.5" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="328.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjc-sZ-JZr" userLabel="iconView">
                                                             <rect key="frame" x="0.0" y="7" width="29" height="29"/>
@@ -1368,7 +1368,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Оставить чаевые" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdu-bO-Tjt">
-                                                            <rect key="frame" x="44" y="11.5" width="286.5" height="20.5"/>
+                                                            <rect key="frame" x="44" y="11.5" width="284.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1389,7 +1389,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="TLL-6s-ajV" userLabel="Обратная связь">
-                                        <rect key="frame" x="20" y="887" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="911" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TLL-6s-ajV" id="ezK-vS-SkK">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
@@ -1437,7 +1437,7 @@
                                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="V2c-aL-Nt8" userLabel="Поделиться приложением">
-                                        <rect key="frame" x="20" y="930" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="954" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="V2c-aL-Nt8" id="qMh-8b-euL">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
@@ -1485,7 +1485,7 @@
                                         <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="43" id="6UE-rh-8m2" userLabel="Оценить приложение">
-                                        <rect key="frame" x="20" y="973" width="374" height="43"/>
+                                        <rect key="frame" x="20" y="997" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6UE-rh-8m2" id="dkt-bA-ZZk">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
@@ -1606,7 +1606,7 @@
                     <tabBarItem key="tabBarItem" title="Валюты" image="globe.europe.africa.fill" catalog="system" id="7vb-Nh-0Io"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="M6W-dq-g6X">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1625,7 +1625,7 @@
                     <tabBarItem key="tabBarItem" title="Конвертер" image="arrow.left.arrow.right" catalog="system" id="2sP-3U-CZQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="ElB-Hb-Kpx">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1644,7 +1644,7 @@
                     <tabBarItem key="tabBarItem" title="Настройки" image="gearshape" catalog="system" id="D2Z-C0-3LU"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Jry-0Z-VXD">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1665,7 +1665,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="decimalsCell" rowHeight="61" id="GGn-63-Rt8" userLabel="Decimals Options Cell" customClass="DecimalsTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="49.5" width="374" height="61"/>
+                                <rect key="frame" x="20" y="55.5" width="374" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GGn-63-Rt8" id="IXy-pq-Wmf">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="61"/>
@@ -1717,7 +1717,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="currencyPreviewCell" rowHeight="72" id="eJK-GH-MtY" userLabel="Currency Preview Cell" customClass="CurrencyPreviewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="110.5" width="374" height="72"/>
+                                <rect key="frame" x="20" y="116.5" width="374" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eJK-GH-MtY" id="0wM-ge-vhQ">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="72"/>
@@ -1824,7 +1824,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="converterPreviewCell" rowHeight="72" id="KoA-DA-Ywk" userLabel="Converter Preview Cell" customClass="ConverterPreviewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="182.5" width="374" height="72"/>
+                                <rect key="frame" x="20" y="188.5" width="374" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KoA-DA-Ywk" id="gvP-G7-hjR">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="72"/>
@@ -1949,14 +1949,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startViewCell" id="hyY-vn-r54" userLabel="Start View Cell" customClass="StartViewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43.5"/>
+                                <rect key="frame" x="20" y="38" width="374" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hyY-vn-r54" id="Dx2-ce-Ru7">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Валюты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbc-hr-FHJ" userLabel="viewNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1994,14 +1994,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="M1Q-1H-VHB" userLabel="Theme Cell" customClass="ThemeTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="43"/>
+                                <rect key="frame" x="20" y="38" width="374" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M1Q-1H-VHB" id="3sk-ff-s1w">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Как в системе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrU-4i-37D" userLabel="themeNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="22"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -2035,20 +2035,20 @@
             <objects>
                 <viewController id="d7z-vH-yCS" userLabel="Terms Of Use View Controller" customClass="TermsOfUseViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bJx-FF-oWQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XE7-hr-BZi">
-                                <rect key="frame" x="0.0" y="56" width="414" height="786"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="782"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="dY3-v1-XFl" userLabel="Footer View">
-                                    <rect key="frame" x="0.0" y="163" width="414" height="70"/>
+                                    <rect key="frame" x="0.0" y="174" width="414" height="70"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="termsOfUseCell" rowHeight="96" id="0S3-4D-xAJ" customClass="TermsOfUseTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="96"/>
+                                        <rect key="frame" x="0.0" y="50" width="414" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0S3-4D-xAJ" id="Te2-zA-dmU">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
@@ -2092,7 +2092,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="agy-qs-I0u">
-                                <rect key="frame" x="57" y="767" width="300" height="55"/>
+                                <rect key="frame" x="57" y="763" width="300" height="55"/>
                                 <color key="backgroundColor" name="BlueColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="250" constant="300" id="gSY-4N-l4d"/>
@@ -2141,15 +2141,15 @@
             <objects>
                 <viewController id="95h-Qm-UJy" userLabel="Privacy Policy View Controller" customClass="PrivacyPolicyViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dww-wJ-H0E">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fZO-ik-3TN">
-                                <rect key="frame" x="0.0" y="56" width="414" height="786"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="782"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="privacyPolicyCell" rowHeight="96" id="Bag-UY-eG2" customClass="PrivacyPolicyTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="96"/>
+                                        <rect key="frame" x="0.0" y="50" width="414" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bag-UY-eG2" id="PFI-I1-GfF">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
@@ -2193,7 +2193,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="9DY-0G-cZK">
-                                <rect key="frame" x="57" y="767" width="300" height="55"/>
+                                <rect key="frame" x="57" y="763" width="300" height="55"/>
                                 <color key="backgroundColor" name="BlueColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="8sw-Pw-NmM"/>
@@ -2244,7 +2244,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="9Wy-x7-irU" userLabel="Footer View">
-                            <rect key="frame" x="0.0" y="378.5" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="384.5" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Версия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bS2-cY-t8P">
@@ -2261,7 +2261,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="aboutAppDeveloperCell" rowHeight="266" id="ftX-KK-VVX" userLabel="About App Developer Cell" customClass="AboutAppDeveloperTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="49.5" width="374" height="266"/>
+                                <rect key="frame" x="20" y="55.5" width="374" height="266"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ftX-KK-VVX" id="cw0-y4-Dli">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="266"/>
@@ -2329,10 +2329,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="aboutAppDataProvidersCell" rowHeight="45" id="A8d-Ym-S9H" userLabel="About App Data Providers Cell" customClass="AboutAppDataProvidersTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="315.5" width="374" height="45"/>
+                                <rect key="frame" x="20" y="321.5" width="374" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A8d-Ym-S9H" id="Oj2-QG-4nu">
-                                    <rect key="frame" x="0.0" y="0.0" width="345.5" height="45"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="343.5" height="45"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="K2r-ml-E37">
@@ -2353,7 +2353,7 @@
                                             </subviews>
                                         </stackView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe" translatesAutoresizingMaskIntoConstraints="NO" id="25b-LJ-WoD">
-                                            <rect key="frame" x="320.5" y="12.5" width="20" height="20"/>
+                                            <rect key="frame" x="318.5" y="12.5" width="20" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="Je1-IL-zY3"/>
                                                 <constraint firstAttribute="width" constant="20" id="UU3-eU-K2B"/>
@@ -2419,7 +2419,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="JNB-6F-5SF" userLabel="Label View">
-                            <rect key="frame" x="0.0" y="295" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="301" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSt-As-SwQ">
@@ -2438,7 +2438,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tipJarCell" rowHeight="45" id="OtF-vZ-c8Q" customClass="TipJarTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="232" width="374" height="45"/>
+                                <rect key="frame" x="20" y="238" width="374" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OtF-vZ-c8Q" id="FnO-97-7JX">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
@@ -2504,11 +2504,11 @@
             <objects>
                 <viewController id="yT0-od-ExB" userLabel="Pro View Controller" customClass="ProViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ucd-3p-d55">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9FO-Im-vmh">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Vc3-M3-uKM" userLabel="Footer View">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="182"/>
@@ -2538,13 +2538,13 @@
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="opq-cJ-rDT" userLabel="Footer View">
-                                    <rect key="frame" x="0.0" y="339" width="414" height="100"/>
+                                    <rect key="frame" x="0.0" y="350" width="414" height="100"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="proCell" rowHeight="90" id="mZb-4S-Ea9" userLabel="proCell" customClass="ProTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="226.5" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="232" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mZb-4S-Ea9" id="OXy-AM-qbA">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
@@ -2625,7 +2625,7 @@
                                 </connections>
                             </tableView>
                             <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RsA-Y2-oEV">
-                                <rect key="frame" x="10" y="737" width="394" height="70"/>
+                                <rect key="frame" x="10" y="733" width="394" height="70"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="C6H-W6-ApE">
                                     <rect key="frame" x="0.0" y="0.0" width="394" height="70"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2816,7 +2816,7 @@
                         <inset key="separatorInset" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="mainSortCell" id="ju9-ds-1R2" customClass="MainSortTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="50"/>
+                                <rect key="frame" x="20" y="38" width="374" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ju9-ds-1R2" id="cdI-fB-W26">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -2864,7 +2864,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="subSortCell" id="wMg-ur-FeN" customClass="SubSortTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="82" width="374" height="50"/>
+                                <rect key="frame" x="20" y="88" width="374" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wMg-ur-FeN" id="DTs-H5-rAo">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -2889,7 +2889,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="customSortCell" id="7aq-Qy-H5x" userLabel="customSortCell" customClass="CustomSortTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="132" width="374" height="50"/>
+                                <rect key="frame" x="20" y="138" width="374" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7aq-Qy-H5x" id="wm7-IV-EuX">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -2925,7 +2925,7 @@
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oR2-bt-67I">
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oR2-bt-67I">
                                             <rect key="frame" x="305" y="9.5" width="51" height="31"/>
                                             <connections>
                                                 <action selector="customSortSwitchPressed:" destination="kgM-nt-TCR" eventType="valueChanged" id="ZcT-Lr-TXy"/>
@@ -2969,11 +2969,11 @@
             <objects>
                 <viewController id="f2q-hd-gcQ" customClass="OnboardingViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WoK-6y-Z7H">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kdi-An-XIR">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Bia-5A-n7E">
                                     <size key="itemSize" width="412" height="572"/>
@@ -2983,7 +2983,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WelcomeOnboardingCell" id="A9f-0M-jX1" customClass="WelcomeOnboardingCollectionViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="135" width="412" height="572"/>
+                                        <rect key="frame" x="0.0" y="133" width="412" height="572"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="412" height="572"/>
@@ -3030,7 +3030,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OnboardingCell" id="ARv-yC-2Le" customClass="OnboardingCollectionViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                        <rect key="frame" x="412" y="137" width="412" height="568"/>
+                                        <rect key="frame" x="412" y="135" width="412" height="568"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="412" height="568"/>
@@ -3041,7 +3041,7 @@
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <prototypes>
                                                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="onboardingTableCell" rowHeight="545" id="oxf-be-a8Q" customClass="OnboardingTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="44.5" width="412" height="545"/>
+                                                            <rect key="frame" x="0.0" y="50" width="412" height="545"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oxf-be-a8Q" id="9m8-w7-EMC">
                                                                 <rect key="frame" x="0.0" y="0.0" width="412" height="545"/>
@@ -3057,23 +3057,23 @@
                                                                         <rect key="frame" x="0.0" y="340" width="412" height="205"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="JV6-MF-ixR" userLabel="Page Title Stack View">
-                                                                                <rect key="frame" x="134.5" y="40" width="143.5" height="10"/>
+                                                                                <rect key="frame" x="134.5" y="40" width="143.5" height="13.5"/>
                                                                                 <subviews>
                                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe.europe.africa.fill" translatesAutoresizingMaskIntoConstraints="NO" id="OUs-Pb-Zfp">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="10"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="13.5"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="25" id="xJN-VP-iB2"/>
                                                                                         </constraints>
                                                                                     </imageView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Валюты" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWh-oh-rHn">
-                                                                                        <rect key="frame" x="30" y="0.0" width="113.5" height="10"/>
+                                                                                        <rect key="frame" x="30" y="0.0" width="113.5" height="13.5"/>
                                                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Следите за изменением курса валют ЦБ РФ по отношению к рублю. Если у вас есть Pro версия:" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7al-wN-eYN">
-                                                                                <rect key="frame" x="28" y="65" width="356" height="20"/>
+                                                                                <rect key="frame" x="28" y="68.5" width="356" height="16.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -3250,7 +3250,7 @@
                                 <blurEffect style="systemThinMaterial"/>
                             </visualEffectView>
                             <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oB8-X7-7oG">
-                                <rect key="frame" x="82" y="772" width="250" height="55"/>
+                                <rect key="frame" x="82" y="768" width="250" height="55"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Rpq-6I-858">
                                     <rect key="frame" x="0.0" y="0.0" width="250" height="55"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3271,7 +3271,7 @@
                                             </connections>
                                         </button>
                                         <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="fLT-4F-54J">
-                                            <rect key="frame" x="67.5" y="14.5" width="115.5" height="26"/>
+                                            <rect key="frame" x="67" y="14.5" width="116.5" height="26"/>
                                             <color key="pageIndicatorTintColor" red="0.13054083106584269" green="0.56896733712525749" blue="1" alpha="0.11558603450951986" colorSpace="custom" customColorSpace="displayP3"/>
                                             <color key="currentPageIndicatorTintColor" name="AccentColor"/>
                                             <connections>
@@ -3365,7 +3365,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dataSourceCell" rowHeight="45" id="mhV-XH-8AX" userLabel="Data Source Cell" customClass="DataSourceTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="45"/>
+                                <rect key="frame" x="20" y="38" width="374" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mhV-XH-8AX" id="GvZ-VA-b8T">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
@@ -3399,10 +3399,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="pickedBaseCurrencyCell" textLabel="VlW-zU-cpT" detailTextLabel="WlK-ch-hdr" rowHeight="45" style="IBUITableViewCellStyleValue1" id="PBw-Mm-FMB" userLabel="Picked Base Currency Cell" customClass="PickedBaseCurrencyTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="77" width="374" height="45"/>
+                                <rect key="frame" x="20" y="83" width="374" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PBw-Mm-FMB" id="xfJ-pG-vRD">
-                                    <rect key="frame" x="0.0" y="0.0" width="345.5" height="45"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="343.5" height="45"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Базовая валюта" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VlW-zU-cpT">
@@ -3413,7 +3413,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="EUR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WlK-ch-hdr">
-                                            <rect key="frame" x="305" y="13" width="32.5" height="20.5"/>
+                                            <rect key="frame" x="303" y="13" width="32.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" systemColor="systemGrayColor"/>
@@ -3427,7 +3427,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="concreteDateCell" rowHeight="61" id="Q7K-o1-6c4" userLabel="Concrete Date Cell" customClass="ConcreteDateTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="122" width="374" height="61"/>
+                                <rect key="frame" x="20" y="128" width="374" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q7K-o1-6c4" id="PDB-bW-PTS">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="61"/>
@@ -3529,7 +3529,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="datePickerCell" rowHeight="300" id="do1-Te-2n6" userLabel="Date Picker Cell" customClass="DatePickerTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="183" width="374" height="300"/>
+                                <rect key="frame" x="20" y="189" width="374" height="300"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="do1-Te-2n6" id="acw-cW-12Q">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="300"/>
@@ -3631,11 +3631,11 @@
             <objects>
                 <viewController id="Jrb-hB-gW7" customClass="TutorialViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7dY-59-oMI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xNZ-dJ-RTn">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="OJk-pU-oU2" userLabel="Header View">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
@@ -3644,7 +3644,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tutorialImageCell" rowHeight="510" id="0pV-gE-qLs" customClass="TutorialImageTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="64.5" width="414" height="510"/>
+                                        <rect key="frame" x="0.0" y="70" width="414" height="510"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0pV-gE-qLs" id="Dxk-mZ-cuQ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="510"/>
@@ -3706,7 +3706,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tutorialDescriptionCell" rowHeight="114" id="nTz-oK-B4q" customClass="TutorialDescriptionTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="574.5" width="414" height="114"/>
+                                        <rect key="frame" x="0.0" y="580" width="414" height="114"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nTz-oK-B4q" id="QkS-nT-Q9d">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="114"/>
@@ -3884,47 +3884,47 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ktb-yU-lAj"/>
+        <segue reference="zHs-jY-LdV"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="1.circle" width="11" height="11"/>
+        <image name="1.circle" width="14" height="14"/>
         <image name="EUR" width="512" height="512"/>
         <image name="RUB" width="512" height="512"/>
         <image name="USD" width="1067" height="699"/>
         <image name="app.icon" width="341" height="341"/>
-        <image name="apps.iphone" width="7" height="11"/>
-        <image name="arrow.left.arrow.right" catalog="system" width="119" height="128"/>
-        <image name="arrow.up.arrow.down" width="12" height="10"/>
-        <image name="bubble.left.and.bubble.right.fill" width="15" height="12"/>
-        <image name="calendar" width="10" height="10"/>
+        <image name="apps.iphone" width="9" height="14"/>
+        <image name="arrow.left.arrow.right" catalog="system" width="120" height="128"/>
+        <image name="arrow.up.arrow.down" width="16" height="13"/>
+        <image name="bubble.left.and.bubble.right.fill" width="19" height="15"/>
+        <image name="calendar" width="13" height="12"/>
         <image name="changeCellOrder" width="370" height="389"/>
-        <image name="checkmark.shield.fill" width="9" height="10"/>
-        <image name="chevron.backward.circle.fill" width="11" height="11"/>
-        <image name="chevron.right" width="5" height="9"/>
-        <image name="chevron.right.circle.fill" width="11" height="11"/>
-        <image name="circle" width="11" height="11"/>
-        <image name="circle.circle.fill" width="11" height="11"/>
-        <image name="circle.lefthalf.filled" width="11" height="11"/>
-        <image name="clock.arrow.circlepath" width="12" height="11"/>
+        <image name="checkmark.shield.fill" width="11" height="13"/>
+        <image name="chevron.backward.circle.fill" width="14" height="14"/>
+        <image name="chevron.right" width="7" height="12"/>
+        <image name="chevron.right.circle.fill" width="14" height="14"/>
+        <image name="circle" width="14" height="14"/>
+        <image name="circle.circle.fill" width="14" height="14"/>
+        <image name="circle.lefthalf.filled" width="14" height="14"/>
+        <image name="clock.arrow.circlepath" width="15" height="14"/>
         <image name="comma" width="96" height="96"/>
         <image name="developerFace" width="361" height="337"/>
-        <image name="doc.text.fill" width="9" height="11"/>
+        <image name="doc.text.fill" width="11" height="14"/>
         <image name="eurosign" width="96" height="96"/>
-        <image name="gearshape" catalog="system" width="128" height="121"/>
-        <image name="globe" width="11" height="11"/>
-        <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
-        <image name="globe.europe.africa.fill" width="11" height="11"/>
-        <image name="hand.wave" width="10" height="10"/>
-        <image name="heart.fill" width="10" height="10"/>
-        <image name="info.circle" width="11" height="11"/>
-        <image name="iphone.and.arrow.forward" width="8" height="11"/>
-        <image name="play.circle.fill" width="11" height="11"/>
+        <image name="gearshape" catalog="system" width="128" height="123"/>
+        <image name="globe" width="14" height="14"/>
+        <image name="globe.europe.africa.fill" catalog="system" width="128" height="123"/>
+        <image name="globe.europe.africa.fill" width="14" height="14"/>
+        <image name="hand.wave" width="13" height="13"/>
+        <image name="heart.fill" width="13" height="13"/>
+        <image name="info.circle" width="14" height="14"/>
+        <image name="iphone.and.arrow.forward" width="11" height="14"/>
+        <image name="play.circle.fill" width="14" height="14"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="speaker.wave.2.fill" width="12" height="9"/>
-        <image name="square.and.arrow.up" width="9" height="12"/>
-        <image name="star.fill" width="12" height="11"/>
+        <image name="speaker.wave.2.fill" width="15" height="12"/>
+        <image name="square.and.arrow.up" width="12" height="15"/>
+        <image name="star.fill" width="15" height="14"/>
         <image name="tipJar" width="170.5" height="170.5"/>
-        <image name="xmark" width="8" height="8"/>
+        <image name="xmark" width="11" height="11"/>
         <namedColor name="AboutAppGrayColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -3944,7 +3944,7 @@
             <color red="0.93699997663497925" green="0.93300002813339233" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

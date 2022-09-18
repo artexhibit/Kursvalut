@@ -12,6 +12,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         (header: "Курс на конкретную дату", footer: [""])
     ]
     private let sections = (dataSource: 0, baseCurrency: 1, concreteDate: 2)
+    private var proPurchased: Bool {
+        return UserDefaults.standard.bool(forKey: "kursvalutPro")
+    }
     private var pickedBaseCurrency: String {
         return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
     }
@@ -188,6 +191,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "concreteDateCell", for: indexPath) as! ConcreteDateTableViewCell
                 cell.dateLabel.text = confirmedDate
+                cell.proLabel.isHidden = !proPurchased ? false : true
+                cell.backgroundColor = !proPurchased ? .systemGray5 : .none
+                cell.pickDateSwitch.isEnabled = !proPurchased ? false : true
                 
                 if pickDateSwitchIsOn {
                     cell.pickDateSwitch.setOn(true, animated: false)
