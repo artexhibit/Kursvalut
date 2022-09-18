@@ -3,6 +3,7 @@ import UIKit
 
 class SortingTableViewController: UITableViewController {
     
+    private let customSortCellSection = 3
     private var currencyManager = CurrencyManager()
     private var proPurchased: Bool {
         return UserDefaults.standard.bool(forKey: "kursvalutPro")
@@ -13,61 +14,169 @@ class SortingTableViewController: UITableViewController {
     private var pickedSectionNumber: Int {
         return pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.integer(forKey: "bankOfRussiaPickedSectionNumber") : UserDefaults.standard.integer(forKey: "forexPickedSectionNumber")
     }
+    private var previousPickedOrder: String {
+        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "previousBankOfRussiaPickedOrder") ?? "") : (UserDefaults.standard.string(forKey: "previousForexPickedOrder") ?? "")
+    }
+    private var previousPickedSection: String {
+        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "previousLastBankOfRussiaPickedSection") ?? "") : (UserDefaults.standard.string(forKey: "previousForexPickedSection") ?? "")
+    }
     private var pickedDataSource: String {
         return UserDefaults.standard.string(forKey: "baseSource") ?? ""
     }
+    private var customSortSwitchIsOn: Bool {
+        return UserDefaults.standard.bool(forKey: "customSortSwitchIsOn")
+    }
     private var sections = [
-    SortingSection(title: "По имени", subtitle: "Российский рубль", options: ["По возрастанию (А→Я)", "По убыванию (Я→А)"]),
-    SortingSection(title: "По короткому имени", subtitle: "RUB", options: ["По возрастанию (А→Я)", "По убыванию (Я→А)"]),
-    SortingSection(title: "По значению", subtitle: "86,22", options: ["По возрастанию (1→2)", "По убыванию (2→1)"]),
-    SortingSection(title: "Своя", subtitle: "в любом порядке", options: ["Включить"])
+        SortingSection(title: "По имени", subtitle: "Российский рубль", options: ["По возрастанию (А→Я)", "По убыванию (Я→А)"]),
+        SortingSection(title: "По короткому имени", subtitle: "RUB", options: ["По возрастанию (А→Я)", "По убыванию (Я→А)"]),
+        SortingSection(title: "По значению", subtitle: "86,22", options: ["По возрастанию (1→2)", "По убыванию (2→1)"]),
+        SortingSection(title: "Своя", subtitle: "в любом порядке", options: [""])
     ]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        currencyManager.configureContentInset(for: tableView, top: 10)
-        sections[pickedSectionNumber].isOpened = true
+        currencyManager.configureContentInset(for: tableView, top: 30)
+        if !customSortSwitchIsOn {
+            sections[pickedSectionNumber].isOpened = true
+        }
+    }
+    
+    @IBAction func customSortSwitchPressed(_ sender: UISwitch) {
+        let customSortCell = tableView.dequeueReusableCell(withIdentifier: "customSortCell") as! CustomSortTableViewCell
+        
+        if sender.isOn {
+            var indexPaths = [IndexPath]()
+            var mainCells = [MainSortTableViewCell]()
+            
+            UserDefaults.standard.set(true, forKey: "customSortSwitchIsOn")
+            
+            if pickedDataSource == "ЦБ РФ" {
+                UserDefaults.standard.set(customSortCell.titleLabel.text, forKey: "bankOfRussiaPickedSection")
+                UserDefaults.standard.set("Включить", forKey: "bankOfRussiaPickedOrder")
+            } else {
+                UserDefaults.standard.set(customSortCell.titleLabel.text, forKey: "forexPickedSection")
+                UserDefaults.standard.set("Включить", forKey: "forexPickedOrder")
+            }
+            
+            for section in 0..<(tableView.numberOfSections - 1) {
+                guard let mainSortCell = tableView.cellForRow(at: IndexPath(row: 0, section: section)) as? MainSortTableViewCell else { return }
+                
+                sections[section].isOpened = false
+                mainCells.append(mainSortCell)
+                
+                for row in 1..<tableView.numberOfRows(inSection: section) {
+                    let indexPath = IndexPath(row: row, section: section)
+                    indexPaths.append(indexPath)
+                }
+            }
+            
+            tableView.beginUpdates()
+            for section in sections {
+                if !section.isOpened {
+                    tableView.deleteRows(at: indexPaths, with: .fade)
+                    for cell in mainCells {
+                        cell.rotateChevron(section.isOpened)
+                    }
+                }
+            }
+            tableView.endUpdates()
+        } else {
+            UserDefaults.standard.set(false, forKey: "customSortSwitchIsOn")
+            var indexPathsToDelete = [IndexPath]()
+            var indexPathsToInsert = [IndexPath]()
+            var rowIndexPathToReload = [IndexPath]()
+            
+            if pickedDataSource == "ЦБ РФ" {
+                UserDefaults.standard.set(previousPickedSection, forKey: "bankOfRussiaPickedSection")
+                UserDefaults.standard.set(previousPickedOrder, forKey: "bankOfRussiaPickedOrder")
+            } else {
+                UserDefaults.standard.set(previousPickedSection, forKey: "forexPickedSection")
+                UserDefaults.standard.set(previousPickedOrder, forKey: "forexPickedOrder")
+            }
+            
+            for section in 0..<(tableView.numberOfSections - 1) {
+                if section != pickedSectionNumber {
+                    sections[section].isOpened = false
+                    
+                    for row in 1..<tableView.numberOfRows(inSection: section) {
+                        let indexPath = IndexPath(row: row, section: section)
+                        indexPathsToDelete.append(indexPath)
+                    }
+                } else {
+                    if !sections[pickedSectionNumber].isOpened {
+                        indexPathsToInsert = (0..<(sections[pickedSectionNumber].options.count)).map { IndexPath(row: $0 + 1, section: pickedSectionNumber)}
+                        sections[pickedSectionNumber].isOpened = true
+                    }
+                }
+                for row in 1..<tableView.numberOfRows(inSection: section) {
+                    guard let subSortCell = tableView.cellForRow(at: IndexPath(row: row, section: section)) as? SubSortTableViewCell else { return }
+                    
+                    if subSortCell.titleLabel.text == pickedOrder {
+                        let indexPath = IndexPath(row: row, section: pickedSectionNumber)
+                        rowIndexPathToReload.append(indexPath)
+                    }
+                }
+            }
+            tableView.beginUpdates()
+            for section in sections {
+                if !section.isOpened {
+                    tableView.deleteRows(at: indexPathsToDelete, with: .fade)
+                } else {
+                    tableView.insertRows(at: indexPathsToInsert, with: .fade)
+                }
+            }
+            for section in 0..<(tableView.numberOfSections - 1) {
+                guard let mainSortCell = tableView.cellForRow(at: IndexPath(row: 0, section: section)) as? MainSortTableViewCell else { return }
+                mainSortCell.rotateChevron(sections[section].isOpened)
+            }
+            tableView.reloadRows(at: rowIndexPathToReload, with: .none)
+            tableView.endUpdates()
+        }
     }
     
     //MARK: - TableView DataSource Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count * 2
+        return sections.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let virtualSection: Int = section / 2
-        
-        if section % 2 == 0 {
+        if !sections[section].isOpened || section == customSortCellSection {
             return 1
-        } else if sections[virtualSection].isOpened {
-            return sections[virtualSection].options.count
         } else {
-            return 0
+            return sections[section].options.count + 1
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let virtualSection: Int = indexPath.section / 2
+        let section = indexPath.section
         
-        if indexPath.section % 2 == 0 {
+        if indexPath.row == 0 && section != customSortCellSection {
             let cell = tableView.dequeueReusableCell(withIdentifier: "mainSortCell", for: indexPath) as! MainSortTableViewCell
-            cell.titleLabel.text = sections[virtualSection].title
-            cell.subtitleLabel.text = sections[virtualSection].subtitle
-            cell.proLabel.isHidden = virtualSection == 3 && !proPurchased ? false : true
+            cell.titleLabel.text = sections[section].title
+            cell.subtitleLabel.text = sections[section].subtitle
+            cell.selectionStyle = .none
+            cell.rotateChevron(sections[section].isOpened)
+            return cell
+        } else if section == customSortCellSection {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "customSortCell", for: indexPath) as! CustomSortTableViewCell
+            cell.titleLabel.text = sections[customSortCellSection].title
+            cell.subtitleLabel.text = sections[customSortCellSection].subtitle
+            cell.selectionStyle = .none
+            cell.proLabel.isHidden = !proPurchased ? false : true
             
-            if sections[virtualSection].isOpened {
-                cell.chevronImage.transform = CGAffineTransform(rotationAngle: .pi / 2)
+            if customSortSwitchIsOn {
+                cell.customSortSwitch.setOn(true, animated: false)
             } else {
-                cell.chevronImage.transform = .identity
+                cell.customSortSwitch.setOn(false, animated: false)
             }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "subSortCell", for: indexPath) as! SubSortTableViewCell
-            cell.titleLabel.text = sections[virtualSection].options[indexPath.row]
+            cell.titleLabel.text = sections[section].options[indexPath.row - 1]
             
-            if pickedSectionNumber == virtualSection {
-                cell.accessoryType = cell.titleLabel.text == pickedOrder ? .checkmark : .none
+            if pickedSectionNumber == section {
+                cell.accessoryType = cell.titleLabel.text == pickedOrder && !customSortSwitchIsOn ? .checkmark : .none
             } else {
                 cell.accessoryType = .none
             }
@@ -82,59 +191,64 @@ class SortingTableViewController: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let virtualSection: Int = indexPath.section / 2
+        let section = indexPath.section
         
-        if indexPath.section % 2 == 0 {
-            sections[virtualSection].isOpened.toggle()
+        if indexPath.row == 0 && section != customSortCellSection {
+            let indexPaths = (0..<(sections[section].options.count)).map { IndexPath(row: $0 + 1, section: section)}
             guard let cell = tableView.cellForRow(at: indexPath) as? MainSortTableViewCell else { return }
             
-            if virtualSection == 3 && !proPurchased {
-                sections[virtualSection].isOpened = false
-                tableView.reloadSections([virtualSection], with: .fade)
-                PopupView().showPopup(title: "Закрыто", message: "Доступно только в Pro", type: .lock)
-            }
+            sections[section].isOpened.toggle()
             
-            UIView.animate(withDuration: 0.3) {
-                if self.sections[virtualSection].isOpened {
-                    cell.chevronImage.transform = CGAffineTransform(rotationAngle: .pi / 2)
-                } else {
-                    cell.chevronImage.transform = .identity
-                }
+            tableView.beginUpdates()
+            if !sections[section].isOpened {
+                tableView.deleteRows(at: indexPaths, with: .fade)
+            } else {
+                tableView.insertRows(at: indexPaths, with: .fade)
             }
-            tableView.reloadSections([indexPath.section + 1], with: .fade)
+            cell.rotateChevron(sections[section].isOpened)
+            tableView.endUpdates()
         } else {
+            tableView.deselectRow(at: indexPath, animated: true)
             guard let cell = tableView.cellForRow(at: indexPath) as? SubSortTableViewCell else { return }
-            let pickedSection =  sections[virtualSection].title
+            let pickedSection = sections[section].title
             let pickedOrder = cell.titleLabel.text ?? ""
             
             if cell.accessoryType != .checkmark {
-                for section in 0..<tableView.numberOfSections where section % 2 != 0 {
-                    for row in 0..<tableView.numberOfRows(inSection: section) {
+                for section in 0..<tableView.numberOfSections {
+                    for row in 1..<tableView.numberOfRows(inSection: section) {
                         guard let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) else { return }
                         cell.accessoryType = .none
                     }
                 }
                 cell.accessoryType = .checkmark
             }
+            if customSortSwitchIsOn {
+                guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: customSortCellSection)) as? CustomSortTableViewCell else { return }
+                cell.customSortSwitch.setOn(false, animated: true)
+                UserDefaults.standard.set(false, forKey: "customSortSwitchIsOn")
+            }
+            
             if pickedDataSource == "ЦБ РФ" {
                 UserDefaults.standard.set(pickedOrder, forKey: "bankOfRussiaPickedOrder")
                 UserDefaults.standard.set(pickedSection, forKey: "bankOfRussiaPickedSection")
-                UserDefaults.standard.set(virtualSection, forKey: "bankOfRussiaPickedSectionNumber")
+                UserDefaults.standard.set(section, forKey: "bankOfRussiaPickedSectionNumber")
+                UserDefaults.standard.set(pickedOrder, forKey: "previousBankOfRussiaPickedOrder")
+                UserDefaults.standard.set(pickedSection, forKey: "previousLastBankOfRussiaPickedSection")
             } else {
                 UserDefaults.standard.set(pickedOrder, forKey: "forexPickedOrder")
                 UserDefaults.standard.set(pickedSection, forKey: "forexPickedSection")
-                UserDefaults.standard.set(virtualSection, forKey: "forexPickedSectionNumber")
+                UserDefaults.standard.set(section, forKey: "forexPickedSectionNumber")
+                UserDefaults.standard.set(pickedOrder, forKey: "previousForexPickedOrder")
+                UserDefaults.standard.set(pickedSection, forKey: "previousForexPickedSection")
             }
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        tableView.estimatedSectionHeaderHeight
+        return 2.5
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        let virtualSection: Int = section / 2
-        return (section % 2 != 0 && sections[virtualSection].isOpened) ? 3 : tableView.estimatedSectionFooterHeight
+        return 2.5
     }
 }

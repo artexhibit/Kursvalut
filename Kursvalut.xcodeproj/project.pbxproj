@@ -36,6 +36,7 @@
 		78425CD727E104DA007F78F0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78425CD627E104DA007F78F0 /* StoreKit.framework */; };
 		7852295F279B19E300507877 /* PickCurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7852295E279B19E300507877 /* PickCurrencyTableViewController.swift */; };
 		78522961279B1A1B00507877 /* PickCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78522960279B1A1B00507877 /* PickCurrencyTableViewCell.swift */; };
+		785EFE1F28C4DB8700257C8F /* CustomSortTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785EFE1E28C4DB8700257C8F /* CustomSortTableViewCell.swift */; };
 		786479AA27981E410077ABC7 /* ConverterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786479A927981E410077ABC7 /* ConverterTableViewController.swift */; };
 		786479AC279825DF0077ABC7 /* ConverterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786479AB279825DF0077ABC7 /* ConverterTableViewCell.swift */; };
 		786A00292839327500D0DAA4 /* CurrencyDataSourceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786A00282839327500D0DAA4 /* CurrencyDataSourceTableViewController.swift */; };
@@ -112,6 +113,7 @@
 		78425CD627E104DA007F78F0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7852295E279B19E300507877 /* PickCurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCurrencyTableViewController.swift; sourceTree = "<group>"; };
 		78522960279B1A1B00507877 /* PickCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCurrencyTableViewCell.swift; sourceTree = "<group>"; };
+		785EFE1E28C4DB8700257C8F /* CustomSortTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSortTableViewCell.swift; sourceTree = "<group>"; };
 		786479A927981E410077ABC7 /* ConverterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterTableViewController.swift; sourceTree = "<group>"; };
 		786479AB279825DF0077ABC7 /* ConverterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterTableViewCell.swift; sourceTree = "<group>"; };
 		786A00282839327500D0DAA4 /* CurrencyDataSourceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyDataSourceTableViewController.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 			children = (
 				78B9F55C2801B9B50030ECF4 /* MainSortTableViewCell.swift */,
 				78B9F55E2801B9F10030ECF4 /* SubSortTableViewCell.swift */,
+				785EFE1E28C4DB8700257C8F /* CustomSortTableViewCell.swift */,
 			);
 			path = Sorting;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 			files = (
 				78FE672628AC15E90091A1A3 /* ConcreteDateTableViewCell.swift in Sources */,
 				78E9B79C27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift in Sources */,
+				785EFE1F28C4DB8700257C8F /* CustomSortTableViewCell.swift in Sources */,
 				7838F90027885B86007D34AA /* BankOfRussiaCurrencyData.swift in Sources */,
 				78137FDB2833EC1200F4621E /* UIImage+extension.swift in Sources */,
 				783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */,

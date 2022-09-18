@@ -2823,29 +2823,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="По имени" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCO-fT-q4A">
-                                            <rect key="frame" x="20" y="6" width="78" height="21"/>
+                                            <rect key="frame" x="20" y="6" width="316" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ynN-nb-oLB" userLabel="Pro Label">
-                                            <rect key="frame" x="101" y="5" width="25" height="10"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNo-WI-Xod">
-                                                    <rect key="frame" x="3.5" y="0.0" width="18" height="10"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="8"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" name="RedColor"/>
-                                            <constraints>
-                                                <constraint firstItem="TNo-WI-Xod" firstAttribute="centerY" secondItem="ynN-nb-oLB" secondAttribute="centerY" id="NaI-z1-3zo"/>
-                                                <constraint firstAttribute="height" constant="10" id="Z6d-ZB-vd2"/>
-                                                <constraint firstAttribute="width" constant="25" id="tj6-Eq-qBf"/>
-                                                <constraint firstItem="TNo-WI-Xod" firstAttribute="centerX" secondItem="ynN-nb-oLB" secondAttribute="centerX" id="xNh-ab-mMk"/>
-                                            </constraints>
-                                        </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Российский Рубль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqn-nD-zXO">
                                             <rect key="frame" x="20" y="27" width="316" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -2864,14 +2846,12 @@
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="GDk-Ee-0e0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ynN-nb-oLB" secondAttribute="trailing" id="0By-0s-MzJ"/>
                                         <constraint firstItem="GDk-Ee-0e0" firstAttribute="centerY" secondItem="cdI-fB-W26" secondAttribute="centerY" id="AR4-aJ-EgW"/>
-                                        <constraint firstItem="ynN-nb-oLB" firstAttribute="top" secondItem="cdI-fB-W26" secondAttribute="top" constant="5" id="MWl-9H-1gm"/>
                                         <constraint firstAttribute="bottom" secondItem="bqn-nD-zXO" secondAttribute="bottom" priority="250" id="Msn-k9-MOs"/>
                                         <constraint firstItem="PCO-fT-q4A" firstAttribute="leading" secondItem="cdI-fB-W26" secondAttribute="leadingMargin" id="Tui-Q5-8yY"/>
                                         <constraint firstItem="bqn-nD-zXO" firstAttribute="leading" secondItem="cdI-fB-W26" secondAttribute="leadingMargin" id="ZEg-k9-uME"/>
-                                        <constraint firstItem="ynN-nb-oLB" firstAttribute="leading" secondItem="PCO-fT-q4A" secondAttribute="trailing" constant="3" id="biC-1J-4CC"/>
                                         <constraint firstItem="GDk-Ee-0e0" firstAttribute="leading" secondItem="bqn-nD-zXO" secondAttribute="trailing" id="fvb-7a-UfV"/>
+                                        <constraint firstItem="GDk-Ee-0e0" firstAttribute="leading" secondItem="PCO-fT-q4A" secondAttribute="trailing" id="npi-0L-ren"/>
                                         <constraint firstItem="PCO-fT-q4A" firstAttribute="top" secondItem="cdI-fB-W26" secondAttribute="top" constant="6" id="obL-PQ-e84"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="GDk-Ee-0e0" secondAttribute="trailing" id="q7j-cF-aXB"/>
                                         <constraint firstItem="bqn-nD-zXO" firstAttribute="top" secondItem="PCO-fT-q4A" secondAttribute="bottom" id="vkY-bn-ANp"/>
@@ -2879,7 +2859,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="chevronImage" destination="GDk-Ee-0e0" id="jq9-hZ-tH3"/>
-                                    <outlet property="proLabel" destination="ynN-nb-oLB" id="B86-T1-jSU"/>
                                     <outlet property="subtitleLabel" destination="bqn-nD-zXO" id="FxM-4g-s8n"/>
                                     <outlet property="titleLabel" destination="PCO-fT-q4A" id="QQr-fi-p0P"/>
                                 </connections>
@@ -2907,6 +2886,70 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="titleLabel" destination="7PC-pt-1Lz" id="gJp-B8-QZb"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="customSortCell" id="7aq-Qy-H5x" userLabel="customSortCell" customClass="CustomSortTableViewCell" customModule="Kursvalut" customModuleProvider="target">
+                                <rect key="frame" x="20" y="132" width="374" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7aq-Qy-H5x" id="wm7-IV-EuX">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Своя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VxS-zm-6op">
+                                            <rect key="frame" x="20" y="6" width="39" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a7d-Fa-KMi" userLabel="Pro Label">
+                                            <rect key="frame" x="62" y="5" width="25" height="10"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LSn-1M-DdZ">
+                                                    <rect key="frame" x="3.5" y="0.0" width="18" height="10"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="8"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" name="RedColor"/>
+                                            <constraints>
+                                                <constraint firstItem="LSn-1M-DdZ" firstAttribute="centerX" secondItem="a7d-Fa-KMi" secondAttribute="centerX" id="8an-tP-IGB"/>
+                                                <constraint firstAttribute="height" constant="10" id="rij-2e-Tvk"/>
+                                                <constraint firstAttribute="width" constant="25" id="wjJ-hx-HfD"/>
+                                                <constraint firstItem="LSn-1M-DdZ" firstAttribute="centerY" secondItem="a7d-Fa-KMi" secondAttribute="centerY" id="zfK-7K-aUc"/>
+                                            </constraints>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="в любом порядке" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37c-Ab-dAv">
+                                            <rect key="frame" x="20" y="27" width="285" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oR2-bt-67I">
+                                            <rect key="frame" x="305" y="9.5" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="customSortSwitchPressed:" destination="kgM-nt-TCR" eventType="valueChanged" id="ZcT-Lr-TXy"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="a7d-Fa-KMi" firstAttribute="leading" secondItem="VxS-zm-6op" secondAttribute="trailing" constant="3" id="1c3-eN-Ypv"/>
+                                        <constraint firstAttribute="bottom" secondItem="37c-Ab-dAv" secondAttribute="bottom" priority="250" id="3KO-sW-3ml"/>
+                                        <constraint firstItem="a7d-Fa-KMi" firstAttribute="top" secondItem="wm7-IV-EuX" secondAttribute="top" constant="5" id="L3H-Cg-8nT"/>
+                                        <constraint firstItem="oR2-bt-67I" firstAttribute="leading" secondItem="37c-Ab-dAv" secondAttribute="trailing" id="anQ-zd-uDL"/>
+                                        <constraint firstItem="37c-Ab-dAv" firstAttribute="leading" secondItem="wm7-IV-EuX" secondAttribute="leadingMargin" id="dcp-CJ-AmI"/>
+                                        <constraint firstItem="oR2-bt-67I" firstAttribute="centerY" secondItem="wm7-IV-EuX" secondAttribute="centerY" id="fj6-by-yKE"/>
+                                        <constraint firstItem="VxS-zm-6op" firstAttribute="leading" secondItem="wm7-IV-EuX" secondAttribute="leadingMargin" id="jkV-1L-vZm"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="oR2-bt-67I" secondAttribute="trailing" id="qrt-M7-eU2"/>
+                                        <constraint firstItem="37c-Ab-dAv" firstAttribute="top" secondItem="VxS-zm-6op" secondAttribute="bottom" id="wRp-cd-5w3"/>
+                                        <constraint firstItem="VxS-zm-6op" firstAttribute="top" secondItem="wm7-IV-EuX" secondAttribute="top" constant="6" id="xEP-Rq-QQL"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="customSortSwitch" destination="oR2-bt-67I" id="F8f-w9-Db4"/>
+                                    <outlet property="proLabel" destination="a7d-Fa-KMi" id="iVN-rp-mSE"/>
+                                    <outlet property="subtitleLabel" destination="37c-Ab-dAv" id="zld-02-3Lc"/>
+                                    <outlet property="titleLabel" destination="VxS-zm-6op" id="V4A-Kg-A5E"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -3869,8 +3912,8 @@
         <image name="eurosign" width="96" height="96"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="globe" width="11" height="11"/>
-        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="globe.europe.africa.fill" catalog="system" width="128" height="121"/>
+        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="hand.wave" width="10" height="10"/>
         <image name="heart.fill" width="10" height="10"/>
         <image name="info.circle" width="11" height="11"/>
