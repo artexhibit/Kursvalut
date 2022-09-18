@@ -35,7 +35,7 @@ class SortingTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currencyManager.configureContentInset(for: tableView, top: 30)
+        currencyManager.configureContentInset(for: tableView, top: 40)
         if !customSortSwitchIsOn {
             sections[pickedSectionNumber].isOpened = true
         }
@@ -208,6 +208,8 @@ class SortingTableViewController: UITableViewController {
             cell.rotateChevron(sections[section].isOpened)
             tableView.endUpdates()
         } else {
+            var indexPaths = [IndexPath]()
+            
             tableView.deselectRow(at: indexPath, animated: true)
             guard let cell = tableView.cellForRow(at: indexPath) as? SubSortTableViewCell else { return }
             let pickedSection = sections[section].title
@@ -227,7 +229,6 @@ class SortingTableViewController: UITableViewController {
                 cell.customSortSwitch.setOn(false, animated: true)
                 UserDefaults.standard.set(false, forKey: "customSortSwitchIsOn")
             }
-            
             if pickedDataSource == "ЦБ РФ" {
                 UserDefaults.standard.set(pickedOrder, forKey: "bankOfRussiaPickedOrder")
                 UserDefaults.standard.set(pickedSection, forKey: "bankOfRussiaPickedSection")
@@ -241,6 +242,29 @@ class SortingTableViewController: UITableViewController {
                 UserDefaults.standard.set(pickedOrder, forKey: "previousForexPickedOrder")
                 UserDefaults.standard.set(pickedSection, forKey: "previousForexPickedSection")
             }
+            
+            for section in 0..<(tableView.numberOfSections - 1) {
+                if section != pickedSectionNumber {
+                    sections[section].isOpened = false
+                    
+                    for row in 1..<tableView.numberOfRows(inSection: section) {
+                        let indexPath = IndexPath(row: row, section: section)
+                        indexPaths.append(indexPath)
+                    }
+                }
+            }
+            
+            tableView.beginUpdates()
+            for section in sections {
+                if !section.isOpened {
+                    tableView.deleteRows(at: indexPaths, with: .fade)
+                }
+            }
+            for section in 0..<(tableView.numberOfSections - 1) {
+                guard let mainSortCell = tableView.cellForRow(at: IndexPath(row: 0, section: section)) as? MainSortTableViewCell else { return }
+                mainSortCell.rotateChevron(sections[section].isOpened)
+            }
+            tableView.endUpdates()
         }
     }
     
