@@ -125,17 +125,34 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let move = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
-            if self.pickedSection != "Своя" {
-                PopupView().showPopup(title: "Пока нельзя", message: "Сначала включите в настройках: раздел Сортировка → Своя", type: .lock)
-            } else if self.searchController.isActive {
+        let move = UIContextualAction(style: .normal, title: nil) { [self] action, view, completionHandler in
+            if self.searchController.isActive {
                 PopupView().showPopup(title: "Пока нельзя", message: "Сначала завершите поиск", type: .lock)
             } else {
-                self.turnEditing()
-                self.turnEditing()
+                turnEditing()
+                turnEditing()
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [self] in
                     self.tableView.reloadData()
+                    
+                    if pickedDataSource == "ЦБ РФ" {
+                        UserDefaults.standard.set(true, forKey: "customSortSwitchIsOnForBankOfRussia")
+                        UserDefaults.standard.set("Своя", forKey: "bankOfRussiaPickedSection")
+                        UserDefaults.standard.set(false, forKey: "showCustomSortForBankOfRussia")
+                        let bankOfRussiaCurrencies = bankOfRussiaFRC.fetchedObjects!
+                        currencyManager.assignRowNumbers(to: bankOfRussiaCurrencies)
+                    } else {
+                        UserDefaults.standard.set(true, forKey: "customSortSwitchIsOnForForex")
+                        UserDefaults.standard.set("Своя", forKey: "forexPickedSection")
+                        UserDefaults.standard.set(false, forKey: "showCustomSortForForex")
+                        let forexCurrencies = forexFRC.fetchedObjects!
+                        currencyManager.assignRowNumbers(to: forexCurrencies)
+                    }
+                    coreDataManager.save()
+                    setupFetchedResultsController()
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOn"), object: nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadSortingVCTableView"), object: nil)
                 }
             }
             completionHandler(true)
@@ -183,20 +200,14 @@ extension CurrencyViewController {
             
             bankOfRussiaCurrencies.remove(at: sourceIndexPath.row)
             bankOfRussiaCurrencies.insert(bankOFRussiaCurrency, at: destinationIndexPath.row)
-            
-            for (index, bankOfRussiaCurrency) in bankOfRussiaCurrencies.enumerated() {
-                bankOfRussiaCurrency.rowForCurrency = Int32(index)
-            }
+            currencyManager.assignRowNumbers(to: bankOfRussiaCurrencies)
         } else {
             var forexCurrencies = forexFRC.fetchedObjects!
             let forexCurrency = forexFRC.object(at: sourceIndexPath)
             
             forexCurrencies.remove(at: sourceIndexPath.row)
             forexCurrencies.insert(forexCurrency, at: destinationIndexPath.row)
-            
-            for (index, forexCurrency) in forexCurrencies.enumerated() {
-                forexCurrency.rowForCurrency = Int32(index)
-            }
+            currencyManager.assignRowNumbers(to: forexCurrencies)
         }
         coreDataManager.save()
         tableView.reloadData()

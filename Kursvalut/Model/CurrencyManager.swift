@@ -259,6 +259,20 @@ struct CurrencyManager {
         return formatter.date(from: string) ?? Date()
     }
     
+    //MARK: - Data Displaying Helping Methods
+    
+    func assignRowNumbers(to bankOfRussiaCurrencies: [Currency]) {
+        for (index, bankOfRussiaCurrency) in bankOfRussiaCurrencies.enumerated() {
+            bankOfRussiaCurrency.rowForCurrency = Int32(index)
+        }
+    }
+    
+    func assignRowNumbers(to forexCurrencies: [ForexCurrency]) {
+        for (index, forexCurrency) in forexCurrencies.enumerated() {
+             forexCurrency.rowForCurrency = Int32(index)
+         }
+    }
+    
     //MARK: - ViewController Configuration Methods
     
     func configureContentInset(for tableView: UITableView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {

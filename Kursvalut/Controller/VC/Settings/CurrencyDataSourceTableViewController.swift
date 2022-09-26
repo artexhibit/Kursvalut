@@ -240,6 +240,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
             }
             activatedCurrencyVC()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOff"), object: nil)
             tableView.reloadSections(IndexSet(integer: sections.baseCurrency), with: .fade)
         } else if indexPath.section == sections.concreteDate {
             if pickDateSwitchIsOn {
