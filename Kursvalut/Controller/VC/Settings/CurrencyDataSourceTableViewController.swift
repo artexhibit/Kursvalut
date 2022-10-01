@@ -41,6 +41,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     private let dateIndexPath = IndexPath(row: 0, section: 2)
     private var startDateSpinner = false
     private var dataSourceCellWasPressed = false
+    private var turnOffDateSwitch = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,11 +74,16 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     func displayInlineDatePickerAt(indexPath: NSIndexPath) {
         tableView.beginUpdates()
+        guard let cell = tableView.cellForRow(at: indexPath as IndexPath) as? ConcreteDateTableViewCell else { return }
         let sameCellTapped = targetIndexPath?.row ?? 0 == indexPath.row + 1
         
         if targetIndexPath != nil {
             tableView.deleteRows(at: [datePickerIndexPath], with: .fade)
             targetIndexPath = nil
+            
+            if confirmedDate == todaysDate {
+               setDateSwitchStateToOff(with: cell)
+            }
         }
         
         if !sameCellTapped {
@@ -102,6 +108,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
             pickedDate = todaysDate
             lastConfirmedDate = confirmedDate
+            turnOffDateSwitch = true
             cell.selectionStyle = .none
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -122,6 +129,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     @IBAction func datePickerPressed(_ sender: UIDatePicker) {
         let senderDate = currencyManager.createStringDate(with: "dd.MM.yyyy", from: sender.date, dateStyle: .medium)
         pickedDate = senderDate
+        turnOffDateSwitch = pickedDate != todaysDate ? true : false
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "datePickerCell") as! DatePickerTableViewCell
         configureDatePicker(cell: cell)
@@ -131,6 +139,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
         lastConfirmedDate = confirmedDate
         startDateSpinner = true
+        turnOffDateSwitch = false
         tableView.reloadRows(at: [dateIndexPath], with: .none)
         UserDefaults.standard.set(self.pickedDate, forKey: "confirmedDate")
         requestDataForConfirmedDate()
@@ -138,6 +147,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     @IBAction func resetDateButtonPressed(_ sender: UIButton) {
         pickedDate = confirmedDate
+        turnOffDateSwitch = false
         tableView.reloadRows(at: [datePickerIndexPath], with: .none)
     }
    
@@ -199,8 +209,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                     cell.pickDateSwitch.setOn(true, animated: false)
                     cell.selectionStyle = .default
                 } else {
-                    cell.pickDateSwitch.setOn(false, animated: false)
-                    cell.selectionStyle = .none
+                    setDateSwitchStateToOff(with: cell)
                 }
                 
                 if startDateSpinner {
@@ -245,6 +254,13 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         } else if indexPath.section == sections.concreteDate {
             if pickDateSwitchIsOn {
                 displayInlineDatePickerAt(indexPath: dateIndexPath as NSIndexPath)
+            }
+            if turnOffDateSwitch {
+                guard let cell = tableView.cellForRow(at: indexPath) as? ConcreteDateTableViewCell else { return }
+                
+                tableView.beginUpdates()
+                setDateSwitchStateToOff(with: cell)
+                tableView.endUpdates()
             }
         }
     }
@@ -315,6 +331,12 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         }
     }
     
+    func setDateSwitchStateToOff(with cell: ConcreteDateTableViewCell) {
+        UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
+        cell.pickDateSwitch.setOn(false, animated: true)
+        cell.selectionStyle = .none
+    }
+    
     func requestDataForConfirmedDate() {
         currencyNetworking.performRequest { networkingError, parsingError in
             DispatchQueue.main.async {
@@ -335,9 +357,6 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                     
                     if self.pickDateSwitchIsOn && !self.dataSourceCellWasPressed {
                         self.displayInlineDatePickerAt(indexPath: self.dateIndexPath as NSIndexPath)
-                    }
-                    if self.pickedDate == self.todaysDate {
-                        UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
                     }
                     UserDefaults.standard.set(true, forKey: "needToScrollUpViewController")
                     PopupView().showPopup(title: "Успешно", message: "Курсы загружены", type: .success)
