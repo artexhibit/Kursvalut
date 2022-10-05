@@ -41,6 +41,7 @@ class SortingTableViewController: UITableViewController {
         currencyManager.configureContentInset(for: tableView, top: 40)
         if !customSortSwitchIsOn {
             sections[pickedSectionNumber].isOpened = true
+            customSortSwitchIsTurnedOff()
         }
     }
     

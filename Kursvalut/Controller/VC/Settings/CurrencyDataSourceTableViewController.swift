@@ -5,6 +5,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
  
     private let currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
+    private let coreDataManager = CurrencyCoreDataManager()
     private let dataSourceOptions = ["Forex (Биржа)", "ЦБ РФ"]
     private let sectionsData = [
         (header: "", footer: ["Данные по курсам будут сразу загружены при выборе источника"]),
@@ -20,6 +21,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     private var pickedDataSource: String {
         return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+    }
+    private var pickedSection: String {
+        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedSection") ?? "")
     }
     private var wasActiveCurrencyVC: Bool {
         return UserDefaults.standard.bool(forKey: "isActiveCurrencyVC")
@@ -53,6 +57,11 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if confirmedDate == todaysDate {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "concreteDateCell") as! ConcreteDateTableViewCell
+            setDateSwitchStateToOff(with: cell)
+        }
         tableView.reloadRows(at: [dateIndexPath], with: .none)
     }
     
@@ -85,7 +94,6 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                setDateSwitchStateToOff(with: cell)
             }
         }
-        
         if !sameCellTapped {
             toggleDatePickerFor(indexPath: datePickerIndexPath as NSIndexPath)
             targetIndexPath = datePickerIndexPath as NSIndexPath
@@ -100,20 +108,12 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn")
             displayInlineDatePickerAt(indexPath: dateIndexPath as NSIndexPath)
             cell.selectionStyle = .default
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.tableView.reloadRows(at: [self.dateIndexPath], with: .none)
-            }
         } else {
             UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
             pickedDate = todaysDate
             lastConfirmedDate = confirmedDate
             turnOffDateSwitch = true
             cell.selectionStyle = .none
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.tableView.reloadRows(at: [self.dateIndexPath], with: .none)
-            }
             
             if targetIndexPath != nil {
                 displayInlineDatePickerAt(indexPath: dateIndexPath as NSIndexPath)
@@ -124,6 +124,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 requestDataForConfirmedDate()
             }
         }
+        tableView.beginUpdates()
+        tableView.reloadRows(at: [dateIndexPath], with: .fade)
+        tableView.endUpdates()
     }
     
     @IBAction func datePickerPressed(_ sender: UIDatePicker) {
@@ -337,6 +340,15 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         cell.selectionStyle = .none
     }
     
+    func resetCurrencyHistoricalRow() {
+        if pickedDataSource == "ЦБ РФ" {
+            coreDataManager.resetRowForHistoricalCurrencyPropertyForBankOfRussiaCurrencies()
+        } else {
+            coreDataManager.resetRowForHistoricalCurrencyPropertyForForexCurrencies()
+        }
+        coreDataManager.save()
+    }
+    
     func requestDataForConfirmedDate() {
         currencyNetworking.performRequest { networkingError, parsingError in
             DispatchQueue.main.async {
@@ -357,6 +369,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                     
                     if self.pickDateSwitchIsOn && !self.dataSourceCellWasPressed {
                         self.displayInlineDatePickerAt(indexPath: self.dateIndexPath as NSIndexPath)
+                    }
+                    if self.pickedSection == "Своя" && self.confirmedDate != self.todaysDate {
+                        self.resetCurrencyHistoricalRow()
                     }
                     UserDefaults.standard.set(true, forKey: "needToScrollUpViewController")
                     PopupView().showPopup(title: "Успешно", message: "Курсы загружены", type: .success)

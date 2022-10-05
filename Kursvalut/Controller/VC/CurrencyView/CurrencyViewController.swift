@@ -34,6 +34,12 @@ class CurrencyViewController: UIViewController {
     private var pickedSection: String {
         return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedSection") ?? "")
     }
+    private var confirmedDateFromDataSourceVC: String {
+        return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
+    }
+    private var todaysDate: String {
+        return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
+    }
     private var userHasOnboarded: Bool {
         return UserDefaults.standard.bool(forKey: "userHasOnboarded")
     }
@@ -294,7 +300,11 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
                 } else if pickedSection == "По значению" {
                     return NSSortDescriptor(key: "absoluteValue", ascending: sortingOrder)
                 } else {
-                    return NSSortDescriptor(key: "rowForCurrency", ascending: true)
+                    if confirmedDateFromDataSourceVC == todaysDate {
+                        return NSSortDescriptor(key: "rowForCurrency", ascending: true)
+                    } else {
+                        return NSSortDescriptor(key: "rowForHistoricalCurrency", ascending: true)
+                    }
                 }
             }
             if pickedDataSource == "ЦБ РФ" {
@@ -357,8 +367,11 @@ extension CurrencyViewController {
         var updateRequestFromCurrencyDataSource: Bool {
             return UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource")
         }
-        let updateDate = self.currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
         
+        if !updateRequestFromCurrencyDataSource {
+            UserDefaults.standard.set(self.todaysDate, forKey: "confirmedDate")
+            UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
+        }
         if pickedDataSource != "ЦБ РФ" {
             DispatchQueue.main.async {
                 self.coreDataManager.filterOutForexBaseCurrency()
@@ -385,10 +398,6 @@ extension CurrencyViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
                     self.tableView.reloadData()
-                }
-                if !updateRequestFromCurrencyDataSource {
-                    UserDefaults.standard.set(updateDate, forKey: "confirmedDate")
-                    UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
                 }
                 UserDefaults.standard.set(false, forKey: "updateRequestFromCurrencyDataSource")
             }

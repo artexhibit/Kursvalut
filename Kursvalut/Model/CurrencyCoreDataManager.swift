@@ -48,7 +48,7 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func createBankOfRussiaCurrency(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, isBaseCurrency: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0) {
+    private func createBankOfRussiaCurrency(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, isBaseCurrency: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0, rowForHistoricalCurrency: Int32 = 0) {
         let currency = Currency(context: self.context)
         
         currency.shortName = shortName
@@ -61,6 +61,7 @@ struct CurrencyCoreDataManager {
         currency.isForCurrencyScreen = isForCurrency
         currency.isBaseCurrency = isBaseCurrency
         currency.rowForCurrency = rowForCurrency
+        currency.rowForHistoricalCurrency = rowForHistoricalCurrency
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = currency.currentValue / Double(currency.nominal)
         
@@ -107,6 +108,16 @@ struct CurrencyCoreDataManager {
             print(error)
         }
         return fetchCurrencies
+    }
+    
+    func resetRowForHistoricalCurrencyPropertyForBankOfRussiaCurrencies() {
+        let currencies = fetchAllBankOfRussiaCurrencies()
+        
+        if !currencies.isEmpty {
+            currencies.forEach { currency in
+                currency.rowForHistoricalCurrency = 0
+            }
+        }
     }
     
     func resetCurrencyScreenPropertyForBankOfRussiaCurrencies() {
@@ -164,14 +175,7 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func updateLatestForex(currency: ForexCurrency, currValue: Double, currNominal: Int, abslValue: Double, isForCurrency: Bool = true) {
-        currency.currentValue = currValue
-        currency.nominal = Int32(currNominal)
-        currency.absoluteValue = abslValue
-        currency.isForCurrencyScreen = isForCurrency
-    }
-    
-    private func createLatestForex(shortName: String, fullName: String, currValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, isBaseCurrency: Bool = false, rowForCurrency: Int32 = 0) {
+    private func createLatestForex(shortName: String, fullName: String, currValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, isBaseCurrency: Bool = false, rowForCurrency: Int32 = 0, rowForHistoricalCurrency: Int32 = 0) {
         let currency = ForexCurrency(context: self.context)
         
         currency.shortName = shortName
@@ -183,6 +187,7 @@ struct CurrencyCoreDataManager {
         currency.isForCurrencyScreen = isForCurrency
         currency.isBaseCurrency = isBaseCurrency
         currency.rowForCurrency = rowForCurrency
+        currency.rowForHistoricalCurrency = rowForHistoricalCurrency
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = abslValue
         
@@ -191,6 +196,13 @@ struct CurrencyCoreDataManager {
             currency.isForConverter = true
             UserDefaults.standard.set(2, forKey: "savedAmountForForex")
         }
+    }
+    
+    private func updateLatestForex(currency: ForexCurrency, currValue: Double, currNominal: Int, abslValue: Double, isForCurrency: Bool = true) {
+        currency.currentValue = currValue
+        currency.nominal = Int32(currNominal)
+        currency.absoluteValue = abslValue
+        currency.isForCurrencyScreen = isForCurrency
     }
     
     func createOrUpdateYesterdayForexCurrency(from dictionary: [String:String]) {
@@ -213,12 +225,7 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func updateYesterdayForex(currency: ForexCurrency, prevValue: Double, isForCurrency: Bool = true) {
-        currency.previousValue = 1.0 / prevValue
-        currency.isForCurrencyScreen = isForCurrency
-    }
-    
-    private func createYesterdayForex(shortName: String, fullName: String, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, isBaseCurrency: Bool = false, rowForCurrency: Int32 = 0) {
+    private func createYesterdayForex(shortName: String, fullName: String, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, isBaseCurrency: Bool = false, rowForCurrency: Int32 = 0, rowForHistoricalCurrency: Int32 = 0) {
         let currency = ForexCurrency(context: self.context)
         
         currency.shortName = shortName
@@ -230,6 +237,7 @@ struct CurrencyCoreDataManager {
         currency.isForCurrencyScreen = isForCurrency
         currency.isBaseCurrency = isBaseCurrency
         currency.rowForCurrency = rowForCurrency
+        currency.rowForHistoricalCurrency = rowForHistoricalCurrency
         currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = currency.currentValue / Double(currency.nominal)
         
@@ -238,6 +246,11 @@ struct CurrencyCoreDataManager {
             currency.isForConverter = true
             UserDefaults.standard.set(2, forKey: "savedAmountForForex")
         }
+    }
+    
+    private func updateYesterdayForex(currency: ForexCurrency, prevValue: Double, isForCurrency: Bool = true) {
+        currency.previousValue = 1.0 / prevValue
+        currency.isForCurrencyScreen = isForCurrency
     }
     
     func filterOutForexBaseCurrency() {
@@ -263,6 +276,16 @@ struct CurrencyCoreDataManager {
             print(error)
         }
         return fetchCurrencies
+    }
+    
+    func resetRowForHistoricalCurrencyPropertyForForexCurrencies() {
+        let currencies = fetchAllForexCurrencies()
+        
+        if !currencies.isEmpty {
+            currencies.forEach { currency in
+                currency.rowForHistoricalCurrency = 0
+            }
+        }
     }
     
     func resetCurrencyScreenPropertyForForexCurrencies() {

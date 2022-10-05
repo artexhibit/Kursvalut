@@ -210,6 +210,12 @@ struct CurrencyManager {
     private var pickedBaseCurrency: String {
         return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
     }
+    private var confirmedDateFromDataSourceVC: String {
+        return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
+    }
+    private var todaysDate: String {
+        return createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
+    }
     private var roundFlags: Bool {
         return UserDefaults.standard.bool(forKey: "roundFlags")
     }
@@ -263,13 +269,21 @@ struct CurrencyManager {
     
     func assignRowNumbers(to bankOfRussiaCurrencies: [Currency]) {
         for (index, bankOfRussiaCurrency) in bankOfRussiaCurrencies.enumerated() {
-            bankOfRussiaCurrency.rowForCurrency = Int32(index)
+            if confirmedDateFromDataSourceVC == todaysDate {
+                bankOfRussiaCurrency.rowForCurrency = Int32(index)
+            } else {
+                bankOfRussiaCurrency.rowForHistoricalCurrency = Int32(index)
+            }
         }
     }
     
     func assignRowNumbers(to forexCurrencies: [ForexCurrency]) {
         for (index, forexCurrency) in forexCurrencies.enumerated() {
-             forexCurrency.rowForCurrency = Int32(index)
+            if confirmedDateFromDataSourceVC == todaysDate {
+                forexCurrency.rowForCurrency = Int32(index)
+            } else {
+                forexCurrency.rowForHistoricalCurrency = Int32(index)
+            }
          }
     }
     
@@ -297,7 +311,6 @@ struct CurrencyManager {
     
     func checkOnFirstLaunchToday(with label: UILabel = UILabel(), in tableView: UITableView = UITableView()) {
         let currencyNetworking = CurrencyNetworking()
-        let updateDate = self.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
         var wasLaunched: String {
             return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
         }
@@ -319,6 +332,10 @@ struct CurrencyManager {
                 label.text = currencyUpdateTime
             }
         } else {
+            UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
+            UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
+            UserDefaults.standard.set(todaysDate, forKey: "confirmedDate")
+            
             currencyNetworking.performRequest { networkingError, parsingError in
                 if networkingError != nil {
                     guard let error = networkingError else { return }
@@ -331,9 +348,6 @@ struct CurrencyManager {
                     if userHasOnboarded {
                         PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
                     }
-                    UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
-                    UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
-                    UserDefaults.standard.set(updateDate, forKey: "confirmedDate")
                 }
             }
         }
