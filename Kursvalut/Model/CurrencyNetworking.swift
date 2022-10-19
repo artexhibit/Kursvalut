@@ -17,7 +17,7 @@ struct CurrencyNetworking {
         return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
     }
     private var updateTime: String {
-        return currencyManager.createStringDate(with: "\("Данные на") \(confirmedDate)\(",") HH:mm", dateStyle: nil)
+        return currencyManager.createStringDate(with: "\(confirmedDate)\(",") HH:mm", dateStyle: nil)
     }
     private var yesterdaysDate: String {
         let confirmedDate = currencyManager.createDate(from: confirmedDate)

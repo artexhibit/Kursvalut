@@ -5,7 +5,8 @@ import CoreData
 class CurrencyViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var updateTimeLabel: UILabel!
+    @IBOutlet weak var updateTimeButton: UIButton!
+    @IBOutlet weak var dataSourceButton: UIButton!
     @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
     private let userDefaults = UserDefaults.standard
@@ -16,7 +17,7 @@ class CurrencyViewController: UIViewController {
     private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let searchController = UISearchController(searchResultsController: nil)
     private var biggestTopSafeAreaInset: CGFloat = 0
-    private let updateLabelTopInset: CGFloat = 10.0
+    private let updateButtonTopInset: CGFloat = 10.0
     private var userPulledToRefresh: Bool = false
     private var viewWasSwitched: Bool = false
     private var decimalsNumberChanged: Bool {
@@ -55,22 +56,26 @@ class CurrencyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dataSourceButton.layer.cornerRadius = 7.0
+        updateTimeButton.layer.cornerRadius = 7.0
         tableView.delegate = self
         tableView.dataSource = self
         tabBarController?.delegate = self
         setupSearchController()
         setupRefreshControl()
         userDefaults.set(true, forKey: "isActiveCurrencyVC")
-        currencyManager.configureContentInset(for: tableView, top: -updateLabelTopInset)
+        currencyManager.configureContentInset(for: tableView, top: -updateButtonTopInset)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        currencyManager.setupSymbolAndText(for: dataSourceButton, with: pickedDataSource)
+        dataSourceButton.setTitle(pickedDataSource, for: .normal)
         setupFetchedResultsController()
-        currencyManager.checkOnFirstLaunchToday(with: updateTimeLabel, in: tableView)
+        currencyManager.checkOnFirstLaunchToday(with: updateTimeButton, in: tableView)
         updateDecimalsNumber()
-        updateTimeLabel.text = currencyUpdateTime
+        updateTimeButton.setTitle(currencyUpdateTime, for: .normal)
         
         if !userClosedApp {
             scrollVCUp()
@@ -242,7 +247,8 @@ extension CurrencyViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else { return }
-        updateTimeLabel.isHidden = searchController.isActive ? true : false
+        updateTimeButton.isHidden = searchController.isActive ? true : false
+        dataSourceButton.isHidden = searchController.isActive ? true : false
         
         var searchPredicate: NSCompoundPredicate {
             let shortName = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
@@ -390,7 +396,7 @@ extension CurrencyViewController {
                 }
             } else {
                 DispatchQueue.main.async {
-                    self.updateTimeLabel.text = self.currencyUpdateTime
+                    self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
                 }
                 self.tableView.refreshControl?.endRefreshing()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
@@ -434,8 +440,8 @@ extension CurrencyViewController: UITabBarControllerDelegate {
     
     func scrollVCUp() {
         if needToScrollUpViewController {
-            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset, delayValue: 0.01) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset, delayValue: 0.01)
-            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset, delayValue: 0.40) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset, delayValue: 0.40)
+            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateButtonTopInset, delayValue: 0.01) : setVCOffset(with: biggestTopSafeAreaInset, and: updateButtonTopInset, delayValue: 0.01)
+            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateButtonTopInset, delayValue: 0.40) : setVCOffset(with: biggestTopSafeAreaInset, and: updateButtonTopInset, delayValue: 0.40)
             UserDefaults.standard.set(false, forKey: "needToScrollUpViewController")
         }
     }
@@ -443,7 +449,7 @@ extension CurrencyViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if tabBarController.selectedIndex == 0 {
             if !viewWasSwitched {
-                traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateLabelTopInset) : setVCOffset(with: biggestTopSafeAreaInset, and: updateLabelTopInset)
+                traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateButtonTopInset) : setVCOffset(with: biggestTopSafeAreaInset, and: updateButtonTopInset)
             }
             viewWasSwitched = false
         }

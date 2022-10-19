@@ -307,9 +307,18 @@ struct CurrencyManager {
         }
     }
     
-    //MARK: - Check For Today's First Launch Method
+    func setupSymbolAndText(for button: UIButton, with pickedDataSource: String) {
+        button.setTitle(pickedDataSource, for: .normal)
+        
+        if pickedDataSource == "ЦБ РФ" {
+            button.setImage(UIImage(named: "rublesign.square"), for: .normal)
+        } else {
+            button.setImage(UIImage(named: "eurosign.square"), for: .normal)
+        }
+    }
     
-    func checkOnFirstLaunchToday(with label: UILabel = UILabel(), in tableView: UITableView = UITableView()) {
+    //MARK: - Check For Today's First Launch Method
+    func checkOnFirstLaunchToday(with button: UIButton = UIButton(), in tableView: UITableView = UITableView()) {
         let currencyNetworking = CurrencyNetworking()
         var wasLaunched: String {
             return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
@@ -329,7 +338,7 @@ struct CurrencyManager {
         
         if wasLaunched == today {
             DispatchQueue.main.async {
-                label.text = currencyUpdateTime
+                button.setTitle(currencyUpdateTime, for: .normal)
             }
         } else {
             UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
@@ -342,7 +351,7 @@ struct CurrencyManager {
                     PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
                 } else {
                     DispatchQueue.main.async {
-                        label.text = currencyUpdateTime
+                        button.setTitle(currencyUpdateTime, for: .normal)
                         tableView.reloadData()
                     }
                     if userHasOnboarded {
