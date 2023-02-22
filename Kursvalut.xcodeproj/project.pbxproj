@@ -78,6 +78,7 @@
 		78F2716B27CFDF6000381CA9 /* StartViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */; };
 		78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2716C27CFE00400381CA9 /* StartViewTableViewCell.swift */; };
 		78FE672628AC15E90091A1A3 /* ConcreteDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FE672528AC15E90091A1A3 /* ConcreteDateTableViewCell.swift */; };
+		78FECEAD299C0F9B00A6C597 /* PopupQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FECEAC299C0F9B00A6C597 /* PopupQueueManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -154,6 +155,7 @@
 		78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewTableViewController.swift; sourceTree = "<group>"; };
 		78F2716C27CFE00400381CA9 /* StartViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewTableViewCell.swift; sourceTree = "<group>"; };
 		78FE672528AC15E90091A1A3 /* ConcreteDateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreteDateTableViewCell.swift; sourceTree = "<group>"; };
+		78FECEAC299C0F9B00A6C597 /* PopupQueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupQueueManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +213,7 @@
 				78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */,
 				7813102727D75FE000065410 /* SMailComposeViewController.swift */,
 				78BD46DE27F07460002AFDA1 /* PopupView.swift */,
+				78FECEAC299C0F9B00A6C597 /* PopupQueueManager.swift */,
 				78B9F5602801BBAA0030ECF4 /* SortingSection.swift */,
 				780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */,
 				78137FDA2833EC1200F4621E /* UIImage+extension.swift */,
@@ -223,6 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				78041C1E2786F9FA00C4D861 /* Main.storyboard */,
+				78BD46DA27F06B6D002AFDA1 /* PopupView.xib */,
+				789FD81B288F065C0084468F /* NumpadView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -242,8 +247,6 @@
 				78137FF22834190C00F4621E /* Tutorial Gifs */,
 				78041C242786F9FB00C4D861 /* Assets.xcassets */,
 				78041C262786F9FB00C4D861 /* LaunchScreen.storyboard */,
-				78BD46DA27F06B6D002AFDA1 /* PopupView.xib */,
-				789FD81B288F065C0084468F /* NumpadView.xib */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				78522961279B1A1B00507877 /* PickCurrencyTableViewCell.swift in Sources */,
 				78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */,
 				786479AA27981E410077ABC7 /* ConverterTableViewController.swift in Sources */,
+				78FECEAD299C0F9B00A6C597 /* PopupQueueManager.swift in Sources */,
 				7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */,
 				78F2716B27CFDF6000381CA9 /* StartViewTableViewController.swift in Sources */,
 				786A002B283935CA00D0DAA4 /* DataSourceTableViewCell.swift in Sources */,
@@ -705,6 +709,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -734,6 +739,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -17,6 +17,10 @@ class CurrencyTableViewCell: UITableViewCell {
         return UserDefaults.standard.bool(forKey: "roundFlags")
     }
     
+    override func didMoveToSuperview() {
+        self.layoutIfNeeded()
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         if UIScreen().sizeType == .iPhoneSE {
@@ -26,14 +30,14 @@ class CurrencyTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupDesignForRoundFlag()
+        setupRoundFlagDesign()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    private func setupDesignForRoundFlag() {
+    private func setupRoundFlagDesign() {
         self.separatorInset.left = roundFlags ? 60.0 : 72.0
         flagWidth.constant = roundFlags ? 35.0 : 45.0
         flagHeight.constant = roundFlags ? 35.0 : 45.0

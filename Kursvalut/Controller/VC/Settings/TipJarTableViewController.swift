@@ -57,7 +57,7 @@ extension TipJarTableViewController: SKProductsRequestDelegate, SKPaymentTransac
             request.start()
             loadCellsSpinner.startAnimating()
         } else {
-            PopupView().showPopup(title: "Ошибка", message: "У вас нет разрешения на покупки в App Store", type: .failure)
+            PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "У вас нет разрешения на покупки в App Store", style: .failure)
         }
     }
     
@@ -84,7 +84,7 @@ extension TipJarTableViewController: SKProductsRequestDelegate, SKPaymentTransac
             if transaction.transactionState == .purchased {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
-                    PopupView().showPopup(title: "Успешно", message: "Спасибо! Ты - супер!", type: .purchase)
+                    PopupQueueManager.shared.addPopupToQueue(title: "Успешно", message: "Спасибо! Ты - супер!", style: .purchase)
                 }
                 transactionEnded = true
                 SKPaymentQueue.default().finishTransaction(transaction)
@@ -93,7 +93,7 @@ extension TipJarTableViewController: SKProductsRequestDelegate, SKPaymentTransac
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
-                    PopupView().showPopup(title: "Ошибка", message: "Не удалось оплатить: \(error.localizedDescription)", type: .failure)
+                    PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Не удалось оплатить: \(error.localizedDescription)", style: .failure)
                 }
                 transactionEnded = true
                 SKPaymentQueue.default().finishTransaction(transaction)

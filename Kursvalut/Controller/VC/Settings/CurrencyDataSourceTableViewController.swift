@@ -355,13 +355,13 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 if networkingError != nil {
                     guard let error = networkingError else { return }
                     self.resetStateToTheLastConfirmedDate()
-                    PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
+                    PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
                 } else if parsingError != nil {
                     guard let parsingError = parsingError else { return }
                     if parsingError.code == 4865 {
-                        PopupView().showPopup(title: "Ошибка", message: "Нет данных на выбранную дату. Попробуйте другую", type: .failure)
+                        PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Нет данных на выбранную дату. Попробуйте другую", style: .failure)
                     } else {
-                        PopupView().showPopup(title: "Ошибка", message: "\(parsingError.localizedDescription)", type: .failure)
+                        PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(parsingError.localizedDescription)", style: .failure)
                     }
                     self.resetStateToTheLastConfirmedDate()
                 } else {
@@ -374,7 +374,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                         self.resetCurrencyHistoricalRow()
                     }
                     UserDefaults.standard.set(true, forKey: "needToScrollUpViewController")
-                    PopupView().showPopup(title: "Успешно", message: "Курсы загружены", type: .success)
+                    PopupQueueManager.shared.addPopupToQueue(title: "Успешно", message: "Курсы загружены", style: .success)
                 }
                 self.dataSourceCellWasPressed = false
                 self.startDateSpinner = false

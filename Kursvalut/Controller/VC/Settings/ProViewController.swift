@@ -89,7 +89,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
             request.start()
             priceSpinner.startAnimating()
         } else {
-            PopupView().showPopup(title: "Ошибка", message: "У вас нет разрешения на покупки в App Store", type: .failure)
+            PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "У вас нет разрешения на покупки в App Store", style: .failure)
         }
     }
     
@@ -109,7 +109,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
                 DispatchQueue.main.async {
                     self.purchaseButton.isHidden = false
                     self.setPurchasedButton()
-                    PopupView().showPopup(title: "Спасибо", message: "Теперь у тебя есть Pro!", type: .purchase)
+                    PopupQueueManager.shared.addPopupToQueue(title: "Спасибо", message: "Теперь у тебя есть Pro!", style: .purchase)
                 }
                 SKPaymentQueue.default().finishTransaction(transaction)
             } else if transaction.transactionState == .failed {
@@ -118,7 +118,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
                 DispatchQueue.main.async {
                     self.purchaseButton.isHidden = false
                     self.purchaseSpinner.stopAnimating()
-                    PopupView().showPopup(title: "Ошибка", message: "Не удалось оплатить: \(error.localizedDescription)", type: .failure)
+                    PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Не удалось оплатить: \(error.localizedDescription)", style: .failure)
                 }
                 SKPaymentQueue.default().finishTransaction(transaction)
             }

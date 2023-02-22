@@ -265,7 +265,7 @@ struct CurrencyManager {
         return formatter.date(from: string) ?? Date()
     }
     
-    //MARK: - Data Displaying Helping Methods
+    //MARK: - Display Data Helping Methods
     
     func assignRowNumbers(to bankOfRussiaCurrencies: [Currency]) {
         for (index, bankOfRussiaCurrency) in bankOfRussiaCurrencies.enumerated() {
@@ -317,6 +317,11 @@ struct CurrencyManager {
         }
     }
     
+    func setupSeparatorDesign(with separator: UIView, and separatorHeightConstraint: NSLayoutConstraint) {
+        separatorHeightConstraint.constant = 1/UIScreen.main.scale
+        separator.backgroundColor = .separator
+    }
+    
     //MARK: - Check For Today's First Launch Method
     func checkOnFirstLaunchToday(with button: UIButton = UIButton(), in tableView: UITableView = UITableView()) {
         let currencyNetworking = CurrencyNetworking()
@@ -341,21 +346,21 @@ struct CurrencyManager {
                 button.setTitle(currencyUpdateTime, for: .normal)
             }
         } else {
-            UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
             UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
-            UserDefaults.standard.set(todaysDate, forKey: "confirmedDate")
             
             currencyNetworking.performRequest { networkingError, parsingError in
                 if networkingError != nil {
                     guard let error = networkingError else { return }
-                    PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
+                    PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
                 } else {
                     DispatchQueue.main.async {
+                        UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
+                        UserDefaults.standard.set(todaysDate, forKey: "confirmedDate")
                         button.setTitle(currencyUpdateTime, for: .normal)
                         tableView.reloadData()
                     }
                     if userHasOnboarded {
-                        PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
+                        PopupQueueManager.shared.addPopupToQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
                     }
                 }
             }

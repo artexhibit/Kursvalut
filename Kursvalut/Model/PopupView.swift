@@ -7,42 +7,52 @@ class PopupView: UIView {
     @IBOutlet weak var symbol: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var changeDescriptionLabel: UILabel!
     @IBOutlet weak var secondDescriptionLabel: UILabel!
+    @IBOutlet weak var changeSecondDescriptionLabel: UILabel!
     @IBOutlet weak var labelView: UIView!
     @IBOutlet weak var descriptionLabelLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var changeDescriptionLabelLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var loadSpinner: UIActivityIndicatorView!
     
     private var topConstraint: NSLayoutConstraint!
     private var bottomConstraint: NSLayoutConstraint!
     
     private var timer: Timer?
-    private let animationDuration: TimeInterval = 0.3
+    private var animationDuration: TimeInterval = 0.3
     private let mainLabelLeadingBuffer = 10.0
     private let secondLabelLeadingBuffer = 40.0
     private var descriptionLabelScrollDuration: TimeInterval {
-        return Double((descriptionLabel.text!.count)/4)
+        return Double((descriptionLabel.text!.count) / 4)
     }
-    private var popupTotalDisplayingTime: TimeInterval {
-        return descriptionLabelScrollDuration + 2.0
-    }
+    private var changeDescriptionLabelScrollDuration: TimeInterval?
     private var descriptionLabelWidth: CGFloat {
-        return descriptionLabel.frame.width
+        return descriptionLabel.intrinsicContentSize.width
     }
+    private var changeDescriptionLabelWidth: CGFloat?
     private var labelViewWidth: CGFloat {
         return labelView.frame.width
     }
-    private var isScrollable: Bool {
+    private var isDescriptionLabelScrollable: Bool {
         get {
             return descriptionLabelWidth > labelViewWidth ? true : false
         }
     }
+    private var isChangeDescriptionLabelScrollable: Bool?
     
-    enum PopupType {
+    enum PopupStyle {
         case success
         case failure
         case purchase
         case emailContact
         case restore
         case lock
+        case load
+    }
+    
+    enum BehaviourType {
+        case auto
+        case manual
     }
     
     override init(frame: CGRect) {
@@ -86,14 +96,27 @@ class PopupView: UIView {
     }
     
     private func configureLabels() {
-        if isScrollable {
+        if isDescriptionLabelScrollable {
             secondDescriptionLabel.isHidden = false
             descriptionLabelLeftConstraint.constant = mainLabelLeadingBuffer
             setupGradient(on: labelView)
         } else {
-            descriptionLabel.centerXAnchor.constraint(equalTo: labelView.centerXAnchor).isActive = true
             secondDescriptionLabel.isHidden = true
+            descriptionLabelLeftConstraint.constant = (labelViewWidth / 2) - (descriptionLabelWidth / 2)
         }
+    }
+    
+    private func configureChangeLabels() {
+        if isChangeDescriptionLabelScrollable ?? false {
+            changeSecondDescriptionLabel.isHidden = false
+            changeDescriptionLabelLeftConstraint.constant = mainLabelLeadingBuffer
+        } else {
+            changeSecondDescriptionLabel.isHidden = true
+            changeDescriptionLabelLeftConstraint.constant = (labelViewWidth / 2) - ((changeDescriptionLabelWidth ?? 0) / 2)
+        }
+        changeDescriptionLabel.isHidden = false
+        descriptionLabel.isHidden = true
+        secondDescriptionLabel.isHidden = true
     }
     
     private func configurePanGesture() {
@@ -108,10 +131,10 @@ class PopupView: UIView {
         }
     }
     
-    private func popupImageFor(type: PopupType) -> UIImage {
+    private func popupImageFor(style: PopupStyle) -> UIImage {
         var imageName: String = ""
         
-        switch type {
+        switch style {
         case .success:
             imageName = "okHand"
         case .failure:
@@ -124,6 +147,10 @@ class PopupView: UIView {
             imageName = "thumbsUp"
         case .lock:
             imageName = "indexPoint"
+        case .load:
+            imageName = "notFound"
+            self.symbol.isHidden = true
+            self.loadSpinner.startAnimating()
         }
         return UIImage(named: "\(imageName)") ?? UIImage(named: "notFound")!
     }
@@ -141,11 +168,11 @@ class PopupView: UIView {
         cornerView.layer.cornerRadius = 20
     }
     
-    func showPopup(title: String, message: String, type: PopupType) {
+    func showPopup(title: String, message: String, style: PopupStyle, type: BehaviourType) {
         titleLabel.text = title
         descriptionLabel.text = message
         secondDescriptionLabel.text = message
-        symbol.image = popupImageFor(type: type)
+        symbol.image = popupImageFor(style: style)
         
         configurePopup()
         configureLabels()
@@ -153,24 +180,82 @@ class PopupView: UIView {
         configurePopupDesign()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            self.animateIn()
+            self.configurePopupBehaviour(according: type)
         }
     }
     
+    func changePopupData(title: String, message: String, style: PopupStyle, type: BehaviourType) {
+        self.titleLabel.text = title
+        self.changeDescriptionLabel.text = message
+        self.changeSecondDescriptionLabel.text = message
+        self.symbol.image = self.popupImageFor(style: style)
+        self.symbol.isHidden = false
+        self.loadSpinner.stopAnimating()
+        
+        var isChangeDescriptionLabelScrollable: Bool {
+            return changeDescriptionLabel.intrinsicContentSize.width > labelViewWidth ? true : false
+        }
+        var labelChangeScrollAnimationDuration: TimeInterval {
+            return Double((changeDescriptionLabel.text!.count)/4)
+        }
+        self.isChangeDescriptionLabelScrollable = isChangeDescriptionLabelScrollable
+        changeDescriptionLabelScrollDuration = labelChangeScrollAnimationDuration
+        changeDescriptionLabelWidth = changeDescriptionLabel.intrinsicContentSize.width
+        
+        self.configureChangeLabels()
+        DispatchQueue.main.async {
+            self.performChangeLabelScrollFor(type: type)
+        }
+    }
+    
+    private func configurePopupBehaviour(according type: BehaviourType) {
+        animateIn()
+        
+        switch type {
+        case .auto:
+            performLabelScrollFor(type: type)
+        case .manual:
+            performLabelScrollFor(type: type)
+        }
+    }
+    
+    private func performLabelScrollFor(type: BehaviourType) {
+        if isDescriptionLabelScrollable {
+            scrollLabel()
+            if type == .auto {
+                hidePopup(afterSeconds: descriptionLabelScrollDuration + 2.0)
+            }
+        } else {
+            if type == .auto {
+                hidePopup(afterSeconds: 2.0)
+            }
+        }
+    }
+    
+    private func performChangeLabelScrollFor(type: BehaviourType) {
+        if isChangeDescriptionLabelScrollable ?? false {
+            scrollChangeLabel()
+            if type == .auto {
+                hidePopup(afterSeconds: (changeDescriptionLabelScrollDuration ?? 0) + 2.0)
+            }
+        } else {
+            if type == .auto {
+                hidePopup(afterSeconds: 2.0)
+            }
+        }
+    }
+    
+    func hidePopup(afterSeconds delay: TimeInterval = 0.0, animationDuration: Double = 0.3) {
+        self.animationDuration = animationDuration
+        self.timer = Timer.scheduledTimer(timeInterval: delay, target: self, selector: #selector(self.animateOut), userInfo: nil, repeats: false)
+    }
+    
     private func animateIn() {
-        guard let sv = self.superview else { return }
+        guard let superView = self.superview else { return }
         self.bottomConstraint.isActive = false
         self.topConstraint.isActive = true
         UIView.animate(withDuration: animationDuration, delay: 0.0, options: .curveEaseInOut) {
-            sv.layoutIfNeeded()
-        } completion: { [weak self] _ in
-            guard let self = self else { return }
-            if self.isScrollable {
-                self.scrollLabel()
-                self.timer = Timer.scheduledTimer(timeInterval: self.popupTotalDisplayingTime, target: self, selector: #selector(self.animateOut), userInfo: nil, repeats: false)
-            } else {
-                self.timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.animateOut), userInfo: nil, repeats: false)
-            }
+            superView.layoutIfNeeded()
         }
     }
     
@@ -184,6 +269,9 @@ class PopupView: UIView {
         } completion: { [weak self] _ in
             guard let self = self else { return }
             self.removeFromSuperview()
+            PopupQueueManager.shared.popupViewsData.removeFirst()
+            PopupQueueManager.shared.hasDisplayingPopup = false
+            PopupQueueManager.shared.showNextPopupView()
         }
     }
     
@@ -196,6 +284,14 @@ class PopupView: UIView {
         }
     }
     
+    private func scrollChangeLabel() {
+        guard let superView = self.superview else { return }
+        changeDescriptionLabelLeftConstraint.constant = -changeDescriptionLabelWidth! - secondLabelLeadingBuffer + mainLabelLeadingBuffer
+        UIView.animate(withDuration: (self.changeDescriptionLabelScrollDuration ?? 0), delay: 1.0, options: .curveLinear) {
+            superView.layoutIfNeeded()
+        }
+    }
+
     private func setupGradient(on view: UIView) {
         let gradientLayer = CAGradientLayer()
         

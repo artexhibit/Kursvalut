@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,10 +11,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PopupView" customModule="Kursvalut" customModuleProvider="target">
             <connections>
+                <outlet property="changeDescriptionLabel" destination="M3S-hb-AYA" id="xHd-ch-h2D"/>
+                <outlet property="changeDescriptionLabelLeftConstraint" destination="VVu-vT-oIc" id="5QO-6D-ZgH"/>
+                <outlet property="changeSecondDescriptionLabel" destination="DeX-dw-teR" id="Axh-me-8RS"/>
                 <outlet property="cornerView" destination="Tct-35-Zm7" id="ar6-oG-g6f"/>
                 <outlet property="descriptionLabel" destination="LkM-Mn-Crk" id="jBn-0R-GwR"/>
                 <outlet property="descriptionLabelLeftConstraint" destination="ENZ-eY-Iqe" id="jao-CA-Yux"/>
                 <outlet property="labelView" destination="lep-lG-0UP" id="QGM-Sk-a9O"/>
+                <outlet property="loadSpinner" destination="0oR-lE-iN2" id="943-xf-DYX"/>
                 <outlet property="secondDescriptionLabel" destination="dbu-06-LL9" id="EYs-FR-0jr"/>
                 <outlet property="symbol" destination="SCs-lR-DHi" id="bRC-Cl-n9I"/>
                 <outlet property="titleLabel" destination="tMc-FD-SMq" id="l0r-er-pjd"/>
@@ -51,7 +55,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lep-lG-0UP">
                                     <rect key="frame" x="0.0" y="19.5" width="150" height="20.5"/>
                                     <subviews>
-                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMa-UD-maS">
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMa-UD-maS" userLabel="Show Scroll View">
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Попробуйте ещё раз позже" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LkM-Mn-Crk">
@@ -83,12 +87,48 @@
                                                 </mask>
                                             </variation>
                                         </scrollView>
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52e-Bo-daW" userLabel="Change Scroll View">
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
+                                            <subviews>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Попробуйте ещё раз позже" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3S-hb-AYA">
+                                                    <rect key="frame" x="0.0" y="0.0" width="175" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" name="PopupLabelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дубль Попробуйте ещё раз позже" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DeX-dw-teR" userLabel="Second Не удается загрузить данные. Проверьте соединение с интернетом">
+                                                    <rect key="frame" x="215" y="0.0" width="217.5" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" name="PopupLabelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="DeX-dw-teR" secondAttribute="bottom" id="Bas-DD-9f4"/>
+                                                <constraint firstItem="DeX-dw-teR" firstAttribute="leading" secondItem="M3S-hb-AYA" secondAttribute="trailing" constant="40" id="FVK-fI-Ib7"/>
+                                                <constraint firstItem="M3S-hb-AYA" firstAttribute="leading" secondItem="52e-Bo-daW" secondAttribute="leading" id="VVu-vT-oIc"/>
+                                                <constraint firstItem="M3S-hb-AYA" firstAttribute="centerX" secondItem="52e-Bo-daW" secondAttribute="centerX" id="VvH-aa-8JP"/>
+                                                <constraint firstAttribute="trailing" secondItem="DeX-dw-teR" secondAttribute="trailing" id="cO7-0b-0vF"/>
+                                                <constraint firstAttribute="bottom" secondItem="M3S-hb-AYA" secondAttribute="bottom" id="caz-N0-CCS"/>
+                                                <constraint firstItem="M3S-hb-AYA" firstAttribute="top" secondItem="52e-Bo-daW" secondAttribute="top" id="olM-Dp-pgV"/>
+                                                <constraint firstItem="DeX-dw-teR" firstAttribute="top" secondItem="52e-Bo-daW" secondAttribute="top" id="zJj-Si-06d"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="VvH-aa-8JP"/>
+                                                </mask>
+                                            </variation>
+                                        </scrollView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="52e-Bo-daW" firstAttribute="leading" secondItem="lep-lG-0UP" secondAttribute="leading" id="76E-D6-9SO"/>
                                         <constraint firstAttribute="trailing" secondItem="ZMa-UD-maS" secondAttribute="trailing" id="Ezr-Gx-CDD"/>
                                         <constraint firstAttribute="bottom" secondItem="ZMa-UD-maS" secondAttribute="bottom" id="VCh-ME-ZLj"/>
                                         <constraint firstItem="ZMa-UD-maS" firstAttribute="leading" secondItem="lep-lG-0UP" secondAttribute="leading" id="Ygg-7O-k6Q"/>
+                                        <constraint firstAttribute="trailing" secondItem="52e-Bo-daW" secondAttribute="trailing" id="bRq-mI-tPn"/>
+                                        <constraint firstAttribute="bottom" secondItem="52e-Bo-daW" secondAttribute="bottom" id="eqa-FN-Ikd"/>
                                         <constraint firstItem="ZMa-UD-maS" firstAttribute="top" secondItem="lep-lG-0UP" secondAttribute="top" id="nPd-UV-SZt"/>
+                                        <constraint firstItem="52e-Bo-daW" firstAttribute="top" secondItem="lep-lG-0UP" secondAttribute="top" id="w39-4D-iMg"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -97,13 +137,19 @@
                                 <constraint firstAttribute="trailing" secondItem="lep-lG-0UP" secondAttribute="trailing" id="ckj-E8-kdd"/>
                             </constraints>
                         </stackView>
+                        <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="0oR-lE-iN2">
+                            <rect key="frame" x="10" y="15" width="28" height="20"/>
+                        </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="1aR-wK-aAl" secondAttribute="bottom" constant="5" id="1HX-NR-vlA"/>
                         <constraint firstItem="Tct-35-Zm7" firstAttribute="leading" secondItem="cl1-UW-34u" secondAttribute="leading" id="2HZ-HS-jCd"/>
+                        <constraint firstItem="0oR-lE-iN2" firstAttribute="centerY" secondItem="cl1-UW-34u" secondAttribute="centerY" id="97x-wy-T9d"/>
                         <constraint firstAttribute="trailing" secondItem="1aR-wK-aAl" secondAttribute="trailing" constant="10" id="IQQ-cD-8Wy"/>
+                        <constraint firstItem="0oR-lE-iN2" firstAttribute="leading" secondItem="cl1-UW-34u" secondAttribute="leading" constant="10" id="JOZ-Oy-jPK"/>
                         <constraint firstItem="Tct-35-Zm7" firstAttribute="top" secondItem="cl1-UW-34u" secondAttribute="top" id="Ne4-yO-1PP"/>
+                        <constraint firstItem="1aR-wK-aAl" firstAttribute="leading" secondItem="0oR-lE-iN2" secondAttribute="trailing" constant="2" id="Qzg-vv-QHK"/>
                         <constraint firstItem="SCs-lR-DHi" firstAttribute="centerY" secondItem="cl1-UW-34u" secondAttribute="centerY" id="UdM-qu-tmK"/>
                         <constraint firstItem="1aR-wK-aAl" firstAttribute="leading" secondItem="SCs-lR-DHi" secondAttribute="trailing" constant="5" id="V4k-Ye-A3C"/>
                         <constraint firstItem="1aR-wK-aAl" firstAttribute="centerY" secondItem="cl1-UW-34u" secondAttribute="centerY" id="W1B-vs-Qyr"/>

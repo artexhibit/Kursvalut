@@ -109,12 +109,12 @@ class SettingsTableViewController: UITableViewController {
         } else if pickedSection == 4 && pickedCell == 4 {
             sendUserToLeaveReview()
         } else if pickedSection == 2 && pickedCell == 1 {
-            proPurchased ? PopupView().showPopup(title: "Всё в порядке", message: "Pro уже восстановлен", type: .lock) : startProVersionRestore()
+            proPurchased ? PopupQueueManager.shared.addPopupToQueue(title: "Всё в порядке", message: "Pro уже восстановлен", style: .lock) : startProVersionRestore()
         } else if pickedSection == 1 && (pickedCell == 1 || pickedCell == 2 || pickedCell == 3) {
             if proPurchased {
                unlockPro(for: pickedCell)
             } else {
-                PopupView().showPopup(title: "Закрыто", message: "Доступно только в Pro", type: .lock)
+                PopupQueueManager.shared.addPopupToQueue(title: "Закрыто", message: "Доступно только в Pro", style: .lock)
             }
         }
     }
@@ -140,7 +140,7 @@ class SettingsTableViewController: UITableViewController {
         if UIApplication.shared.canOpenURL(appStoreReviewURL) {
             UIApplication.shared.open(appStoreReviewURL, options: [:], completionHandler: nil)
         } else {
-            PopupView().showPopup(title: "Ошибка", message: "Не получается открыть App Store", type: .failure)
+            PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Не получается открыть App Store", style: .failure)
         }
     }
 }
@@ -190,15 +190,15 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         if queue.transactions.isEmpty {
-            PopupView().showPopup(title: "Ошибка", message: "Pro ранее не покупался", type: .failure)
+            PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Pro ранее не покупался", style: .failure)
         } else {
-            PopupView().showPopup(title: "Успешно", message: "Покупка восстановлена", type: .restore)
+            PopupQueueManager.shared.addPopupToQueue(title: "Успешно", message: "Покупка восстановлена", style: .restore)
         }
         restoreSpinner.stopAnimating()
     }
     
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-        PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
+        PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
         restoreSpinner.stopAnimating()
     }
 }
@@ -213,11 +213,11 @@ extension SettingsTableViewController:  MFMailComposeViewControllerDelegate {
         case .saved:
             dismiss(animated: true, completion: nil)
         case .sent:
-            PopupView().showPopup(title: "Письмо отправлено", message: "Скоро вам отвечу!", type: .success)
+            PopupQueueManager.shared.addPopupToQueue(title: "Письмо отправлено", message: "Скоро вам отвечу!", style: .success)
             dismiss(animated: true, completion: nil)
         case .failed:
             guard let error = error else { return }
-            PopupView().showPopup(title: "Ошибка", message: "Не удалось отправить: \(error.localizedDescription)", type: .failure)
+            PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Не удалось отправить: \(error.localizedDescription)", style: .failure)
             dismiss(animated: true, completion: nil)
         @unknown default:
             dismiss(animated: true, completion: nil)

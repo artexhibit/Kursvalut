@@ -7,7 +7,8 @@ class CurrencyViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var updateTimeButton: UIButton!
     @IBOutlet weak var dataSourceButton: UIButton!
-    @IBOutlet weak var doneEditingButton: UIBarButtonItem!
+    @IBOutlet weak var separatorView: UIView!
+    @IBOutlet weak var separatorViewHeight: NSLayoutConstraint!
     
     private let userDefaults = UserDefaults.standard
     private var currencyManager = CurrencyManager()
@@ -20,47 +21,52 @@ class CurrencyViewController: UIViewController {
     private let updateButtonTopInset: CGFloat = 10.0
     private var userPulledToRefresh: Bool = false
     private var viewWasSwitched: Bool = false
+    private var needToRefreshFRCForCustomSort: Bool {
+        return userDefaults.bool(forKey: "needToRefreshFRCForCustomSort")
+    }
     private var decimalsNumberChanged: Bool {
         return userDefaults.bool(forKey: "decimalsNumberChanged")
     }
     private var proPurchased: Bool {
-        return UserDefaults.standard.bool(forKey: "kursvalutPro")
+        return userDefaults.bool(forKey: "kursvalutPro")
     }
     private var pickedDataSource: String {
-        return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+        return userDefaults.string(forKey: "baseSource") ?? ""
     }
     private var pickedOrder: String {
-        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedOrder") ?? "")
+        return pickedDataSource == "ЦБ РФ" ? (userDefaults.string(forKey: "bankOfRussiaPickedOrder") ?? "") : (userDefaults.string(forKey: "forexPickedOrder") ?? "")
     }
     private var pickedSection: String {
-        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedSection") ?? "")
-    }
-    private var confirmedDateFromDataSourceVC: String {
-        return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
+        return pickedDataSource == "ЦБ РФ" ? (userDefaults.string(forKey: "bankOfRussiaPickedSection") ?? "") : (userDefaults.string(forKey: "forexPickedSection") ?? "")
     }
     private var todaysDate: String {
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
     }
     private var userHasOnboarded: Bool {
-        return UserDefaults.standard.bool(forKey: "userHasOnboarded")
+        return userDefaults.bool(forKey: "userHasOnboarded")
     }
     private var currencyUpdateTime: String {
-        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (UserDefaults.standard.string(forKey: "forexUpdateTime") ?? "")
+        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (userDefaults.string(forKey: "forexUpdateTime") ?? "")
     }
     private var needToScrollUpViewController: Bool {
-        return UserDefaults.standard.bool(forKey: "needToScrollUpViewController")
+        return userDefaults.bool(forKey: "needToScrollUpViewController")
     }
     private var userClosedApp: Bool {
-        return UserDefaults.standard.bool(forKey: "userClosedApp")
+        return userDefaults.bool(forKey: "userClosedApp")
+    }
+    private var pickDateSwitchFromDataSourceIsOn: Bool {
+        return userDefaults.bool(forKey: "pickDateSwitchIsOn")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataSourceButton.layer.cornerRadius = 7.0
-        updateTimeButton.layer.cornerRadius = 7.0
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.dragInteractionEnabled = true
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
         tabBarController?.delegate = self
+        setupButtonsDesign()
         setupSearchController()
         setupRefreshControl()
         userDefaults.set(true, forKey: "isActiveCurrencyVC")
@@ -71,12 +77,15 @@ class CurrencyViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         currencyManager.setupSymbolAndText(for: dataSourceButton, with: pickedDataSource)
-        dataSourceButton.setTitle(pickedDataSource, for: .normal)
+        currencyManager.setupSeparatorDesign(with: separatorView, and: separatorViewHeight)
         setupFetchedResultsController()
-        currencyManager.checkOnFirstLaunchToday(with: updateTimeButton, in: tableView)
         updateDecimalsNumber()
+        dataSourceButton.setTitle(pickedDataSource, for: .normal)
         updateTimeButton.setTitle(currencyUpdateTime, for: .normal)
         
+        if !pickDateSwitchFromDataSourceIsOn {
+            currencyManager.checkOnFirstLaunchToday(with: updateTimeButton, in: tableView)
+        }
         if !userClosedApp {
             scrollVCUp()
         }
@@ -94,11 +103,6 @@ class CurrencyViewController: UIViewController {
         super.viewDidDisappear(animated)
         viewWasSwitched = true
     }
-    
-    @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
-        turnEditing()
-        tableView.reloadData()
-    }
 }
 
 //MARK: - TableView DataSource Methods
@@ -110,6 +114,9 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell", for: indexPath) as! CurrencyTableViewCell
+        
+        let lastCellRow = tableView.numberOfRows(inSection: 0) - 1
+        cell.separatorInset.right = indexPath.row == lastCellRow ? .greatestFiniteMagnitude : 19
         
         if pickedDataSource == "ЦБ РФ" {
             let currency = bankOfRussiaFRC.object(at: indexPath)
@@ -136,64 +143,15 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let move = UIContextualAction(style: .normal, title: nil) { [self] action, view, completionHandler in
-            if self.searchController.isActive {
-                PopupView().showPopup(title: "Пока нельзя", message: "Сначала завершите поиск", type: .lock)
-            } else {
-                turnEditing()
-                turnEditing()
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [self] in
-                    self.tableView.reloadData()
-                    
-                    if pickedDataSource == "ЦБ РФ" {
-                        UserDefaults.standard.set(true, forKey: "customSortSwitchIsOnForBankOfRussia")
-                        UserDefaults.standard.set("Своя", forKey: "bankOfRussiaPickedSection")
-                        UserDefaults.standard.set(false, forKey: "showCustomSortForBankOfRussia")
-                        let bankOfRussiaCurrencies = bankOfRussiaFRC.fetchedObjects!
-                        currencyManager.assignRowNumbers(to: bankOfRussiaCurrencies)
-                    } else {
-                        UserDefaults.standard.set(true, forKey: "customSortSwitchIsOnForForex")
-                        UserDefaults.standard.set("Своя", forKey: "forexPickedSection")
-                        UserDefaults.standard.set(false, forKey: "showCustomSortForForex")
-                        let forexCurrencies = forexFRC.fetchedObjects!
-                        currencyManager.assignRowNumbers(to: forexCurrencies)
-                    }
-                    coreDataManager.save()
-                    setupFetchedResultsController()
-                    
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOn"), object: nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadSortingVCTableView"), object: nil)
-                }
-            }
+        var configuration: UISwipeActionsConfiguration?
+        let move = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
             completionHandler(true)
         }
         move.image = UIImage(named: "line.3.horizontal")
         move.backgroundColor = UIColor(named: "BlueColor")
         
-        if proPurchased {
-            let configuration = UISwipeActionsConfiguration(actions: [move])
-            return configuration
-        } else {
-            let configuration = UISwipeActionsConfiguration(actions: [])
-            return configuration
-        }
-    }
-}
-
-//MARK: - Method For Trailing Swipe Action
-
-extension CurrencyViewController {
-    func turnEditing() {
-        if tableView.isEditing {
-            tableView.isEditing = false
-            doneEditingButton.title = ""
-            doneEditingButton.isEnabled = false
-        } else {
-            tableView.isEditing = true
-            doneEditingButton.isEnabled = true
-            doneEditingButton.title = "Готово"
-        }
+        configuration = proPurchased ? UISwipeActionsConfiguration(actions: [move]) : UISwipeActionsConfiguration(actions: [])
+        return configuration
     }
 }
 
@@ -221,7 +179,6 @@ extension CurrencyViewController {
             currencyManager.assignRowNumbers(to: forexCurrencies)
         }
         coreDataManager.save()
-        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -230,6 +187,58 @@ extension CurrencyViewController {
     
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
+    }
+}
+
+//MARK: - UITableViewDragDelegate & UITableViewDropDelegate Methods
+
+extension CurrencyViewController: UITableViewDragDelegate, UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let currencyItem = UIDragItem(itemProvider: NSItemProvider())
+        currencyItem.localObject = indexPath
+        return [currencyItem]
+    }
+    
+    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        if proPurchased && !searchController.isActive {            
+            if pickedDataSource == "ЦБ РФ" {
+                userDefaults.set(true, forKey: "customSortSwitchIsOnForBankOfRussia")
+                userDefaults.set("Своя", forKey: "bankOfRussiaPickedSection")
+                userDefaults.set(false, forKey: "showCustomSortForBankOfRussia")
+            } else {
+                userDefaults.set(true, forKey: "customSortSwitchIsOnForForex")
+                userDefaults.set("Своя", forKey: "forexPickedSection")
+                userDefaults.set(false, forKey: "showCustomSortForForex")
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOn"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadSortingVCTableView"), object: nil)
+            
+            if needToRefreshFRCForCustomSort {
+                setupFetchedResultsController()
+                userDefaults.set(false, forKey: "needToRefreshFRCForCustomSort")
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidEnd session: UIDropSession) {
+        if !proPurchased && !searchController.isActive {
+            PopupQueueManager.shared.addPopupToQueue(title: "Только для Pro", message: "Своя сортировка доступна в Pro-версии", style: .lock)
+        }
+        if searchController.isActive {
+            PopupQueueManager.shared.addPopupToQueue(title: "Пока нельзя", message: "Сначала завершите поиск", style: .lock)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        var dropProposal = UITableViewDropProposal(operation: .forbidden)
+        guard session.items.count == 1 else { return dropProposal }
+        guard !searchController.isActive else { return dropProposal }
+        dropProposal = proPurchased ? UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath) : UITableViewDropProposal(operation: .forbidden)
+        return dropProposal
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        //not needed with a local 1 item drag
     }
 }
 
@@ -306,7 +315,7 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
                 } else if pickedSection == "По значению" {
                     return NSSortDescriptor(key: "absoluteValue", ascending: sortingOrder)
                 } else {
-                    if confirmedDateFromDataSourceVC == todaysDate {
+                    if !pickDateSwitchFromDataSourceIsOn {
                         return NSSortDescriptor(key: "rowForCurrency", ascending: true)
                     } else {
                         return NSSortDescriptor(key: "rowForHistoricalCurrency", ascending: true)
@@ -338,7 +347,7 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
         switch type {
         case .update:
             if let indexPath = indexPath {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     self.tableView.reloadRows(at: [indexPath], with: .none)
                 }
             }
@@ -362,6 +371,17 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
 //MARK: - CurrencyViewController UI Manage Methods
 
 extension CurrencyViewController {
+    func setupButtonsDesign() {
+        if UIScreen().sizeType == .iPhoneSE {
+            dataSourceButton.widthAnchor.constraint(equalToConstant: 110).isActive = true
+            dataSourceButton.titleLabel?.font = .systemFont(ofSize: 12)
+            updateTimeButton.titleLabel?.font = .systemFont(ofSize: 10)
+            updateTimeButton.titleLabel?.lineBreakMode = .byWordWrapping
+        }
+        dataSourceButton.layer.cornerRadius = 10.0
+        updateTimeButton.layer.cornerRadius = 10.0
+    }
+    
     func updateDecimalsNumber() {
         if decimalsNumberChanged {
             tableView.reloadData()
@@ -371,12 +391,12 @@ extension CurrencyViewController {
     
     @objc func refreshData() {
         var updateRequestFromCurrencyDataSource: Bool {
-            return UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource")
+            return userDefaults.bool(forKey: "updateRequestFromCurrencyDataSource")
         }
         
         if !updateRequestFromCurrencyDataSource {
-            UserDefaults.standard.set(self.todaysDate, forKey: "confirmedDate")
-            UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
+            userDefaults.set(self.todaysDate, forKey: "confirmedDate")
+            userDefaults.set(false, forKey: "pickDateSwitchIsOn")
         }
         if pickedDataSource != "ЦБ РФ" {
             DispatchQueue.main.async {
@@ -392,20 +412,18 @@ extension CurrencyViewController {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
                 
                 DispatchQueue.main.async {
-                    PopupView().showPopup(title: "Ошибка", message: "\(error.localizedDescription)", type: .failure)
+                    PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
                 }
             } else {
-                DispatchQueue.main.async {
-                    self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
-                }
                 self.tableView.refreshControl?.endRefreshing()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    PopupView().showPopup(title: "Обновлено", message: "Курсы актуальны", type: .success)
+                    self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
+                    PopupQueueManager.shared.addPopupToQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
                     self.tableView.reloadData()
                 }
-                UserDefaults.standard.set(false, forKey: "updateRequestFromCurrencyDataSource")
+                self.userDefaults.set(false, forKey: "updateRequestFromCurrencyDataSource")
             }
         }
     }
@@ -442,7 +460,7 @@ extension CurrencyViewController: UITabBarControllerDelegate {
         if needToScrollUpViewController {
             traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateButtonTopInset, delayValue: 0.01) : setVCOffset(with: biggestTopSafeAreaInset, and: updateButtonTopInset, delayValue: 0.01)
             traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateButtonTopInset, delayValue: 0.40) : setVCOffset(with: biggestTopSafeAreaInset, and: updateButtonTopInset, delayValue: 0.40)
-            UserDefaults.standard.set(false, forKey: "needToScrollUpViewController")
+            userDefaults.set(false, forKey: "needToScrollUpViewController")
         }
     }
     
