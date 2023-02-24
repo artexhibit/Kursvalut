@@ -14,6 +14,7 @@ class CurrencyViewController: UIViewController {
     private var currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
     private let coreDataManager = CurrencyCoreDataManager()
+    private let datePickerView = DatePickerView()
     private var bankOfRussiaFRC: NSFetchedResultsController<Currency>!
     private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let searchController = UISearchController(searchResultsController: nil)
@@ -102,6 +103,10 @@ class CurrencyViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         viewWasSwitched = true
+    }
+    
+    @IBAction func updateTimeButtonPressed(_ sender: UIButton) {
+        datePickerView.superview == nil ? datePickerView.showView(under: sender, in: self.view) : datePickerView.hideView()
     }
 }
 

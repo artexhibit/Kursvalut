@@ -77,6 +77,8 @@
 		78F13FF327CE9AD80076613A /* ConverterPreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */; };
 		78F2716B27CFDF6000381CA9 /* StartViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */; };
 		78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F2716C27CFE00400381CA9 /* StartViewTableViewCell.swift */; };
+		78F73AC229A8F400003BFD47 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F73AC129A8F400003BFD47 /* DatePickerView.swift */; };
+		78F73AC429A8F416003BFD47 /* DatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78F73AC329A8F416003BFD47 /* DatePickerView.xib */; };
 		78FE672628AC15E90091A1A3 /* ConcreteDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FE672528AC15E90091A1A3 /* ConcreteDateTableViewCell.swift */; };
 		78FECEAD299C0F9B00A6C597 /* PopupQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FECEAC299C0F9B00A6C597 /* PopupQueueManager.swift */; };
 /* End PBXBuildFile section */
@@ -154,6 +156,8 @@
 		78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterPreviewTableViewCell.swift; sourceTree = "<group>"; };
 		78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewTableViewController.swift; sourceTree = "<group>"; };
 		78F2716C27CFE00400381CA9 /* StartViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewTableViewCell.swift; sourceTree = "<group>"; };
+		78F73AC129A8F400003BFD47 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		78F73AC329A8F416003BFD47 /* DatePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerView.xib; sourceTree = "<group>"; };
 		78FE672528AC15E90091A1A3 /* ConcreteDateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreteDateTableViewCell.swift; sourceTree = "<group>"; };
 		78FECEAC299C0F9B00A6C597 /* PopupQueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupQueueManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,6 +222,7 @@
 				780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */,
 				78137FDA2833EC1200F4621E /* UIImage+extension.swift */,
 				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
+				78F73AC129A8F400003BFD47 /* DatePickerView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 				78041C1E2786F9FA00C4D861 /* Main.storyboard */,
 				78BD46DA27F06B6D002AFDA1 /* PopupView.xib */,
 				789FD81B288F065C0084468F /* NumpadView.xib */,
+				78F73AC329A8F416003BFD47 /* DatePickerView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -476,6 +482,7 @@
 				78041C282786F9FB00C4D861 /* LaunchScreen.storyboard in Resources */,
 				78137FF12834185D00F4621E /* pickCurrencyForConverter.gif in Resources */,
 				78137FEB28340EBB00F4621E /* updateCellData.gif in Resources */,
+				78F73AC429A8F416003BFD47 /* DatePickerView.xib in Resources */,
 				78BD46DB27F06B6D002AFDA1 /* PopupView.xib in Resources */,
 				78871A4B2789F4F700321E98 /* README.md in Resources */,
 				78041C252786F9FB00C4D861 /* Assets.xcassets in Resources */,
@@ -523,6 +530,7 @@
 				78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */,
 				78041C1B2786F9FA00C4D861 /* SceneDelegate.swift in Sources */,
 				78E00279283EA57100EE9B4C /* ForexCurrencyData.swift in Sources */,
+				78F73AC229A8F400003BFD47 /* DatePickerView.swift in Sources */,
 				789FD820288F06E70084468F /* NumpadButton.swift in Sources */,
 				78522961279B1A1B00507877 /* PickCurrencyTableViewCell.swift in Sources */,
 				78D3DA0C278731DD00A91511 /* CurrencyTableViewCell.swift in Sources */,
