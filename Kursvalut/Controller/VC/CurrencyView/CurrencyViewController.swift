@@ -58,6 +58,11 @@ class CurrencyViewController: UIViewController {
     private var pickDateSwitchFromDataSourceIsOn: Bool {
         return userDefaults.bool(forKey: "pickDateSwitchIsOn")
     }
+    private var datePickerGestureRecognizer: UITapGestureRecognizer {
+        let recogniser = UITapGestureRecognizer(target: self, action: #selector(handleTapOnDatePicker(_:)))
+        recogniser.cancelsTouchesInView = false
+        return recogniser
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +78,7 @@ class CurrencyViewController: UIViewController {
         setupSearchController()
         setupRefreshControl()
         userDefaults.set(true, forKey: "isActiveCurrencyVC")
+        self.view.addGestureRecognizer(datePickerGestureRecognizer)
         currencyManager.configureContentInset(for: tableView, top: -updateButtonTopInset)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
     }
@@ -265,6 +271,7 @@ extension CurrencyViewController: UISearchResultsUpdating {
         guard let searchText = searchController.searchBar.text else { return }
         updateTimeButton.isHidden = searchController.isActive ? true : false
         dataSourceButton.isHidden = searchController.isActive ? true : false
+        if searchController.isActive { datePickerView.hideView() }
         
         var searchPredicate: NSCompoundPredicate {
             let shortName = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
@@ -394,6 +401,17 @@ extension CurrencyViewController {
             tableView.reloadData()
         }
         userDefaults.set(false, forKey: "decimalsNumberChanged")
+    }
+    
+    @objc func handleTapOnDatePicker(_ tap: UITapGestureRecognizer) {
+        let location = tap.location(in: view)
+        let locationInButton = updateTimeButton.convert(location, from: view)
+        
+        if updateTimeButton.bounds.contains(locationInButton) { return }
+        
+        if !datePickerView.frame.contains(location) {
+            datePickerView.hideView()
+        }
     }
     
     @objc func refreshData() {
