@@ -2,6 +2,10 @@
 import Foundation
 import UIKit
 
+protocol CurrencyManagerDelegate {
+    func firstLaunchDidEndSuccess(currencyManager: CurrencyManager, success: Bool)
+}
+
 struct CurrencyManager {
     static let currencyFullNameDict = [
         "RUB": (currencyName: "Российский рубль", searchName: "Российская Федерация"),
@@ -188,6 +192,7 @@ struct CurrencyManager {
         "VEF": (currencyName: "Венесуэльский боливар (старый)", searchName: "Венесуэла")
     ]
     
+    var delegate: CurrencyManagerDelegate?
     private var difference: Double = 0.0
     private var differenceAttributes: (Sign: String, Color: UIColor, Symbol: String) {
         if difference > 0 {
@@ -353,11 +358,12 @@ struct CurrencyManager {
                     guard let error = networkingError else { return }
                     PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
                 } else {
-                    DispatchQueue.main.async {
-                        UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
-                        UserDefaults.standard.set(todaysDate, forKey: "confirmedDate")
+                    delegate?.firstLaunchDidEndSuccess(currencyManager: self, success: true)
+                    UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
+                    UserDefaults.standard.set(todaysDate, forKey: "confirmedDate")
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         button.setTitle(currencyUpdateTime, for: .normal)
-                        tableView.reloadData()
                     }
                     if userHasOnboarded {
                         PopupQueueManager.shared.addPopupToQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)

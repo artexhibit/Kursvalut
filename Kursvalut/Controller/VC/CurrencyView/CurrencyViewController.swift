@@ -67,6 +67,8 @@ class CurrencyViewController: UIViewController {
         tableView.dragDelegate = self
         tableView.dropDelegate = self
         tabBarController?.delegate = self
+        datePickerView.delegate = self
+        currencyManager.delegate = self
         setupButtonsDesign()
         setupSearchController()
         setupRefreshControl()
@@ -408,7 +410,6 @@ extension CurrencyViewController {
                 self.coreDataManager.filterOutForexBaseCurrency()
             }
         }
-        setupFetchedResultsController()
         
         currencyNetworking.performRequest { networkingError, parsingError in
             if networkingError != nil {
@@ -420,19 +421,58 @@ extension CurrencyViewController {
                     PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
                 }
             } else {
+                self.setupFetchedResultsController()
                 self.tableView.refreshControl?.endRefreshing()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                PopupQueueManager.shared.addPopupToQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
-                    PopupQueueManager.shared.addPopupToQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
-                    self.tableView.reloadData()
                 }
                 self.userDefaults.set(false, forKey: "updateRequestFromCurrencyDataSource")
             }
         }
     }
 }
+
+//MARK: - UIDatePicker Delegate Methods
+
+extension CurrencyViewController: UIDatePickerDelegate {
+    func didPickedDateFromPicker(_ datePickerView: DatePickerView, pickedDate: String, lastConfirmedDate: String) {
+        PopupQueueManager.shared.addPopupToQueue(title: "Секунду", message: "Загружаем", style: .load, type: .manual)
+        
+        currencyNetworking.performRequest { networkingError, parsingError in
+                if networkingError != nil {
+                    guard let error = networkingError else { return }
+                    PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
+                    UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
+                } else if parsingError != nil {
+                    guard let parsingError = parsingError else { return }
+                    if parsingError.code == 4865 {
+                        PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "Нет данных на выбранную дату. Попробуйте другую", style: .failure)
+                    } else {
+                        PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(parsingError.localizedDescription)", style: .failure)
+                    }
+                    UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
+                } else {
+                    self.setupFetchedResultsController()
+                    UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn")
+                    PopupQueueManager.shared.changePopupDataInQueue(title: "Успешно", message: "Курсы загружены", style: .success)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
+                    }
+                }
+            }
+    }
+}
+
+//MARK: - CurrencyManager Delegate Method
+
+extension CurrencyViewController: CurrencyManagerDelegate {
+    func firstLaunchDidEndSuccess(currencyManager: CurrencyManager, success: Bool) {
+        if success { setupFetchedResultsController() }
+    }
+}
+
 //MARK: - UITabBarControllerDelegate Methods To Scroll VC Up
 
 extension CurrencyViewController: UITabBarControllerDelegate {

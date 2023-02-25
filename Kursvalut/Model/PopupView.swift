@@ -110,6 +110,7 @@ class PopupView: UIView {
         if isChangeDescriptionLabelScrollable ?? false {
             changeSecondDescriptionLabel.isHidden = false
             changeDescriptionLabelLeftConstraint.constant = mainLabelLeadingBuffer
+            setupGradient(on: labelView)
         } else {
             changeSecondDescriptionLabel.isHidden = true
             changeDescriptionLabelLeftConstraint.constant = (labelViewWidth / 2) - ((changeDescriptionLabelWidth ?? 0) / 2)

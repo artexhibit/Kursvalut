@@ -221,8 +221,8 @@
 				78B9F5602801BBAA0030ECF4 /* SortingSection.swift */,
 				780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */,
 				78137FDA2833EC1200F4621E /* UIImage+extension.swift */,
-				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
 				78F73AC129A8F400003BFD47 /* DatePickerView.swift */,
+				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";

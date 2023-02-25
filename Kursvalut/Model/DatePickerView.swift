@@ -37,7 +37,6 @@ class DatePickerView: UIView {
     }
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {
-        UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn")
         UserDefaults.standard.set(pickedDate, forKey: "confirmedDate")
         delegate?.didPickedDateFromPicker(self, pickedDate: pickedDate ?? "", lastConfirmedDate: lastConfirmedDate ?? "")
         hideView()
