@@ -93,7 +93,7 @@ class CurrencyViewController: UIViewController {
         updateTimeButton.setTitle(currencyUpdateTime, for: .normal)
         
         if !pickDateSwitchFromDataSourceIsOn {
-            currencyManager.checkOnFirstLaunchToday(with: updateTimeButton, in: tableView)
+            currencyManager.checkOnFirstLaunchToday(with: updateTimeButton)
         }
         if !userClosedApp {
             scrollVCUp()
@@ -459,27 +459,27 @@ extension CurrencyViewController: UIDatePickerDelegate {
         PopupQueueManager.shared.addPopupToQueue(title: "Секунду", message: "Загружаем", style: .load, type: .manual)
         
         currencyNetworking.performRequest { networkingError, parsingError in
-                if networkingError != nil {
-                    guard let error = networkingError else { return }
-                    PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
-                    UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
-                } else if parsingError != nil {
-                    guard let parsingError = parsingError else { return }
-                    if parsingError.code == 4865 {
-                        PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "Нет данных на выбранную дату. Попробуйте другую", style: .failure)
-                    } else {
-                        PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(parsingError.localizedDescription)", style: .failure)
-                    }
-                    UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
+            if networkingError != nil {
+                guard let error = networkingError else { return }
+                PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
+                UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
+            } else if parsingError != nil {
+                guard let parsingError = parsingError else { return }
+                if parsingError.code == 4865 {
+                    PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "Нет данных на выбранную дату. Попробуйте другую", style: .failure)
                 } else {
-                    self.setupFetchedResultsController()
-                    UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn")
-                    PopupQueueManager.shared.changePopupDataInQueue(title: "Успешно", message: "Курсы загружены", style: .success)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
-                    }
+                    PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(parsingError.localizedDescription)", style: .failure)
+                }
+                UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
+            } else {
+                self.setupFetchedResultsController()
+                PopupQueueManager.shared.changePopupDataInQueue(title: "Успешно", message: "Курсы загружены", style: .success)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
                 }
             }
+            pickedDate != self.todaysDate || lastConfirmedDate != self.todaysDate ? UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn") : UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
+        }
     }
 }
 

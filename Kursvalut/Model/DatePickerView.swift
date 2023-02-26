@@ -24,7 +24,14 @@ class DatePickerView: UIView {
     private var confirmedDate: String {
         return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
     }
+    private var interfaceOrientation: UIInterfaceOrientation {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return .unknown }
+        let interfaceOrientation = windowScene.interfaceOrientation
+        return interfaceOrientation
+    }
     private var lastConfirmedDate: String?
+    private var widthConstraint: NSLayoutConstraint?
+    private var viewSize: (width: CGFloat, height: CGFloat) = (0,0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,6 +80,7 @@ class DatePickerView: UIView {
         datePicker.date = currencyManager.createDate(from: confirmedDate)
         lastConfirmedDate = confirmedDate
         configureButtons()
+        configureDatePicker()
         configureViewDesign()
         
         UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.55, initialSpringVelocity: 2, options: .curveEaseOut) {
@@ -92,9 +100,11 @@ class DatePickerView: UIView {
     }
     
     private func configureView(under button: UIButton, in view: UIView) {
+        viewSize = getViewSize()
+        
         self.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self)
-
+        
         self.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: 0).isActive = true
         self.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 10.0).isActive = true
         
@@ -102,29 +112,36 @@ class DatePickerView: UIView {
             self.widthAnchor.constraint(equalToConstant: 400.0).isActive = true
             self.heightAnchor.constraint(equalToConstant: 400.0).isActive = true
         } else {
-            if UIScreen().sizeType == .iPhoneSE {
-                self.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.57).isActive = true
-                self.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.88).isActive = true
-            } else {
-                self.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.40).isActive = true
-                self.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75).isActive = true
-            }
+            self.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: viewSize.height).isActive = true
+            widthConstraint = self.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: viewSize.width)
+            widthConstraint?.isActive = true
         }
-        configureDatePicker()
-        
+        addOrientationObserver(in: view)
         self.setNeedsLayout()
         self.layoutIfNeeded()
     }
     
-    private func configureDatePicker() {
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.bottomAnchor.constraint(equalTo: cornerView.bottomAnchor).isActive = true
-        datePicker.leadingAnchor.constraint(equalTo: cornerView.leadingAnchor).isActive = true
-        datePicker.trailingAnchor.constraint(equalTo: cornerView.trailingAnchor).isActive = true
-        
-        datePicker.tintColor = UIColor(named: appColor)
-        datePicker.minimumDate = minimumDate
-        datePicker.maximumDate = Date()
+    private func addOrientationObserver(in view: UIView) {
+        NotificationCenter.default.addObserver(forName: UIDevice.orientationDidChangeNotification, object: nil, queue: nil) { [weak self] _ in
+            guard let self = self else { return }
+            guard self.superview != nil else { return }
+            
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                self.viewSize = self.getViewSize()
+                self.widthConstraint?.isActive = false
+                self.widthConstraint = self.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: self.viewSize.width)
+                self.widthConstraint?.isActive = true
+                self.datePicker.preferredDatePickerStyle = self.interfaceOrientation.isPortrait ? .inline : .wheels
+            }
+        }
+    }
+    
+    private func getViewSize() -> (width: CGFloat, height: CGFloat) {
+        if UIScreen().sizeType == .iPhoneSE {
+            return interfaceOrientation.isPortrait ? (0.88, 0.55) : (0.55, 0.55)
+        } else {
+            return interfaceOrientation.isPortrait ? (0.75, 0.4) : (0.45, 0.4)
+        }
     }
     
     private func animateDoneButton() {
@@ -144,6 +161,13 @@ class DatePickerView: UIView {
         doneButton.tintColor = UIColor(named: appColor)
         doneButton.alpha = 0.0
         doneButton.isUserInteractionEnabled = false
+    }
+    
+    private func configureDatePicker() {
+        datePicker.tintColor = UIColor(named: appColor)
+        datePicker.minimumDate = minimumDate
+        datePicker.maximumDate = Date()
+        datePicker.preferredDatePickerStyle = interfaceOrientation.isPortrait ? .inline : .wheels
     }
     
     private func configureViewDesign() {

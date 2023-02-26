@@ -328,7 +328,7 @@ struct CurrencyManager {
     }
     
     //MARK: - Check For Today's First Launch Method
-    func checkOnFirstLaunchToday(with button: UIButton = UIButton(), in tableView: UITableView = UITableView()) {
+    func checkOnFirstLaunchToday(with button: UIButton = UIButton()) {
         let currencyNetworking = CurrencyNetworking()
         var wasLaunched: String {
             return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
@@ -346,11 +346,7 @@ struct CurrencyManager {
             return UserDefaults.standard.bool(forKey: "userHasOnboarded")
         }
         
-        if wasLaunched == today {
-            DispatchQueue.main.async {
-                button.setTitle(currencyUpdateTime, for: .normal)
-            }
-        } else {
+        if wasLaunched != today {
             UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
             
             currencyNetworking.performRequest { networkingError, parsingError in
