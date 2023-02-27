@@ -3,6 +3,7 @@ import UIKit
 
 protocol UIDatePickerDelegate {
     func didPickedDateFromPicker(_ datePickerView: DatePickerView, pickedDate: String, lastConfirmedDate: String)
+    func didFinishHideAnimation(_ datePickerView: DatePickerView)
 }
 
 class DatePickerView: UIView {
@@ -96,6 +97,7 @@ class DatePickerView: UIView {
         } completion: { [weak self] _ in
             guard let self = self else { return }
             self.removeFromSuperview()
+            self.delegate?.didFinishHideAnimation(self)
         }
     }
     

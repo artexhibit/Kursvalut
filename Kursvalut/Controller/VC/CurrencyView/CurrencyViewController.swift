@@ -10,6 +10,7 @@ class CurrencyViewController: UIViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var separatorViewHeight: NSLayoutConstraint!
     
+    private var canHideDatePicker = true
     private let userDefaults = UserDefaults.standard
     private var currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
@@ -115,6 +116,15 @@ class CurrencyViewController: UIViewController {
     
     @IBAction func updateTimeButtonPressed(_ sender: UIButton) {
         datePickerView.superview == nil ? datePickerView.showView(under: sender, in: self.view) : datePickerView.hideView()
+    }
+}
+
+extension CurrencyViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if datePickerView.superview != nil && canHideDatePicker {
+            datePickerView.hideView()
+            canHideDatePicker = false
+        }
     }
 }
 
@@ -455,6 +465,10 @@ extension CurrencyViewController {
 //MARK: - UIDatePicker Delegate Methods
 
 extension CurrencyViewController: UIDatePickerDelegate {
+    func didFinishHideAnimation(_ datePickerView: DatePickerView) {
+        canHideDatePicker = true
+    }
+    
     func didPickedDateFromPicker(_ datePickerView: DatePickerView, pickedDate: String, lastConfirmedDate: String) {
         PopupQueueManager.shared.addPopupToQueue(title: "Секунду", message: "Загружаем", style: .load, type: .manual)
         
