@@ -23,7 +23,9 @@ class PopupQueueManager {
         hasDisplayingPopup = true
         
         if let currentPopup = currentPopup, let popupData = popupViewsData.first {
-            currentPopup.showPopup(title: popupData.title, message: popupData.message, style: popupData.style, type: popupData.type)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                currentPopup.showPopup(title: popupData.title, message: popupData.message, style: popupData.style, type: popupData.type)
+            }
         }
     }
     

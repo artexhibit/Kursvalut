@@ -10,7 +10,6 @@ class CurrencyViewController: UIViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var separatorViewHeight: NSLayoutConstraint!
     
-    private var canHideDatePicker = true
     private let userDefaults = UserDefaults.standard
     private var currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
@@ -23,6 +22,7 @@ class CurrencyViewController: UIViewController {
     private let updateButtonTopInset: CGFloat = 10.0
     private var userPulledToRefresh: Bool = false
     private var viewWasSwitched: Bool = false
+    private var canHideDatePicker = true
     private var needToRefreshFRCForCustomSort: Bool {
         return userDefaults.bool(forKey: "needToRefreshFRCForCustomSort")
     }
