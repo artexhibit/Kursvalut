@@ -249,6 +249,10 @@ class PopupView: UIView {
     func hidePopup(afterSeconds delay: TimeInterval = 0.0, animationDuration: Double = 0.3) {
         self.animationDuration = animationDuration
         self.timer = Timer.scheduledTimer(timeInterval: delay, target: self, selector: #selector(self.animateOut), userInfo: nil, repeats: false)
+        
+        if let timer = self.timer {
+            RunLoop.main.add(timer, forMode: .common)
+        }
     }
     
     private func animateIn() {
