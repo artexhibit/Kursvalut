@@ -15,6 +15,7 @@ class CurrencyViewController: UIViewController {
     private let currencyNetworking = CurrencyNetworking()
     private let coreDataManager = CurrencyCoreDataManager()
     private let datePickerView = DatePickerView()
+    private let menuView = MenuView()
     private var bankOfRussiaFRC: NSFetchedResultsController<Currency>!
     private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let searchController = UISearchController(searchResultsController: nil)
@@ -22,7 +23,7 @@ class CurrencyViewController: UIViewController {
     private let updateButtonTopInset: CGFloat = 10.0
     private var userPulledToRefresh: Bool = false
     private var viewWasSwitched: Bool = false
-    private var canHideDatePicker = true
+    private var canHideOpenedView = true
     private var needToRefreshFRCForCustomSort: Bool {
         return userDefaults.bool(forKey: "needToRefreshFRCForCustomSort")
     }
@@ -59,10 +60,13 @@ class CurrencyViewController: UIViewController {
     private var pickDateSwitchFromDataSourceIsOn: Bool {
         return userDefaults.bool(forKey: "pickDateSwitchIsOn")
     }
-    private var datePickerGestureRecognizer: UITapGestureRecognizer {
-        let recogniser = UITapGestureRecognizer(target: self, action: #selector(handleTapOnDatePicker(_:)))
+    private var tapGestureRecognizer: UITapGestureRecognizer {
+        let recogniser = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         recogniser.cancelsTouchesInView = false
         return recogniser
+    }
+    private var navigationBarGestureRecogniser: UITapGestureRecognizer {
+        return UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
     }
     
     override func viewDidLoad() {
@@ -74,12 +78,14 @@ class CurrencyViewController: UIViewController {
         tableView.dropDelegate = self
         tabBarController?.delegate = self
         datePickerView.delegate = self
+        menuView.delegate = self
         currencyManager.delegate = self
         setupButtonsDesign()
         setupSearchController()
         setupRefreshControl()
         userDefaults.set(true, forKey: "isActiveCurrencyVC")
-        self.view.addGestureRecognizer(datePickerGestureRecognizer)
+        self.view.addGestureRecognizer(tapGestureRecognizer)
+        self.navigationController?.navigationBar.addGestureRecognizer(navigationBarGestureRecogniser)
         currencyManager.configureContentInset(for: tableView, top: -updateButtonTopInset)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
     }
@@ -112,19 +118,34 @@ class CurrencyViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         viewWasSwitched = true
+        self.navigationController?.navigationBar.removeGestureRecognizer(navigationBarGestureRecogniser)
+
     }
     
     @IBAction func updateTimeButtonPressed(_ sender: UIButton) {
-        datePickerView.superview == nil ? datePickerView.showView(under: sender, in: self.view) : datePickerView.hideView()
+        if datePickerView.superview == nil {
+            datePickerView.showView(under: sender, in: self.view)
+            menuView.hideView()
+        } else {
+            datePickerView.hideView()
+        }
+    }
+    
+    @IBAction func dataSourceButtonPressed(_ sender: UIButton) {
+        if menuView.superview == nil {
+            menuView.showView(under: dataSourceButton, in: self.view, with: ["Forex (Биржа)", "ЦБ РФ"])
+            datePickerView.hideView()
+        } else {
+            menuView.hideView()
+        }
     }
 }
 
 extension CurrencyViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if datePickerView.superview != nil && canHideDatePicker {
-            datePickerView.hideView()
-            canHideDatePicker = false
-        }
+        if datePickerView.superview != nil && canHideOpenedView { datePickerView.hideView() }
+        if menuView.superview != nil && canHideOpenedView { menuView.hideView() }
+        canHideOpenedView = false
     }
 }
 
@@ -281,7 +302,11 @@ extension CurrencyViewController: UISearchResultsUpdating {
         guard let searchText = searchController.searchBar.text else { return }
         updateTimeButton.isHidden = searchController.isActive ? true : false
         dataSourceButton.isHidden = searchController.isActive ? true : false
-        if searchController.isActive { datePickerView.hideView() }
+        
+        if searchController.isActive {
+            datePickerView.hideView()
+            menuView.hideView()
+        }
         
         var searchPredicate: NSCompoundPredicate {
             let shortName = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
@@ -310,7 +335,6 @@ extension CurrencyViewController {
 //MARK: - NSFetchedResultsController Setup & Delegates
 
 extension CurrencyViewController: NSFetchedResultsControllerDelegate {
-    
     var sortingOrder: Bool {
         return (pickedOrder == "По возрастанию (А→Я)" || pickedOrder == "По возрастанию (1→2)") ? true : false
     }
@@ -413,15 +437,15 @@ extension CurrencyViewController {
         userDefaults.set(false, forKey: "decimalsNumberChanged")
     }
     
-    @objc func handleTapOnDatePicker(_ tap: UITapGestureRecognizer) {
+    @objc func handleTap(_ tap: UITapGestureRecognizer) {
         let location = tap.location(in: view)
-        let locationInButton = updateTimeButton.convert(location, from: view)
+        let locationInDatePickerButton = updateTimeButton.convert(location, from: view)
+        let locationInDataSourceButton = dataSourceButton.convert(location, from: view)
         
-        if updateTimeButton.bounds.contains(locationInButton) { return }
-        
-        if !datePickerView.frame.contains(location) {
-            datePickerView.hideView()
-        }
+        if updateTimeButton.bounds.contains(locationInDatePickerButton) { return }
+        if dataSourceButton.bounds.contains(locationInDataSourceButton) { return }
+        if !datePickerView.frame.contains(location) { datePickerView.hideView() }
+        if !menuView.frame.contains(location) { menuView.hideView() }
     }
     
     @objc func refreshData() {
@@ -462,11 +486,11 @@ extension CurrencyViewController {
     }
 }
 
-//MARK: - UIDatePicker Delegate Methods
+//MARK: - DatePickerView Delegate Methods
 
-extension CurrencyViewController: UIDatePickerDelegate {
+extension CurrencyViewController: DatePickerViewDelegate {
     func didFinishHideAnimation(_ datePickerView: DatePickerView) {
-        canHideDatePicker = true
+        canHideOpenedView = true
     }
     
     func didPickedDateFromPicker(_ datePickerView: DatePickerView, pickedDate: String, lastConfirmedDate: String) {
@@ -494,6 +518,14 @@ extension CurrencyViewController: UIDatePickerDelegate {
             }
             pickedDate != self.todaysDate || lastConfirmedDate != self.todaysDate ? UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn") : UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
         }
+    }
+}
+
+//MARK: - MenuView Delegate Methods
+
+extension CurrencyViewController: MenuViewDelegate {
+    func didFinishHideAnimation(_ menuView: MenuView) {
+        canHideOpenedView = true
     }
 }
 

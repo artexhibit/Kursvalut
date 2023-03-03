@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol UIDatePickerDelegate {
+protocol DatePickerViewDelegate {
     func didPickedDateFromPicker(_ datePickerView: DatePickerView, pickedDate: String, lastConfirmedDate: String)
     func didFinishHideAnimation(_ datePickerView: DatePickerView)
 }
@@ -12,7 +12,7 @@ class DatePickerView: UIView {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var cornerView: UIView!
     
-    var delegate: UIDatePickerDelegate?
+    var delegate: DatePickerViewDelegate?
     private var pickedDate: String?
     private let currencyManager = CurrencyManager()
     private let minimumDate = Date(timeIntervalSinceReferenceDate: -31622400.0)
