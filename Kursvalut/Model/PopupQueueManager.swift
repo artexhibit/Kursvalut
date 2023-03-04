@@ -23,15 +23,13 @@ class PopupQueueManager {
         hasDisplayingPopup = true
         
         if let currentPopup = currentPopup, let popupData = popupViewsData.first {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 currentPopup.showPopup(title: popupData.title, message: popupData.message, style: popupData.style, type: popupData.type)
-            }
         }
     }
     
     func changePopupDataInQueue(title: String, message: String, style: PopupView.PopupStyle, type: PopupView.BehaviourType = .auto) {
         if hasDisplayingPopup {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 if let currentPopup = self.currentPopup {
                     currentPopup.changePopupData(title: title, message: message, style: style, type: type)
                 }

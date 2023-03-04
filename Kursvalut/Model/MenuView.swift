@@ -1,6 +1,7 @@
 import UIKit
 
 protocol MenuViewDelegate {
+    func didPickDataSource(_ menuView: MenuView, dataSource: String)
     func didFinishHideAnimation(_ menuView: MenuView)
 }
 
@@ -14,9 +15,10 @@ class MenuView: UIView {
         }
     }
     private var itemsToShow = [String]()
+    private var itemWithCheckmark = ""
     private var heightConstraint: NSLayoutConstraint?
     private var viewWidth: CGFloat {
-        return UIScreen().sizeType == .iPhoneSE ? 170 : 240
+        return UIScreen().sizeType == .iPhoneSE ? 170 : 245
     }
     var delegate: MenuViewDelegate?
     
@@ -79,8 +81,9 @@ class MenuView: UIView {
         cornerView.layer.cornerRadius = 20
     }
     
-    func showView(under button: UIButton, in view: UIView, with items: [String]) {
-        self.itemsToShow = items
+    func showView(under button: UIButton, in view: UIView, items: (toShow: [String], checked: String)) {
+        self.itemsToShow = items.toShow
+        self.itemWithCheckmark = items.checked
         configureView(under: button, in: view)
         configureViewDesign()
         
@@ -99,12 +102,14 @@ class MenuView: UIView {
             self.heightConstraint?.isActive = false
             self.removeFromSuperview()
             self.delegate?.didFinishHideAnimation(self)
+            self.tableView.reloadData()
         }
     }
 }
 
 extension MenuView: UITableViewDelegate, UITableViewDataSource {
     //MARK: - TableView DataSource Methods
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        return itemsToShow.count
     }
@@ -112,12 +117,16 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuTableViewCell", for: indexPath) as! MenuTableViewCell
         cell.itemLabel.text = itemsToShow[indexPath.row]
+        cell.iconImage.isHidden = cell.itemLabel.text == itemWithCheckmark ? false : true
+        cell.separatorView.isHidden = indexPath.row == itemsToShow.count - 1 ? true : false
         return cell
     }
     
     //MARK: - TableView Delegate Methods
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.hideView()
+        delegate?.didPickDataSource(self, dataSource: itemsToShow[indexPath.row])
+        DispatchQueue.main.async { self.hideView() }
     }
 }

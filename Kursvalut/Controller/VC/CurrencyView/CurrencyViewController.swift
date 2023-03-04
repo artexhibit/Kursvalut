@@ -20,7 +20,7 @@ class CurrencyViewController: UIViewController {
     private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let searchController = UISearchController(searchResultsController: nil)
     private var biggestTopSafeAreaInset: CGFloat = 0
-    private let updateButtonTopInset: CGFloat = 10.0
+    private let updateButtonTopInset: CGFloat = 8.0
     private var userPulledToRefresh: Bool = false
     private var viewWasSwitched: Bool = false
     private var canHideOpenedView = true
@@ -133,7 +133,7 @@ class CurrencyViewController: UIViewController {
     
     @IBAction func dataSourceButtonPressed(_ sender: UIButton) {
         if menuView.superview == nil {
-            menuView.showView(under: dataSourceButton, in: self.view, with: ["Forex (Биржа)", "ЦБ РФ"])
+            menuView.showView(under: dataSourceButton, in: self.view, items: (toShow: ["Forex (Биржа)", "ЦБ РФ"], checked: pickedDataSource))
             datePickerView.hideView()
         } else {
             menuView.hideView()
@@ -524,6 +524,33 @@ extension CurrencyViewController: DatePickerViewDelegate {
 //MARK: - MenuView Delegate Methods
 
 extension CurrencyViewController: MenuViewDelegate {
+    func didPickDataSource(_ menuView: MenuView, dataSource: String) {
+        let lastPickedSource = self.pickedDataSource
+        self.userDefaults.set(dataSource, forKey: "baseSource")
+        
+        DispatchQueue.main.async {
+            PopupQueueManager.shared.addPopupToQueue(title: "Загружаем", message: "Секунду", style: .load, type: .manual)
+        }
+        
+        self.currencyNetworking.performRequest { networkingError, parsingError in
+            if networkingError != nil {
+                guard let error = networkingError else { return }
+                
+                DispatchQueue.main.async {
+                    PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
+                }
+                self.userDefaults.set(lastPickedSource, forKey: "baseSource")
+            } else {
+                self.setupFetchedResultsController()
+                DispatchQueue.main.async {
+                    PopupQueueManager.shared.changePopupDataInQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
+                    self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
+                    self.dataSourceButton.setTitle(self.pickedDataSource, for: .normal)
+                }
+            }
+        }
+    }
+    
     func didFinishHideAnimation(_ menuView: MenuView) {
         canHideOpenedView = true
     }
