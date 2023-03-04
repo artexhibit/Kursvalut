@@ -3,7 +3,7 @@ import Foundation
 import UIKit
 
 protocol CurrencyManagerDelegate {
-    func firstLaunchDidEndSuccess(currencyManager: CurrencyManager, success: Bool)
+    func firstLaunchDidEndSuccess(currencyManager: CurrencyManager)
 }
 
 struct CurrencyManager {
@@ -271,7 +271,6 @@ struct CurrencyManager {
     }
     
     //MARK: - Display Data Helping Methods
-    
     func assignRowNumbers(to bankOfRussiaCurrencies: [Currency]) {
         for (index, bankOfRussiaCurrency) in bankOfRussiaCurrencies.enumerated() {
             if confirmedDateFromDataSourceVC == todaysDate {
@@ -293,7 +292,6 @@ struct CurrencyManager {
     }
     
     //MARK: - ViewController Configuration Methods
-    
     func configureContentInset(for tableView: UITableView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
         tableView.contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
     }
@@ -354,7 +352,7 @@ struct CurrencyManager {
                     guard let error = networkingError else { return }
                     PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
                 } else {
-                    delegate?.firstLaunchDidEndSuccess(currencyManager: self, success: true)
+                    delegate?.firstLaunchDidEndSuccess(currencyManager: self)
                     UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
                     UserDefaults.standard.set(todaysDate, forKey: "confirmedDate")
                     

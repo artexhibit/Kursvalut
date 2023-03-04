@@ -532,8 +532,8 @@ extension CurrencyViewController: MenuViewDelegate {
 //MARK: - CurrencyManager Delegate Method
 
 extension CurrencyViewController: CurrencyManagerDelegate {
-    func firstLaunchDidEndSuccess(currencyManager: CurrencyManager, success: Bool) {
-        if success { setupFetchedResultsController() }
+    func firstLaunchDidEndSuccess(currencyManager: CurrencyManager) {
+        DispatchQueue.main.async { self.tableView.reloadData() }
     }
 }
 
