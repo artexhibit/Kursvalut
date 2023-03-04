@@ -123,6 +123,10 @@ class CurrencyViewController: UIViewController {
     }
     
     @IBAction func updateTimeButtonPressed(_ sender: UIButton) {
+        guard proPurchased == true else {
+           return PopupQueueManager.shared.addPopupToQueue(title: "Только для Pro", message: "Переключение с этого экрана доступно в Pro-версии", style: .lock)
+        }
+        
         if datePickerView.superview == nil {
             datePickerView.showView(under: sender, in: self.view)
             menuView.hideView()
@@ -132,6 +136,10 @@ class CurrencyViewController: UIViewController {
     }
     
     @IBAction func dataSourceButtonPressed(_ sender: UIButton) {
+        guard proPurchased == true else {
+            return PopupQueueManager.shared.addPopupToQueue(title: "Только для Pro", message: "Выбор даты с этого экрана доступен в Pro-версии", style: .lock)
+        }
+        
         if menuView.superview == nil {
             menuView.showView(under: dataSourceButton, in: self.view, items: (toShow: ["Forex (Биржа)", "ЦБ РФ"], checked: pickedDataSource))
             datePickerView.hideView()
@@ -547,6 +555,7 @@ extension CurrencyViewController: MenuViewDelegate {
                     self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
                     self.dataSourceButton.setTitle(self.pickedDataSource, for: .normal)
                 }
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
             }
         }
     }
