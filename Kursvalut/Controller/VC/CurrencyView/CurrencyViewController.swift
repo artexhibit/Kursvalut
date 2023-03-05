@@ -555,6 +555,7 @@ extension CurrencyViewController: MenuViewDelegate {
                     self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
                     self.dataSourceButton.setTitle(self.pickedDataSource, for: .normal)
                 }
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
             }
         }

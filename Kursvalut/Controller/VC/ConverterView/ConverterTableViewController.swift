@@ -48,7 +48,7 @@ class ConverterTableViewController: UITableViewController {
         super.viewDidLoad()
         setupKeyboardHide()
         currencyManager.configureContentInset(for: tableView, top: 10)
-        NotificationCenter.default.addObserver(self, selector: #selector(setupFetchedResultsController), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshConverterFRC), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -169,7 +169,7 @@ class ConverterTableViewController: UITableViewController {
         }
     }
     
-    //MARK: - Method for Move Swipe Action
+    //MARK: - Methods for Working with TableView
     
     func turnEditing() {
         if tableView.isEditing {
@@ -181,6 +181,11 @@ class ConverterTableViewController: UITableViewController {
             doneEditingButton.isEnabled = true
             doneEditingButton.title = "Готово"
         }
+    }
+    
+    @objc func refreshConverterFRC() {
+        UserDefaults.standard.set(true, forKey: "setTextFieldToZero")
+        setupFetchedResultsController()
     }
     
     //MARK: - TableView Delegate Methods
@@ -538,7 +543,7 @@ extension ConverterTableViewController: NSFetchedResultsControllerDelegate {
         switch type {
         case .update:
             if let indexPath = indexPath {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     self.tableView.reloadRows(at: [indexPath], with: .none)
                 }
             }
