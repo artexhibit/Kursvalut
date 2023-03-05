@@ -252,7 +252,7 @@ extension CurrencyViewController: UITableViewDragDelegate, UITableViewDropDelega
     }
     
     func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
-        if proPurchased && !searchController.isActive {            
+        if proPurchased && !searchController.isActive {
             if pickedDataSource == "ЦБ РФ" {
                 userDefaults.set(true, forKey: "customSortSwitchIsOnForBankOfRussia")
                 userDefaults.set("Своя", forKey: "bankOfRussiaPickedSection")

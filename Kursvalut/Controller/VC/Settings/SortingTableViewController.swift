@@ -277,6 +277,7 @@ class SortingTableViewController: UITableViewController {
                 userDefaults.set(pickedOrder, forKey: "previousForexPickedOrder")
                 userDefaults.set(pickedSection, forKey: "previousForexPickedSection")
             }
+            userDefaults.set(true, forKey: "needToRefreshFRCForCustomSort")
             
             for section in 0..<(tableView.numberOfSections - 1) {
                 if section != pickedSectionNumber {
