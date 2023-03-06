@@ -231,6 +231,12 @@ extension CurrencyViewController {
             currencyManager.assignRowNumbers(to: forexCurrencies)
         }
         coreDataManager.save()
+
+        if needToRefreshFRCForCustomSort {
+            userDefaults.set("Своя", forKey: "bankOfRussiaPickedSection")
+            setupFetchedResultsController()
+            userDefaults.set(false, forKey: "needToRefreshFRCForCustomSort")
+        }
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -264,11 +270,6 @@ extension CurrencyViewController: UITableViewDragDelegate, UITableViewDropDelega
             }
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOn"), object: nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadSortingVCTableView"), object: nil)
-            
-            if needToRefreshFRCForCustomSort {
-                setupFetchedResultsController()
-                userDefaults.set(false, forKey: "needToRefreshFRCForCustomSort")
-            }
         }
     }
     
