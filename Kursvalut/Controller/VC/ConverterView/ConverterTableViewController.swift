@@ -46,7 +46,7 @@ class ConverterTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupKeyboardHide()
+        setupKeyboardBehaviour()
         currencyManager.configureContentInset(for: tableView, top: 10)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshConverterFRC), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
     }
@@ -507,13 +507,24 @@ extension ConverterTableViewController: UITextFieldDelegate {
 }
 
 extension ConverterTableViewController {
-    func setupKeyboardHide() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+    func setupKeyboardBehaviour() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         view.addGestureRecognizer(tap)
     }
     
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
+    @objc func viewTapped(sender: UITapGestureRecognizer) {
+        let tapInView = sender.location(in: view)
+        let tapInTableView = view.convert(tapInView, to: tableView)
+        
+        if let indexPath = tableView.indexPathForRow(at: tapInTableView), let cell = tableView.cellForRow(at: indexPath) as? ConverterTableViewCell {
+            let tapInCell = tableView.convert(tapInView, to: cell)
+            
+            if cell.bounds.contains(tapInCell) {
+                cell.numberTextField.becomeFirstResponder()
+            }
+        } else {
+            view.endEditing(true)
+        }
     }
     
     func reloadCurrencyRows() {
