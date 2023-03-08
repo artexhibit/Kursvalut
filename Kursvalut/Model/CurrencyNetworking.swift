@@ -104,7 +104,7 @@ struct CurrencyNetworking {
                 }
                 completion(nil, parsingError)
             }
-            coreDataManager.save()
+            DispatchQueue.main.async { self.coreDataManager.save() }
             pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.standard.setValue(updateTime, forKey: "forexUpdateTime")
         }
     }

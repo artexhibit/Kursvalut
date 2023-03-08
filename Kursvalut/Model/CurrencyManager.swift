@@ -343,18 +343,19 @@ struct CurrencyManager {
         var userHasOnboarded: Bool {
             return UserDefaults.standard.bool(forKey: "userHasOnboarded")
         }
-        
         if wasLaunched != today {
+            let lastConfirmedDate = confirmedDateFromDataSourceVC
             UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
+            UserDefaults.standard.set(todaysDate, forKey: "confirmedDate")
             
             currencyNetworking.performRequest { networkingError, parsingError in
                 if networkingError != nil {
                     guard let error = networkingError else { return }
                     PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
+                    UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
+                    UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn")
                 } else {
                     delegate?.firstLaunchDidEndSuccess(currencyManager: self)
-                    UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
-                    UserDefaults.standard.set(todaysDate, forKey: "confirmedDate")
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         button.setTitle(currencyUpdateTime, for: .normal)

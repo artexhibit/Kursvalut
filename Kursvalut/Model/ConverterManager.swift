@@ -22,6 +22,27 @@ struct ConverterManager {
         return formatter
     }
     
+    func handleClipboardInput(from string: String, using formatter: NumberFormatter) -> String {
+        var tempString = ""
+        
+        for (idx, char) in string.enumerated() {
+            if idx == 0, String(char) == "." || String(char) == "," {
+                tempString = "0" + formatter.decimalSeparator
+            } else if idx != 0, String(char) == "." || String(char) == "," {
+                tempString += formatter.decimalSeparator
+            } else {
+                tempString += String(char)
+            }
+        }
+        if let decimalSeparator = tempString.firstIndex(of: Character(formatter.decimalSeparator)) {
+            let decimalPart = tempString[decimalSeparator...].dropFirst()
+            let truncatedDecimalPart = decimalPart.prefix(converterScreenDecimalsAmount)
+            let mainPart = tempString[...decimalSeparator]
+            tempString = String(mainPart + truncatedDecimalPart)
+        }
+        return formatter.string(for: Double("\(tempString.replacingOccurrences(of: formatter.decimalSeparator, with: "."))") ?? 0) ?? ""
+    }
+    
     func performCalculation(with number: Double, _ pickedBankOfRussiaCurrency: Currency, _ cellCurrency: Currency) -> String {
         let unformattedNumber = (pickedBankOfRussiaCurrency.currentValue/Double(pickedBankOfRussiaCurrency.nominal))/(cellCurrency.currentValue/Double(cellCurrency.nominal)) * number
         let formatter = setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount)

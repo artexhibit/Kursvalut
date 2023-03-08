@@ -408,8 +408,11 @@ extension ConverterTableViewController: UITextFieldDelegate {
         }
         //allow numbers as a first character, except math symbols
         if numberString == "" {
-            if Character(string).isNumber {
+            if string.count == 1, Character(string).isNumber {
                 textField.text = string
+            } else if string.count > 1 {
+                guard string.components(separatedBy: [",", "."]).count <= 2 else { return false }
+                textField.text = converterManager.handleClipboardInput(from: string, using: formatter)
             } else if string == formatter.decimalSeparator {
                 textField.text = "0" + string
             } else {
@@ -451,8 +454,11 @@ extension ConverterTableViewController: UITextFieldDelegate {
             }
         } else {
         //if number is entered
-            if Character(string).isNumber {
+            if string.count == 1, Character(string).isNumber {
                 textField.text = "\(formatter.string(for: Double("\(numbersArray.first?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "")") ?? 0) ?? "")"
+            } else if string.count > 1 {
+                guard string.components(separatedBy: [",", "."]).count <= 2 else { return false }
+                textField.text = converterManager.handleClipboardInput(from: string, using: formatter)
             } else {
         //if math symbol is entered
                 if lastCharacter.isNumber {
@@ -462,6 +468,11 @@ extension ConverterTableViewController: UITextFieldDelegate {
         }
         numberFromTextField = numberForTextField
         reloadCurrencyRows()
+        //Update textField's caret after copying a number from a clipboard
+        DispatchQueue.main.async {
+            let range = textField.textRange(from: textField.endOfDocument, to: textField.endOfDocument)
+            textField.selectedTextRange = range
+        }
         return false
     }
     
