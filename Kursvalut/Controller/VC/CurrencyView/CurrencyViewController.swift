@@ -301,7 +301,7 @@ extension CurrencyViewController: UISearchResultsUpdating {
     func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.placeholder = "Поиск по коду и имени валюты"
         definesPresentationContext = true
         navigationItem.searchController = searchController
         navigationController?.navigationBar.sizeToFit()
