@@ -301,14 +301,20 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        var shouldRestrictDigits = true
         let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount, roundDown: true, needMinFractionDigits: true)
         
         let numberString = "\(textField.text ?? "")".replacingOccurrences(of: formatter.groupingSeparator, with: "")
         let rangeString = (((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)).replacingOccurrences(of: formatter.groupingSeparator, with: "")
         
+        //restrict amount of digits in each number user enters in a textField
         if !rangeString.contains(where: {"+-÷x".contains($0)}) {
-            guard rangeString.filter({!",.".contains($0)}).count <= 8 else { return false }
+            shouldRestrictDigits = restrictEnteredDigitAmount(from: rangeString)
+        } else {
+            let secondNumber = rangeString.components(separatedBy: CharacterSet(charactersIn: "+-÷x")).last ?? "0"
+            shouldRestrictDigits = restrictEnteredDigitAmount(from: secondNumber)
         }
+        guard shouldRestrictDigits else { return false }
         
         let lastCharacter = numberString.last ?? "."
         var symbol: String {
@@ -435,7 +441,6 @@ extension ConverterTableViewController: UITextFieldDelegate {
         }
         
         if numbersArray.count > 1 {
-            guard numbersArray.last?.filter({!",.=".contains($0)}).count ?? 0 <= 8 else { return false }
             //if number is entered
             if Character(string).isNumber {
                 textField.text = "\(formatter.string(for: Double("\(numbersArray.first?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "")") ?? 0) ?? "")\(symbol)\(formatter.string(for: Double("\(numbersArray.last?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "")") ?? 0) ?? "")"
@@ -490,6 +495,18 @@ extension ConverterTableViewController: UITextFieldDelegate {
         let expression = NSExpression(format: format)
         let answer = expression.expressionValue(with: nil, context: nil)
         return answer as! NSNumber
+    }
+    
+    func restrictEnteredDigitAmount(from string: String) -> Bool {
+        let maxDigits = 7
+        
+        let parts = string.components(separatedBy: CharacterSet(charactersIn: ",."))
+        if parts.count == 1 {
+            guard string.filter({!",.=".contains($0)}).count <= maxDigits else { return false }
+        } else if parts.count == 2 {
+            guard string.filter({!",.=".contains($0)}).count <= maxDigits + converterScreenDecimalsAmount else { return false }
+        }
+        return true
     }
     
     func turnOnCellActivityIndicator(with textField: UITextField) {

@@ -1017,7 +1017,6 @@
                                                             </constraints>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="29" id="R6W-yC-iGQ"/>
                                                         <constraint firstItem="k9D-Dg-BEZ" firstAttribute="centerX" secondItem="Vt3-Z5-22C" secondAttribute="centerX" id="wMf-Ac-v2C"/>
@@ -1052,7 +1051,6 @@
                                                             </constraints>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="NXG-30-gYZ" secondAttribute="bottom" id="3qW-di-84H"/>
                                                         <constraint firstItem="NXG-30-gYZ" firstAttribute="top" secondItem="2I6-ws-ul8" secondAttribute="top" id="9c9-ek-zhL"/>
@@ -1073,7 +1071,6 @@
                                                             </connections>
                                                         </switch>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="Rxa-ko-lxU" firstAttribute="centerY" secondItem="REo-eR-lSI" secondAttribute="centerY" id="9SZ-Dv-9XU"/>
                                                         <constraint firstItem="Rxa-ko-lxU" firstAttribute="centerX" secondItem="REo-eR-lSI" secondAttribute="centerX" id="G5J-kB-gNI"/>
@@ -1132,7 +1129,6 @@
                                                             </constraints>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="29" id="1oM-BH-rAJ"/>
                                                         <constraint firstItem="CmU-jJ-Pry" firstAttribute="centerY" secondItem="y7Z-2N-iy7" secondAttribute="centerY" id="GdT-yK-uhs"/>
@@ -1155,7 +1151,6 @@
                                                             </connections>
                                                         </switch>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="49" id="5Qy-rk-o17"/>
                                                         <constraint firstItem="bD0-OE-TXI" firstAttribute="centerY" secondItem="JlJ-C9-HNM" secondAttribute="centerY" id="GdG-ic-Tzz"/>
@@ -1210,14 +1205,13 @@
                                                             </constraints>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="Ubz-ot-WA1" firstAttribute="centerY" secondItem="KeC-uT-b1O" secondAttribute="centerY" id="FBa-Rx-Jcv"/>
                                                         <constraint firstItem="Ubz-ot-WA1" firstAttribute="centerX" secondItem="KeC-uT-b1O" secondAttribute="centerX" id="LK4-Zn-2Ke"/>
                                                         <constraint firstAttribute="width" constant="29" id="eSW-d3-Frk"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сбрасывать значения после нажатия на поле для ввода" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHN-7N-0ot" userLabel="Сбрасывать значения после нажатия на поле для ввода">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сбрасывать значения после нажатия поля ввода цифр" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHN-7N-0ot">
                                                     <rect key="frame" x="59" y="10" width="231.5" height="41.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1233,7 +1227,6 @@
                                                             </connections>
                                                         </switch>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="A01-yl-ZCU" firstAttribute="centerY" secondItem="0zz-Po-DhQ" secondAttribute="centerY" id="J8E-XH-C7r"/>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="L96-39-d3K"/>
@@ -1464,7 +1457,6 @@
                                                             </constraints>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="29" id="8fW-VD-nTj"/>
                                                         <constraint firstItem="zcc-yn-O7M" firstAttribute="centerY" secondItem="Dzz-jt-zto" secondAttribute="centerY" id="R0I-U1-AZG"/>
@@ -4138,8 +4130,8 @@
         <image name="eurosign.square" width="10" height="10"/>
         <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="globe" width="11" height="11"/>
-        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="globe.europe.africa.fill" catalog="system" width="128" height="123"/>
+        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="hand.wave" width="10" height="10"/>
         <image name="heart.fill" width="10" height="10"/>
         <image name="info.circle" width="11" height="11"/>
