@@ -484,12 +484,12 @@ extension ConverterTableViewController: UITextFieldDelegate {
     
     func turnOnCellActivityIndicator(with textField: UITextField) {
         for row in 0..<tableView.numberOfRows(inSection: 0) {
-            let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! ConverterTableViewCell
-            cell.activityIndicator.isHidden = true
+            let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? ConverterTableViewCell
+            cell?.activityIndicator.isHidden = true
         }
         
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
-        let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as! ConverterTableViewCell
+        guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
         if cell.numberTextField.isFirstResponder {
             cell.activityIndicator.isHidden = false
         }
@@ -498,7 +498,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
     
     func turnOffCellActivityIndicator(with textField: UITextField) {
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
-        let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as! ConverterTableViewCell
+        guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
         
         if !cell.numberTextField.isFirstResponder && numberFromTextField == 0 {
             cell.activityIndicator.isHidden = true
