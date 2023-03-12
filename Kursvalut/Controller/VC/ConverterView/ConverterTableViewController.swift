@@ -306,6 +306,10 @@ extension ConverterTableViewController: UITextFieldDelegate {
         let numberString = "\(textField.text ?? "")".replacingOccurrences(of: formatter.groupingSeparator, with: "")
         let rangeString = (((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)).replacingOccurrences(of: formatter.groupingSeparator, with: "")
         
+        if !rangeString.contains(where: {"+-÷x".contains($0)}) {
+            guard rangeString.filter({!",.".contains($0)}).count <= 8 else { return false }
+        }
+        
         let lastCharacter = numberString.last ?? "."
         var symbol: String {
             var tempArray = [String]()
@@ -327,24 +331,24 @@ extension ConverterTableViewController: UITextFieldDelegate {
                 return rangeString.components(separatedBy: symbol)
             }
         }
-        //turn numbers into Float and create a String from them to be able to receive a correct result from NSExpression
-        var floatNumberArray: [Float] {
+        //turn numbers into Double and create a String from them to be able to receive a correct result from NSExpression
+        var calculationNumbersArray: [Double] {
             if numberString.first == "-" {
                 let tempString = lastCharacter == Character(formatter.decimalSeparator) ? numberString.dropFirst().dropLast() : numberString.dropFirst()
                 var tempArray = tempString.components(separatedBy: symbol)
                 tempArray[0] = "-\(tempArray[0])"
-                return tempArray.compactMap { Float($0.replacingOccurrences(of: formatter.decimalSeparator, with: ".")) }
+                return tempArray.compactMap { Double($0.replacingOccurrences(of: formatter.decimalSeparator, with: ".")) }
             } else {
-                return numberString.components(separatedBy: symbol).compactMap { Float($0.replacingOccurrences(of: formatter.decimalSeparator, with: ".")) }
+                return numberString.components(separatedBy: symbol).compactMap { Double($0.replacingOccurrences(of: formatter.decimalSeparator, with: ".")) }
             }
         }
-        var floatNumberString: String {
+        var calculationNumbersString: String {
             if numberString.contains("x") {
-                return "\(floatNumberArray.first ?? 0)\("*")\(floatNumberArray.last ?? 0)"
+                return "\(calculationNumbersArray.first ?? 0)\("*")\(calculationNumbersArray.last ?? 0)"
             } else if numberString.contains("÷") {
-                return "\(floatNumberArray.first ?? 0)\("/")\(floatNumberArray.last ?? 0)"
+                return "\(calculationNumbersArray.first ?? 0)\("/")\(calculationNumbersArray.last ?? 0)"
             } else {
-                return "\(floatNumberArray.first ?? 0)\(symbol)\(floatNumberArray.last ?? 0)"
+                return "\(calculationNumbersArray.first ?? 0)\(symbol)\(calculationNumbersArray.last ?? 0)"
             }
         }
         var numberForTextField: Double {
@@ -429,43 +433,44 @@ extension ConverterTableViewController: UITextFieldDelegate {
             let amountOfDecimalSigns = number.filter({$0 == "."}).count
             if amountOfDecimalSigns > 1 { return false }
         }
-         
+        
         if numbersArray.count > 1 {
-        //if number is entered
+            guard numbersArray.last?.filter({!",.=".contains($0)}).count ?? 0 <= 8 else { return false }
+            //if number is entered
             if Character(string).isNumber {
                 textField.text = "\(formatter.string(for: Double("\(numbersArray.first?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "")") ?? 0) ?? "")\(symbol)\(formatter.string(for: Double("\(numbersArray.last?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "")") ?? 0) ?? "")"
-        //if symbol is entered
+                //if symbol is entered
             } else if string == formatter.decimalSeparator {
                 textField.text = "\(textField.text ?? "")\(string)"
             } else {
-        //perform calculation if last entered character is a number
+                //perform calculation if last entered character is a number
                 if lastCharacter.isNumber {
-                    if floatNumberArray.count == 2 {
-                        let result = performCalculation(format: floatNumberString)
+                    if calculationNumbersArray.count == 2 {
+                        let result = performCalculation(format: calculationNumbersString)
                         numberFromTextField = result as? Double
                         textField.text = string == "=" ? "\(formatter.string(from: result) ?? "")" : "\(formatter.string(from: result) ?? "")\(string)"
                     } else {
                         textField.text = "\(textField.text ?? "")\(string)"
                     }
-        //perform calculation if last entered character is a decimal symbol
+                    //perform calculation if last entered character is a decimal symbol
                 } else if lastCharacter == Character(formatter.decimalSeparator) {
-                    let result = performCalculation(format: floatNumberString)
+                    let result = performCalculation(format: calculationNumbersString)
                     numberFromTextField = result as? Double
                     textField.text = string == "=" ? "\(formatter.string(from: result) ?? "")" : "\(formatter.string(from: result) ?? "")\(string)"
-        //change math symbol before enter a second number
+                    //change math symbol before enter a second number
                 } else {
                     textField.text = "\(textField.text?.dropLast() ?? "")\(string)"
                 }
             }
         } else {
-        //if number is entered
+            //if number is entered
             if string.count == 1, Character(string).isNumber {
                 textField.text = "\(formatter.string(for: Double("\(numbersArray.first?.replacingOccurrences(of: formatter.decimalSeparator, with: ".") ?? "")") ?? 0) ?? "")"
             } else if string.count > 1 {
                 guard string.components(separatedBy: [",", "."]).count <= 2 else { return false }
                 textField.text = converterManager.handleClipboardInput(from: string, using: formatter)
             } else {
-        //if math symbol is entered
+                //if math symbol is entered
                 if lastCharacter.isNumber {
                     textField.text = "\(textField.text ?? "")\(string)"
                 }
