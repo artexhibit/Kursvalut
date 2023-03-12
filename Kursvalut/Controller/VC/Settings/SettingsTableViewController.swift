@@ -9,10 +9,10 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet var proLabel: [UIView]!
     @IBOutlet weak var purchaseButton: UIButton!
     @IBOutlet weak var pickedThemeLabel: UILabel!
-    @IBOutlet weak var roundFlagsLabel: UILabel!
     @IBOutlet weak var restoreSpinner: UIActivityIndicatorView!
     @IBOutlet weak var keyboardSoundSwitch: UISwitch!
     @IBOutlet weak var roundFlagsSwitch: UISwitch!
+    @IBOutlet weak var converterValuesResetSwitch: UISwitch!
     
     private var pickedTheme: String {
         return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
@@ -26,17 +26,15 @@ class SettingsTableViewController: UITableViewController {
     private var roundFlags: Bool {
         return UserDefaults.standard.bool(forKey: "roundFlags")
     }
+    private var converterValuesReset: Bool {
+        return UserDefaults.standard.bool(forKey: "converterValuesReset")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         roundViewCorners()
+        if proPurchased { unlockPro(for: proLabel) }
         
-        if UIScreen().sizeType == .iPhoneSE {
-            roundFlagsLabel.text = "Круглые флаги"
-        }
-        if proPurchased {
-            unlockPro(for: proLabel)
-        }
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: "pro"), object: nil)
     }
     
@@ -44,6 +42,7 @@ class SettingsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         pickedThemeLabel.text = pickedTheme
         loadKeyboardSoundSwitchState()
+        loadConverterValueSwitchState()
         loadFlagsSwitchState()
     }
     
@@ -63,6 +62,14 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func converterValueSwitchPressed(_ sender: UISwitch) {
+        if converterValuesResetSwitch.isOn {
+            UserDefaults.standard.set(true, forKey: "converterValuesReset")
+        } else {
+            UserDefaults.standard.set(false, forKey: "converterValuesReset")
+        }
+    }
+    
     @IBAction func keyboardSoundSwitchPressed(_ sender: UISwitch) {
         if keyboardSoundSwitch.isOn {
             UserDefaults.standard.set(true, forKey: "keyboardWithSound")
@@ -76,6 +83,14 @@ class SettingsTableViewController: UITableViewController {
             keyboardSoundSwitch.setOn(true, animated: false)
         } else {
             keyboardSoundSwitch.setOn(false, animated: false)
+        }
+    }
+    
+    func loadConverterValueSwitchState() {
+        if converterValuesReset {
+            converterValuesResetSwitch.setOn(true, animated: false)
+        } else {
+            converterValuesResetSwitch.setOn(false, animated: false)
         }
     }
     
@@ -102,13 +117,13 @@ class SettingsTableViewController: UITableViewController {
         let pickedSection = indexPath.section
         let pickedCell = indexPath.row
         
-        if pickedSection == 4 && pickedCell == 2 {
+        if pickedSection == 5 && pickedCell == 2 {
             setupMailController()
-        } else if pickedSection == 4 && pickedCell == 3 {
+        } else if pickedSection == 5 && pickedCell == 3 {
             presentShareSheet(in: tableView, near: pickedCell, inside: pickedSection)
-        } else if pickedSection == 4 && pickedCell == 4 {
+        } else if pickedSection == 5 && pickedCell == 4 {
             sendUserToLeaveReview()
-        } else if pickedSection == 2 && pickedCell == 1 {
+        } else if pickedSection == 3 && pickedCell == 1 {
             proPurchased ? PopupQueueManager.shared.addPopupToQueue(title: "Всё в порядке", message: "Pro уже восстановлен", style: .lock) : startProVersionRestore()
         } else if pickedSection == 1 && (pickedCell == 1 || pickedCell == 2 || pickedCell == 3) {
             if proPurchased {

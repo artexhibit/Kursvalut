@@ -43,6 +43,9 @@ class ConverterTableViewController: UITableViewController {
     private var setTextFieldToZero: Bool {
         UserDefaults.standard.bool(forKey: "setTextFieldToZero")
     }
+    private var converterValuesReset: Bool {
+        return UserDefaults.standard.bool(forKey: "converterValuesReset")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -234,13 +237,13 @@ class ConverterTableViewController: UITableViewController {
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         turnOnCellActivityIndicator(with: textField)
-        textField.textColor = UIColor(named: "\(appColor)")
         
         if textField.text == "0" {
             numberFromTextField = 0
             textField.placeholder = "0"
             textField.text = ""
         }
+        textField.textColor = UIColor(named: "\(appColor)")
         UserDefaults.standard.set(false, forKey: "setTextFieldToZero")
     }
     
@@ -258,6 +261,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         
         if pickedDataSource == "ЦБ РФ" {
             pickedBankOfRussiaCurrency = bankOfRussiaFRC.object(at: pickedCurrencyIndexPath)
+            guard converterValuesReset else { return }
             guard let currencyName = pickedBankOfRussiaCurrency?.shortName else { return }
             converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
             
@@ -276,6 +280,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
             }
         } else {
             pickedForexCurrency = forexFRC.object(at: pickedCurrencyIndexPath)
+            guard converterValuesReset else { return }
             guard let currencyName = pickedForexCurrency?.shortName else { return }
             converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
             
