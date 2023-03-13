@@ -26,8 +26,8 @@ class SettingsTableViewController: UITableViewController {
     private var roundFlags: Bool {
         return UserDefaults.standard.bool(forKey: "roundFlags")
     }
-    private var converterValuesReset: Bool {
-        return UserDefaults.standard.bool(forKey: "converterValuesReset")
+    private var canResetValuesInActiveTextField: Bool {
+        return UserDefaults.standard.bool(forKey: "canResetValuesInActiveTextField")
     }
     
     override func viewDidLoad() {
@@ -64,9 +64,9 @@ class SettingsTableViewController: UITableViewController {
     
     @IBAction func converterValueSwitchPressed(_ sender: UISwitch) {
         if converterValuesResetSwitch.isOn {
-            UserDefaults.standard.set(true, forKey: "converterValuesReset")
+            UserDefaults.standard.set(true, forKey: "canResetValuesInActiveTextField")
         } else {
-            UserDefaults.standard.set(false, forKey: "converterValuesReset")
+            UserDefaults.standard.set(false, forKey: "canResetValuesInActiveTextField")
         }
     }
     
@@ -87,7 +87,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     func loadConverterValueSwitchState() {
-        if converterValuesReset {
+        if canResetValuesInActiveTextField {
             converterValuesResetSwitch.setOn(true, animated: false)
         } else {
             converterValuesResetSwitch.setOn(false, animated: false)

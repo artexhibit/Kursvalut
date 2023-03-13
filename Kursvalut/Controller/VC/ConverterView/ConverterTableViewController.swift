@@ -43,8 +43,8 @@ class ConverterTableViewController: UITableViewController {
     private var setTextFieldToZero: Bool {
         UserDefaults.standard.bool(forKey: "setTextFieldToZero")
     }
-    private var converterValuesReset: Bool {
-        return UserDefaults.standard.bool(forKey: "converterValuesReset")
+    private var canResetValuesInActiveTextField: Bool {
+        return UserDefaults.standard.bool(forKey: "canResetValuesInActiveTextField")
     }
     
     override func viewDidLoad() {
@@ -237,6 +237,7 @@ class ConverterTableViewController: UITableViewController {
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         turnOnCellActivityIndicator(with: textField)
+        if canResetValuesInActiveTextField { resetValuesIn(textField: textField) }
         
         if textField.text == "0" {
             numberFromTextField = 0
@@ -261,7 +262,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         
         if pickedDataSource == "ЦБ РФ" {
             pickedBankOfRussiaCurrency = bankOfRussiaFRC.object(at: pickedCurrencyIndexPath)
-            guard converterValuesReset else { return }
+            guard canResetValuesInActiveTextField else { return }
             guard let currencyName = pickedBankOfRussiaCurrency?.shortName else { return }
             converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
             
@@ -280,7 +281,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
             }
         } else {
             pickedForexCurrency = forexFRC.object(at: pickedCurrencyIndexPath)
-            guard converterValuesReset else { return }
+            guard canResetValuesInActiveTextField else { return }
             guard let currencyName = pickedForexCurrency?.shortName else { return }
             converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
             
@@ -301,7 +302,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        var shouldRestrictDigits = true
+        var digitsLimitNotReached = true
         let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount, roundDown: true, needMinFractionDigits: true)
         
         let numberString = "\(textField.text ?? "")".replacingOccurrences(of: formatter.groupingSeparator, with: "")
@@ -309,12 +310,12 @@ extension ConverterTableViewController: UITextFieldDelegate {
         
         //restrict amount of digits in each number user enters in a textField
         if !rangeString.contains(where: {"+-÷x".contains($0)}) {
-            shouldRestrictDigits = restrictEnteredDigitAmount(from: rangeString)
+            digitsLimitNotReached = restrictEnteredDigitAmount(from: rangeString)
         } else {
             let secondNumber = rangeString.components(separatedBy: CharacterSet(charactersIn: "+-÷x")).last ?? "0"
-            shouldRestrictDigits = restrictEnteredDigitAmount(from: secondNumber)
+            digitsLimitNotReached = restrictEnteredDigitAmount(from: secondNumber)
         }
-        guard shouldRestrictDigits else { return false }
+        guard digitsLimitNotReached else { return false }
         
         let lastCharacter = numberString.last ?? "."
         var symbol: String {
@@ -436,7 +437,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         }
         //allow only one decimal symbol per number
         for number in numbersArray {
-            let amountOfDecimalSigns = number.filter({$0 == "."}).count
+            let amountOfDecimalSigns = number.filter({$0 == Character(formatter.decimalSeparator)}).count
             if amountOfDecimalSigns > 1 { return false }
         }
         
@@ -467,6 +468,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
                     textField.text = "\(textField.text?.dropLast() ?? "")\(string)"
                 }
             }
+            reloadCurrencyRows()
         } else {
             //if number is entered
             if string.count == 1, Character(string).isNumber {
@@ -482,7 +484,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
             }
         }
         numberFromTextField = numberForTextField
-        reloadCurrencyRows()
+       if allowedToReloadCurrencyRows(using: rangeString) { reloadCurrencyRows() }
         //Update textField's caret after copying a number from a clipboard
         DispatchQueue.main.async {
             let range = textField.textRange(from: textField.endOfDocument, to: textField.endOfDocument)
@@ -509,6 +511,14 @@ extension ConverterTableViewController: UITextFieldDelegate {
         return true
     }
     
+    func allowedToReloadCurrencyRows(using string: String) -> Bool {
+        if let secondPart = string.components(separatedBy: CharacterSet(charactersIn: ",.")).last?.count, secondPart <= converterScreenDecimalsAmount {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func turnOnCellActivityIndicator(with textField: UITextField) {
         for row in 0..<tableView.numberOfRows(inSection: 0) {
             let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? ConverterTableViewCell
@@ -530,6 +540,12 @@ extension ConverterTableViewController: UITextFieldDelegate {
         if !cell.numberTextField.isFirstResponder && numberFromTextField == 0 {
             cell.activityIndicator.isHidden = true
         }
+    }
+    
+    func resetValuesIn(textField: UITextField) {
+        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
+        guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
+        cell.numberTextField.text = "0"
     }
 }
 
