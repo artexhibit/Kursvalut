@@ -469,7 +469,6 @@ extension ConverterTableViewController: UITextFieldDelegate {
                     textField.text = "\(textField.text?.dropLast() ?? "")\(string)"
                 }
             }
-            reloadCurrencyRows()
         } else {
             //if number is entered
             if string.count == 1, Character(string).isNumber {
@@ -513,11 +512,9 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func allowedToReloadCurrencyRows(using string: String) -> Bool {
-        if let secondPart = string.components(separatedBy: CharacterSet(charactersIn: ",.")).last?.count, secondPart <= converterScreenDecimalsAmount {
-            return true
-        } else {
-            return false
-        }
+        guard let decimalSeparator = string.firstIndex(where: { $0 == "," || $0 == "." }) else { return true }
+        let digitsAmountAfterDecimalSeparator = string[decimalSeparator...].dropFirst().count
+        return digitsAmountAfterDecimalSeparator <= converterScreenDecimalsAmount ? true : false
     }
     
     func turnOnCellActivityIndicator(with textField: UITextField) {
