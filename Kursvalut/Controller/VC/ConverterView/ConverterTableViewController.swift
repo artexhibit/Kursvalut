@@ -236,6 +236,7 @@ class ConverterTableViewController: UITableViewController {
 
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        setupNumpadResetButtonTitle(accordingTo: textField)
         turnOnCellActivityIndicator(with: textField)
         if canResetValuesInActiveTextField { resetValuesIn(textField: textField) }
         
@@ -540,6 +541,15 @@ extension ConverterTableViewController: UITextFieldDelegate {
         if !cell.numberTextField.isFirstResponder && numberFromTextField == 0 {
             cell.activityIndicator.isHidden = true
         }
+    }
+    
+    func setupNumpadResetButtonTitle(accordingTo textField: UITextField) {
+        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
+        guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
+        guard let numpadView = cell.numberTextField.inputView as? NumpadView else { return }
+        guard let text = textField.text?.count else { return }
+        let title = text <= 1 ? "AC" : "C"
+        numpadView.resetButton.setTitle(title, for: .normal)
     }
     
     func resetValuesIn(textField: UITextField) {
