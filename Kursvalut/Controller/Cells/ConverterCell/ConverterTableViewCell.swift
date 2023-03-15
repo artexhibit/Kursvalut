@@ -8,7 +8,6 @@ class ConverterTableViewCell: UITableViewCell {
     @IBOutlet weak var numberTextField: UITextField!
     @IBOutlet weak var fullName: UILabel!
     @IBOutlet weak var activityIndicator: UIButton!
-    @IBOutlet weak var fullNameWidth: UIStackView!
     @IBOutlet weak var flagHeight: NSLayoutConstraint!
     @IBOutlet weak var flagWidth: NSLayoutConstraint!
     @IBOutlet weak var activityIndicatorBottom: NSLayoutConstraint!
@@ -23,7 +22,6 @@ class ConverterTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupActivityIndicator()
-        setupFontForSmallerScreen()
     }
     
     override func layoutSubviews() {
@@ -47,7 +45,7 @@ class ConverterTableViewCell: UITableViewCell {
         flag.layer.cornerRadius = roundFlags ? flagHeight.constant/2 : 0
         activityIndicatorBottom.constant = roundFlags ? -1.5 : 5.0
         activityIndicatorTrailing.constant = roundFlags ? 1.0 : -3.0
-        converterCellStackView.spacing = roundFlags ? 0.0 : 6.0
+        converterCellStackView.spacing = roundFlags ? 0.0 : 8.0
         converterCellStackViewLeading.constant = roundFlags ? 4.0 : 10.0
     }
     
@@ -63,14 +61,5 @@ class ConverterTableViewCell: UITableViewCell {
         let maskLayer = CAShapeLayer()
         maskLayer.path = path.cgPath
         return maskLayer
-    }
-    
-    private func setupFontForSmallerScreen() {
-        if UIScreen().sizeType == .iPhoneSE {
-            fullName.font = UIFont.systemFont(ofSize: 9)
-            fullNameWidth.widthAnchor.constraint(equalToConstant: 60.0).isActive = true
-        } else {
-            fullNameWidth.widthAnchor.constraint(equalToConstant: 110.0).isActive = true
-        }
     }
 }
