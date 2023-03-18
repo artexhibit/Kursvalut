@@ -8,16 +8,33 @@ class ConverterTableViewCell: UITableViewCell {
     @IBOutlet weak var numberTextField: UITextField!
     @IBOutlet weak var fullName: UILabel!
     @IBOutlet weak var activityIndicator: UIButton!
+    @IBOutlet weak var infoStackView: UIStackView! {
+        didSet {
+            infoStackViewInitialWidth = infoStackView.frame.width + 60
+        }
+    }
+    @IBOutlet weak var numberTextFieldView: UIView! {
+        didSet {
+            textFieldWidthConstraint = numberTextField.widthAnchor.constraint(equalToConstant: numberTextFieldView.frame.width)
+            textFieldWidthConstraint?.isActive = true
+            numberTextFieldInitialWidth = numberTextFieldView.frame.width
+        }
+    }
     @IBOutlet weak var flagHeight: NSLayoutConstraint!
     @IBOutlet weak var flagWidth: NSLayoutConstraint!
     @IBOutlet weak var activityIndicatorBottom: NSLayoutConstraint!
     @IBOutlet weak var activityIndicatorTrailing: NSLayoutConstraint!
     @IBOutlet weak var converterCellStackView: UIStackView!
     @IBOutlet weak var converterCellStackViewLeading: NSLayoutConstraint!
-    
+    @IBOutlet weak var numberTextFieldWidthConstraint: NSLayoutConstraint!
     private var roundFlags: Bool {
         return UserDefaults.standard.bool(forKey: "roundFlags")
     }
+    private var infoStackViewInitialWidth: CGFloat = 0.0
+    private var numberTextFieldInitialWidth: CGFloat = 0.0
+    private var infoStackViewWidthConstraint: NSLayoutConstraint?
+    private var StoryboardNumberTextFieldViewWidthConstraint: NSLayoutConstraint?
+    private var textFieldWidthConstraint: NSLayoutConstraint?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -61,5 +78,49 @@ class ConverterTableViewCell: UITableViewCell {
         let maskLayer = CAShapeLayer()
         maskLayer.path = path.cgPath
         return maskLayer
+    }
+    
+    func animateOut(withAnimation: Bool = true, index: Int = 0) {
+        let animation = withAnimation ? 0.3 : 0.0
+        //let delay = Double(index) * 0.06
+        
+        UIView.animate(withDuration: animation) {
+            self.shortName.alpha = 0
+            self.fullName.alpha = 0
+            self.layoutIfNeeded()
+        } completion: { done in
+            if done {
+                UIView.animate(withDuration: animation) {
+                    self.StoryboardNumberTextFieldViewWidthConstraint = self.numberTextFieldWidthConstraint
+                    self.StoryboardNumberTextFieldViewWidthConstraint?.isActive = false
+                    self.infoStackViewWidthConstraint?.isActive = false
+                    self.infoStackViewWidthConstraint = self.infoStackView.widthAnchor.constraint(equalToConstant: 60.0)
+                    self.infoStackViewWidthConstraint?.isActive = true
+                    self.layoutIfNeeded()
+                }
+                self.textFieldWidthConstraint?.isActive = false
+                self.textFieldWidthConstraint = self.numberTextField.widthAnchor.constraint(equalToConstant: self.numberTextFieldView.frame.width)
+                self.textFieldWidthConstraint?.isActive = true
+                self.layoutIfNeeded()
+            }
+        }
+    }
+    
+    func animateIn() {
+        UIView.animate(withDuration: 0.0) {
+            self.infoStackViewWidthConstraint?.isActive = false
+            self.StoryboardNumberTextFieldViewWidthConstraint = self.numberTextFieldWidthConstraint
+            self.StoryboardNumberTextFieldViewWidthConstraint?.isActive = true
+            self.textFieldWidthConstraint?.isActive = false
+            self.textFieldWidthConstraint = self.numberTextField.widthAnchor.constraint(equalToConstant: self.numberTextFieldInitialWidth)
+            self.textFieldWidthConstraint?.isActive = true
+            self.layoutIfNeeded()
+        } completion: {_ in
+            UIView.animate(withDuration: 0.3) {
+                self.fullName.alpha = 1
+                self.shortName.alpha = 1
+                self.layoutIfNeeded()
+            }
+        }
     }
 }

@@ -236,6 +236,10 @@ class ConverterTableViewController: UITableViewController {
 
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
+        guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
+        cell.animateOut()
+        
         setupNumpadResetButtonTitle(accordingTo: textField)
         turnOnCellActivityIndicator(with: textField)
         if canResetValuesInActiveTextField { resetValuesIn(textField: textField) }
@@ -250,6 +254,10 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
+        guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
+        
+        cell.animateIn()
         textField.textColor = UIColor(named: "BlackColor")
         
         guard let text = textField.text else { return }
