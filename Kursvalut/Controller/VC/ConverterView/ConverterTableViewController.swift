@@ -19,6 +19,9 @@ class ConverterTableViewController: UITableViewController {
     private var pickedCellShortName = ""
     private var pickedNameArray = [String]()
     private var pickedTextField = UITextField()
+    private var activeConverterCells = [ConverterTableViewCell]()
+    private var textFieldIsEditing = false
+    private var shouldAnimateCellAppear = false
     private var converterScreenDecimalsAmount: Int {
         return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
     }
@@ -52,6 +55,7 @@ class ConverterTableViewController: UITableViewController {
         setupKeyboardBehaviour()
         currencyManager.configureContentInset(for: tableView, top: 10)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshConverterFRC), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCells), name: NSNotification.Name(rawValue: "updateCells"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,6 +121,7 @@ class ConverterTableViewController: UITableViewController {
             numberFromTextField = 0
             cell.activityIndicator.isHidden = true
         }
+        activeConverterCells.append(cell)
         return cell
     }
     
@@ -236,9 +241,9 @@ class ConverterTableViewController: UITableViewController {
 
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
-        guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
-        cell.animateOut()
+        textFieldIsEditing = true
+        shouldAnimateCellAppear = true
+        for (index, cell) in activeConverterCells.enumerated() { cell.animateOut(index: index) }
         
         setupNumpadResetButtonTitle(accordingTo: textField)
         turnOnCellActivityIndicator(with: textField)
@@ -254,15 +259,40 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
-        guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
-        
-        cell.animateIn()
+        shouldAnimateCellAppear = false
+        if !textFieldIsEditing { for cell in activeConverterCells { cell.animateIn() } }
         textField.textColor = UIColor(named: "BlackColor")
         
         guard let text = textField.text else { return }
         if text.isEmpty { textField.text = "0" }
         turnOffCellActivityIndicator(with: textField)
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? ConverterTableViewCell, let index = activeConverterCells.firstIndex(of: cell) {
+            activeConverterCells.remove(at: index)
+        }
+        if let cell = cell as? ConverterTableViewCell, !activeConverterCells.contains(cell) {
+            activeConverterCells.append(cell)
+        }
+        sortCellsArray()
+        
+        if shouldAnimateCellAppear {
+            for cell in activeConverterCells {cell.animateOut(withAnimation: false)}
+        } else {
+            for cell in activeConverterCells {cell.animateIn(withAnimation: false)}
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? ConverterTableViewCell, let index = activeConverterCells.firstIndex(of: cell) {
+            activeConverterCells.remove(at: index)
+        }
+        sortCellsArray()
+    }
+    
+    private func sortCellsArray() {
+        activeConverterCells = activeConverterCells.sorted(by: {$0.shortName.text! < $1.shortName.text!})
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -562,6 +592,10 @@ extension ConverterTableViewController: UITextFieldDelegate {
         guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
         cell.numberTextField.text = "0"
     }
+    
+    @objc func updateCells() {
+        for cell in activeConverterCells { cell.animateIn() }
+    }
 }
 
 extension ConverterTableViewController {
@@ -582,6 +616,8 @@ extension ConverterTableViewController {
             }
         } else {
             view.endEditing(true)
+            textFieldIsEditing = false
+            for cell in activeConverterCells { cell.animateIn() }
         }
     }
     

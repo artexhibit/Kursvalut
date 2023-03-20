@@ -90,7 +90,7 @@ class ConverterTableViewCell: UITableViewCell {
             self.layoutIfNeeded()
         } completion: { done in
             if done {
-                UIView.animate(withDuration: animation) {
+                UIView.animate(withDuration: 0.0) {
                     self.StoryboardNumberTextFieldViewWidthConstraint = self.numberTextFieldWidthConstraint
                     self.StoryboardNumberTextFieldViewWidthConstraint?.isActive = false
                     self.infoStackViewWidthConstraint?.isActive = false
@@ -106,7 +106,9 @@ class ConverterTableViewCell: UITableViewCell {
         }
     }
     
-    func animateIn() {
+    func animateIn(withAnimation: Bool = true) {
+        let animation = withAnimation ? 0.3 : 0.0
+        
         UIView.animate(withDuration: 0.0) {
             self.infoStackViewWidthConstraint?.isActive = false
             self.StoryboardNumberTextFieldViewWidthConstraint = self.numberTextFieldWidthConstraint
@@ -116,7 +118,7 @@ class ConverterTableViewCell: UITableViewCell {
             self.textFieldWidthConstraint?.isActive = true
             self.layoutIfNeeded()
         } completion: {_ in
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: animation) {
                 self.fullName.alpha = 1
                 self.shortName.alpha = 1
                 self.layoutIfNeeded()
