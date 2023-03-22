@@ -7,7 +7,7 @@ protocol CurrencyManagerDelegate {
 }
 
 struct CurrencyManager {
-    static let currencyFullNameDict: [String : (currencyName: String, searchName: String, shortName: String)] = [
+     let currencyFullNameDict: [String : (currencyName: String, searchName: String, shortName: String)] = [
         "RUB": (currencyName: "Российский рубль", searchName: "Российская Федерация", shortName: "Рубль"),
         "ZAR": (currencyName: "Южноафриканский рэнд", searchName: "ЮАР", shortName: "Рэнд"),
         "BGN": (currencyName: "Болгарский лев", searchName: "Болгария", shortName: "Лев"),

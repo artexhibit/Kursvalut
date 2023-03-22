@@ -4,6 +4,7 @@ import UIKit
 import CoreData
 
 struct CurrencyCoreDataManager {
+    private let currencyManager = CurrencyManager()
     private var pickCurrencyRequest: Bool {
         return UserDefaults.standard.bool(forKey: "pickCurrencyRequest")
     }
@@ -52,7 +53,7 @@ struct CurrencyCoreDataManager {
         let currency = Currency(context: self.context)
         
         currency.shortName = shortName
-        currency.fullName = CurrencyManager.currencyFullNameDict[fullName]?.currencyName
+        currency.fullName = currencyManager.currencyFullNameDict[fullName]?.currencyName
         currency.currentValue = currValue
         currency.previousValue = prevValue
         currency.nominal = Int32(nominal)
@@ -62,7 +63,7 @@ struct CurrencyCoreDataManager {
         currency.isBaseCurrency = isBaseCurrency
         currency.rowForCurrency = rowForCurrency
         currency.rowForHistoricalCurrency = rowForHistoricalCurrency
-        currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
+        currency.searchName = currencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = currency.currentValue / Double(currency.nominal)
         
         if currency.shortName == "USD" {
@@ -179,7 +180,7 @@ struct CurrencyCoreDataManager {
         let currency = ForexCurrency(context: self.context)
         
         currency.shortName = shortName
-        currency.fullName = CurrencyManager.currencyFullNameDict[fullName]?.currencyName
+        currency.fullName = currencyManager.currencyFullNameDict[fullName]?.currencyName
         currency.currentValue = currValue
         currency.nominal = Int32(nominal)
         currency.isForConverter = isForConverter
@@ -188,7 +189,7 @@ struct CurrencyCoreDataManager {
         currency.isBaseCurrency = isBaseCurrency
         currency.rowForCurrency = rowForCurrency
         currency.rowForHistoricalCurrency = rowForHistoricalCurrency
-        currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
+        currency.searchName = currencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = abslValue
         
         if currency.shortName == "USD" || currency.shortName == "EUR" {
@@ -229,7 +230,7 @@ struct CurrencyCoreDataManager {
         let currency = ForexCurrency(context: self.context)
         
         currency.shortName = shortName
-        currency.fullName = CurrencyManager.currencyFullNameDict[fullName]?.currencyName
+        currency.fullName = currencyManager.currencyFullNameDict[fullName]?.currencyName
         currency.previousValue = 1.0 / prevValue
         currency.nominal = Int32(nominal)
         currency.isForConverter = isForConverter
@@ -238,7 +239,7 @@ struct CurrencyCoreDataManager {
         currency.isBaseCurrency = isBaseCurrency
         currency.rowForCurrency = rowForCurrency
         currency.rowForHistoricalCurrency = rowForHistoricalCurrency
-        currency.searchName = CurrencyManager.currencyFullNameDict[fullName]?.searchName
+        currency.searchName = currencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = currency.currentValue / Double(currency.nominal)
         
         if currency.shortName == "USD" || currency.shortName == "EUR" {

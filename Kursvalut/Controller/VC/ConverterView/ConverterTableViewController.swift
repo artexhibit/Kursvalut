@@ -6,6 +6,7 @@ class ConverterTableViewController: UITableViewController {
     
     @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
+    private var canDisplayShortVersionOfFullName = false
     private var bankOfRussiaFRC: NSFetchedResultsController<Currency>!
     private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let coreDataManager = CurrencyCoreDataManager()
@@ -19,7 +20,7 @@ class ConverterTableViewController: UITableViewController {
     private var pickedCellShortName = ""
     private var pickedNameArray = [String]()
     private var pickedTextField = UITextField()
-    private var activeConverterCells = [ConverterTableViewCell]()
+    private var activeConverterCells = Set<ConverterTableViewCell>()
     private var textFieldIsEditing = false
     private var shouldAnimateCellAppear = false
     private var converterScreenDecimalsAmount: Int {
@@ -115,13 +116,15 @@ class ConverterTableViewController: UITableViewController {
                 cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
             }
         }
+        cell.secondFullName.text = currencyManager.currencyFullNameDict[cell.shortName.text ?? "RUB"]?.shortName
+        if canDisplayShortVersionOfFullName { cell.changeFullNameOnShortName() }
         
         if setTextFieldToZero {
             cell.numberTextField.text = "0"
             numberFromTextField = 0
             cell.activityIndicator.isHidden = true
         }
-        activeConverterCells.append(cell)
+        activeConverterCells.insert(cell)
         return cell
     }
     
@@ -243,7 +246,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textFieldIsEditing = true
         shouldAnimateCellAppear = true
-        for (index, cell) in activeConverterCells.enumerated() { cell.animateOut(index: index) }
+        for cell in activeConverterCells { cell.animateOut() }
         
         setupNumpadResetButtonTitle(accordingTo: textField)
         turnOnCellActivityIndicator(with: textField)
@@ -273,9 +276,8 @@ extension ConverterTableViewController: UITextFieldDelegate {
             activeConverterCells.remove(at: index)
         }
         if let cell = cell as? ConverterTableViewCell, !activeConverterCells.contains(cell) {
-            activeConverterCells.append(cell)
+            activeConverterCells.insert(cell)
         }
-        sortCellsArray()
         
         if shouldAnimateCellAppear {
             for cell in activeConverterCells {cell.animateOut(withAnimation: false)}
@@ -288,11 +290,6 @@ extension ConverterTableViewController: UITextFieldDelegate {
         if let cell = cell as? ConverterTableViewCell, let index = activeConverterCells.firstIndex(of: cell) {
             activeConverterCells.remove(at: index)
         }
-        sortCellsArray()
-    }
-    
-    private func sortCellsArray() {
-        activeConverterCells = activeConverterCells.sorted(by: {$0.shortName.text! < $1.shortName.text!})
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -522,7 +519,11 @@ extension ConverterTableViewController: UITextFieldDelegate {
             }
         }
         numberFromTextField = numberForTextField
-       if allowedToReloadCurrencyRows(using: rangeString) { reloadCurrencyRows() }
+        
+       if allowedToReloadCurrencyRows(using: rangeString) {
+           canDisplayShortVersionOfFullName = true
+           reloadCurrencyRows()
+       }
         //Update textField's caret after copying a number from a clipboard
         DispatchQueue.main.async {
             let range = textField.textRange(from: textField.endOfDocument, to: textField.endOfDocument)
