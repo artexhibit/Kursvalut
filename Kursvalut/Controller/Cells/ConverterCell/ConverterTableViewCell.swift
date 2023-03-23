@@ -12,7 +12,7 @@ class ConverterTableViewCell: UITableViewCell {
     @IBOutlet weak var infoStackView: UIStackView!
     @IBOutlet weak var numberTextFieldView: UIView! {
         didSet {
-            textFieldWidthConstraint = numberTextField.widthAnchor.constraint(equalToConstant: numberTextFieldView.frame.width)
+            textFieldWidthConstraint = numberTextField.leadingAnchor.constraint(equalTo: numberTextFieldView.leadingAnchor)
             textFieldWidthConstraint?.isActive = true
             numberTextFieldInitialWidth = numberTextFieldView.frame.width
         }
@@ -58,7 +58,7 @@ class ConverterTableViewCell: UITableViewCell {
         flag.layer.cornerRadius = roundFlags ? flagHeight.constant/2 : 0
         activityIndicatorBottom.constant = roundFlags ? -1.5 : 5.0
         activityIndicatorTrailing.constant = roundFlags ? 1.0 : -3.0
-        infoStackView.spacing = roundFlags ? 0.0 : 8.0
+        infoStackView.spacing = roundFlags ? 4.0 : 8.0
         infoStackViewLeadingConstraint.constant = roundFlags ? 4.0 : 10.0
     }
     
@@ -77,7 +77,7 @@ class ConverterTableViewCell: UITableViewCell {
     }
     
     func animateOut(withAnimation: Bool = true) {
-        let animation = withAnimation ? 0.5 : 0.0
+        let animation = withAnimation ? 0.4 : 0.0
         
         UIView.animate(withDuration: animation) {
             self.fullName.alpha = 0
@@ -100,7 +100,7 @@ class ConverterTableViewCell: UITableViewCell {
                     self.layoutIfNeeded()
                     
                     self.textFieldWidthConstraint?.isActive = false
-                    self.textFieldWidthConstraint = self.numberTextField.widthAnchor.constraint(equalToConstant: self.numberTextFieldView.frame.width)
+                    self.textFieldWidthConstraint = self.numberTextField.leadingAnchor.constraint(equalTo: self.numberTextFieldView.leadingAnchor, constant: -15)
                     self.textFieldWidthConstraint?.isActive = true
                     self.layoutIfNeeded()
                 }
@@ -126,32 +126,32 @@ class ConverterTableViewCell: UITableViewCell {
         self.layoutIfNeeded()
     }
     
+    private func returnNumberTextFieldViewToInitialState(completion: (()-> Void)) {
+        self.infoStackViewWidthConstraint?.isActive = false
+        self.storyboardNumberTextFieldViewWidthConstraint = self.numberTextFieldWidthConstraint
+        self.storyboardNumberTextFieldViewWidthConstraint?.isActive = true
+        self.textFieldWidthConstraint?.isActive = false
+        self.textFieldWidthConstraint = self.numberTextField.widthAnchor.constraint(equalToConstant: self.numberTextFieldInitialWidth)
+        self.textFieldWidthConstraint?.isActive = true
+        self.layoutIfNeeded()
+        completion()
+    }
+    
     func animateIn(withAnimation: Bool = true) {
-        let animation = withAnimation ? 0.5 : 0.0
-        
-        UIView.animate(withDuration: 0.01) {
-            self.infoStackViewWidthConstraint?.isActive = false
-            self.storyboardNumberTextFieldViewWidthConstraint = self.numberTextFieldWidthConstraint
-            self.storyboardNumberTextFieldViewWidthConstraint?.isActive = true
-            self.textFieldWidthConstraint?.isActive = false
-            self.textFieldWidthConstraint = self.numberTextField.widthAnchor.constraint(equalToConstant: self.numberTextFieldInitialWidth)
-            self.textFieldWidthConstraint?.isActive = true
-            self.layoutIfNeeded()
-        } completion: { done in
-            if done {
-                UIView.animate(withDuration: animation) {
-                    self.secondFullName.alpha = 0
+        let animation = withAnimation ? 0.4 : 0.0
+        returnNumberTextFieldViewToInitialState {
+            UIView.animate(withDuration: animation) {
+                self.secondFullName.alpha = 0
+                self.layoutIfNeeded()
+            } completion: { done in
+                if done {
+                    self.fullName.isHidden = false
+                    self.secondFullName.isHidden = true
                     self.layoutIfNeeded()
-                } completion: { done in
-                    if done {
-                        self.fullName.isHidden = false
-                        self.secondFullName.isHidden = true
+                    
+                    UIView.animate(withDuration: animation) {
+                        self.fullName.alpha = 1
                         self.layoutIfNeeded()
-                        
-                        UIView.animate(withDuration: animation) {
-                            self.fullName.alpha = 1
-                            self.layoutIfNeeded()
-                        }
                     }
                 }
             }
