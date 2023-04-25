@@ -121,6 +121,7 @@ class PickCurrencyTableViewController: UITableViewController {
                 bankOfRussiaCurrency.rowForConverter = 0
             }
             UserDefaults.standard.set(currentAmount, forKey: "savedAmountForBankOfRussia")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCells"), object: nil, userInfo: ["currencyWasAdded": bankOfRussiaCurrency.isForConverter])
         } else if pickedDataSource == "Forex (Биржа)" {
             var currentAmount = amountOfPickedForexCurrencies
             let forexCurrencies = coreDataManager.fetchAllForexCurrencies()
@@ -144,6 +145,7 @@ class PickCurrencyTableViewController: UITableViewController {
                 forexCurrency.rowForConverter = 0
             }
             UserDefaults.standard.set(currentAmount, forKey: "savedAmountForForex")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCells"), object: nil, userInfo: ["currencyWasAdded": forexCurrency.isForConverter])
         }
         coreDataManager.save()
     }

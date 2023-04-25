@@ -8,6 +8,7 @@ class ConverterTableViewCell: UITableViewCell {
     @IBOutlet weak var numberTextField: UITextField!
     @IBOutlet weak var fullName: UILabel!
     @IBOutlet weak var secondFullName: UILabel!
+    @IBOutlet weak var namesStackView: UIStackView!
     @IBOutlet weak var activityIndicator: UIButton!
     @IBOutlet weak var infoStackView: UIStackView!
     @IBOutlet weak var numberTextFieldView: UIView! {
@@ -31,6 +32,11 @@ class ConverterTableViewCell: UITableViewCell {
     private var infoStackViewWidthConstraint: NSLayoutConstraint?
     private var storyboardNumberTextFieldViewWidthConstraint: NSLayoutConstraint?
     private var textFieldWidthConstraint: NSLayoutConstraint?
+    
+    enum NumberTextFieldState {
+        case on
+        case off
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -76,8 +82,8 @@ class ConverterTableViewCell: UITableViewCell {
         return maskLayer
     }
     
-    func animateOut(withAnimation: Bool = true) {
-        let animation = withAnimation ? 0.4 : 0.0
+    func animateOut(completion: ((Bool) -> Void)?) {
+        let animation = 0.4
         
         UIView.animate(withDuration: animation) {
             self.fullName.alpha = 0
@@ -103,6 +109,29 @@ class ConverterTableViewCell: UITableViewCell {
                     self.textFieldWidthConstraint = self.numberTextField.leadingAnchor.constraint(equalTo: self.numberTextFieldView.leadingAnchor, constant: -15)
                     self.textFieldWidthConstraint?.isActive = true
                     self.layoutIfNeeded()
+                    completion?(true)
+                }
+            }
+        }
+    }
+    
+    func animateIn() {
+        let animation = 0.4
+        
+        returnNumberTextFieldViewToInitialState {
+            UIView.animate(withDuration: animation) {
+                self.secondFullName.alpha = 0
+                self.layoutIfNeeded()
+            } completion: { done in
+                if done {
+                    self.fullName.isHidden = false
+                    self.secondFullName.isHidden = true
+                    self.layoutIfNeeded()
+                    
+                    UIView.animate(withDuration: animation) {
+                        self.fullName.alpha = 1
+                        self.layoutIfNeeded()
+                    }
                 }
             }
         }
@@ -126,7 +155,17 @@ class ConverterTableViewCell: UITableViewCell {
         self.layoutIfNeeded()
     }
     
-    private func returnNumberTextFieldViewToInitialState(completion: (()-> Void)) {
+    func changeShortNameOnFullName() {
+        returnNumberTextFieldViewToInitialState {
+            self.secondFullName.alpha = 0
+            self.fullName.isHidden = false
+            self.secondFullName.isHidden = true
+            self.fullName.alpha = 1
+            self.layoutIfNeeded()
+        }
+    }
+    
+    private func returnNumberTextFieldViewToInitialState(completion: (() -> Void)) {
         self.infoStackViewWidthConstraint?.isActive = false
         self.storyboardNumberTextFieldViewWidthConstraint = self.numberTextFieldWidthConstraint
         self.storyboardNumberTextFieldViewWidthConstraint?.isActive = true
@@ -137,23 +176,16 @@ class ConverterTableViewCell: UITableViewCell {
         completion()
     }
     
-    func animateIn(withAnimation: Bool = true) {
-        let animation = withAnimation ? 0.4 : 0.0
-        returnNumberTextFieldViewToInitialState {
-            UIView.animate(withDuration: animation) {
-                self.secondFullName.alpha = 0
-                self.layoutIfNeeded()
-            } completion: { done in
-                if done {
-                    self.fullName.isHidden = false
-                    self.secondFullName.isHidden = true
-                    self.layoutIfNeeded()
-                    
-                    UIView.animate(withDuration: animation) {
-                        self.fullName.alpha = 1
-                        self.layoutIfNeeded()
-                    }
-                }
+    func switchNumberTextField(to state: NumberTextFieldState) {
+        UIView.animate(withDuration: 0.5) {
+            if state == .on {
+                self.numberTextField.alpha = 1
+                self.numberTextField.isUserInteractionEnabled = true
+                self.numberTextField.isHidden = false
+            } else {
+                self.numberTextField.alpha = 0
+                self.numberTextField.isUserInteractionEnabled = false
+                self.numberTextField.isHidden = true
             }
         }
     }

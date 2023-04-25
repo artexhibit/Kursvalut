@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,13 +21,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="sSl-mz-1DQ" userLabel="Numpad Stack View">
-                    <rect key="frame" x="20" y="20" width="512" height="396"/>
+                    <rect key="frame" x="20" y="33" width="512" height="378"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="fGC-p9-L4U">
-                            <rect key="frame" x="0.0" y="0.0" width="512" height="94"/>
+                            <rect key="frame" x="0.0" y="0.0" width="512" height="89.5"/>
                             <subviews>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1fo-rx-txj" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="97" height="94"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="97" height="89.5"/>
                                     <color key="backgroundColor" name="NumpadGrayColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -40,7 +40,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JkP-z1-kBt" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="104" y="0.0" width="96.5" height="94"/>
+                                    <rect key="frame" x="104" y="0.0" width="96.5" height="89.5"/>
                                     <color key="backgroundColor" name="NumpadGrayColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -53,7 +53,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aA8-sE-uyJ" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="207.5" y="0.0" width="97" height="94"/>
+                                    <rect key="frame" x="207.5" y="0.0" width="97" height="89.5"/>
                                     <color key="backgroundColor" name="NumpadGrayColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -66,7 +66,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdT-jT-0wO" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="311.5" y="0.0" width="96.5" height="94"/>
+                                    <rect key="frame" x="311.5" y="0.0" width="96.5" height="89.5"/>
                                     <color key="backgroundColor" name="NumpadOrangeColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -79,7 +79,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqJ-SJ-vgm" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="415" y="0.0" width="97" height="94"/>
+                                    <rect key="frame" x="415" y="0.0" width="97" height="89.5"/>
                                     <color key="backgroundColor" name="NumpadBlueColor"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -96,10 +96,10 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="ryL-j9-8Gp">
-                            <rect key="frame" x="0.0" y="101" width="512" height="93.5"/>
+                            <rect key="frame" x="0.0" y="96.5" width="512" height="89"/>
                             <subviews>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATt-PW-v4y" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="97" height="93.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="97" height="89"/>
                                     <color key="backgroundColor" name="NumpadGrayColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -112,7 +112,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ToS-iL-gQp" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="104" y="0.0" width="96.5" height="93.5"/>
+                                    <rect key="frame" x="104" y="0.0" width="96.5" height="89"/>
                                     <color key="backgroundColor" name="NumpadGrayColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -125,7 +125,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSw-U5-1GF" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="207.5" y="0.0" width="97" height="93.5"/>
+                                    <rect key="frame" x="207.5" y="0.0" width="97" height="89"/>
                                     <color key="backgroundColor" name="NumpadGrayColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -138,7 +138,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uiw-M5-1xf" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="311.5" y="0.0" width="96.5" height="93.5"/>
+                                    <rect key="frame" x="311.5" y="0.0" width="96.5" height="89"/>
                                     <color key="backgroundColor" name="NumpadOrangeColor"/>
                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="1"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -154,7 +154,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHS-oz-6Ou" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="415" y="0.0" width="97" height="93.5"/>
+                                    <rect key="frame" x="415" y="0.0" width="97" height="89"/>
                                     <color key="backgroundColor" name="NumpadOrangeColor"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -171,10 +171,10 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="JRw-LQ-aMf">
-                            <rect key="frame" x="0.0" y="201.5" width="512" height="94"/>
+                            <rect key="frame" x="0.0" y="192.5" width="512" height="89.5"/>
                             <subviews>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mal-m2-BW0" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="97" height="94"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="97" height="89.5"/>
                                     <color key="backgroundColor" name="NumpadGrayColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -187,7 +187,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KI1-ty-RLg" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="104" y="0.0" width="96.5" height="94"/>
+                                    <rect key="frame" x="104" y="0.0" width="96.5" height="89.5"/>
                                     <color key="backgroundColor" name="NumpadGrayColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -200,7 +200,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5EU-9l-FVK" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="207.5" y="0.0" width="97" height="94"/>
+                                    <rect key="frame" x="207.5" y="0.0" width="97" height="89.5"/>
                                     <color key="backgroundColor" name="NumpadGrayColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -213,7 +213,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y6Q-JT-JWy" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="311.5" y="0.0" width="96.5" height="94"/>
+                                    <rect key="frame" x="311.5" y="0.0" width="96.5" height="89.5"/>
                                     <color key="backgroundColor" name="NumpadOrangeColor"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -227,7 +227,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G9r-jQ-QQ9" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="415" y="0.0" width="97" height="94"/>
+                                    <rect key="frame" x="415" y="0.0" width="97" height="89.5"/>
                                     <color key="backgroundColor" name="NumpadOrangeColor"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -244,10 +244,10 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="Uw9-qZ-Dfo">
-                            <rect key="frame" x="0.0" y="302.5" width="512" height="93.5"/>
+                            <rect key="frame" x="0.0" y="289" width="512" height="89"/>
                             <subviews>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ld-d6-RQK" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="97" height="93.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="97" height="89"/>
                                     <color key="backgroundColor" name="NumpadGrayColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -260,7 +260,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBP-LN-MlY" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="104" y="0.0" width="96.5" height="93.5"/>
+                                    <rect key="frame" x="104" y="0.0" width="96.5" height="89"/>
                                     <color key="backgroundColor" name="NumpadGrayColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -273,7 +273,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nde-Sc-JPt" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="207.5" y="0.0" width="97" height="93.5"/>
+                                    <rect key="frame" x="207.5" y="0.0" width="97" height="89"/>
                                     <color key="backgroundColor" name="NumpadGrayColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -289,7 +289,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGq-08-Kzm" customClass="NumpadButton" customModule="Kursvalut" customModuleProvider="target">
-                                    <rect key="frame" x="311.5" y="0.0" width="200.5" height="93.5"/>
+                                    <rect key="frame" x="311.5" y="0.0" width="200.5" height="89"/>
                                     <color key="backgroundColor" name="NumpadOrangeColor"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -319,20 +319,20 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="sSl-mz-1DQ" secondAttribute="trailing" constant="20" id="1gi-ye-gga"/>
-                <constraint firstAttribute="bottom" secondItem="sSl-mz-1DQ" secondAttribute="bottom" constant="30" id="FQf-JD-DtO"/>
+                <constraint firstAttribute="bottom" secondItem="sSl-mz-1DQ" secondAttribute="bottom" constant="35" id="FQf-JD-DtO"/>
                 <constraint firstItem="sSl-mz-1DQ" firstAttribute="leading" secondItem="w35-oq-szw" secondAttribute="leading" constant="20" id="h8K-jo-5Lp"/>
-                <constraint firstItem="sSl-mz-1DQ" firstAttribute="top" secondItem="w35-oq-szw" secondAttribute="top" constant="20" id="ldI-GQ-suB"/>
+                <constraint firstItem="sSl-mz-1DQ" firstAttribute="top" secondItem="w35-oq-szw" secondAttribute="top" constant="33" id="ldI-GQ-suB"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="161" y="682"/>
         </view>
     </objects>
     <resources>
-        <image name="delete.left" catalog="system" width="128" height="104"/>
-        <image name="divide" catalog="system" width="128" height="103"/>
-        <image name="equal" catalog="system" width="128" height="72"/>
-        <image name="keyboard.chevron.compact.down" catalog="system" width="128" height="102"/>
-        <image name="minus" catalog="system" width="128" height="24"/>
+        <image name="delete.left" catalog="system" width="128" height="102"/>
+        <image name="divide" catalog="system" width="128" height="101"/>
+        <image name="equal" catalog="system" width="128" height="73"/>
+        <image name="keyboard.chevron.compact.down" catalog="system" width="128" height="100"/>
+        <image name="minus" catalog="system" width="128" height="26"/>
         <image name="multiply" catalog="system" width="128" height="111"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <namedColor name="NumpadBlueColor">

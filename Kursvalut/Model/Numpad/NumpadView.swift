@@ -80,7 +80,6 @@ class NumpadView: UIView, UIInputViewAudioFeedback {
     
     @IBAction func hideKeyboardButtonPressed(_ sender: NumpadButton) {
         view?.endEditing(true)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCells"), object: nil)
     }
     
     @IBAction func resetButtonPressed(_ sender: NumpadButton) {

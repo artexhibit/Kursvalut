@@ -6,7 +6,6 @@ class ConverterTableViewController: UITableViewController {
     
     @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     
-    private var canDisplayShortVersionOfFullName = false
     private var bankOfRussiaFRC: NSFetchedResultsController<Currency>!
     private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let coreDataManager = CurrencyCoreDataManager()
@@ -16,7 +15,7 @@ class ConverterTableViewController: UITableViewController {
     private var numberFromTextField: Double?
     private var pickedBankOfRussiaCurrency: Currency?
     private var pickedForexCurrency: ForexCurrency?
-    private var isInEdit = false
+    private var tableViewIsInEditingMode = false
     private var pickedCellShortName = ""
     private var pickedNameArray = [String]()
     private var pickedTextField = UITextField()
@@ -26,6 +25,11 @@ class ConverterTableViewController: UITableViewController {
     private var converterScreenDecimalsAmount: Int {
         return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
     }
+    private var canSetCustomCellHeight = true
+    private var avoidTriggerCellsHeightChange = false
+    private var dataSourceWasChanged = false
+    private var cellHeights: [IndexPath: CGFloat] = [:]
+    private var cellHeightNames: [String: CGFloat] = [:]
     private var pickedStartView: String {
         return UserDefaults.standard.string(forKey: "startView") ?? ""
     }
@@ -63,15 +67,33 @@ class ConverterTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         setupFetchedResultsController()
         
-        if pickedStartView == "Конвертер" {
-            currencyManager.checkOnFirstLaunchToday()
+        if pickedStartView == "Конвертер" { currencyManager.checkOnFirstLaunchToday() }
+        shouldAnimateCellAppear = tableViewIsInEditingMode ? true : false
+        
+        if dataSourceWasChanged {
+            cellHeightNames.removeAll()
+            recalculateCellsHeight()
+            dataSourceWasChanged = false
+            avoidTriggerCellsHeightChange = false
+            tableView.reloadData()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        avoidTriggerCellsHeightChange = true
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
         turnEditing()
-        isInEdit = false
-        tableView.reloadData()
+        tableViewIsInEditingMode = false
+        
+        for cell in activeConverterCells { cell.animateIn() }
+        for cell in self.activeConverterCells { cell.switchNumberTextField(to: .on) }
+        
+        updateTableView()
+        canSetCustomCellHeight = true
+        updateTableView()
     }
     
     // MARK: - TableView DataSource Methods
@@ -90,7 +112,6 @@ class ConverterTableViewController: UITableViewController {
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
             cell.numberTextField.inputView = NumpadView(target: cell.numberTextField, view: view)
-            cell.numberTextField.isHidden = isInEdit ? true : false
             cell.activityIndicator.isHidden = cell.shortName.text == pickedCellShortName ? false : true
             if numberFromTextField == 0 {
                 cell.activityIndicator.isHidden = true
@@ -106,7 +127,6 @@ class ConverterTableViewController: UITableViewController {
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
             cell.numberTextField.inputView = NumpadView(target: cell.numberTextField, view: view)
-            cell.numberTextField.isHidden = isInEdit ? true : false
             cell.activityIndicator.isHidden = cell.shortName.text == pickedCellShortName ? false : true
             if numberFromTextField == 0 {
                 cell.activityIndicator.isHidden = true
@@ -116,8 +136,10 @@ class ConverterTableViewController: UITableViewController {
                 cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
             }
         }
+        cell.numberTextField.isHidden = tableViewIsInEditingMode ? true : false
+        cell.numberTextField.alpha = tableViewIsInEditingMode ? 0 : 1
+        cell.numberTextField.isUserInteractionEnabled = tableViewIsInEditingMode ? false : true
         cell.secondFullName.text = currencyManager.currencyFullNameDict[cell.shortName.text ?? "RUB"]?.shortName
-        if canDisplayShortVersionOfFullName { cell.changeFullNameOnShortName() }
         
         if setTextFieldToZero {
             cell.numberTextField.text = "0"
@@ -125,23 +147,42 @@ class ConverterTableViewController: UITableViewController {
             cell.activityIndicator.isHidden = true
         }
         activeConverterCells.insert(cell)
+        calculateHeight(for: cell, at: indexPath)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if canSetCustomCellHeight {
+            if let height = cellHeights[indexPath] {
+                return height
+            } else {
+                return UITableView.automaticDimension
+            }
+        } else {
+            return UITableView.automaticDimension
+        }
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let move = UIContextualAction(style: .normal, title: nil) { [self] action, view, completionHandler in
             turnEditing()
             turnEditing()
-            isInEdit = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                tableView.reloadData()
-            }
+            canSetCustomCellHeight = false
+            tableViewIsInEditingMode = true
+            
+            for cell in self.activeConverterCells { cell.animateOut(completion: nil) }
+            for cell in self.activeConverterCells { cell.switchNumberTextField(to: .off) }
+            updateTableView()
             completionHandler(true)
         }
         move.image = UIImage(named: "line.3.horizontal")
         move.backgroundColor = UIColor(named: "BlueColor")
         
         let delete = UIContextualAction(style: .destructive, title: nil) { [self] (action, view, completionHandler) in
+            canSetCustomCellHeight = false
+            shouldAnimateCellAppear = false
+            avoidTriggerCellsHeightChange = true
+            
             if pickedDataSource == "ЦБ РФ" {
                 var currentAmount = amountOfPickedBankOfRussiaCurrencies
                 let currencies = bankOfRussiaFRC.fetchedObjects!
@@ -166,6 +207,13 @@ class ConverterTableViewController: UITableViewController {
                 converterManager.deleteRow(for: currency, in: currencies)
             }
             coreDataManager.save()
+            updateCellsHeightAfterDeletion(at: indexPath)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.canSetCustomCellHeight = true
+                self.avoidTriggerCellsHeightChange = false
+                self.updateTableView()
+            }
             completionHandler(true)
         }
         delete.image = UIImage(named: "trash")
@@ -197,6 +245,65 @@ class ConverterTableViewController: UITableViewController {
     @objc func refreshConverterFRC() {
         UserDefaults.standard.set(true, forKey: "setTextFieldToZero")
         setupFetchedResultsController()
+        dataSourceWasChanged = true
+    }
+    
+    func recalculateCellsHeight(clearCellHeightNames: Bool = true) {
+        if clearCellHeightNames { cellHeightNames.removeAll() }
+        cellHeights.removeAll()
+        if clearCellHeightNames { tableView.reloadData() }
+        
+        for cell in activeConverterCells {
+            guard let indexPath = tableView.indexPath(for: cell) else { return }
+            if cellHeightNames.contains(where: { $0.key == cell.shortName.text }) {
+                cellHeights[indexPath] = cellHeightNames[cell.shortName.text ?? ""]
+            }
+        }
+        if clearCellHeightNames { tableView.reloadData() }
+    }
+    
+    func calculateHeight(for cell: ConverterTableViewCell, at indexPath: IndexPath) {
+        let twoLineHeight = cell.fullName.font.lineHeight * 2
+        let fullNameHeight = cell.fullName.sizeThatFits(CGSize(width: cell.fullName.frame.width, height: CGFloat.greatestFiniteMagnitude)).height
+        
+        if fullNameHeight > twoLineHeight && !textFieldIsEditing && !tableViewIsInEditingMode && !avoidTriggerCellsHeightChange {
+            cellHeights[indexPath] = (fullNameHeight * 2) + cell.shortName.frame.height
+            cellHeightNames[cell.shortName.text ?? ""] = (fullNameHeight * 2) + cell.shortName.frame.height
+        }
+    }
+    
+    func updateCellsHeightAfterDeletion(at indexPath: IndexPath) {
+        for cell in cellHeights {
+            if cell.key.row > indexPath.row {
+                let newIndexPath = IndexPath(row: cell.key.row - 1, section: 0)
+                cellHeights[newIndexPath] = cell.value
+                cellHeights.removeValue(forKey: cell.key)
+            } else if cell.key.row == indexPath.row  {
+                cellHeights.removeValue(forKey: cell.key)
+            }
+        }
+    }
+    
+    @objc func updateCells(_ notification: Notification) {
+        guard let currencyWasAdded = notification.userInfo?["currencyWasAdded"] as? Bool else { return }
+        for cell in self.activeConverterCells { cell.changeShortNameOnFullName() }
+        shouldAnimateCellAppear = tableViewIsInEditingMode ? true : false
+        
+        if !currencyWasAdded {
+            recalculateCellsHeight()
+        } else {
+            avoidTriggerCellsHeightChange = true
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+            self.avoidTriggerCellsHeightChange = false
+            self.tableView.reloadData()
+        })
+    }
+    
+    func updateTableView() {
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
     
     //MARK: - TableView Delegate Methods
@@ -206,6 +313,9 @@ class ConverterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        shouldAnimateCellAppear = true
+        canSetCustomCellHeight = false
+        
         if pickedDataSource == "ЦБ РФ" {
             var currencies = bankOfRussiaFRC.fetchedObjects!
             let currency = bankOfRussiaFRC.object(at: sourceIndexPath)
@@ -228,7 +338,7 @@ class ConverterTableViewController: UITableViewController {
             }
         }
         coreDataManager.save()
-        tableView.reloadData()
+        recalculateCellsHeight(clearCellHeightNames: false)
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -244,9 +354,17 @@ class ConverterTableViewController: UITableViewController {
 
 extension ConverterTableViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        canSetCustomCellHeight = false
+        updateTableView()
+        
         textFieldIsEditing = true
         shouldAnimateCellAppear = true
-        for cell in activeConverterCells { cell.animateOut() }
+        
+        for cell in activeConverterCells {
+            cell.animateOut { done in
+                if done && !self.textFieldIsEditing { cell.changeShortNameOnFullName() }
+            }
+        }
         
         setupNumpadResetButtonTitle(accordingTo: textField)
         turnOnCellActivityIndicator(with: textField)
@@ -262,6 +380,10 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        canSetCustomCellHeight = true
+        updateTableView()
+
+        textFieldIsEditing = false
         shouldAnimateCellAppear = false
         if !textFieldIsEditing { for cell in activeConverterCells { cell.animateIn() } }
         textField.textColor = UIColor(named: "BlackColor")
@@ -280,9 +402,9 @@ extension ConverterTableViewController: UITextFieldDelegate {
         }
         
         if shouldAnimateCellAppear {
-            for cell in activeConverterCells {cell.animateOut(withAnimation: false)}
+            for cell in activeConverterCells { cell.changeFullNameOnShortName() }
         } else {
-            for cell in activeConverterCells {cell.animateIn(withAnimation: false)}
+            for cell in activeConverterCells { cell.changeShortNameOnFullName() }
         }
     }
     
@@ -519,11 +641,8 @@ extension ConverterTableViewController: UITextFieldDelegate {
             }
         }
         numberFromTextField = numberForTextField
-        
-       if allowedToReloadCurrencyRows(using: rangeString) {
-           canDisplayShortVersionOfFullName = true
-           reloadCurrencyRows()
-       }
+        if allowedToReloadCurrencyRows(using: rangeString) { reloadCurrencyRows() }
+
         //Update textField's caret after copying a number from a clipboard
         DispatchQueue.main.async {
             let range = textField.textRange(from: textField.endOfDocument, to: textField.endOfDocument)
@@ -593,10 +712,6 @@ extension ConverterTableViewController: UITextFieldDelegate {
         guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
         cell.numberTextField.text = "0"
     }
-    
-    @objc func updateCells() {
-        for cell in activeConverterCells { cell.animateIn() }
-    }
 }
 
 extension ConverterTableViewController {
@@ -660,7 +775,7 @@ extension ConverterTableViewController: NSFetchedResultsControllerDelegate {
         switch type {
         case .update:
             if let indexPath = indexPath {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.tableView.reloadRows(at: [indexPath], with: .none)
                 }
             }

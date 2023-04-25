@@ -471,6 +471,7 @@ extension CurrencyViewController {
                 self.coreDataManager.filterOutForexBaseCurrency()
             }
         }
+        setupFetchedResultsController()
         
         currencyNetworking.performRequest { networkingError, parsingError in
             if networkingError != nil {
@@ -482,7 +483,6 @@ extension CurrencyViewController {
                     PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
                 }
             } else {
-                self.setupFetchedResultsController()
                 self.tableView.refreshControl?.endRefreshing()
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
                 PopupQueueManager.shared.addPopupToQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
