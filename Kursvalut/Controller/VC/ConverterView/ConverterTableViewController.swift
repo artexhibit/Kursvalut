@@ -16,9 +16,9 @@ class ConverterTableViewController: UITableViewController {
     private var pickedBankOfRussiaCurrency: Currency?
     private var pickedForexCurrency: ForexCurrency?
     private var tableViewIsInEditingMode = false
-    private var pickedCellShortName = ""
     private var pickedNameArray = [String]()
     private var pickedTextField = UITextField()
+    private var calculationResult = "0"
     private var activeConverterCells = Set<ConverterTableViewCell>()
     private var textFieldIsEditing = false
     private var shouldAnimateCellAppear = false
@@ -54,6 +54,16 @@ class ConverterTableViewController: UITableViewController {
     private var canResetValuesInActiveTextField: Bool {
         return UserDefaults.standard.bool(forKey: "canResetValuesInActiveTextField")
     }
+    private var saveConverterValuesTurnedOn: Bool {
+        return UserDefaults.standard.bool(forKey: "canSaveConverterValues")
+    }
+    private var pickedConverterCurrency: String {
+        if pickedDataSource == "ЦБ РФ" {
+           return UserDefaults.standard.string(forKey: "bankOfRussiaPickedCurrency") ?? ""
+        } else {
+            return UserDefaults.standard.string(forKey: "forexPickedCurrency") ?? ""
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +71,8 @@ class ConverterTableViewController: UITableViewController {
         currencyManager.configureContentInset(for: tableView, top: 10)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshConverterFRC), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCells), name: NSNotification.Name(rawValue: "updateCells"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboardButtonPressed), name: NSNotification.Name(rawValue: "hideKeyboardButtonPressed"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,11 +89,17 @@ class ConverterTableViewController: UITableViewController {
             avoidTriggerCellsHeightChange = false
             tableView.reloadData()
         }
+        
+//        if !saveConverterValuesTurnedOn {
+//            UserDefaults.standard.set("", forKey: "bankOfRussiaPickedCurrency")
+//            UserDefaults.standard.set("", forKey: "forexPickedCurrency")
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         avoidTriggerCellsHeightChange = true
+        if saveConverterValuesTurnedOn { saveTextFieldNumbers() }
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
@@ -94,6 +112,14 @@ class ConverterTableViewController: UITableViewController {
         updateTableView()
         canSetCustomCellHeight = true
         updateTableView()
+    }
+    
+    @IBAction func addNewCurrencyButtonPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "goToCurrencyList", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToCurrencyList" { saveTextFieldNumbers() }
     }
     
     // MARK: - TableView DataSource Methods
@@ -112,13 +138,16 @@ class ConverterTableViewController: UITableViewController {
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
             cell.numberTextField.inputView = NumpadView(target: cell.numberTextField, view: view)
-            cell.activityIndicator.isHidden = cell.shortName.text == pickedCellShortName ? false : true
-            if numberFromTextField == 0 {
-                cell.activityIndicator.isHidden = true
-            }
+            cell.activityIndicator.isHidden = cell.shortName.text == pickedConverterCurrency ? false : true
             
             if let number = numberFromTextField, let pickedCurrency = pickedBankOfRussiaCurrency {
-                cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
+                print(number, pickedCurrency.shortName!, currency.shortName!)
+                calculationResult = converterManager.performCalculation(with: number, pickedCurrency, currency)
+            }
+            if saveConverterValuesTurnedOn {
+                cell.numberTextField.text = textFieldIsEditing ? calculationResult : currency.converterValue
+            } else {
+                cell.numberTextField.text = calculationResult
             }
         } else {
             let currency = forexFRC.object(at: indexPath)
@@ -127,13 +156,15 @@ class ConverterTableViewController: UITableViewController {
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
             cell.numberTextField.inputView = NumpadView(target: cell.numberTextField, view: view)
-            cell.activityIndicator.isHidden = cell.shortName.text == pickedCellShortName ? false : true
-            if numberFromTextField == 0 {
-                cell.activityIndicator.isHidden = true
-            }
+            cell.activityIndicator.isHidden = cell.shortName.text == pickedConverterCurrency ? false : true
             
             if let number = numberFromTextField, let pickedCurrency = pickedForexCurrency {
-                cell.numberTextField.text = converterManager.performCalculation(with: number, pickedCurrency, currency)
+                calculationResult = converterManager.performCalculation(with: number, pickedCurrency, currency)
+            }
+            if saveConverterValuesTurnedOn {
+                cell.numberTextField.text = textFieldIsEditing ? calculationResult : currency.converterValue
+            } else {
+                cell.numberTextField.text = calculationResult
             }
         }
         cell.numberTextField.isHidden = tableViewIsInEditingMode ? true : false
@@ -141,7 +172,7 @@ class ConverterTableViewController: UITableViewController {
         cell.numberTextField.isUserInteractionEnabled = tableViewIsInEditingMode ? false : true
         cell.secondFullName.text = currencyManager.currencyFullNameDict[cell.shortName.text ?? "RUB"]?.shortName
         
-        if setTextFieldToZero {
+        if setTextFieldToZero && !saveConverterValuesTurnedOn {
             cell.numberTextField.text = "0"
             numberFromTextField = 0
             cell.activityIndicator.isHidden = true
@@ -179,7 +210,6 @@ class ConverterTableViewController: UITableViewController {
         move.backgroundColor = UIColor(named: "BlueColor")
         
         let delete = UIContextualAction(style: .destructive, title: nil) { [self] (action, view, completionHandler) in
-            canSetCustomCellHeight = false
             shouldAnimateCellAppear = false
             avoidTriggerCellsHeightChange = true
             
@@ -193,6 +223,15 @@ class ConverterTableViewController: UITableViewController {
                     currentAmount -= 1
                     UserDefaults.standard.set(currentAmount, forKey: "savedAmountForBankOfRussia")
                 }
+                if pickedConverterCurrency == currency.shortName {
+                    UserDefaults.standard.set("", forKey: "bankOfRussiaPickedCurrency")
+                    numberFromTextField = 0
+    
+                    currencies.forEach { currency in
+                        currency.converterValue = "0"
+                        coreDataManager.save()
+                    }
+                }
                 converterManager.deleteRow(for: currency, in: currencies)
             } else {
                 var currentAmount = amountOfPickedForexCurrencies
@@ -204,13 +243,21 @@ class ConverterTableViewController: UITableViewController {
                     currentAmount -= 1
                     UserDefaults.standard.set(currentAmount, forKey: "savedAmountForForex")
                 }
+                if pickedConverterCurrency == currency.shortName {
+                    UserDefaults.standard.set("", forKey: "forexPickedCurrency")
+                    numberFromTextField = 0
+                    
+                    currencies.forEach { currency in
+                        currency.converterValue = "0"
+                        coreDataManager.save()
+                    }
+                }
                 converterManager.deleteRow(for: currency, in: currencies)
             }
             coreDataManager.save()
             updateCellsHeightAfterDeletion(at: indexPath)
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.canSetCustomCellHeight = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 self.avoidTriggerCellsHeightChange = false
                 self.updateTableView()
             }
@@ -248,6 +295,16 @@ class ConverterTableViewController: UITableViewController {
         dataSourceWasChanged = true
     }
     
+    @objc func appMovedToBackground() {
+        saveTextFieldNumbers()
+        textFieldIsEditing = false
+    }
+    
+    @objc func hideKeyboardButtonPressed() {
+        for cell in activeConverterCells { cell.animateIn() }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { self.saveTextFieldNumbers() }
+    }
+    
     func recalculateCellsHeight(clearCellHeightNames: Bool = true) {
         if clearCellHeightNames { cellHeightNames.removeAll() }
         cellHeights.removeAll()
@@ -273,13 +330,39 @@ class ConverterTableViewController: UITableViewController {
     }
     
     func updateCellsHeightAfterDeletion(at indexPath: IndexPath) {
+        var cellHeightsInitialArray = Array(cellHeights)
+        
+        cellHeightsInitialArray = cellHeightsInitialArray.map { element in
+            var modifiedKey = IndexPath()
+            
+            modifiedKey = element.key[1] > 0 ? [element.key[0], element.key[1] - 1] : [element.key[0], element.key[1]]
+            return (key: modifiedKey, value: element.value)
+        }
+       
         for cell in cellHeights {
             if cell.key.row > indexPath.row {
                 let newIndexPath = IndexPath(row: cell.key.row - 1, section: 0)
                 cellHeights[newIndexPath] = cell.value
+                
+                cellHeights = cellHeights.filter { key, _ in
+                    cellHeightsInitialArray.contains { $0.key == key }
+                }
+            } else if cell.key.row == indexPath.row && cellHeights.count <= 1 {
                 cellHeights.removeValue(forKey: cell.key)
-            } else if cell.key.row == indexPath.row  {
-                cellHeights.removeValue(forKey: cell.key)
+            } else {
+                var shouldDeleteRowUnderAllBigCells = false
+                for cell in cellHeightsInitialArray { shouldDeleteRowUnderAllBigCells = cell.key.row < indexPath.row ? true : false }
+                
+                if !shouldDeleteRowUnderAllBigCells {
+                    for cell in cellHeightsInitialArray {
+                        if cell.key.row < indexPath.row {
+                            let indexPath = IndexPath(row: cell.key.row + 1, section: 0)
+                            cellHeights[indexPath] = cell.value
+                            cellHeightsInitialArray.append((key: indexPath, value: cell.value))
+                        }
+                    }
+                    shouldDeleteRowUnderAllBigCells = false
+                }
             }
         }
     }
@@ -289,21 +372,79 @@ class ConverterTableViewController: UITableViewController {
         for cell in self.activeConverterCells { cell.changeShortNameOnFullName() }
         shouldAnimateCellAppear = tableViewIsInEditingMode ? true : false
         
-        if !currencyWasAdded {
-            recalculateCellsHeight()
-        } else {
+        if currencyWasAdded {
             avoidTriggerCellsHeightChange = true
+        } else {
+            recalculateCellsHeight()
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             self.avoidTriggerCellsHeightChange = false
             self.tableView.reloadData()
+            if currencyWasAdded { self.calculateNumberForNewlyAddedCurrency() }
         })
     }
     
     func updateTableView() {
         tableView.beginUpdates()
         tableView.endUpdates()
+    }
+    
+    func calculateNumberForNewlyAddedCurrency() {
+        let lastRow = tableView.numberOfRows(inSection: 0) - 1
+        let indexPath = IndexPath(row: lastRow, section: 0)
+        let formatter = converterManager.setupNumberFormatter()
+        
+        if pickedDataSource == "ЦБ РФ" {
+            let bankOfRussiaCurrency = bankOfRussiaFRC.object(at: indexPath)
+            let allCurrencies = bankOfRussiaFRC.fetchedObjects
+            
+            allCurrencies?.forEach({ currency in
+                if currency.shortName == pickedConverterCurrency {
+                    pickedBankOfRussiaCurrency = currency
+                    numberFromTextField = formatter.number(from: currency.converterValue ?? "0")?.doubleValue ?? 0
+                }
+            })
+            if let number = numberFromTextField, let pickedCurrency = pickedBankOfRussiaCurrency {
+                bankOfRussiaCurrency.converterValue = converterManager.performCalculation(with: number, pickedCurrency, bankOfRussiaCurrency)
+            }
+        } else {
+            let forexCurrency = forexFRC.object(at: indexPath)
+            let allCurrencies = forexFRC.fetchedObjects
+
+            allCurrencies?.forEach({ currency in
+                if currency.shortName == pickedConverterCurrency {
+                    pickedForexCurrency = currency
+                    numberFromTextField = formatter.number(from: currency.converterValue ?? "0")?.doubleValue ?? 0
+                }
+            })
+            if let number = numberFromTextField, let pickedCurrency = pickedForexCurrency {
+                forexCurrency.converterValue = converterManager.performCalculation(with: number, pickedCurrency, forexCurrency)
+            }
+        }
+        coreDataManager.save()
+        textFieldIsEditing = true
+        tableView.reloadData()
+        textFieldIsEditing = false
+    }
+    
+    func saveTextFieldNumbers() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+            avoidTriggerCellsHeightChange = true
+            for cell in activeConverterCells {
+                if let indexPath = tableView.indexPath(for: cell) {
+                    if pickedDataSource == "ЦБ РФ" {
+                        let currency = bankOfRussiaFRC.object(at: indexPath)
+                        currency.converterValue = cell.numberTextField.text
+                    } else {
+                        let currency = forexFRC.object(at: indexPath)
+                        currency.converterValue = cell.numberTextField.text
+                    }
+                }
+            }
+            coreDataManager.save()
+        }
+        avoidTriggerCellsHeightChange = false
     }
     
     //MARK: - TableView Delegate Methods
@@ -385,12 +526,20 @@ extension ConverterTableViewController: UITextFieldDelegate {
 
         textFieldIsEditing = false
         shouldAnimateCellAppear = false
-        if !textFieldIsEditing { for cell in activeConverterCells { cell.animateIn() } }
         textField.textColor = UIColor(named: "BlackColor")
         
         guard let text = textField.text else { return }
-        if text.isEmpty { textField.text = "0" }
-        turnOffCellActivityIndicator(with: textField)
+        
+        if text.isEmpty {
+            textField.text = "0"
+            
+            if pickedDataSource == "ЦБ РФ" {
+                UserDefaults.standard.set("", forKey: "bankOfRussiaPickedCurrency")
+            } else {
+                UserDefaults.standard.set("", forKey: "forexPickedCurrency")
+            }
+            for cell in activeConverterCells { cell.turnOffActivityIndicator() }
+        }
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -686,24 +835,29 @@ extension ConverterTableViewController: UITextFieldDelegate {
         if cell.numberTextField.isFirstResponder {
             cell.activityIndicator.isHidden = false
         }
-        pickedCellShortName = cell.shortName.text ?? ""
-    }
-    
-    func turnOffCellActivityIndicator(with textField: UITextField) {
-        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
-        guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
         
-        if !cell.numberTextField.isFirstResponder && numberFromTextField == 0 {
-            cell.activityIndicator.isHidden = true
+        if pickedDataSource == "ЦБ РФ" {
+            UserDefaults.standard.set(cell.shortName.text, forKey: "bankOfRussiaPickedCurrency")
+        } else {
+            UserDefaults.standard.set(cell.shortName.text, forKey: "forexPickedCurrency")
         }
     }
+    
+//    func turnOffCellActivityIndicator(with textField: UITextField) {
+//        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
+//        guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
+//
+//        if !cell.numberTextField.isFirstResponder && numberFromTextField == 0 {
+//            cell.activityIndicator.isHidden = true
+//        }
+//    }
     
     func setupNumpadResetButtonTitle(accordingTo textField: UITextField) {
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
         guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
         guard let numpadView = cell.numberTextField.inputView as? NumpadView else { return }
-        guard let text = textField.text?.count else { return }
-        let title = text <= 1 ? "AC" : "C"
+        guard let text = textField.text else { return }
+        let title = text == "0" || text.isEmpty ? "AC" : "C"
         numpadView.resetButton.setTitle(title, for: .normal)
     }
     

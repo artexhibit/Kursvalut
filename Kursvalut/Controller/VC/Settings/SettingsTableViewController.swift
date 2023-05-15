@@ -13,6 +13,7 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var keyboardSoundSwitch: UISwitch!
     @IBOutlet weak var roundFlagsSwitch: UISwitch!
     @IBOutlet weak var converterValuesResetSwitch: UISwitch!
+    @IBOutlet weak var saveConverterValuesSwitch: UISwitch!
     
     private var pickedTheme: String {
         return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
@@ -29,6 +30,9 @@ class SettingsTableViewController: UITableViewController {
     private var canResetValuesInActiveTextField: Bool {
         return UserDefaults.standard.bool(forKey: "canResetValuesInActiveTextField")
     }
+    private var saveConverterValuesTurnedOn: Bool {
+        return UserDefaults.standard.bool(forKey: "canSaveConverterValues")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +47,7 @@ class SettingsTableViewController: UITableViewController {
         pickedThemeLabel.text = pickedTheme
         loadKeyboardSoundSwitchState()
         loadConverterValueSwitchState()
+        loadSaveConverterValueSwitchState()
         loadFlagsSwitchState()
     }
     
@@ -70,6 +75,14 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func saveConverterValuesSwitchPressed(_ sender: UISwitch) {
+        if saveConverterValuesSwitch.isOn {
+            UserDefaults.standard.set(true, forKey: "canSaveConverterValues")
+        } else {
+            UserDefaults.standard.set(false, forKey: "canSaveConverterValues")
+        }
+    }
+    
     @IBAction func keyboardSoundSwitchPressed(_ sender: UISwitch) {
         if keyboardSoundSwitch.isOn {
             UserDefaults.standard.set(true, forKey: "keyboardWithSound")
@@ -91,6 +104,14 @@ class SettingsTableViewController: UITableViewController {
             converterValuesResetSwitch.setOn(true, animated: false)
         } else {
             converterValuesResetSwitch.setOn(false, animated: false)
+        }
+    }
+    
+    func loadSaveConverterValueSwitchState() {
+        if saveConverterValuesTurnedOn {
+            saveConverterValuesSwitch.setOn(true, animated: false)
+        } else {
+            saveConverterValuesSwitch.setOn(false, animated: false)
         }
     }
     

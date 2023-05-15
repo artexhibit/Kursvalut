@@ -165,6 +165,12 @@ class ConverterTableViewCell: UITableViewCell {
         }
     }
     
+    func turnOffActivityIndicator() {
+        UIView.animate(withDuration: 0.5) {
+            self.activityIndicator.isHidden = true
+        }
+    }
+    
     private func returnNumberTextFieldViewToInitialState(completion: (() -> Void)) {
         self.infoStackViewWidthConstraint?.isActive = false
         self.storyboardNumberTextFieldViewWidthConstraint = self.numberTextFieldWidthConstraint
