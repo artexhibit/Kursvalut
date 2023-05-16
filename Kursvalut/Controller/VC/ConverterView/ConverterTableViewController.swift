@@ -22,6 +22,8 @@ class ConverterTableViewController: UITableViewController {
     private var activeConverterCells = Set<ConverterTableViewCell>()
     private var textFieldIsEditing = false
     private var shouldAnimateCellAppear = false
+    private var textFieldTextWasEdited = false
+    private var lastPickedData = (number: 0.0, shortName: "")
     private var converterScreenDecimalsAmount: Int {
         return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
     }
@@ -141,7 +143,6 @@ class ConverterTableViewController: UITableViewController {
             cell.activityIndicator.isHidden = cell.shortName.text == pickedConverterCurrency ? false : true
             
             if let number = numberFromTextField, let pickedCurrency = pickedBankOfRussiaCurrency {
-                print(number, pickedCurrency.shortName!, currency.shortName!)
                 calculationResult = converterManager.performCalculation(with: number, pickedCurrency, currency)
             }
             if saveConverterValuesTurnedOn {
@@ -301,6 +302,25 @@ class ConverterTableViewController: UITableViewController {
     }
     
     @objc func hideKeyboardButtonPressed() {
+        if pickedDataSource == "ЦБ РФ" {
+            let currencies = bankOfRussiaFRC.fetchedObjects
+            
+            currencies?.forEach({ currency in
+                if currency.shortName == lastPickedData.shortName {
+                    pickedBankOfRussiaCurrency = currency
+                    numberFromTextField = lastPickedData.number
+                }
+            })
+        } else {
+            let currencies = forexFRC.fetchedObjects
+            
+            currencies?.forEach({ currency in
+                if currency.shortName == lastPickedData.shortName {
+                    pickedForexCurrency = currency
+                    numberFromTextField = lastPickedData.number
+                }
+            })
+        }
         for cell in activeConverterCells { cell.animateIn() }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { self.saveTextFieldNumbers() }
     }
@@ -521,6 +541,8 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        if textFieldTextWasEdited { saveLastPickedTextFieldData() }
+        
         canSetCustomCellHeight = true
         updateTableView()
 
@@ -606,10 +628,14 @@ extension ConverterTableViewController: UITextFieldDelegate {
                 }
             }
         }
+        textFieldTextWasEdited = false
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        textFieldTextWasEdited = true
         var digitsLimitNotReached = true
+        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
+        let currentlyEditingCell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell
         let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount, roundDown: true, needMinFractionDigits: true)
         
         let numberString = "\(textField.text ?? "")".replacingOccurrences(of: formatter.groupingSeparator, with: "")
@@ -791,6 +817,20 @@ extension ConverterTableViewController: UITextFieldDelegate {
         }
         numberFromTextField = numberForTextField
         if allowedToReloadCurrencyRows(using: rangeString) { reloadCurrencyRows() }
+        
+        if pickedDataSource == "ЦБ РФ" {
+            UserDefaults.standard.set(currentlyEditingCell?.shortName.text, forKey: "bankOfRussiaPickedCurrency")
+        } else {
+            UserDefaults.standard.set(currentlyEditingCell?.shortName.text, forKey: "forexPickedCurrency")
+        }
+        
+        for cell in activeConverterCells {
+            if cell.shortName.text != currentlyEditingCell?.shortName.text {
+                cell.turnOffActivityIndicator()
+            } else {
+                cell.activityIndicator.isHidden = false
+            }
+        }
 
         //Update textField's caret after copying a number from a clipboard
         DispatchQueue.main.async {
@@ -835,22 +875,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         if cell.numberTextField.isFirstResponder {
             cell.activityIndicator.isHidden = false
         }
-        
-        if pickedDataSource == "ЦБ РФ" {
-            UserDefaults.standard.set(cell.shortName.text, forKey: "bankOfRussiaPickedCurrency")
-        } else {
-            UserDefaults.standard.set(cell.shortName.text, forKey: "forexPickedCurrency")
-        }
     }
-    
-//    func turnOffCellActivityIndicator(with textField: UITextField) {
-//        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
-//        guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
-//
-//        if !cell.numberTextField.isFirstResponder && numberFromTextField == 0 {
-//            cell.activityIndicator.isHidden = true
-//        }
-//    }
     
     func setupNumpadResetButtonTitle(accordingTo textField: UITextField) {
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
@@ -865,6 +890,17 @@ extension ConverterTableViewController: UITextFieldDelegate {
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
         guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
         cell.numberTextField.text = "0"
+    }
+    
+    func saveLastPickedTextFieldData() {
+        let formatter = converterManager.setupNumberFormatter()
+        
+        for cell in activeConverterCells {
+            if cell.shortName.text == pickedConverterCurrency {
+                lastPickedData.number = formatter.number(from: cell.numberTextField.text ?? "0")?.doubleValue ?? 0.0
+                lastPickedData.shortName = cell.shortName.text ?? ""
+            }
+        }
     }
 }
 
