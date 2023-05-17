@@ -560,7 +560,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
             } else {
                 UserDefaults.standard.set("", forKey: "forexPickedCurrency")
             }
-            for cell in activeConverterCells { cell.turnOffActivityIndicator() }
+            for cell in activeConverterCells { cell.activityIndicator.isHidden = true }
         }
     }
     
@@ -637,9 +637,22 @@ extension ConverterTableViewController: UITextFieldDelegate {
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
         let currentlyEditingCell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell
         let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount, roundDown: true, needMinFractionDigits: true)
-        
         let numberString = "\(textField.text ?? "")".replacingOccurrences(of: formatter.groupingSeparator, with: "")
         let rangeString = (((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)).replacingOccurrences(of: formatter.groupingSeparator, with: "")
+        
+        if pickedDataSource == "ЦБ РФ" {
+            UserDefaults.standard.set(currentlyEditingCell?.shortName.text, forKey: "bankOfRussiaPickedCurrency")
+        } else {
+            UserDefaults.standard.set(currentlyEditingCell?.shortName.text, forKey: "forexPickedCurrency")
+        }
+        
+        for cell in activeConverterCells {
+            if cell.shortName.text != currentlyEditingCell?.shortName.text {
+                cell.activityIndicator.isHidden = true
+            } else {
+                cell.activityIndicator.isHidden = false
+            }
+        }
         
         //restrict amount of digits in each number user enters in a textField
         if !rangeString.contains(where: {"+-÷x".contains($0)}) {
@@ -817,20 +830,6 @@ extension ConverterTableViewController: UITextFieldDelegate {
         }
         numberFromTextField = numberForTextField
         if allowedToReloadCurrencyRows(using: rangeString) { reloadCurrencyRows() }
-        
-        if pickedDataSource == "ЦБ РФ" {
-            UserDefaults.standard.set(currentlyEditingCell?.shortName.text, forKey: "bankOfRussiaPickedCurrency")
-        } else {
-            UserDefaults.standard.set(currentlyEditingCell?.shortName.text, forKey: "forexPickedCurrency")
-        }
-        
-        for cell in activeConverterCells {
-            if cell.shortName.text != currentlyEditingCell?.shortName.text {
-                cell.turnOffActivityIndicator()
-            } else {
-                cell.activityIndicator.isHidden = false
-            }
-        }
 
         //Update textField's caret after copying a number from a clipboard
         DispatchQueue.main.async {
