@@ -92,10 +92,10 @@ class ConverterTableViewController: UITableViewController {
             tableView.reloadData()
         }
         
-//        if !saveConverterValuesTurnedOn {
-//            UserDefaults.standard.set("", forKey: "bankOfRussiaPickedCurrency")
-//            UserDefaults.standard.set("", forKey: "forexPickedCurrency")
-//        }
+        if !saveConverterValuesTurnedOn && lastPickedData.number == 0 {
+            UserDefaults.standard.set("", forKey: "bankOfRussiaPickedCurrency")
+            UserDefaults.standard.set("", forKey: "forexPickedCurrency")
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -529,7 +529,11 @@ extension ConverterTableViewController: UITextFieldDelegate {
         
         setupNumpadResetButtonTitle(accordingTo: textField)
         turnOnCellActivityIndicator(with: textField)
-        if canResetValuesInActiveTextField { resetValuesIn(textField: textField) }
+        
+        if canResetValuesInActiveTextField {
+            setCellActiveIndicator(in: textField)
+            for cell in activeConverterCells { cell.numberTextField.text = "0" }
+        }
         
         if textField.text == "0" {
             numberFromTextField = 0
@@ -591,69 +595,19 @@ extension ConverterTableViewController: UITextFieldDelegate {
         
         if pickedDataSource == "ЦБ РФ" {
             pickedBankOfRussiaCurrency = bankOfRussiaFRC.object(at: pickedCurrencyIndexPath)
-            guard canResetValuesInActiveTextField else { return }
-            guard let currencyName = pickedBankOfRussiaCurrency?.shortName else { return }
-            converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
-            
-            pickedNameArray.append(currencyName)
-            
-            for name in pickedNameArray {
-                guard let currencyName = pickedBankOfRussiaCurrency?.shortName else { return }
-                if name != currencyName {
-                    numberFromTextField = 0
-                    textField.placeholder = "0"
-                    textField.text = ""
-                }
-                if pickedNameArray.count > 1 {
-                    pickedNameArray.remove(at: 0)
-                }
-            }
         } else {
             pickedForexCurrency = forexFRC.object(at: pickedCurrencyIndexPath)
-            guard canResetValuesInActiveTextField else { return }
-            guard let currencyName = pickedForexCurrency?.shortName else { return }
-            converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
-            
-            pickedNameArray.append(currencyName)
-            
-            for name in pickedNameArray {
-                guard let currencyName = pickedForexCurrency?.shortName else { return }
-                if name != currencyName {
-                    numberFromTextField = 0
-                    textField.placeholder = "0"
-                    textField.text = ""
-                }
-                if pickedNameArray.count > 1 {
-                    pickedNameArray.remove(at: 0)
-                }
-            }
         }
-        textFieldTextWasEdited = false
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         textFieldTextWasEdited = true
         var digitsLimitNotReached = true
-        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
-        let currentlyEditingCell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell
         let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount, roundDown: true, needMinFractionDigits: true)
         let numberString = "\(textField.text ?? "")".replacingOccurrences(of: formatter.groupingSeparator, with: "")
         let rangeString = (((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)).replacingOccurrences(of: formatter.groupingSeparator, with: "")
         
-        if pickedDataSource == "ЦБ РФ" {
-            UserDefaults.standard.set(currentlyEditingCell?.shortName.text, forKey: "bankOfRussiaPickedCurrency")
-        } else {
-            UserDefaults.standard.set(currentlyEditingCell?.shortName.text, forKey: "forexPickedCurrency")
-        }
-        
-        for cell in activeConverterCells {
-            if cell.shortName.text != currentlyEditingCell?.shortName.text {
-                cell.activityIndicator.isHidden = true
-            } else {
-                cell.activityIndicator.isHidden = false
-            }
-        }
-        
+        setCellActiveIndicator(in: textField)
         //restrict amount of digits in each number user enters in a textField
         if !rangeString.contains(where: {"+-÷x".contains($0)}) {
             digitsLimitNotReached = restrictEnteredDigitAmount(from: rangeString)
@@ -885,12 +839,6 @@ extension ConverterTableViewController: UITextFieldDelegate {
         numpadView.resetButton.setTitle(title, for: .normal)
     }
     
-    func resetValuesIn(textField: UITextField) {
-        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
-        guard let cell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell else { return }
-        cell.numberTextField.text = "0"
-    }
-    
     func saveLastPickedTextFieldData() {
         let formatter = converterManager.setupNumberFormatter()
         
@@ -898,6 +846,25 @@ extension ConverterTableViewController: UITextFieldDelegate {
             if cell.shortName.text == pickedConverterCurrency {
                 lastPickedData.number = formatter.number(from: cell.numberTextField.text ?? "0")?.doubleValue ?? 0.0
                 lastPickedData.shortName = cell.shortName.text ?? ""
+            }
+        }
+    }
+    
+    func setCellActiveIndicator(in textField: UITextField) {
+        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
+        let currentlyEditingCell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell
+        
+        if pickedDataSource == "ЦБ РФ" {
+            UserDefaults.standard.set(currentlyEditingCell?.shortName.text, forKey: "bankOfRussiaPickedCurrency")
+        } else {
+            UserDefaults.standard.set(currentlyEditingCell?.shortName.text, forKey: "forexPickedCurrency")
+        }
+        
+        for cell in activeConverterCells {
+            if cell.shortName.text != currentlyEditingCell?.shortName.text {
+                cell.activityIndicator.isHidden = true
+            } else {
+                cell.activityIndicator.isHidden = false
             }
         }
     }
