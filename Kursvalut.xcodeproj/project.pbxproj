@@ -123,6 +123,7 @@
 		785EFE1E28C4DB8700257C8F /* CustomSortTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSortTableViewCell.swift; sourceTree = "<group>"; };
 		786479A927981E410077ABC7 /* ConverterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterTableViewController.swift; sourceTree = "<group>"; };
 		786479AB279825DF0077ABC7 /* ConverterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterTableViewCell.swift; sourceTree = "<group>"; };
+		7866D8092A191EEA0001DFF3 /* Kursvalut_v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Kursvalut_v2.xcdatamodel; sourceTree = "<group>"; };
 		786A00282839327500D0DAA4 /* CurrencyDataSourceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyDataSourceTableViewController.swift; sourceTree = "<group>"; };
 		786A002A283935CA00D0DAA4 /* DataSourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceTableViewCell.swift; sourceTree = "<group>"; };
 		786A002C2839361300D0DAA4 /* PickedBaseCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedBaseCurrencyTableViewCell.swift; sourceTree = "<group>"; };
@@ -804,9 +805,10 @@
 		78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				7866D8092A191EEA0001DFF3 /* Kursvalut_v2.xcdatamodel */,
 				78041C222786F9FA00C4D861 /* Kursvalut.xcdatamodel */,
 			);
-			currentVersion = 78041C222786F9FA00C4D861 /* Kursvalut.xcdatamodel */;
+			currentVersion = 7866D8092A191EEA0001DFF3 /* Kursvalut_v2.xcdatamodel */;
 			path = Kursvalut.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
