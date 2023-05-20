@@ -96,6 +96,7 @@ class ConverterTableViewController: UITableViewController {
             UserDefaults.standard.set("", forKey: "bankOfRussiaPickedCurrency")
             UserDefaults.standard.set("", forKey: "forexPickedCurrency")
         }
+        if saveConverterValuesTurnedOn { saveTextFieldNumbers() }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -395,6 +396,15 @@ class ConverterTableViewController: UITableViewController {
         if currencyWasAdded {
             avoidTriggerCellsHeightChange = true
         } else {
+           var pickedConverterCurrencyWasDeleted = true
+            
+            for cell in activeConverterCells {
+                if cell.shortName.text == pickedConverterCurrency {
+                    pickedConverterCurrencyWasDeleted = false
+                    break
+                }
+            }
+            if pickedConverterCurrencyWasDeleted { resetTextFieldsNumberToZero() }
             recalculateCellsHeight()
         }
         
@@ -865,6 +875,29 @@ extension ConverterTableViewController: UITextFieldDelegate {
                 cell.activityIndicator.isHidden = true
             } else {
                 cell.activityIndicator.isHidden = false
+            }
+        }
+    }
+    
+    func resetTextFieldsNumberToZero() {
+        numberFromTextField = 0
+        
+        for cell in activeConverterCells { cell.numberTextField.text = "0" }
+        
+        if pickedDataSource == "ЦБ РФ" {
+            UserDefaults.standard.set("", forKey: "bankOfRussiaPickedCurrency")
+            let currencies = bankOfRussiaFRC.fetchedObjects!
+            
+            currencies.forEach { currency in
+                currency.converterValue = "0"
+                coreDataManager.save()
+            }
+        } else {
+            UserDefaults.standard.set("", forKey: "forexPickedCurrency")
+            let currencies = forexFRC.fetchedObjects!
+            currencies.forEach { currency in
+                currency.converterValue = "0"
+                coreDataManager.save()
             }
         }
     }
