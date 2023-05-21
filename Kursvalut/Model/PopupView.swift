@@ -45,7 +45,6 @@ class PopupView: UIView {
         case failure
         case purchase
         case emailContact
-        case restore
         case lock
         case load
     }
@@ -134,26 +133,31 @@ class PopupView: UIView {
     
     private func popupImageFor(style: PopupStyle) -> UIImage {
         var imageName: String = ""
+        var color: UIColor = .green
         
         switch style {
         case .success:
-            imageName = "okHand"
+            imageName = "checkmark.circle"
+            color = .green
         case .failure:
-            imageName = "thinkingFace"
+            imageName = "x.circle"
+            color = .red
         case .purchase:
-            imageName = "heartEyesEmoji"
+            imageName = "hand.thumbsup.circle"
+            color = .green
         case .emailContact:
-            imageName = "compGuy"
-        case .restore:
-            imageName = "thumbsUp"
+            imageName = "envelope.circle"
+            color = .blue
         case .lock:
-            imageName = "indexPoint"
+            imageName = "lock.circle"
+            color = .red
         case .load:
-            imageName = "notFound"
+            imageName = "questionmark.circle"
+            color = .gray
             self.symbol.isHidden = true
             self.loadSpinner.startAnimating()
         }
-        return UIImage(named: "\(imageName)") ?? UIImage(named: "notFound")!
+        return UIImage(systemName: "\(imageName)")?.withTintColor(color, renderingMode: .alwaysOriginal) ?? UIImage()
     }
     
     private func configurePopupDesign() {

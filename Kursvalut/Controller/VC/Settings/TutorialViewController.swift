@@ -37,7 +37,7 @@ extension TutorialViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "tutorialDescriptionCell", for: indexPath) as! TutorialDescriptionTableViewCell
-            cell.descriptionIcon.image = UIImage(named: "\(tutorialData?[indexPath.row - 1].icon ?? "")")
+            cell.descriptionIcon.image = UIImage(systemName: "\(tutorialData?[indexPath.row - 1].icon ?? "")")
             cell.descriptionLabel.text = tutorialData?[indexPath.row - 1].text
             return cell
         }

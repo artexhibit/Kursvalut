@@ -145,7 +145,7 @@ class SettingsTableViewController: UITableViewController {
         } else if pickedSection == 5 && pickedCell == 4 {
             sendUserToLeaveReview()
         } else if pickedSection == 3 && pickedCell == 1 {
-            proPurchased ? PopupQueueManager.shared.addPopupToQueue(title: "Всё в порядке", message: "Pro уже восстановлен", style: .lock) : startProVersionRestore()
+            proPurchased ? PopupQueueManager.shared.addPopupToQueue(title: "Всё в порядке", message: "Pro уже восстановлен", style: .success) : startProVersionRestore()
         } else if pickedSection == 1 && (pickedCell == 1 || pickedCell == 2 || pickedCell == 3) {
             if proPurchased {
                unlockPro(for: pickedCell)
@@ -228,7 +228,7 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
         if queue.transactions.isEmpty {
             PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Pro ранее не покупался", style: .failure)
         } else {
-            PopupQueueManager.shared.addPopupToQueue(title: "Успешно", message: "Покупка восстановлена", style: .restore)
+            PopupQueueManager.shared.addPopupToQueue(title: "Успешно", message: "Покупка восстановлена", style: .success)
         }
         restoreSpinner.stopAnimating()
     }

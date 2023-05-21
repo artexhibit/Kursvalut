@@ -33,7 +33,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="201" height="32"/>
                                                     <subviews>
                                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="UjO-mM-qIF">
-                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="32"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="122" height="32"/>
                                                             <color key="backgroundColor" systemColor="secondarySystemFillColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="tintColor" systemColor="labelColor"/>
@@ -240,17 +240,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="converterCell" id="k3t-kg-8vc" userLabel="converterCell" customClass="ConverterTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="38" width="374" height="98.5"/>
+                                <rect key="frame" x="20" y="38" width="374" height="99"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k3t-kg-8vc" id="QOP-Fg-Vof">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="98.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="XZA-bt-zwe" userLabel="Info Stack View">
-                                            <rect key="frame" x="15" y="6" width="207" height="86.5"/>
+                                            <rect key="frame" x="15" y="6" width="207" height="87"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gnp-RA-fA6" userLabel="Flag View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="86.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="87"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RUB" translatesAutoresizingMaskIntoConstraints="NO" id="37A-2O-abH" userLabel="Flag">
                                                             <rect key="frame" x="0.0" y="21" width="45" height="45"/>
@@ -279,7 +279,7 @@
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="-2" translatesAutoresizingMaskIntoConstraints="NO" id="Wz7-HV-hEa" userLabel="Names Stack View">
-                                                    <rect key="frame" x="60" y="19" width="147" height="48.5"/>
+                                                    <rect key="frame" x="60" y="19.5" width="147" height="48.5"/>
                                                     <subviews>
                                                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YKk-H7-q4C">
                                                             <rect key="frame" x="0.0" y="0.0" width="147" height="21.5"/>
@@ -329,10 +329,10 @@
                                             </constraints>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Vr-hJ-2ij" userLabel="Number Text Field View">
-                                            <rect key="frame" x="222" y="6" width="142" height="86.5"/>
+                                            <rect key="frame" x="222" y="6" width="142" height="87"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="C3t-y4-RfR">
-                                                    <rect key="frame" x="122" y="0.0" width="20" height="86.5"/>
+                                                    <rect key="frame" x="122" y="0.0" width="20" height="87"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="mgF-jh-2PG"/>
@@ -2262,14 +2262,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startViewCell" id="hyY-vn-r54" userLabel="Start View Cell" customClass="StartViewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="38" width="374" height="43"/>
+                                <rect key="frame" x="20" y="38" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hyY-vn-r54" id="Dx2-ce-Ru7">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Валюты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbc-hr-FHJ" userLabel="viewNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -2307,14 +2307,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="M1Q-1H-VHB" userLabel="Theme Cell" customClass="ThemeTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="38" width="374" height="43.5"/>
+                                <rect key="frame" x="20" y="38" width="374" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M1Q-1H-VHB" id="3sk-ff-s1w">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Как в системе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrU-4i-37D" userLabel="themeNameLabel">
-                                            <rect key="frame" x="20" y="11" width="334" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -3382,23 +3382,23 @@
                                                                         <rect key="frame" x="0.0" y="340" width="412" height="205"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="JV6-MF-ixR" userLabel="Page Title Stack View">
-                                                                                <rect key="frame" x="134.5" y="40" width="143.5" height="10"/>
+                                                                                <rect key="frame" x="134.5" y="40" width="143.5" height="20"/>
                                                                                 <subviews>
-                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe.europe.africa.fill" translatesAutoresizingMaskIntoConstraints="NO" id="OUs-Pb-Zfp">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="10"/>
+                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe.europe.africa.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="OUs-Pb-Zfp">
+                                                                                        <rect key="frame" x="0.0" y="0.5" width="25" height="19"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="25" id="xJN-VP-iB2"/>
                                                                                         </constraints>
                                                                                     </imageView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Валюты" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWh-oh-rHn">
-                                                                                        <rect key="frame" x="30" y="0.0" width="113.5" height="10"/>
+                                                                                        <rect key="frame" x="30" y="0.0" width="113.5" height="20"/>
                                                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Следите за изменением курса валют ЦБ РФ по отношению к рублю. Если у вас есть Pro версия:" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7al-wN-eYN">
-                                                                                <rect key="frame" x="28" y="65" width="356" height="20"/>
+                                                                                <rect key="frame" x="28" y="75" width="356" height="10"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -3413,13 +3413,13 @@
                                                                                 <rect key="frame" x="62.5" y="100" width="287" height="30"/>
                                                                                 <subviews>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W1z-Cr-2Wh">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                                                        <rect key="frame" x="0.0" y="0.5" width="30" height="29"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="height" constant="30" id="BsU-G0-cPK"/>
                                                                                             <constraint firstAttribute="width" constant="30" id="lQt-Dz-0g0"/>
                                                                                         </constraints>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                                        <state key="normal" backgroundImage="play.circle.fill"/>
+                                                                                        <state key="normal" backgroundImage="play.circle.fill" catalog="system"/>
                                                                                     </button>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wtH-kx-33G">
                                                                                         <rect key="frame" x="30" y="5" width="257" height="20"/>
@@ -4040,8 +4040,8 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="BMN-X2-czs">
                                                     <rect key="frame" x="30" y="0.0" width="324.5" height="99"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1.circle" translatesAutoresizingMaskIntoConstraints="NO" id="Kfp-9V-iY8">
-                                                            <rect key="frame" x="0.0" y="37" width="25" height="25"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Kfp-9V-iY8">
+                                                            <rect key="frame" x="0.0" y="37.5" width="25" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="1sA-9k-nLa"/>
                                                                 <constraint firstAttribute="width" constant="25" id="vLC-C6-vJf"/>
@@ -4212,11 +4212,11 @@
         <segue reference="ktb-yU-lAj"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="1.circle" width="11" height="11"/>
+        <image name="1.circle" catalog="system" width="128" height="123"/>
         <image name="EUR" width="512" height="512"/>
         <image name="RUB" width="512" height="512"/>
         <image name="USD" width="1067" height="699"/>
-        <image name="app.icon" width="341" height="341"/>
+        <image name="app.icon" width="1024" height="1024"/>
         <image name="apps.iphone" width="7" height="11"/>
         <image name="arrow.left.arrow.right" catalog="system" width="120" height="128"/>
         <image name="arrow.up.arrow.down" width="12" height="10"/>
@@ -4240,12 +4240,11 @@
         <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="globe" width="11" height="11"/>
         <image name="globe.europe.africa.fill" catalog="system" width="128" height="123"/>
-        <image name="globe.europe.africa.fill" width="11" height="11"/>
         <image name="hand.wave" width="10" height="10"/>
         <image name="heart.fill" width="10" height="10"/>
         <image name="info.circle" width="11" height="11"/>
         <image name="iphone.and.arrow.forward" width="8" height="11"/>
-        <image name="play.circle.fill" width="11" height="11"/>
+        <image name="play.circle.fill" catalog="system" width="128" height="123"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="speaker.wave.2.fill" catalog="system" width="128" height="88"/>
         <image name="square.and.arrow.up" width="9" height="12"/>

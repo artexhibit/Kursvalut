@@ -314,9 +314,9 @@ struct CurrencyManager {
         button.setTitle(pickedDataSource, for: .normal)
         
         if pickedDataSource == "ЦБ РФ" {
-            button.setImage(UIImage(named: "rublesign.square"), for: .normal)
+            button.setImage(UIImage(systemName: "rublesign.square"), for: .normal)
         } else {
-            button.setImage(UIImage(named: "eurosign.square"), for: .normal)
+            button.setImage(UIImage(systemName: "eurosign.square"), for: .normal)
         }
     }
     

@@ -60,7 +60,7 @@ class BaseCurrencyTableViewController: UITableViewController {
         cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
-        cell.picker.image = currency.shortName == pickedBaseCurrency ? UIImage(named: "checkmark.circle.fill") : UIImage(named: "circle")
+        cell.picker.image = currency.shortName == pickedBaseCurrency ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
         
         return cell
     }
@@ -73,7 +73,7 @@ class BaseCurrencyTableViewController: UITableViewController {
             self.searchController.isActive = false
         }
         UserDefaults.standard.set(forexCurrency.shortName, forKey: "baseCurrency")
-        cell.picker.image = forexCurrency.shortName == pickedBaseCurrency ? UIImage(named: "checkmark.circle.fill") : UIImage(named: "circle")
+        cell.picker.image = forexCurrency.shortName == pickedBaseCurrency ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshDataFromDataSourceVC"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
         

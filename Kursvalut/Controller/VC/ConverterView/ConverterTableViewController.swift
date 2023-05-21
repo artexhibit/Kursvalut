@@ -208,7 +208,7 @@ class ConverterTableViewController: UITableViewController {
             updateTableView()
             completionHandler(true)
         }
-        move.image = UIImage(named: "line.3.horizontal")
+        move.image = UIImage(systemName: "line.3.horizontal")
         move.backgroundColor = UIColor(named: "BlueColor")
         
         let delete = UIContextualAction(style: .destructive, title: nil) { [self] (action, view, completionHandler) in
@@ -265,7 +265,7 @@ class ConverterTableViewController: UITableViewController {
             }
             completionHandler(true)
         }
-        delete.image = UIImage(named: "trash")
+        delete.image = UIImage(systemName: "trash")
         delete.backgroundColor = UIColor(named: "RedColor")
         
         if proPurchased {

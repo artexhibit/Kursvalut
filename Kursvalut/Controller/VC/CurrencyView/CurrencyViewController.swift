@@ -199,7 +199,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         let move = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
             completionHandler(true)
         }
-        move.image = UIImage(named: "line.3.horizontal")
+        move.image = UIImage(systemName: "line.3.horizontal")
         move.backgroundColor = UIColor(named: "BlueColor")
         
         configuration = proPurchased ? UISwipeActionsConfiguration(actions: [move]) : UISwipeActionsConfiguration(actions: [])

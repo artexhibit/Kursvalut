@@ -115,11 +115,11 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
             cell.notifyControllerAction = { [weak self] in
                 self?.performSegue(withIdentifier: "goToTutorial", sender: self)
             }
-                        
+            
             if cell.tableView.window != nil {
-            cell.tableView.contentOffset = .zero
-            cell.tableView.layoutIfNeeded()
-            cell.tableView.reloadData()
+                cell.tableView.contentOffset = .zero
+                cell.tableView.layoutIfNeeded()
+                cell.tableView.reloadData()
             }
             return cell
         }
@@ -180,12 +180,12 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
 extension OnboardingViewController {
 
     func showPreviousButton() {
-        previousButton.setBackgroundImage(UIImage(named: "chevron.backward.circle.fill"), for: .normal)
+        previousButton.setBackgroundImage(UIImage(systemName: "chevron.backward.circle.fill"), for: .normal)
         previousButton.isUserInteractionEnabled = true
     }
     
     func hidePreviousButton() {
-        previousButton.setBackgroundImage(UIImage(named: "chevron.left.circle"), for: .normal)
+        previousButton.setBackgroundImage(UIImage(systemName: "chevron.left.circle"), for: .normal)
         previousButton.isUserInteractionEnabled = false
     }
     

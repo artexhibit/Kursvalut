@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -36,27 +36,27 @@
                             <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                             <color key="backgroundColor" name="PopupBackgroundColor"/>
                         </view>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thinkingFace" translatesAutoresizingMaskIntoConstraints="NO" id="SCs-lR-DHi">
-                            <rect key="frame" x="10" y="12.5" width="25" height="25"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="questionmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="SCs-lR-DHi">
+                            <rect key="frame" x="11" y="10.5" width="30" height="29"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="25" id="Vu4-FV-jyu"/>
-                                <constraint firstAttribute="width" constant="25" id="dhY-p0-zTL"/>
+                                <constraint firstAttribute="height" constant="30" id="Vu4-FV-jyu"/>
+                                <constraint firstAttribute="width" constant="30" id="dhY-p0-zTL"/>
                             </constraints>
                         </imageView>
                         <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1aR-wK-aAl">
-                            <rect key="frame" x="40" y="5" width="150" height="40"/>
+                            <rect key="frame" x="46" y="5" width="144" height="40"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Ошибка" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="tMc-FD-SMq">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="144" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lep-lG-0UP">
-                                    <rect key="frame" x="0.0" y="19.5" width="150" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="19.5" width="144" height="20.5"/>
                                     <subviews>
                                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMa-UD-maS" userLabel="Show Scroll View">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="144" height="20.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Попробуйте ещё раз позже" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LkM-Mn-Crk">
                                                     <rect key="frame" x="0.0" y="0.0" width="175" height="16"/>
@@ -88,7 +88,7 @@
                                             </variation>
                                         </scrollView>
                                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52e-Bo-daW" userLabel="Change Scroll View">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="144" height="20.5"/>
                                             <subviews>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Попробуйте ещё раз позже" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3S-hb-AYA">
                                                     <rect key="frame" x="0.0" y="0.0" width="175" height="16"/>
@@ -138,7 +138,7 @@
                             </constraints>
                         </stackView>
                         <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="0oR-lE-iN2">
-                            <rect key="frame" x="10" y="15" width="28" height="20"/>
+                            <rect key="frame" x="10" y="15" width="34" height="20"/>
                         </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -157,7 +157,7 @@
                         <constraint firstAttribute="bottom" secondItem="Tct-35-Zm7" secondAttribute="bottom" id="c24-hx-Mrd"/>
                         <constraint firstItem="1aR-wK-aAl" firstAttribute="top" secondItem="cl1-UW-34u" secondAttribute="top" constant="5" id="kRw-vu-68l"/>
                         <constraint firstAttribute="width" constant="200" id="lIX-VP-yBF"/>
-                        <constraint firstItem="SCs-lR-DHi" firstAttribute="leading" secondItem="cl1-UW-34u" secondAttribute="leading" constant="10" id="lm3-sb-gqd"/>
+                        <constraint firstItem="SCs-lR-DHi" firstAttribute="leading" secondItem="cl1-UW-34u" secondAttribute="leading" constant="11" id="lm3-sb-gqd"/>
                         <constraint firstAttribute="trailing" secondItem="Tct-35-Zm7" secondAttribute="trailing" id="muP-zD-76s"/>
                     </constraints>
                 </view>
@@ -177,7 +177,7 @@
         </view>
     </objects>
     <resources>
-        <image name="thinkingFace" width="213" height="213"/>
+        <image name="questionmark.circle" catalog="system" width="128" height="123"/>
         <namedColor name="PopupBackgroundColor">
             <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

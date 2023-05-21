@@ -85,14 +85,14 @@ class PickCurrencyTableViewController: UITableViewController {
             cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
-            cell.picker.image = currency.isForConverter ? UIImage(named: "checkmark.circle.fill") : UIImage(named: "circle")
+            cell.picker.image = currency.isForConverter ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
         } else {
             let currency = forexFRC.object(at: indexPath)
             
             cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
-            cell.picker.image = currency.isForConverter ? UIImage(named: "checkmark.circle.fill") : UIImage(named: "circle")
+            cell.picker.image = currency.isForConverter ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
         }
         return cell
     }
