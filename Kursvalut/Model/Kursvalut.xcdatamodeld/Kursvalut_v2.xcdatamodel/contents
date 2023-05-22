@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F66" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Currency" representedClassName="Currency" syncable="YES" codeGenerationType="class">
         <attribute name="absoluteValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="converterValue" optional="YES" attributeType="String"/>
         <attribute name="currentValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="fullName" attributeType="String"/>
-        <attribute name="isBaseCurrency" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isBaseCurrency" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isForConverter" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isForCurrencyScreen" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nominal" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="previousValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="rowForConverter" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="rowForCurrency" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="rowForHistoricalCurrency" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rowForHistoricalCurrency" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="searchName" attributeType="String"/>
         <attribute name="shortName" attributeType="String"/>
     </entity>
@@ -21,14 +21,14 @@
         <attribute name="converterValue" optional="YES" attributeType="String"/>
         <attribute name="currentValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="fullName" attributeType="String"/>
-        <attribute name="isBaseCurrency" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isBaseCurrency" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isForConverter" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isForCurrencyScreen" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nominal" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="previousValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="rowForConverter" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="rowForCurrency" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="rowForHistoricalCurrency" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rowForHistoricalCurrency" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="searchName" attributeType="String"/>
         <attribute name="shortName" attributeType="String"/>
     </entity>
