@@ -5,6 +5,7 @@ class NumpadView: UIView, UIInputViewAudioFeedback {
     
     @IBOutlet weak var resetButton: NumpadButton!
     @IBOutlet weak var decimalButton: NumpadButton!
+    @IBOutlet weak var deleteButton: NumpadButton!
     
     private var keyboardWithSound: Bool {
         return UserDefaults.standard.bool(forKey: "keyboardWithSound")

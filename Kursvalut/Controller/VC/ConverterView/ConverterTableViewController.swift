@@ -1,6 +1,7 @@
 
 import UIKit
 import CoreData
+import AudioToolbox
 
 class ConverterTableViewController: UITableViewController {
     
@@ -17,13 +18,14 @@ class ConverterTableViewController: UITableViewController {
     private var pickedForexCurrency: ForexCurrency?
     private var tableViewIsInEditingMode = false
     private var pickedNameArray = [String]()
-    private var pickedTextField = UITextField()
     private var calculationResult = "0"
     private var activeConverterCells = Set<ConverterTableViewCell>()
     private var textFieldIsEditing = false
     private var shouldAnimateCellAppear = false
     private var textFieldTextWasEdited = false
-    private var lastPickedData = (number: 0.0, shortName: "")
+    private var longTapIsActiveOnTextField = false
+    private var formatter: NumberFormatter?
+    private var lastPickedData = (number: 0.0, shortName: "", textField: UITextField())
     private var converterScreenDecimalsAmount: Int {
         return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
     }
@@ -69,6 +71,7 @@ class ConverterTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        formatter = converterManager.setupNumberFormatter()
         setupKeyboardBehaviour()
         currencyManager.configureContentInset(for: tableView, top: 10)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshConverterFRC), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
@@ -134,13 +137,17 @@ class ConverterTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "converterCell", for: indexPath) as! ConverterTableViewCell
         
+        let numpadView = NumpadView(target: cell.numberTextField, view: view)
+        let longTapGestureRecogniser = UILongPressGestureRecognizer(target: self, action: #selector(deleteButtonLongPressed(_:)))
+        numpadView.deleteButton.addGestureRecognizer(longTapGestureRecogniser)
+        
         if pickedDataSource == "ЦБ РФ" {
             let currency = bankOfRussiaFRC.object(at: indexPath)
             cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
-            cell.numberTextField.inputView = NumpadView(target: cell.numberTextField, view: view)
+            cell.numberTextField.inputView = numpadView
             cell.activityIndicator.isHidden = cell.shortName.text == pickedConverterCurrency ? false : true
             
             if let number = numberFromTextField, let pickedCurrency = pickedBankOfRussiaCurrency {
@@ -157,7 +164,7 @@ class ConverterTableViewController: UITableViewController {
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
-            cell.numberTextField.inputView = NumpadView(target: cell.numberTextField, view: view)
+            cell.numberTextField.inputView = numpadView
             cell.activityIndicator.isHidden = cell.shortName.text == pickedConverterCurrency ? false : true
             
             if let number = numberFromTextField, let pickedCurrency = pickedForexCurrency {
@@ -423,7 +430,6 @@ class ConverterTableViewController: UITableViewController {
     func calculateNumberForNewlyAddedCurrency() {
         let lastRow = tableView.numberOfRows(inSection: 0) - 1
         let indexPath = IndexPath(row: lastRow, section: 0)
-        let formatter = converterManager.setupNumberFormatter()
         
         if pickedDataSource == "ЦБ РФ" {
             let bankOfRussiaCurrency = bankOfRussiaFRC.object(at: indexPath)
@@ -432,7 +438,7 @@ class ConverterTableViewController: UITableViewController {
             allCurrencies?.forEach({ currency in
                 if currency.shortName == pickedConverterCurrency {
                     pickedBankOfRussiaCurrency = currency
-                    numberFromTextField = formatter.number(from: currency.converterValue ?? "0")?.doubleValue ?? 0
+                    numberFromTextField = formatter?.number(from: currency.converterValue ?? "0")?.doubleValue ?? 0
                 }
             })
             if let number = numberFromTextField, let pickedCurrency = pickedBankOfRussiaCurrency {
@@ -445,7 +451,7 @@ class ConverterTableViewController: UITableViewController {
             allCurrencies?.forEach({ currency in
                 if currency.shortName == pickedConverterCurrency {
                     pickedForexCurrency = currency
-                    numberFromTextField = formatter.number(from: currency.converterValue ?? "0")?.doubleValue ?? 0
+                    numberFromTextField = formatter?.number(from: currency.converterValue ?? "0")?.doubleValue ?? 0
                 }
             })
             if let number = numberFromTextField, let pickedCurrency = pickedForexCurrency {
@@ -600,7 +606,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        pickedTextField = textField
+        lastPickedData.textField = textField
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
         
         if pickedDataSource == "ЦБ РФ" {
@@ -850,11 +856,9 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func saveLastPickedTextFieldData() {
-        let formatter = converterManager.setupNumberFormatter()
-        
         for cell in activeConverterCells {
             if cell.shortName.text == pickedConverterCurrency {
-                lastPickedData.number = formatter.number(from: cell.numberTextField.text ?? "0")?.doubleValue ?? 0.0
+                lastPickedData.number = formatter?.number(from: cell.numberTextField.text ?? "0")?.doubleValue ?? 0.0
                 lastPickedData.shortName = cell.shortName.text ?? ""
             }
         }
@@ -901,6 +905,47 @@ extension ConverterTableViewController: UITextFieldDelegate {
             }
         }
     }
+    @objc private func deleteButtonLongPressed(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .began:
+            longTapIsActiveOnTextField = true
+            deleteCharacter()
+        case .ended, .cancelled:
+            longTapIsActiveOnTextField = false
+        default:
+            break
+        }
+    }
+    
+    private func deleteCharacter() {
+        var targetCell: ConverterTableViewCell?
+        
+        for cell in activeConverterCells {
+            if cell.shortName.text == pickedConverterCurrency { targetCell = cell }
+        }
+        if longTapIsActiveOnTextField { targetCell?.numberTextField.deleteBackward() }
+        
+        if targetCell?.numberTextField.text?.count != 0 {
+            var stringWithoutSpaces = ""
+            
+            UIDevice.current.playInputClick()
+            
+            for char in (targetCell?.numberTextField.text) ?? "" {
+                if !char.isWhitespace { stringWithoutSpaces += String(char) }
+            }
+            
+            numberFromTextField = formatter?.number(from: stringWithoutSpaces)?.doubleValue ?? 0
+            if longTapIsActiveOnTextField {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { self.deleteCharacter() }
+            }
+        }
+        
+        if targetCell?.numberTextField.text?.count == 0 {
+            numberFromTextField = 0
+            setupNumpadResetButtonTitle(accordingTo: targetCell?.numberTextField ?? UITextField())
+        }
+        reloadCurrencyRows()
+    }
 }
 
 extension ConverterTableViewController {
@@ -927,7 +972,7 @@ extension ConverterTableViewController {
     }
     
     func reloadCurrencyRows() {
-        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: pickedTextField, and: tableView)
+        let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: lastPickedData.textField, and: tableView)
         converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
     }
 }
