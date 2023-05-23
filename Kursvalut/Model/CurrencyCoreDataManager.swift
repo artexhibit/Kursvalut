@@ -74,12 +74,13 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func updateBankOfRussiaCurrency(currency: Currency, currValue: Double, prevValue: Double, currNominal: Int, abslValue: Double, isForCurrency: Bool = true) {
+    private func updateBankOfRussiaCurrency(currency: Currency, currValue: Double, prevValue: Double, currNominal: Int, abslValue: Double, isForCurrency: Bool = true, isBaseCurrency: Bool = false) {
         currency.currentValue = currValue
         currency.previousValue = prevValue
         currency.nominal = Int32(currNominal)
         currency.absoluteValue = abslValue
         currency.isForCurrencyScreen = isForCurrency
+        currency.isBaseCurrency = isBaseCurrency
     }
     
     func createRubleCurrency() {
@@ -92,7 +93,7 @@ struct CurrencyCoreDataManager {
                 createBankOfRussiaCurrency(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, abslValue: 1, isForConverter: true, isBaseCurrency: true, rowForConverter: 0)
             } else {
                 for ruble in fetchRuble {
-                    updateBankOfRussiaCurrency(currency: ruble, currValue: 1.0, prevValue: 1.0, currNominal: 1, abslValue: 1)
+                    updateBankOfRussiaCurrency(currency: ruble, currValue: 1.0, prevValue: 1.0, currNominal: 1, abslValue: 1, isBaseCurrency: true)
                 }
             }
         } catch {
