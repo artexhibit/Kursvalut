@@ -13,8 +13,6 @@ class MenuTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.itemLabel.textColor = UIColor(named: "\(appColor)")
         self.iconImage.tintColor = UIColor(named: "\(appColor)")
     }
 
