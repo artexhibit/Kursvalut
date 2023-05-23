@@ -68,6 +68,9 @@ class CurrencyViewController: UIViewController {
     private var navigationBarGestureRecogniser: UITapGestureRecognizer {
         return UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
     }
+    private var needToFixMigrationError: Bool {
+        return UserDefaults.standard.bool(forKey: "needToFixMigrationError")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +91,11 @@ class CurrencyViewController: UIViewController {
         self.navigationController?.navigationBar.addGestureRecognizer(navigationBarGestureRecogniser)
         currencyManager.configureContentInset(for: tableView, top: -updateButtonTopInset)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
+        
+        if needToFixMigrationError {
+            refreshData()
+            UserDefaults.standard.set(false, forKey: "needToFixMigrationError")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,7 +107,7 @@ class CurrencyViewController: UIViewController {
         dataSourceButton.setTitle(pickedDataSource, for: .normal)
         updateTimeButton.setTitle(currencyUpdateTime, for: .normal)
         
-        if !pickDateSwitchFromDataSourceIsOn {
+        if !pickDateSwitchFromDataSourceIsOn && !needToFixMigrationError {
             currencyManager.checkOnFirstLaunchToday(with: updateTimeButton)
         }
         if !userClosedApp {
