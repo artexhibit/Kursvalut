@@ -142,7 +142,7 @@ class DatePickerView: UIView {
         if UIScreen().sizeType == .iPhoneSE {
             return interfaceOrientation.isPortrait ? (0.88, 0.55) : (0.55, 0.55)
         } else {
-            return interfaceOrientation.isPortrait ? (0.75, 0.4) : (0.45, 0.4)
+            return interfaceOrientation.isPortrait ? (0.76, 0.43) : (0.45, 0.4)
         }
     }
     
