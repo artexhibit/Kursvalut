@@ -218,6 +218,7 @@ extension PickCurrencyTableViewController: UISearchResultsUpdating {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Поиск по коду и имени валюты"
+        searchController.searchBar.setValue("Готово", forKey: "cancelButtonText")
         definesPresentationContext = true
         navigationItem.searchController = searchController
         navigationController?.navigationBar.sizeToFit()
