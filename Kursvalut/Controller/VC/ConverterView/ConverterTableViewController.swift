@@ -78,6 +78,8 @@ class ConverterTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateCells), name: NSNotification.Name(rawValue: "updateCells"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboardButtonPressed), name: NSNotification.Name(rawValue: "hideKeyboardButtonPressed"), object: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { self.tableView.reloadData() }
     }
     
     override func viewWillAppear(_ animated: Bool) {

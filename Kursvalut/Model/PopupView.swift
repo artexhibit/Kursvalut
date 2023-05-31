@@ -138,13 +138,13 @@ class PopupView: UIView {
         switch style {
         case .success:
             imageName = "checkmark.circle"
-            color = .green
+            color = UIColor(named: "GreenColor") ?? .green
         case .failure:
             imageName = "x.circle"
             color = .red
         case .purchase:
             imageName = "hand.thumbsup.circle"
-            color = .green
+            color = UIColor(named: "GreenColor") ?? .green
         case .emailContact:
             imageName = "envelope.circle"
             color = .blue
