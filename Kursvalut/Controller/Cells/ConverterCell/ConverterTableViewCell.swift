@@ -15,7 +15,7 @@ class ConverterTableViewCell: UITableViewCell {
         didSet {
             textFieldWidthConstraint = numberTextField.leadingAnchor.constraint(equalTo: numberTextFieldView.leadingAnchor)
             textFieldWidthConstraint?.isActive = true
-            numberTextFieldInitialWidth = numberTextFieldView.frame.width
+            numberTextFieldInitialWidth = UIScreen().sizeType == .iPhoneSE ? (numberTextFieldView.frame.width - 15) : (numberTextFieldView.frame.width + 15)
         }
     }
     @IBOutlet weak var flagHeight: NSLayoutConstraint!
