@@ -86,7 +86,7 @@ class PopupView: UIView {
         
         self.centerXAnchor.constraint(equalTo: window.centerXAnchor).isActive = true
         bottomConstraint = self.bottomAnchor.constraint(equalTo: window.topAnchor, constant: -2.0)
-        topConstraint = self.topAnchor.constraint(equalTo: window.topAnchor, constant: 35.0)
+        topConstraint = self.topAnchor.constraint(equalTo: window.topAnchor, constant: safeAreaInsets.top)
         
         bottomConstraint.isActive = true
         
