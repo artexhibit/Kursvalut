@@ -218,7 +218,7 @@ class ConverterTableViewController: UITableViewController {
             completionHandler(true)
         }
         move.image = UIImage(systemName: "line.3.horizontal")
-        move.backgroundColor = UIColor(named: "BlueColor")
+        move.backgroundColor = UIColor(named: "ColorBlue")
         
         let delete = UIContextualAction(style: .destructive, title: nil) { [self] (action, view, completionHandler) in
             shouldAnimateCellAppear = false
@@ -275,7 +275,7 @@ class ConverterTableViewController: UITableViewController {
             completionHandler(true)
         }
         delete.image = UIImage(systemName: "trash")
-        delete.backgroundColor = UIColor(named: "RedColor")
+        delete.backgroundColor = UIColor(named: "ColorRed")
         
         if proPurchased {
             let configuration = UISwipeActionsConfiguration(actions: [delete, move])
@@ -570,7 +570,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
 
         textFieldIsEditing = false
         shouldAnimateCellAppear = false
-        textField.textColor = UIColor(named: "BlackColor")
+        textField.textColor = UIColor(named: "ColorBlack")
         
         guard let text = textField.text else { return }
         

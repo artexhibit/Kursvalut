@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         //Temporary set the color for future change color section in settings
-        UserDefaults.standard.set("OrangeColor", forKey: "appColor")
+        UserDefaults.standard.set("ColorOrange", forKey: "appColor")
         
         var appColor: String {
             return UserDefaults.standard.string(forKey: "appColor") ?? ""

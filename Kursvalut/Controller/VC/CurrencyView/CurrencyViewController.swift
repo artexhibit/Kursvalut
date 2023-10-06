@@ -208,7 +208,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
             completionHandler(true)
         }
         move.image = UIImage(systemName: "line.3.horizontal")
-        move.backgroundColor = UIColor(named: "BlueColor")
+        move.backgroundColor = UIColor(named: "ColorBlue")
         
         configuration = proPurchased ? UISwipeActionsConfiguration(actions: [move]) : UISwipeActionsConfiguration(actions: [])
         return configuration
