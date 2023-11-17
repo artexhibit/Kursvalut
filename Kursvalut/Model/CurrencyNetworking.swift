@@ -49,13 +49,13 @@ struct CurrencyNetworking {
         let todaysDate = currencyManager.createStringDate(with: "yyyy-MM-dd", dateStyle: nil)
         
         if confirmedDate != todaysDate {
-        return URL(string: "https://api.exchangerate.host/\(confirmedDate)?base=\(pickedBaseCurrency)&places=9")!
+            return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(confirmedDate)/currencies/\(pickedBaseCurrency.lowercased()).json")!
         } else {
-            return URL(string: "https://api.exchangerate.host/\(todaysDate)?base=\(pickedBaseCurrency)&places=9")!
+            return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(todaysDate)/currencies/\(pickedBaseCurrency.lowercased()).json")!
         }
     }
     private var historicalForexURL: URL {
-        return URL(string: "https://api.exchangerate.host/\(yesterdaysDate)?base=\(pickedBaseCurrency)&places=9")!
+        return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(yesterdaysDate)/currencies/\(pickedBaseCurrency.lowercased()).json")!
     }
     
     //MARK: - Networking Methods
@@ -111,6 +111,7 @@ struct CurrencyNetworking {
     
     func parseJSON(with currencyData: Data, from url: URL) -> NSError? {
         let decoder = JSONDecoder()
+        
         do {
             if url == currentBankOfRussiaURL {
                 let decodedData = try decoder.decode(BankOfRussiaCurrencyData.self, from: currencyData)
@@ -120,10 +121,13 @@ struct CurrencyNetworking {
                 coreDataManager.createRubleCurrency()
                 coreDataManager.removeResetBankOfRussiaCurrenciesFromConverter()
             } else {
-                let decodedData = try decoder.decode(ForexCurrencyData.self, from: currencyData)
-                let filteredData = decodedData.rates.filter({ dataToFilterOut.contains($0.key) == false })
+                let decodedData = try JSONDecoder().decode(ForexCurrencyData.self, from: currencyData)
+                print(decodedData.currencies.keys.description.uppercased())
+                
+                
+                //let filteredData = decodedData.rates.filter({ dataToFilterOut.contains($0.key) == false })
                 coreDataManager.resetCurrencyScreenPropertyForForexCurrencies()
-                url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData)
+                //url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData)
                 
                 if pickedDataSource != "ЦБ РФ" {
                     coreDataManager.filterOutForexBaseCurrency()
@@ -132,6 +136,7 @@ struct CurrencyNetworking {
             }
             return nil
         } catch {
+            print(error)
             return error as NSError
         }
     }
