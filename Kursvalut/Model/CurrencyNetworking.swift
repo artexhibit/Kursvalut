@@ -122,12 +122,13 @@ struct CurrencyNetworking {
                 coreDataManager.removeResetBankOfRussiaCurrenciesFromConverter()
             } else {
                 let decodedData = try JSONDecoder().decode(ForexCurrencyData.self, from: currencyData)
-                print(decodedData.currencies.keys.description.uppercased())
+                let decodedDict = decodedData.currencies as [String: Double]
                 
-                
-                //let filteredData = decodedData.rates.filter({ dataToFilterOut.contains($0.key) == false })
+                let filteredData = decodedDict.filter({ currencyManager.currencyFullNameDict.keys.contains($0.key.uppercased())}).reduce(into: [String: String]()) { (result, dict) in
+                    result[dict.key.uppercased()] = String(dict.value)
+                }
                 coreDataManager.resetCurrencyScreenPropertyForForexCurrencies()
-                //url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData)
+                url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData)
                 
                 if pickedDataSource != "ЦБ РФ" {
                     coreDataManager.filterOutForexBaseCurrency()
