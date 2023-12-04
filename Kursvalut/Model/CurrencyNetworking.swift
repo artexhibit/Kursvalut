@@ -17,7 +17,7 @@ struct CurrencyNetworking {
         return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
     }
     private var updateTime: String {
-        return currencyManager.createStringDate(with: "\(confirmedDate)\(",") HH:mm", dateStyle: nil)
+        return currencyManager.createStringDate(with: confirmedDate, dateStyle: .long)
     }
     private var yesterdaysDate: String {
         let confirmedDate = currencyManager.createDate(from: confirmedDate)
@@ -116,19 +116,25 @@ struct CurrencyNetworking {
             if url == currentBankOfRussiaURL {
                 let decodedData = try decoder.decode(BankOfRussiaCurrencyData.self, from: currencyData)
                 let filteredData = decodedData.Valute.filter({ dataToFilterOut.contains($0.value.CharCode) == false }).values
+                let currenciesCurrentDate = Date.createDate(from: decodedData.Date)
+                let currenciesPreviousDate = Date.createDate(from: decodedData.PreviousDate)
+                
                 coreDataManager.resetCurrencyScreenPropertyForBankOfRussiaCurrencies()
-                coreDataManager.createOrUpdateBankOfRussiaCurrency(with: filteredData)
+                coreDataManager.createOrUpdateBankOfRussiaCurrency(with: filteredData, currentDate: currenciesCurrentDate, previousDate: currenciesPreviousDate)
                 coreDataManager.createRubleCurrency()
                 coreDataManager.removeResetBankOfRussiaCurrenciesFromConverter()
             } else {
                 let decodedData = try JSONDecoder().decode(ForexCurrencyData.self, from: currencyData)
+                
+                let currenciesCurrentDate = Date.createDate(from: decodedData.date)
+                let currenciesPreviousDate = Date.createrYesterdaysDate(from: currenciesCurrentDate)
                 let decodedDict = decodedData.currencies as [String: Double]
                 
                 let filteredData = decodedDict.filter({ currencyManager.currencyFullNameDict.keys.contains($0.key.uppercased())}).reduce(into: [String: String]()) { (result, dict) in
                     result[dict.key.uppercased()] = String(dict.value)
                 }
                 coreDataManager.resetCurrencyScreenPropertyForForexCurrencies()
-                url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData)
+                url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData, currentDate: currenciesCurrentDate, previousDate: currenciesPreviousDate) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData, currentDate: currenciesCurrentDate, previousDate: currenciesPreviousDate)
                 
                 if pickedDataSource != "ЦБ РФ" {
                     coreDataManager.filterOutForexBaseCurrency()

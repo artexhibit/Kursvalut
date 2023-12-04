@@ -29,7 +29,7 @@ struct CurrencyCoreDataManager {
     
   //MARK: - CRUD for Bank Of Russia Currency
     
-    func createOrUpdateBankOfRussiaCurrency(with dictionary: Dictionary<String, Details>.Values) {
+    func createOrUpdateBankOfRussiaCurrency(with dictionary: Dictionary<String, Details>.Values, currentDate: Date, previousDate: Date) {
         dictionary.forEach { id in
             let request: NSFetchRequest<Currency> = Currency.fetchRequest()
             request.predicate = NSPredicate(format: "shortName = %@", id.CharCode)
@@ -38,10 +38,10 @@ struct CurrencyCoreDataManager {
                 let fetchResult = try context.fetch(request)
                 if !fetchResult.isEmpty {
                     for existingCurrency in fetchResult {
-                        updateBankOfRussiaCurrency(currency: existingCurrency, currValue: id.Value, prevValue: id.Previous, currNominal: id.Nominal, abslValue: (id.Value / Double(id.Nominal)))
+                        updateBankOfRussiaCurrency(currency: existingCurrency, currValue: id.Value, prevValue: id.Previous, currNominal: id.Nominal, abslValue: (id.Value / Double(id.Nominal)), currentDate: currentDate, previousDate: previousDate)
                     }
                 } else {
-                    createBankOfRussiaCurrency(shortName: id.CharCode, fullName: id.CharCode, currValue: id.Value, prevValue: id.Previous, nominal: id.Nominal, abslValue: (id.Value / Double(id.Nominal)))
+                    createBankOfRussiaCurrency(shortName: id.CharCode, fullName: id.CharCode, currValue: id.Value, prevValue: id.Previous, nominal: id.Nominal, abslValue: (id.Value / Double(id.Nominal)), currentDate: currentDate, previousDate: previousDate)
                 }
             } catch {
                 print(error)
@@ -49,7 +49,7 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func createBankOfRussiaCurrency(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, isBaseCurrency: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0, rowForHistoricalCurrency: Int32 = 0, converterValue: String = "0") {
+    private func createBankOfRussiaCurrency(shortName: String, fullName: String, currValue: Double, prevValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, isBaseCurrency: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, rowForCurrency: Int32 = 0, rowForHistoricalCurrency: Int32 = 0, converterValue: String = "0", currentDate: Date, previousDate: Date) {
         let currency = Currency(context: self.context)
         
         currency.shortName = shortName
@@ -66,6 +66,8 @@ struct CurrencyCoreDataManager {
         currency.rowForHistoricalCurrency = rowForHistoricalCurrency
         currency.searchName = currencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = currency.currentValue / Double(currency.nominal)
+        currency.currentDataDate = currentDate
+        currency.previousDataDate = previousDate
         
         if currency.shortName == "USD" {
             currency.rowForConverter = 1
@@ -74,13 +76,15 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func updateBankOfRussiaCurrency(currency: Currency, currValue: Double, prevValue: Double, currNominal: Int, abslValue: Double, isForCurrency: Bool = true, isBaseCurrency: Bool = false) {
+    private func updateBankOfRussiaCurrency(currency: Currency, currValue: Double, prevValue: Double, currNominal: Int, abslValue: Double, isForCurrency: Bool = true, isBaseCurrency: Bool = false, currentDate: Date, previousDate: Date) {
         currency.currentValue = currValue
         currency.previousValue = prevValue
         currency.nominal = Int32(currNominal)
         currency.absoluteValue = abslValue
         currency.isForCurrencyScreen = isForCurrency
         currency.isBaseCurrency = isBaseCurrency
+        currency.currentDataDate = currentDate
+        currency.previousDataDate = previousDate
     }
     
     func createRubleCurrency() {
@@ -90,10 +94,10 @@ struct CurrencyCoreDataManager {
         do {
             let fetchRuble = try context.fetch(request)
             if fetchRuble.isEmpty {
-                createBankOfRussiaCurrency(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, abslValue: 1, isForConverter: true, isBaseCurrency: true, rowForConverter: 0)
+                createBankOfRussiaCurrency(shortName: "RUB", fullName: "RUB", currValue: 1.0, prevValue: 1.0, nominal: 1, abslValue: 1, isForConverter: true, isBaseCurrency: true, rowForConverter: 0, currentDate: Date(), previousDate: Date())
             } else {
                 for ruble in fetchRuble {
-                    updateBankOfRussiaCurrency(currency: ruble, currValue: 1.0, prevValue: 1.0, currNominal: 1, abslValue: 1, isBaseCurrency: true)
+                    updateBankOfRussiaCurrency(currency: ruble, currValue: 1.0, prevValue: 1.0, currNominal: 1, abslValue: 1, isBaseCurrency: true, currentDate: Date(), previousDate: Date())
                 }
             }
         } catch {
@@ -101,20 +105,8 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    func fetchAllBankOfRussiaCurrencies() -> [Currency] {
-        var fetchCurrencies = [Currency]()
-        let request: NSFetchRequest<Currency> = Currency.fetchRequest()
-        
-        do {
-            fetchCurrencies = try context.fetch(request)
-        } catch {
-            print(error)
-        }
-        return fetchCurrencies
-    }
-    
     func resetRowForHistoricalCurrencyPropertyForBankOfRussiaCurrencies() {
-        let currencies = fetchAllBankOfRussiaCurrencies()
+        let currencies = fetchCurrencies(entityName: Currency.self)
         
         if !currencies.isEmpty {
             currencies.forEach { currency in
@@ -124,7 +116,7 @@ struct CurrencyCoreDataManager {
     }
     
     func resetCurrencyScreenPropertyForBankOfRussiaCurrencies() {
-        let currencies = fetchAllBankOfRussiaCurrencies()
+        let currencies = fetchCurrencies(entityName: Currency.self)
         
         if !currencies.isEmpty {
             currencies.forEach { currency in
@@ -135,7 +127,7 @@ struct CurrencyCoreDataManager {
     
     func removeResetBankOfRussiaCurrenciesFromConverter() {
         var currentAmount = amountOfPickedBankOfRussiaCurrencies
-        let currencies = fetchAllBankOfRussiaCurrencies()
+        let currencies = fetchCurrencies(entityName: Currency.self)
         var array = [Currency]()
         
         if !currencies.isEmpty {
@@ -156,9 +148,14 @@ struct CurrencyCoreDataManager {
         }
     }
     
+    func fetchBankOfRussiaCurrenciesCurrentDate() -> Date {
+        let currencies = fetchCurrencies(entityName: Currency.self)
+        return currencies.first?.currentDataDate ?? Date()
+    }
+    
    //MARK: - CRUD for Forex Currency
     
-    func createOrUpdateLatestForexCurrency(from dictionary: [String:String]) {
+    func createOrUpdateLatestForexCurrency(from dictionary: [String:String], currentDate: Date, previousDate: Date) {
         dictionary.forEach { key, value in
             let request: NSFetchRequest<ForexCurrency> = ForexCurrency.fetchRequest()
             request.predicate = NSPredicate(format: "shortName = %@", key)
@@ -167,10 +164,10 @@ struct CurrencyCoreDataManager {
                 let fetchRequest = try context.fetch(request)
                 if !fetchRequest.isEmpty {
                     for existingCurrency in fetchRequest {
-                        updateLatestForex(currency: existingCurrency, currValue: Double(value) ?? 0, currNominal: 1, abslValue: Double(1) / (Double(value) ?? 0))
+                        updateLatestForex(currency: existingCurrency, currValue: Double(value) ?? 0, currNominal: 1, abslValue: Double(1) / (Double(value) ?? 0), currentDate: currentDate, previousDate: previousDate)
                     }
                 } else {
-                    createLatestForex(shortName: key, fullName: key, currValue: Double(value) ?? 0, nominal: 1, abslValue: Double(1) / (Double(value) ?? 0))
+                    createLatestForex(shortName: key, fullName: key, currValue: Double(value) ?? 0, nominal: 1, abslValue: Double(1) / (Double(value) ?? 0), currentDate: currentDate, previousDate: previousDate)
                 }
             } catch {
                 print(error)
@@ -178,7 +175,7 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func createLatestForex(shortName: String, fullName: String, currValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, isBaseCurrency: Bool = false, rowForCurrency: Int32 = 0, rowForHistoricalCurrency: Int32 = 0, converterValue: String = "0") {
+    private func createLatestForex(shortName: String, fullName: String, currValue: Double, nominal: Int, abslValue: Double, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, isBaseCurrency: Bool = false, rowForCurrency: Int32 = 0, rowForHistoricalCurrency: Int32 = 0, converterValue: String = "0", currentDate: Date, previousDate: Date) {
         let currency = ForexCurrency(context: self.context)
         
         currency.shortName = shortName
@@ -194,6 +191,8 @@ struct CurrencyCoreDataManager {
         currency.rowForHistoricalCurrency = rowForHistoricalCurrency
         currency.searchName = currencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = abslValue
+        currency.currentDataDate = currentDate
+        currency.previousDataDate = previousDate
         
         if currency.shortName == "USD" || currency.shortName == "EUR" {
             currency.rowForConverter = currency.shortName == "USD" ? 1 : 2
@@ -202,14 +201,16 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func updateLatestForex(currency: ForexCurrency, currValue: Double, currNominal: Int, abslValue: Double, isForCurrency: Bool = true) {
+    private func updateLatestForex(currency: ForexCurrency, currValue: Double, currNominal: Int, abslValue: Double, isForCurrency: Bool = true, currentDate: Date, previousDate: Date) {
         currency.currentValue = currValue
         currency.nominal = Int32(currNominal)
         currency.absoluteValue = abslValue
         currency.isForCurrencyScreen = isForCurrency
+        currency.currentDataDate = currentDate
+        currency.previousDataDate = previousDate
     }
     
-    func createOrUpdateYesterdayForexCurrency(from dictionary: [String:String]) {
+    func createOrUpdateYesterdayForexCurrency(from dictionary: [String:String], currentDate: Date, previousDate: Date) {
         dictionary.forEach { key, value in
             let request: NSFetchRequest<ForexCurrency> = ForexCurrency.fetchRequest()
             request.predicate = NSPredicate(format: "shortName = %@", key)
@@ -218,10 +219,10 @@ struct CurrencyCoreDataManager {
                 let fetchRequest = try context.fetch(request)
                 if !fetchRequest.isEmpty {
                     for existingCurrency in fetchRequest {
-                        updateYesterdayForex(currency: existingCurrency, prevValue: Double(value) ?? 0)
+                        updateYesterdayForex(currency: existingCurrency, prevValue: Double(value) ?? 0, currentDate: currentDate, previousDate: previousDate)
                     }
                 } else {
-                    createYesterdayForex(shortName: key, fullName: key, prevValue: Double(value) ?? 0, nominal: 1)
+                    createYesterdayForex(shortName: key, fullName: key, prevValue: Double(value) ?? 0, nominal: 1, currentDate: currentDate, previousDate: previousDate)
                 }
             } catch {
                 print(error)
@@ -229,7 +230,7 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func createYesterdayForex(shortName: String, fullName: String, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, isBaseCurrency: Bool = false, rowForCurrency: Int32 = 0, rowForHistoricalCurrency: Int32 = 0, converterValue: String = "0") {
+    private func createYesterdayForex(shortName: String, fullName: String, prevValue: Double, nominal: Int, isForConverter: Bool = false, rowForConverter: Int32 = 0, isForCurrency: Bool = true, isBaseCurrency: Bool = false, rowForCurrency: Int32 = 0, rowForHistoricalCurrency: Int32 = 0, converterValue: String = "0", currentDate: Date, previousDate: Date) {
         let currency = ForexCurrency(context: self.context)
         
         currency.shortName = shortName
@@ -245,6 +246,8 @@ struct CurrencyCoreDataManager {
         currency.rowForHistoricalCurrency = rowForHistoricalCurrency
         currency.searchName = currencyManager.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = currency.currentValue / Double(currency.nominal)
+        currency.currentDataDate = currentDate
+        currency.previousDataDate = previousDate
         
         if currency.shortName == "USD" || currency.shortName == "EUR" {
             currency.rowForConverter = currency.shortName == "USD" ? 1 : 2
@@ -253,9 +256,11 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    private func updateYesterdayForex(currency: ForexCurrency, prevValue: Double, isForCurrency: Bool = true) {
+    private func updateYesterdayForex(currency: ForexCurrency, prevValue: Double, isForCurrency: Bool = true, currentDate: Date, previousDate: Date) {
         currency.previousValue = 1.0 / prevValue
         currency.isForCurrencyScreen = isForCurrency
+        currency.currentDataDate = currentDate
+        currency.previousDataDate = previousDate
     }
     
     func filterOutForexBaseCurrency() {
@@ -271,20 +276,8 @@ struct CurrencyCoreDataManager {
         }
     }
     
-    func fetchAllForexCurrencies() -> [ForexCurrency] {
-        var fetchCurrencies = [ForexCurrency]()
-        let request: NSFetchRequest<ForexCurrency> = ForexCurrency.fetchRequest()
-        
-        do {
-            fetchCurrencies = try context.fetch(request)
-        } catch {
-            print(error)
-        }
-        return fetchCurrencies
-    }
-    
     func resetRowForHistoricalCurrencyPropertyForForexCurrencies() {
-        let currencies = fetchAllForexCurrencies()
+        let currencies = fetchCurrencies(entityName: ForexCurrency.self)
         
         if !currencies.isEmpty {
             currencies.forEach { currency in
@@ -294,7 +287,7 @@ struct CurrencyCoreDataManager {
     }
     
     func resetCurrencyScreenPropertyForForexCurrencies() {
-        let currencies = fetchAllForexCurrencies()
+        let currencies = fetchCurrencies(entityName: ForexCurrency.self)
         
         if !currencies.isEmpty {
             currencies.forEach { currency in
@@ -305,7 +298,7 @@ struct CurrencyCoreDataManager {
     
     func removeResetForexCurrenciesFromConverter() {
         var currentAmount = amountOfPickedForexCurrencies
-        let currencies = fetchAllForexCurrencies()
+        let currencies = fetchCurrencies(entityName: ForexCurrency.self)
         var array = [ForexCurrency]()
         
         if !currencies.isEmpty {
@@ -327,7 +320,21 @@ struct CurrencyCoreDataManager {
         }
     }
     
-   //MARK: - FetchResultsController Setup
+    //MARK: - Common Methods
+    
+    func fetchCurrencies<T: NSFetchRequestResult>(entityName: T.Type) -> [T] {
+        let request = NSFetchRequest<T>(entityName: String(describing: entityName))
+        var fetchedCurrencies: [T] = []
+        
+        do {
+            fetchedCurrencies = try context.fetch(request)
+        } catch {
+            print(error)
+        }
+        return fetchedCurrencies
+    }
+    
+    //MARK: - FetchResultsController Setup
     
     func createBankOfRussiaCurrencyFRC(with predicate: NSPredicate? = nil, and sortDescriptor: NSSortDescriptor? = nil) -> NSFetchedResultsController<Currency> {
         var sectionName: String?

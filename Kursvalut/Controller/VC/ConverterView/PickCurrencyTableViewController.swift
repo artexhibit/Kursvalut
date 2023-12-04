@@ -100,7 +100,7 @@ class PickCurrencyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if pickedDataSource == "ЦБ РФ" {
             var currentAmount = amountOfPickedBankOfRussiaCurrencies
-            let bankOfRussiaCurrencies = coreDataManager.fetchAllBankOfRussiaCurrencies()
+            let bankOfRussiaCurrencies = coreDataManager.fetchCurrencies(entityName: Currency.self)
             let bankOfRussiaCurrency = bankOfRussiaFRC.object(at: indexPath)
             
             bankOfRussiaCurrency.isForConverter = !bankOfRussiaCurrency.isForConverter
@@ -124,7 +124,7 @@ class PickCurrencyTableViewController: UITableViewController {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCells"), object: nil, userInfo: ["currencyWasAdded": bankOfRussiaCurrency.isForConverter])
         } else if pickedDataSource == "Forex (Биржа)" {
             var currentAmount = amountOfPickedForexCurrencies
-            let forexCurrencies = coreDataManager.fetchAllForexCurrencies()
+            let forexCurrencies = coreDataManager.fetchCurrencies(entityName: ForexCurrency.self)
             let forexCurrency = forexFRC.object(at: indexPath)
             
             forexCurrency.isForConverter = !forexCurrency.isForConverter

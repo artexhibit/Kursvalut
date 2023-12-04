@@ -2,6 +2,8 @@
 import Foundation
 
 struct BankOfRussiaCurrencyData: Codable {
+    let Date: String
+    let PreviousDate: String
     let Valute: [String: Details]
 }
 

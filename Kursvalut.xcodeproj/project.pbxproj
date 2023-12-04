@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B158C682B1E43BA004EA97A /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
 		7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17227D90C4400769693 /* AboutAppTableViewController.swift */; };
 		7802A17727D924E200769693 /* AboutAppDeveloperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17627D924E200769693 /* AboutAppDeveloperTableViewCell.swift */; };
 		78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C182786F9FA00C4D861 /* AppDelegate.swift */; };
@@ -88,6 +89,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B158C672B1E43BA004EA97A /* Date+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ext.swift"; sourceTree = "<group>"; };
+		0B158C692B1E4B68004EA97A /* Kursvalut_v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Kursvalut_v3.xcdatamodel; sourceTree = "<group>"; };
 		7802A17227D90C4400769693 /* AboutAppTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppTableViewController.swift; sourceTree = "<group>"; };
 		7802A17627D924E200769693 /* AboutAppDeveloperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppDeveloperTableViewCell.swift; sourceTree = "<group>"; };
 		78041C152786F9FA00C4D861 /* Kursvalut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kursvalut.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +186,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B158C662B1E43A6004EA97A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0B158C672B1E43BA004EA97A /* Date+ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		78041C0C2786F9FA00C4D861 = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +221,7 @@
 				78041C302786FD0F00C4D861 /* View */,
 				78041C312786FD2800C4D861 /* Controller */,
 				78041C322786FD3D00C4D861 /* Support Files */,
+				0B158C662B1E43A6004EA97A /* Extensions */,
 				78041C292786F9FB00C4D861 /* Info.plist */,
 			);
 			path = Kursvalut;
@@ -525,6 +537,7 @@
 				78F13FF327CE9AD80076613A /* ConverterPreviewTableViewCell.swift in Sources */,
 				7813102827D75FE000065410 /* SMailComposeViewController.swift in Sources */,
 				7852295F279B19E300507877 /* PickCurrencyTableViewController.swift in Sources */,
+				0B158C682B1E43BA004EA97A /* Date+ext.swift in Sources */,
 				78041C1D2786F9FA00C4D861 /* CurrencyViewController.swift in Sources */,
 				78BD46DF27F07460002AFDA1 /* PopupView.swift in Sources */,
 				78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */,
@@ -743,7 +756,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -773,7 +786,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -809,10 +822,11 @@
 		78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0B158C692B1E4B68004EA97A /* Kursvalut_v3.xcdatamodel */,
 				7866D8092A191EEA0001DFF3 /* Kursvalut_v2.xcdatamodel */,
 				78041C222786F9FA00C4D861 /* Kursvalut.xcdatamodel */,
 			);
-			currentVersion = 7866D8092A191EEA0001DFF3 /* Kursvalut_v2.xcdatamodel */;
+			currentVersion = 0B158C692B1E4B68004EA97A /* Kursvalut_v3.xcdatamodel */;
 			path = Kursvalut.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

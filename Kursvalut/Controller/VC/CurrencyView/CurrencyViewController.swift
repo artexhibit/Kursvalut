@@ -131,7 +131,7 @@ class CurrencyViewController: UIViewController {
     }
     
     @IBAction func updateTimeButtonPressed(_ sender: UIButton) {
-        guard proPurchased == true else {
+        if !proPurchased {
            return PopupQueueManager.shared.addPopupToQueue(title: "Только для Pro", message: "Переключение с этого экрана доступно в Pro-версии", style: .lock)
         }
         

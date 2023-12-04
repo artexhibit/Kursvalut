@@ -1,6 +1,7 @@
 import Foundation
 
 struct ForexCurrencyData: Decodable {
+    var date: String = ""
     var currencies: [String: Double] = [:]
     
     init(from decoder: Decoder) throws {
@@ -9,6 +10,8 @@ struct ForexCurrencyData: Decodable {
         for key in container.allKeys {
             if key.stringValue != "date" {
                 currencies = try container.decode([String: Double].self, forKey: (AnyKey(stringValue: key.stringValue) ?? AnyKey(stringValue: ""))!)
+            } else {
+                date = try container.decode(String.self, forKey: AnyKey(stringValue: "date")!)
             }
         }
     }
