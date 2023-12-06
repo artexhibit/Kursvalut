@@ -8,10 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		0B158C682B1E43BA004EA97A /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
+		0B3815CC2B20E83000D75674 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78041C242786F9FB00C4D861 /* Assets.xcassets */; };
+		0B3815D02B20F85400D75674 /* WidgetsCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */; };
+		0B3815D12B20F89700D75674 /* WidgetsCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */; };
+		0B3815D82B2101B100D75674 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815D72B2101B100D75674 /* Persistence.swift */; };
+		0B3815D92B21067E00D75674 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815D72B2101B100D75674 /* Persistence.swift */; };
+		0B3815DA2B2107EA00D75674 /* Kursvalut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */; };
 		0BAA1F722B1FA18500188959 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA1F712B1FA18500188959 /* WidgetKit.framework */; };
 		0BAA1F742B1FA18500188959 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA1F732B1FA18500188959 /* SwiftUI.framework */; };
 		0BAA1F772B1FA18600188959 /* WidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAA1F762B1FA18600188959 /* WidgetsBundle.swift */; };
-		0BAA1F792B1FA18600188959 /* Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAA1F782B1FA18600188959 /* Widgets.swift */; };
+		0BAA1F792B1FA18600188959 /* SingleCurrencyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAA1F782B1FA18600188959 /* SingleCurrencyWidget.swift */; };
 		0BAA1F7B2B1FA18600188959 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BAA1F7A2B1FA18600188959 /* Assets.xcassets */; };
 		0BAA1F7F2B1FA18600188959 /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0BAA1F702B1FA18500188959 /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17227D90C4400769693 /* AboutAppTableViewController.swift */; };
@@ -107,7 +113,7 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		0BAA1F802B1FA18600188959 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
@@ -121,11 +127,13 @@
 /* Begin PBXFileReference section */
 		0B158C672B1E43BA004EA97A /* Date+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ext.swift"; sourceTree = "<group>"; };
 		0B158C692B1E4B68004EA97A /* Kursvalut_v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Kursvalut_v3.xcdatamodel; sourceTree = "<group>"; };
+		0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsCoreDataManager.swift; sourceTree = "<group>"; };
+		0B3815D72B2101B100D75674 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		0BAA1F702B1FA18500188959 /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BAA1F712B1FA18500188959 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		0BAA1F732B1FA18500188959 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		0BAA1F762B1FA18600188959 /* WidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsBundle.swift; sourceTree = "<group>"; };
-		0BAA1F782B1FA18600188959 /* Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widgets.swift; sourceTree = "<group>"; };
+		0BAA1F782B1FA18600188959 /* SingleCurrencyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleCurrencyWidget.swift; sourceTree = "<group>"; };
 		0BAA1F7A2B1FA18600188959 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BAA1F7C2B1FA18600188959 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BAA1F842B1FA1D500188959 /* Kursvalut.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kursvalut.entitlements; sourceTree = "<group>"; };
@@ -246,7 +254,8 @@
 			isa = PBXGroup;
 			children = (
 				0BAA1F762B1FA18600188959 /* WidgetsBundle.swift */,
-				0BAA1F782B1FA18600188959 /* Widgets.swift */,
+				0BAA1F782B1FA18600188959 /* SingleCurrencyWidget.swift */,
+				0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */,
 				0BAA1F7A2B1FA18600188959 /* Assets.xcassets */,
 				0BAA1F7C2B1FA18600188959 /* Info.plist */,
 			);
@@ -278,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				0BAA1F842B1FA1D500188959 /* Kursvalut.entitlements */,
+				0B3815D72B2101B100D75674 /* Persistence.swift */,
 				78041C182786F9FA00C4D861 /* AppDelegate.swift */,
 				78041C1A2786F9FA00C4D861 /* SceneDelegate.swift */,
 				78041C2F2786FD0400C4D861 /* Model */,
@@ -588,6 +598,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B3815CC2B20E83000D75674 /* Assets.xcassets in Resources */,
 				0BAA1F7B2B1FA18600188959 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -619,8 +630,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B3815D02B20F85400D75674 /* WidgetsCoreDataManager.swift in Sources */,
+				0B3815DA2B2107EA00D75674 /* Kursvalut.xcdatamodeld in Sources */,
+				0B3815D92B21067E00D75674 /* Persistence.swift in Sources */,
 				0BAA1F772B1FA18600188959 /* WidgetsBundle.swift in Sources */,
-				0BAA1F792B1FA18600188959 /* Widgets.swift in Sources */,
+				0BAA1F792B1FA18600188959 /* SingleCurrencyWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,6 +674,7 @@
 				7831DAEA28B0FAC4008A1758 /* DatePickerTableViewCell.swift in Sources */,
 				78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */,
 				78137FD72833A78400F4621E /* TutorialViewController.swift in Sources */,
+				0B3815D82B2101B100D75674 /* Persistence.swift in Sources */,
 				786C01A527DE511400868EBE /* TipJarTableViewCell.swift in Sources */,
 				78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */,
 				78041C1B2786F9FA00C4D861 /* SceneDelegate.swift in Sources */,
@@ -682,6 +697,7 @@
 				7877053A29B25F2C004C5C1D /* MenuView.swift in Sources */,
 				789FD81E288F06B80084468F /* NumpadView.swift in Sources */,
 				780AA2E7280ACE9000ECC3C4 /* OnboardingViewController.swift in Sources */,
+				0B3815D12B20F89700D75674 /* WidgetsCoreDataManager.swift in Sources */,
 				78B9F55D2801B9B50030ECF4 /* MainSortTableViewCell.swift in Sources */,
 				78B9F5612801BBAA0030ECF4 /* SortingSection.swift in Sources */,
 				780AA2ED280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift in Sources */,

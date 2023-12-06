@@ -17,7 +17,7 @@ struct CurrencyCoreDataManager {
     var pickedBaseCurrency: String {
         return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
     }
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let context = PersistenceController.shared.container.viewContext
     
     func save() {
         do {
