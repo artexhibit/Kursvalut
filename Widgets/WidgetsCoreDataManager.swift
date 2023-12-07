@@ -4,8 +4,11 @@ import CoreData
 struct WidgetsCoreDataManager {
     static let viewContext =  PersistenceController.shared.container.viewContext
     
-    static private func fetchCurrencies<T: NSFetchRequestResult>(entityName: T.Type) -> [T] {
+    static func fetchPickedCurrencies<T: NSFetchRequestResult>(for entityName: T.Type, with targetCurrencies: [String]) -> [T] {
         let request = NSFetchRequest<T>(entityName: String(describing: entityName))
+        let predicate = NSPredicate(format: "shortName IN %@", targetCurrencies)
+        request.predicate = predicate
+        
         var fetchedCurrencies: [T] = []
         
         do {
