@@ -130,7 +130,7 @@ struct CurrencyNetworking {
                 let currenciesPreviousDate = Date.createrYesterdaysDate(from: currenciesCurrentDate)
                 let decodedDict = decodedData.currencies as [String: Double]
                 
-                let filteredData = decodedDict.filter({ currencyManager.currencyFullNameDict.keys.contains($0.key.uppercased())}).reduce(into: [String: String]()) { (result, dict) in
+                let filteredData = decodedDict.filter({ CurrencyData.currencyFullNameDict.keys.contains($0.key.uppercased())}).reduce(into: [String: String]()) { (result, dict) in
                     result[dict.key.uppercased()] = String(dict.value)
                 }
                 coreDataManager.resetCurrencyScreenPropertyForForexCurrencies()

@@ -53,7 +53,7 @@ struct CurrencyCoreDataManager {
         let currency = Currency(context: self.context)
         
         currency.shortName = shortName
-        currency.fullName = currencyManager.currencyFullNameDict[fullName]?.currencyName
+        currency.fullName = CurrencyData.currencyFullNameDict[fullName]?.currencyName
         currency.currentValue = currValue
         currency.previousValue = prevValue
         currency.nominal = Int32(nominal)
@@ -64,7 +64,7 @@ struct CurrencyCoreDataManager {
         currency.isBaseCurrency = isBaseCurrency
         currency.rowForCurrency = rowForCurrency
         currency.rowForHistoricalCurrency = rowForHistoricalCurrency
-        currency.searchName = currencyManager.currencyFullNameDict[fullName]?.searchName
+        currency.searchName = CurrencyData.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = currency.currentValue / Double(currency.nominal)
         currency.currentDataDate = currentDate
         currency.previousDataDate = previousDate
@@ -179,7 +179,7 @@ struct CurrencyCoreDataManager {
         let currency = ForexCurrency(context: self.context)
         
         currency.shortName = shortName
-        currency.fullName = currencyManager.currencyFullNameDict[fullName]?.currencyName
+        currency.fullName = CurrencyData.currencyFullNameDict[fullName]?.currencyName
         currency.currentValue = currValue
         currency.nominal = Int32(nominal)
         currency.converterValue = converterValue
@@ -189,7 +189,7 @@ struct CurrencyCoreDataManager {
         currency.isBaseCurrency = isBaseCurrency
         currency.rowForCurrency = rowForCurrency
         currency.rowForHistoricalCurrency = rowForHistoricalCurrency
-        currency.searchName = currencyManager.currencyFullNameDict[fullName]?.searchName
+        currency.searchName = CurrencyData.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = abslValue
         currency.currentDataDate = currentDate
         currency.previousDataDate = previousDate
@@ -234,7 +234,7 @@ struct CurrencyCoreDataManager {
         let currency = ForexCurrency(context: self.context)
         
         currency.shortName = shortName
-        currency.fullName = currencyManager.currencyFullNameDict[fullName]?.currencyName
+        currency.fullName = CurrencyData.currencyFullNameDict[fullName]?.currencyName
         currency.previousValue = 1.0 / prevValue
         currency.nominal = Int32(nominal)
         currency.converterValue = converterValue
@@ -244,7 +244,7 @@ struct CurrencyCoreDataManager {
         currency.isBaseCurrency = isBaseCurrency
         currency.rowForCurrency = rowForCurrency
         currency.rowForHistoricalCurrency = rowForHistoricalCurrency
-        currency.searchName = currencyManager.currencyFullNameDict[fullName]?.searchName
+        currency.searchName = CurrencyData.currencyFullNameDict[fullName]?.searchName
         currency.absoluteValue = currency.currentValue / Double(currency.nominal)
         currency.currentDataDate = currentDate
         currency.previousDataDate = previousDate

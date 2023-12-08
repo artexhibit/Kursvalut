@@ -181,7 +181,7 @@ class ConverterTableViewController: UITableViewController {
         cell.numberTextField.isHidden = tableViewIsInEditingMode ? true : false
         cell.numberTextField.alpha = tableViewIsInEditingMode ? 0 : 1
         cell.numberTextField.isUserInteractionEnabled = tableViewIsInEditingMode ? false : true
-        cell.secondFullName.text = currencyManager.currencyFullNameDict[cell.shortName.text ?? "RUB"]?.shortName
+        cell.secondFullName.text = CurrencyData.currencyFullNameDict[cell.shortName.text ?? "RUB"]?.shortName
         
         if setTextFieldToZero && !saveConverterValuesTurnedOn {
             cell.numberTextField.text = "0"
