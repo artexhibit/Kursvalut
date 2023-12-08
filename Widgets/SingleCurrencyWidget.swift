@@ -2,21 +2,25 @@ import WidgetKit
 import SwiftUI
 import CoreData
 
-struct Provider: TimelineProvider {
+struct SingleCurrencyProvider: IntentTimelineProvider {
     func placeholder(in context: Context) -> CurrencyEntry {
-        CurrencyEntry(date: Date(), CBRFCurrency: [], ForexCurrency: [], baseSource: "Forex", baseCurrency: "")
+        CurrencyEntry(date: Date(), CBRFCurrency: [], ForexCurrency: [], baseSource: "Forex", baseCurrency: "", mainCurrency: "")
     }
     
-    func getSnapshot(in context: Context, completion: @escaping (CurrencyEntry) -> ()) {
-        let entry = CurrencyEntry(date: Date(), CBRFCurrency: [], ForexCurrency: [], baseSource: "Forex", baseCurrency: "RUB")
+    func getSnapshot(for configuration: SetCurrencyIntent, in context: Context, completion: @escaping (CurrencyEntry) -> Void) {
+        let currencies = WidgetsCoreDataManager.get(currencies: ["USD"], for: "Forex")
+        
+        let entry = CurrencyEntry(date: Date(), CBRFCurrency: currencies.cbrf, ForexCurrency: currencies.forex, baseSource: "Forex", baseCurrency: "EUR", mainCurrency: "USD")
         completion(entry)
     }
     
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        let CBRFCurrencyArray = WidgetsCoreDataManager.fetchPickedCurrencies(for: Currency.self, with: ["EUR"])
-        let ForexCurrencyArray = WidgetsCoreDataManager.fetchPickedCurrencies(for: ForexCurrency.self, with: ["EUR"])
-
-        let entry = CurrencyEntry(date: Date(), CBRFCurrency: CBRFCurrencyArray, ForexCurrency: ForexCurrencyArray, baseSource: WidgetsManager.baseSource, baseCurrency: WidgetsManager.baseCurrency)
+    func getTimeline(for configuration: SetCurrencyIntent, in context: Context, completion: @escaping (Timeline<CurrencyEntry>) -> Void) {
+        guard let mainCurrency = configuration.mainCurrency?.prefix(3) else { return }
+        guard let baseCurrency = configuration.baseCurrency?.prefix(3) else { return }
+        guard let baseSource = configuration.baseSource else { return }
+        let currencies = WidgetsCoreDataManager.get(currencies: [String(mainCurrency)], for: baseSource)
+        
+        let entry = CurrencyEntry(date: Date(), CBRFCurrency: currencies.cbrf, ForexCurrency: currencies.forex, baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrency: String(mainCurrency))
         
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
@@ -29,25 +33,18 @@ struct CurrencyEntry: TimelineEntry {
     let ForexCurrency: [ForexCurrency]?
     let baseSource: String
     let baseCurrency: String
+    let mainCurrency: String
 }
 
 struct WidgetsEntryView : View {
-    var entry: Provider.Entry
+    var entry: SingleCurrencyProvider.Entry
     @Environment(\.colorScheme) var colorScheme
     
-    var shortName: String {
-        if WidgetsManager.baseSource == WidgetsManager.cbrf {
-            return entry.CBRFCurrency?.first?.shortName ?? ""
-        } else {
-            return entry.ForexCurrency?.first?.shortName ?? ""
-        }
-    }
-    
     var value: String {
-        if WidgetsManager.baseSource == WidgetsManager.cbrf {
-            return String(format: "%.4f", entry.CBRFCurrency?.first?.currentValue ?? 0)
+        if entry.baseSource == WidgetsData.cbrf {
+            return String(format: "%.4f", entry.CBRFCurrency?.first?.absoluteValue ?? 0)
         } else {
-            return String(format: "%.4f", entry.ForexCurrency?.first?.currentValue ?? 0)
+            return String(format: "%.4f", entry.ForexCurrency?.first?.absoluteValue ?? 0)
         }
     }
     
@@ -55,12 +52,12 @@ struct WidgetsEntryView : View {
         VStack(alignment: .leading, spacing: 13) {
             HStack(alignment: .top) {
                 VStack {
-                    Image("\(shortName)Round")
+                    Image("\(entry.mainCurrency)Round")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 33, height: 33)
                         .clipShape(Circle())
-                    Text("\(shortName)")
+                    Text("\(entry.mainCurrency)")
                         .font(.system(size: 16, weight: .semibold, design: .rounded))
                         .foregroundStyle(.secondary)
                         .bold()
@@ -93,7 +90,7 @@ struct SingleCurrencyWidget: Widget {
     let kind: String = "SingleCurrencyWidget"
     
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        IntentConfiguration(kind: kind, intent: SetCurrencyIntent.self, provider: SingleCurrencyProvider()) { entry in
             if #available(iOS 17.0, *) {
                 WidgetsEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
@@ -112,5 +109,5 @@ struct SingleCurrencyWidget: Widget {
 #Preview(as: .systemSmall) {
     SingleCurrencyWidget()
 } timeline: {
-    CurrencyEntry(date: .now, CBRFCurrency: [], ForexCurrency: [], baseSource: "Forex", baseCurrency: "RUB")
+    CurrencyEntry(date: .now, CBRFCurrency: [], ForexCurrency: [], baseSource: "Forex", baseCurrency: "RUB", mainCurrency: "")
 }
