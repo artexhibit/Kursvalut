@@ -31,4 +31,20 @@ struct WidgetsCoreDataManager {
         return (CBRFCurrencyArray, ForexCurrencyArray)
     }
     
+    static func calculateValue(for baseSource: String, with mainCurrency: String, and baseCurrency: String, decimals: Int) -> String {
+        var value = ""
+        
+        if baseSource == WidgetsData.cbrf {
+            let mainValue = get(currencies: [mainCurrency], for: baseSource).cbrf.first?.absoluteValue ?? 0
+            let baseValue = get(currencies: [baseCurrency], for: baseSource).cbrf.first?.absoluteValue ?? 0
+        
+            value = String(format: "%.\(decimals)f", mainValue / baseValue)
+        } else {
+            let mainValue = get(currencies: [mainCurrency], for: baseSource).forex.first?.absoluteValue ?? 0
+            let baseValue = get(currencies: [baseCurrency], for: baseSource).forex.first?.absoluteValue ?? 0
+            
+            value = String(format: "%.\(decimals)f", mainValue / baseValue)
+        }
+        return value
+    }
 }

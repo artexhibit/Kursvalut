@@ -4,13 +4,11 @@ import CoreData
 
 struct SingleCurrencyProvider: IntentTimelineProvider {
     func placeholder(in context: Context) -> CurrencyEntry {
-        CurrencyEntry(date: Date(), CBRFCurrency: [], ForexCurrency: [], baseSource: "Forex", baseCurrency: "", mainCurrency: "")
+        CurrencyEntry(date: Date(), rusBankCurrency: [], forexCurrency: [], baseSource: "", baseCurrency: "", mainCurrency: "", value: "")
     }
     
     func getSnapshot(for configuration: SetCurrencyIntent, in context: Context, completion: @escaping (CurrencyEntry) -> Void) {
-        let currencies = WidgetsCoreDataManager.get(currencies: ["USD"], for: "Forex")
-        
-        let entry = CurrencyEntry(date: Date(), CBRFCurrency: currencies.cbrf, ForexCurrency: currencies.forex, baseSource: "Forex", baseCurrency: "EUR", mainCurrency: "USD")
+        let entry = CurrencyEntry(date: .now, rusBankCurrency: [], forexCurrency: [], baseSource: "Forex", baseCurrency: "RUB", mainCurrency: "USD", value: "98.3456")
         completion(entry)
     }
     
@@ -18,9 +16,11 @@ struct SingleCurrencyProvider: IntentTimelineProvider {
         guard let mainCurrency = configuration.mainCurrency?.prefix(3) else { return }
         guard let baseCurrency = configuration.baseCurrency?.prefix(3) else { return }
         guard let baseSource = configuration.baseSource else { return }
+        guard let decimals = configuration.decimals as? Int else { return }
         let currencies = WidgetsCoreDataManager.get(currencies: [String(mainCurrency)], for: baseSource)
+        let value = WidgetsCoreDataManager.calculateValue(for: baseSource, with: String(mainCurrency), and: String(baseCurrency), decimals: decimals)
         
-        let entry = CurrencyEntry(date: Date(), CBRFCurrency: currencies.cbrf, ForexCurrency: currencies.forex, baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrency: String(mainCurrency))
+        let entry = CurrencyEntry(date: .now, rusBankCurrency: currencies.cbrf, forexCurrency: currencies.forex, baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrency: String(mainCurrency), value: value)
         
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
@@ -29,24 +29,18 @@ struct SingleCurrencyProvider: IntentTimelineProvider {
 
 struct CurrencyEntry: TimelineEntry {
     let date: Date
-    let CBRFCurrency: [Currency]?
-    let ForexCurrency: [ForexCurrency]?
+    let rusBankCurrency: [Currency]?
+    let forexCurrency: [ForexCurrency]?
     let baseSource: String
     let baseCurrency: String
     let mainCurrency: String
+    let value: String
 }
 
 struct WidgetsEntryView : View {
     var entry: SingleCurrencyProvider.Entry
     @Environment(\.colorScheme) var colorScheme
-    
-    var value: String {
-        if entry.baseSource == WidgetsData.cbrf {
-            return String(format: "%.4f", entry.CBRFCurrency?.first?.absoluteValue ?? 0)
-        } else {
-            return String(format: "%.4f", entry.ForexCurrency?.first?.absoluteValue ?? 0)
-        }
-    }
+    @Environment(\.showsWidgetContainerBackground) var showsBackground
     
     var body: some View {
         VStack(alignment: .leading, spacing: 13) {
@@ -55,34 +49,36 @@ struct WidgetsEntryView : View {
                     Image("\(entry.mainCurrency)Round")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 33, height: 33)
+                        .frame(height: showsBackground ? 33 : 36)
                         .clipShape(Circle())
                     Text("\(entry.mainCurrency)")
-                        .font(.system(size: 16, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.secondary)
+                        .font(showsBackground ? .system(size: 16, weight: .semibold, design: .rounded) : .system(size: 20, weight: .bold, design: .rounded))
+                        .foregroundStyle(showsBackground ? (colorScheme == .dark ? .white : .gray) : .white)
                         .bold()
                 }
                 
                 Spacer()
                 
                 Text("\(entry.baseSource)")
-                    .font(.system(size: 12, weight: .semibold, design: .rounded))
+                    .font(.system(size: showsBackground ? 12 : 22, weight: .semibold, design: .rounded))
                     .foregroundStyle(colorScheme == .dark ? .white : .secondary)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 3)
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
-                    .background(colorScheme == .dark ? .gray : .fadeGray)
+                    .background(showsBackground ? (colorScheme == .dark ? .gray : .fadeGray) : .clear)
                     .clipShape(RoundedRectangle(cornerSize: CGSize(width: 7, height: 7)))
             }
             
-            Text("\(value) \(entry.baseCurrency)")
-                .font(.system(.title2, design: .rounded))
+            Text("\(entry.value) \(entry.baseCurrency)")
+                .font(.system(showsBackground ? .title2 : .title, design: .rounded))
                 .bold()
                 .minimumScaleFactor(0.7)
                 .lineLimit(2)
+                .contentTransition(.numericText())
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(showsBackground ? 0 : 5)
     }
 }
 
@@ -109,5 +105,5 @@ struct SingleCurrencyWidget: Widget {
 #Preview(as: .systemSmall) {
     SingleCurrencyWidget()
 } timeline: {
-    CurrencyEntry(date: .now, CBRFCurrency: [], ForexCurrency: [], baseSource: "Forex", baseCurrency: "RUB", mainCurrency: "")
+    CurrencyEntry(date: .now, rusBankCurrency: [], forexCurrency: [], baseSource: "Forex", baseCurrency: "RUB", mainCurrency: "USD", value: "91.4556")
 }

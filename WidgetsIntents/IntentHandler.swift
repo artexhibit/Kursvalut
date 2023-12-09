@@ -15,7 +15,6 @@ extension IntentHandler: SetCurrencyIntentHandling {
     func provideMainCurrencyOptionsCollection(for intent: SetCurrencyIntent) async throws -> INObjectCollection<NSString> {
         let currencyStrings = setupCurrencyStrings()
         return INObjectCollection(items: currencyStrings as [NSString])
-        
     }
     
     func provideBaseCurrencyOptionsCollection(for intent: SetCurrencyIntent) async throws -> INObjectCollection<NSString> {
@@ -28,11 +27,11 @@ extension IntentHandler: SetCurrencyIntentHandling {
     }
     
     func defaultBaseCurrency(for intent: SetCurrencyIntent) -> String? {
-        return "USD"
+        return "USD - Доллар США"
     }
     
     func defaultMainCurrency(for intent: SetCurrencyIntent) -> String? {
-        return "EUR"
+        return "EUR - Евро"
     }
     
     func setupCurrencyStrings() -> [String] {

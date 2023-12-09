@@ -24,7 +24,6 @@
 		0B4B4C432B2398CA003B55A5 /* ChangeCurrencyIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C1E2B2393BD003B55A5 /* ChangeCurrencyIntent.intentdefinition */; };
 		0B4B4C442B23996D003B55A5 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C1A2B238E42003B55A5 /* CurrencyData.swift */; };
 		0B4B4C462B239D8F003B55A5 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
-		0B4B4C4B2B23B477003B55A5 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		0B4B4C4C2B23B477003B55A5 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		0B4B4C4D2B23B4AD003B55A5 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		0B6D80C72B223DE200E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
@@ -35,6 +34,7 @@
 		0BAA1F792B1FA18600188959 /* SingleCurrencyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAA1F782B1FA18600188959 /* SingleCurrencyWidget.swift */; };
 		0BAA1F7B2B1FA18600188959 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BAA1F7A2B1FA18600188959 /* Assets.xcassets */; };
 		0BAA1F7F2B1FA18600188959 /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0BAA1F702B1FA18500188959 /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0BFEC2E42B24772C00E14317 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17227D90C4400769693 /* AboutAppTableViewController.swift */; };
 		7802A17727D924E200769693 /* AboutAppDeveloperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17627D924E200769693 /* AboutAppDeveloperTableViewCell.swift */; };
 		78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C182786F9FA00C4D861 /* AppDelegate.swift */; };
@@ -775,7 +775,7 @@
 				78CEB9AB2813F83900AE0903 /* OnboardingTableViewCell.swift in Sources */,
 				0B6D80C82B223F3D00E2BE25 /* UserDefaults+Ext.swift in Sources */,
 				78E9B79A27D7956300BB5249 /* PrivacyPolicyViewController.swift in Sources */,
-				0B4B4C4B2B23B477003B55A5 /* WidgetsData.swift in Sources */,
+				0BFEC2E42B24772C00E14317 /* WidgetsData.swift in Sources */,
 				7831DAEA28B0FAC4008A1758 /* DatePickerTableViewCell.swift in Sources */,
 				78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */,
 				78137FD72833A78400F4621E /* TutorialViewController.swift in Sources */,

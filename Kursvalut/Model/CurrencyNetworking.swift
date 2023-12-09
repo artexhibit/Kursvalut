@@ -2,6 +2,7 @@
 import Foundation
 import CoreData
 import UIKit
+import WidgetKit
 
 struct CurrencyNetworking {
     private let coreDataManager = CurrencyCoreDataManager()
@@ -106,6 +107,7 @@ struct CurrencyNetworking {
             }
             DispatchQueue.main.async { self.coreDataManager.save() }
             pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.standard.setValue(updateTime, forKey: "forexUpdateTime")
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
     
