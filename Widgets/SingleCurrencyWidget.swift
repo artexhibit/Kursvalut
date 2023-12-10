@@ -7,12 +7,12 @@ struct SingleCurrencyProvider: IntentTimelineProvider {
         CurrencyEntry(date: Date(), currency: WidgetsData.currencyExample)
     }
     
-    func getSnapshot(for configuration: SetCurrencyIntent, in context: Context, completion: @escaping (CurrencyEntry) -> Void) {
+    func getSnapshot(for configuration: SetSingleCurrencyIntent, in context: Context, completion: @escaping (CurrencyEntry) -> Void) {
         let entry = CurrencyEntry(date: .now, currency: WidgetsData.currencyExample)
         completion(entry)
     }
     
-    func getTimeline(for configuration: SetCurrencyIntent, in context: Context, completion: @escaping (Timeline<CurrencyEntry>) -> Void) {
+    func getTimeline(for configuration: SetSingleCurrencyIntent, in context: Context, completion: @escaping (Timeline<CurrencyEntry>) -> Void) {
         guard let mainCurrency = configuration.mainCurrency?.prefix(3) else { return }
         guard let baseCurrency = configuration.baseCurrency?.prefix(3) else { return }
         guard let baseSource = configuration.baseSource else { return }
@@ -32,7 +32,7 @@ struct CurrencyEntry: TimelineEntry {
     let currency: WidgetCurrency
 }
 
-struct WidgetsEntryView : View {
+struct SingleCurrencyEntryView : View {
     @Environment(\.widgetFamily) var family
     var entry: CurrencyEntry
     
@@ -66,12 +66,12 @@ struct SingleCurrencyWidget: Widget {
     let kind: String = "SingleCurrencyWidget"
     
     var body: some WidgetConfiguration {
-        IntentConfiguration(kind: kind, intent: SetCurrencyIntent.self, provider: SingleCurrencyProvider()) { entry in
+        IntentConfiguration(kind: kind, intent: SetSingleCurrencyIntent.self, provider: SingleCurrencyProvider()) { entry in
             if #available(iOS 17.0, *) {
-                WidgetsEntryView(entry: entry)
+                SingleCurrencyEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
             } else {
-                WidgetsEntryView(entry: entry)
+                SingleCurrencyEntryView(entry: entry)
                     .padding()
                     .background()
             }

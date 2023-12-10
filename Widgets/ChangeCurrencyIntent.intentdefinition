@@ -28,7 +28,7 @@
 			<key>INIntentLastParameterTag</key>
 			<integer>9</integer>
 			<key>INIntentName</key>
-			<string>SetCurrency</string>
+			<string>SetSingleCurrency</string>
 			<key>INIntentParameters</key>
 			<array>
 				<dict>
@@ -211,7 +211,7 @@
 				</array>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>Set Currency</string>
+			<string>Set Single Currency</string>
 			<key>INIntentTitleID</key>
 			<string>6SJhJd</string>
 			<key>INIntentType</key>

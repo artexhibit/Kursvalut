@@ -6,31 +6,31 @@ class IntentHandler: INExtension {
     }
 }
 
-extension IntentHandler: SetCurrencyIntentHandling {
-    func provideBaseSourceOptionsCollection(for intent: SetCurrencyIntent) async throws -> INObjectCollection<NSString> {
+extension IntentHandler: SetSingleCurrencyIntentHandling {
+    func provideBaseSourceOptionsCollection(for intent: SetSingleCurrencyIntent) async throws -> INObjectCollection<NSString> {
         let sourceStrings = [WidgetsData.cbrf, WidgetsData.forex]
         return INObjectCollection(items: sourceStrings as [NSString])
     }
     
-    func provideMainCurrencyOptionsCollection(for intent: SetCurrencyIntent) async throws -> INObjectCollection<NSString> {
+    func provideMainCurrencyOptionsCollection(for intent: SetSingleCurrencyIntent) async throws -> INObjectCollection<NSString> {
         let currencyStrings = setupCurrencyStrings()
         return INObjectCollection(items: currencyStrings as [NSString])
     }
     
-    func provideBaseCurrencyOptionsCollection(for intent: SetCurrencyIntent) async throws -> INObjectCollection<NSString> {
+    func provideBaseCurrencyOptionsCollection(for intent: SetSingleCurrencyIntent) async throws -> INObjectCollection<NSString> {
         let currencyStrings = setupCurrencyStrings()
         return INObjectCollection(items: currencyStrings as [NSString])
     }
     
-    func defaultBaseSource(for intent: SetCurrencyIntent) -> String? {
+    func defaultBaseSource(for intent: SetSingleCurrencyIntent) -> String? {
         return WidgetsData.forex
     }
     
-    func defaultBaseCurrency(for intent: SetCurrencyIntent) -> String? {
+    func defaultBaseCurrency(for intent: SetSingleCurrencyIntent) -> String? {
         return "USD - Доллар США"
     }
     
-    func defaultMainCurrency(for intent: SetCurrencyIntent) -> String? {
+    func defaultMainCurrency(for intent: SetSingleCurrencyIntent) -> String? {
         return "EUR - Евро"
     }
     
