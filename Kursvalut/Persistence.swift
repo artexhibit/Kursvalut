@@ -2,7 +2,7 @@ import CoreData
 
 struct PersistenceController {
     static let shared = PersistenceController()
-    let databaseName = "Kursvalut_v3.sqlite"
+    let databaseName = "Kursvalut.sqlite"
     
     var oldStoreURL: URL {
         let directory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
@@ -22,9 +22,9 @@ struct PersistenceController {
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         } else if !FileManager.default.fileExists(atPath: oldStoreURL.path) {
-            container.persistentStoreDescriptions.first!.url = sharedStoreURL
+           container.persistentStoreDescriptions.first!.url = sharedStoreURL
         }
-        //print("Container URL equals: \(container.persistentStoreDescriptions.first!.url!)")
+       // print("Container URL equals: \(container.persistentStoreDescriptions.first!.url!)")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")

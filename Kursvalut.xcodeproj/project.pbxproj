@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0B158C682B1E43BA004EA97A /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
+		0B2D6AE92B25F0CE0074AB48 /* SingleCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AE82B25F0CE0074AB48 /* SingleCurrencyView.swift */; };
+		0B2D6AEC2B25F19E0074AB48 /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
 		0B3815CC2B20E83000D75674 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78041C242786F9FB00C4D861 /* Assets.xcassets */; };
 		0B3815D02B20F85400D75674 /* WidgetsCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */; };
 		0B3815D12B20F89700D75674 /* WidgetsCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */; };
@@ -25,7 +27,6 @@
 		0B4B4C442B23996D003B55A5 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C1A2B238E42003B55A5 /* CurrencyData.swift */; };
 		0B4B4C462B239D8F003B55A5 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0B4B4C4C2B23B477003B55A5 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
-		0B4B4C4D2B23B4AD003B55A5 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		0B6D80C72B223DE200E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0B6D80C82B223F3D00E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0BAA1F722B1FA18500188959 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA1F712B1FA18500188959 /* WidgetKit.framework */; };
@@ -34,6 +35,9 @@
 		0BAA1F792B1FA18600188959 /* SingleCurrencyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAA1F782B1FA18600188959 /* SingleCurrencyWidget.swift */; };
 		0BAA1F7B2B1FA18600188959 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BAA1F7A2B1FA18600188959 /* Assets.xcassets */; };
 		0BAA1F7F2B1FA18600188959 /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0BAA1F702B1FA18500188959 /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0BC813202B25FA7F00AE5AE9 /* Kursvalut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */; };
+		0BC813222B25FAEC00AE5AE9 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
+		0BC813232B25FB2A00AE5AE9 /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
 		0BFEC2E42B24772C00E14317 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17227D90C4400769693 /* AboutAppTableViewController.swift */; };
 		7802A17727D924E200769693 /* AboutAppDeveloperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17627D924E200769693 /* AboutAppDeveloperTableViewCell.swift */; };
@@ -150,6 +154,8 @@
 /* Begin PBXFileReference section */
 		0B158C672B1E43BA004EA97A /* Date+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ext.swift"; sourceTree = "<group>"; };
 		0B158C692B1E4B68004EA97A /* Kursvalut_v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Kursvalut_v3.xcdatamodel; sourceTree = "<group>"; };
+		0B2D6AE82B25F0CE0074AB48 /* SingleCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleCurrencyView.swift; sourceTree = "<group>"; };
+		0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCurrency.swift; sourceTree = "<group>"; };
 		0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsCoreDataManager.swift; sourceTree = "<group>"; };
 		0B3815D72B2101B100D75674 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		0B4B4C1A2B238E42003B55A5 /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
@@ -305,14 +311,32 @@
 			isa = PBXGroup;
 			children = (
 				0BAA1F762B1FA18600188959 /* WidgetsBundle.swift */,
-				0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */,
 				0BAA1F782B1FA18600188959 /* SingleCurrencyWidget.swift */,
-				0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */,
+				0BC813252B260C9300AE5AE9 /* Model */,
+				0BC813242B260C8100AE5AE9 /* Views */,
 				0BAA1F7A2B1FA18600188959 /* Assets.xcassets */,
 				0BAA1F7C2B1FA18600188959 /* Info.plist */,
 				0B4B4C1E2B2393BD003B55A5 /* ChangeCurrencyIntent.intentdefinition */,
 			);
 			path = Widgets;
+			sourceTree = "<group>";
+		};
+		0BC813242B260C8100AE5AE9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0B2D6AE82B25F0CE0074AB48 /* SingleCurrencyView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0BC813252B260C9300AE5AE9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */,
+				0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */,
+				0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		78041C0C2786F9FA00C4D861 = {
@@ -718,9 +742,10 @@
 			files = (
 				0B4B4C442B23996D003B55A5 /* CurrencyData.swift in Sources */,
 				0B4B4C3A2B239825003B55A5 /* IntentHandler.swift in Sources */,
-				0B4B4C4D2B23B4AD003B55A5 /* WidgetsData.swift in Sources */,
+				0BC813222B25FAEC00AE5AE9 /* WidgetsData.swift in Sources */,
 				0B4B4C462B239D8F003B55A5 /* UserDefaults+Ext.swift in Sources */,
 				0B4B4C432B2398CA003B55A5 /* ChangeCurrencyIntent.intentdefinition in Sources */,
+				0BC813202B25FA7F00AE5AE9 /* Kursvalut.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,12 +754,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B4B4C202B2393BD003B55A5 /* ChangeCurrencyIntent.intentdefinition in Sources */,
+				0B2D6AE92B25F0CE0074AB48 /* SingleCurrencyView.swift in Sources */,
 				0B3815D02B20F85400D75674 /* WidgetsCoreDataManager.swift in Sources */,
 				0B4B4C4C2B23B477003B55A5 /* WidgetsData.swift in Sources */,
 				0B3815DA2B2107EA00D75674 /* Kursvalut.xcdatamodeld in Sources */,
 				0B4B4C1D2B238F58003B55A5 /* CurrencyData.swift in Sources */,
 				0B6D80C72B223DE200E2BE25 /* UserDefaults+Ext.swift in Sources */,
 				0B3815D92B21067E00D75674 /* Persistence.swift in Sources */,
+				0B2D6AEC2B25F19E0074AB48 /* WidgetCurrency.swift in Sources */,
 				0BAA1F772B1FA18600188959 /* WidgetsBundle.swift in Sources */,
 				0BAA1F792B1FA18600188959 /* SingleCurrencyWidget.swift in Sources */,
 			);
@@ -750,6 +777,7 @@
 				7838F90027885B86007D34AA /* BankOfRussiaCurrencyData.swift in Sources */,
 				78137FDB2833EC1200F4621E /* UIImage+extension.swift in Sources */,
 				783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */,
+				0BC813232B25FB2A00AE5AE9 /* WidgetCurrency.swift in Sources */,
 				78B9F55F2801B9F10030ECF4 /* SubSortTableViewCell.swift in Sources */,
 				7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */,
 				78B40A1327D659F60016D9E6 /* TermsOfUseTableViewCell.swift in Sources */,
