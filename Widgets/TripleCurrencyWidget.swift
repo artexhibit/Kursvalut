@@ -1,18 +1,25 @@
 import WidgetKit
 import SwiftUI
 
-struct TripleCurrencyProvider: TimelineProvider {
+struct TripleCurrencyProvider: IntentTimelineProvider {
     func placeholder(in context: Context) -> TripleCurrencyEntry {
-        TripleCurrencyEntry(date: Date())
+        TripleCurrencyEntry(date: Date(), currency: WidgetsData.currencyExample)
     }
-
-    func getSnapshot(in context: Context, completion: @escaping (TripleCurrencyEntry) -> ()) {
-        let entry = TripleCurrencyEntry(date: Date())
+    
+    func getSnapshot(for configuration: SetTripleCurrencyIntent, in context: Context, completion: @escaping (TripleCurrencyEntry) -> Void) {
+        let entry = TripleCurrencyEntry(date: Date(), currency: WidgetsData.currencyExample)
         completion(entry)
     }
-
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        let entry = TripleCurrencyEntry(date: Date())
+    
+    func getTimeline(for configuration: SetTripleCurrencyIntent, in context: Context, completion: @escaping (Timeline<TripleCurrencyEntry>) -> Void) {
+        guard let currencyOne = configuration.currencyOne?.prefix(3) else { return }
+        guard let currencyTwo = configuration.currencyTwo?.prefix(3) else { return }
+        guard let currencyThree = configuration.currencyThree?.prefix(3) else { return }
+        guard let baseCurrency = configuration.baseCurrency?.prefix(3) else { return }
+        guard let baseSource = configuration.baseSource else { return }
+        guard let decimals = configuration.decimals as? Int else { return }
+        
+        let entry = TripleCurrencyEntry(date: Date(), currency: WidgetsData.currencyExample)
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
     }
@@ -20,6 +27,7 @@ struct TripleCurrencyProvider: TimelineProvider {
 
 struct TripleCurrencyEntry: TimelineEntry {
     let date: Date
+    let currency: WidgetCurrency
 }
 
 struct TripleCurrencyWidgetEntryView: View {
@@ -63,7 +71,7 @@ struct TripleCurrencyWidget: Widget {
     let kind: String = "TripleCurrencyWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: TripleCurrencyProvider()) { entry in
+        IntentConfiguration(kind: kind, intent: SetTripleCurrencyIntent.self, provider: TripleCurrencyProvider()) { entry in
             if #available(iOS 17.0, *) {
                 TripleCurrencyWidgetEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
@@ -81,5 +89,5 @@ struct TripleCurrencyWidget: Widget {
 #Preview(as: .systemMedium) {
     TripleCurrencyWidget()
 } timeline: {
-    TripleCurrencyEntry(date: Date())
+    TripleCurrencyEntry(date: Date(), currency: WidgetsData.currencyExample)
 }

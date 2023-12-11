@@ -18,8 +18,8 @@ struct SingleCurrencyProvider: IntentTimelineProvider {
         guard let baseSource = configuration.baseSource else { return }
         guard let decimals = configuration.decimals as? Int else { return }
         let currencies = WidgetsCoreDataManager.get(currencies: [String(mainCurrency)], for: baseSource)
-        let value = WidgetsCoreDataManager.calculateValue(for: baseSource, with: String(mainCurrency), and: String(baseCurrency), decimals: decimals)
-        let currency = WidgetCurrency(rusBankCurrency: currencies.cbrf, forexCurrency: currencies.forex, baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrency: String(mainCurrency), value: value)
+        let value = WidgetsCoreDataManager.calculateValue(for: baseSource, with: [String(mainCurrency)], and: String(baseCurrency), decimals: decimals)
+        let currency = WidgetCurrency(rusBankCurrency: currencies.cbrf, forexCurrency: currencies.forex, baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: [String(mainCurrency)], value: value.first ?? "")
         
         let entry = CurrencyEntry(date: .now, currency: currency)
         let timeline = Timeline(entries: [entry], policy: .never)
@@ -46,7 +46,7 @@ struct SingleCurrencyEntryView : View {
             ZStack {
                 AccessoryWidgetBackground()
                 VStack {
-                    Text("\(entry.currency.mainCurrency)")
+                    Text("\(entry.currency.mainCurrencies.first ?? "")")
                         .font(.system(size: 13, weight: .bold))
                     Text("\(entry.currency.value)")
                         .bold()
@@ -55,7 +55,7 @@ struct SingleCurrencyEntryView : View {
                 }
             }
         case .accessoryInline:
-            Text("1 \(entry.currency.mainCurrency) - \(entry.currency.value) \(entry.currency.baseCurrency)")
+            Text("1 \(entry.currency.mainCurrencies.first ?? "") - \(entry.currency.value) \(entry.currency.baseCurrency)")
         @unknown default:
             EmptyView()
         }

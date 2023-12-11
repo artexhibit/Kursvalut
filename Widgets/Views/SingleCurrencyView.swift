@@ -11,12 +11,12 @@ struct SingleCurrencyView: View {
         VStack(alignment: .leading, spacing: showsBackground ? 13 : 30) {
             HStack(alignment: .top) {
                 VStack {
-                    Image("\(currency.mainCurrency)Round")
+                    Image("\(currency.mainCurrencies.first ?? "")Round")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: showsBackground ? 33 : 36)
                         .clipShape(Circle())
-                    Text("\(currency.mainCurrency)")
+                    Text("\(currency.mainCurrencies.first ?? "")")
                         .font(showsBackground ? .system(size: 16, weight: .semibold, design: .rounded) : .system(size: 20, weight: .bold, design: .rounded))
                         .foregroundStyle(showsBackground ? (colorScheme == .dark ? .white : .gray) : .white)
                         .bold()

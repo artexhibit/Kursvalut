@@ -5,6 +5,13 @@ struct WidgetCurrency {
     let forexCurrency: [ForexCurrency]?
     let baseSource: String
     let baseCurrency: String
-    let mainCurrency: String
+    let mainCurrencies: [String]
     let value: String
+}
+
+extension WidgetCurrency {
+    struct WidgetDataDate {
+        let currentDataDate: Date
+        let previousDataDate: Date
+    }
 }
