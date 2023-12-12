@@ -18,8 +18,13 @@ struct TripleCurrencyProvider: IntentTimelineProvider {
         guard let baseCurrency = configuration.baseCurrency?.prefix(3) else { return }
         guard let baseSource = configuration.baseSource else { return }
         guard let decimals = configuration.decimals as? Int else { return }
+        let mainCurrencies = [String(currencyOne), String(currencyTwo), String(currencyThree)]
+        let values = WidgetsCoreDataManager.calculateValue(for: baseSource, with: mainCurrencies, and: String(baseCurrency), decimals: decimals, includePreviousValues: true)
+        let dates = WidgetsCoreDataManager.getDates(baseSource: baseSource, mainCurrencies: mainCurrencies)
         
-        let entry = TripleCurrencyEntry(date: Date(), currency: WidgetsData.currencyExample)
+        let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: mainCurrencies, currentValues: values.currentValues, previousValues: values.previousValues, currentValuesDate: dates.current, previousValuesDate: dates.previous)
+        
+        let entry = TripleCurrencyEntry(date: Date(), currency: currency)
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
     }
@@ -31,24 +36,24 @@ struct TripleCurrencyEntry: TimelineEntry {
 }
 
 struct TripleCurrencyWidgetEntryView: View {
-    var entry: TripleCurrencyProvider.Entry
+    var entry: TripleCurrencyEntry
 
     var body: some View {
         VStack {
             HStack {
-                RoundedTextView(text: "Forex")
-                RoundedTextView(text: "RUB")
+                RoundedTextView(text: "\(entry.currency.baseSource)")
+                RoundedTextView(text: "\(entry.currency.baseCurrency)")
                 
                 Spacer()
                 
-                HStack(spacing: 15) {
-                    Text("10.12.2023")
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                HStack(spacing: 13) {
+                    Text(Date.createWidgetDate(from: entry.currency.previousValuesDate ?? Date()))
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
                         .foregroundStyle(.secondary)
                         .frame(alignment: .center)
                         .contentTransition(.numericText())
-                    Text("11.12.2023")
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                    Text(Date.createWidgetDate(from: entry.currency.currentValuesDate ?? Date()))
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
                         .foregroundStyle(.secondary)
                         .frame(width: 90, alignment: .center)
                         .contentTransition(.numericText())
@@ -57,9 +62,9 @@ struct TripleCurrencyWidgetEntryView: View {
             
             Spacer()
             
-            VStack(alignment: .leading, spacing: 13) {
-                ForEach(0..<3) { _ in
-                    MediumCurrencyView()
+            VStack(alignment: .leading, spacing: 12) {
+                ForEach(Array(entry.currency.mainCurrencies.enumerated()), id: \.element) { index, mainCurrency in
+                    MediumCurrencyView(mainCurrency: mainCurrency, currentValue: entry.currency.currentValues[index], previousValue: entry.currency.previousValues?[index] ?? "")
                 }
             }
             .padding(.leading, 3)
@@ -82,7 +87,8 @@ struct TripleCurrencyWidget: Widget {
             }
         }
         .configurationDisplayName("Три валюты")
-        .description("Виджет, который показывает данные за 2 дня по 3 валютам на выбор.")
+        .description("Виджет, который показывает данные за 2 дня по 3 валютам на выбор")
+        .supportedFamilies([.systemMedium])
     }
 }
 

@@ -129,7 +129,7 @@ struct CurrencyNetworking {
                 let decodedData = try JSONDecoder().decode(ForexCurrencyData.self, from: currencyData)
                 
                 let currenciesCurrentDate = Date.createDate(from: decodedData.date)
-                let currenciesPreviousDate = Date.createrYesterdaysDate(from: currenciesCurrentDate)
+                let currenciesPreviousDate = Date.createYesterdaysDate(from: currenciesCurrentDate)
                 let decodedDict = decodedData.currencies as [String: Double]
                 
                 let filteredData = decodedDict.filter({ CurrencyData.currencyFullNameDict.keys.contains($0.key.uppercased())}).reduce(into: [String: String]()) { (result, dict) in

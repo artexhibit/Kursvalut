@@ -17,9 +17,9 @@ struct SingleCurrencyProvider: IntentTimelineProvider {
         guard let baseCurrency = configuration.baseCurrency?.prefix(3) else { return }
         guard let baseSource = configuration.baseSource else { return }
         guard let decimals = configuration.decimals as? Int else { return }
-        let currencies = WidgetsCoreDataManager.get(currencies: [String(mainCurrency)], for: baseSource)
         let value = WidgetsCoreDataManager.calculateValue(for: baseSource, with: [String(mainCurrency)], and: String(baseCurrency), decimals: decimals)
-        let currency = WidgetCurrency(rusBankCurrency: currencies.cbrf, forexCurrency: currencies.forex, baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: [String(mainCurrency)], value: value.first ?? "")
+        
+        let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: [String(mainCurrency)], currentValues: [value.currentValues.first ?? ""], previousValues: nil, currentValuesDate: nil, previousValuesDate: nil)
         
         let entry = CurrencyEntry(date: .now, currency: currency)
         let timeline = Timeline(entries: [entry], policy: .never)
@@ -48,14 +48,14 @@ struct SingleCurrencyEntryView : View {
                 VStack {
                     Text("\(entry.currency.mainCurrencies.first ?? "")")
                         .font(.system(size: 13, weight: .bold))
-                    Text("\(entry.currency.value)")
+                    Text("\(entry.currency.currentValues.first ?? "")")
                         .bold()
                     Text("\(entry.currency.baseCurrency)")
                         .font(.system(size: 10, weight: .semibold))
                 }
             }
         case .accessoryInline:
-            Text("1 \(entry.currency.mainCurrencies.first ?? "") - \(entry.currency.value) \(entry.currency.baseCurrency)")
+            Text("1 \(entry.currency.mainCurrencies.first ?? "") - \(entry.currency.currentValues.first ?? "") \(entry.currency.baseCurrency)")
         @unknown default:
             EmptyView()
         }

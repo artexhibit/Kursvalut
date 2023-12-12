@@ -238,191 +238,11 @@
 					<key>INIntentParameterConfigurable</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
-					<string>Валюта 1</string>
-					<key>INIntentParameterDisplayNameID</key>
-					<string>q2L6AJ</string>
-					<key>INIntentParameterDisplayPriority</key>
-					<integer>1</integer>
-					<key>INIntentParameterMetadata</key>
-					<dict>
-						<key>INIntentParameterMetadataCapitalization</key>
-						<string>Sentences</string>
-						<key>INIntentParameterMetadataDefaultValueID</key>
-						<string>vymKYm</string>
-					</dict>
-					<key>INIntentParameterName</key>
-					<string>currencyOne</string>
-					<key>INIntentParameterPromptDialogs</key>
-					<array>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Configuration</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Primary</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>There are ${count} options matching ‘${currencyOne}’.</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>Z4D7tN</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${currencyOne}’?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>4KHzMq</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
-						</dict>
-					</array>
-					<key>INIntentParameterSupportsDynamicEnumeration</key>
-					<true/>
-					<key>INIntentParameterTag</key>
-					<integer>4</integer>
-					<key>INIntentParameterType</key>
-					<string>String</string>
-				</dict>
-				<dict>
-					<key>INIntentParameterConfigurable</key>
-					<true/>
-					<key>INIntentParameterDisplayName</key>
-					<string>Валюта 2</string>
-					<key>INIntentParameterDisplayNameID</key>
-					<string>j2ufXZ</string>
-					<key>INIntentParameterDisplayPriority</key>
-					<integer>2</integer>
-					<key>INIntentParameterMetadata</key>
-					<dict>
-						<key>INIntentParameterMetadataCapitalization</key>
-						<string>Sentences</string>
-						<key>INIntentParameterMetadataDefaultValueID</key>
-						<string>pTfeZf</string>
-					</dict>
-					<key>INIntentParameterName</key>
-					<string>currencyTwo</string>
-					<key>INIntentParameterPromptDialogs</key>
-					<array>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Configuration</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Primary</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>There are ${count} options matching ‘${currencyTwo}’.</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>jsizOE</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${currencyTwo}’?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>LvyaMB</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
-						</dict>
-					</array>
-					<key>INIntentParameterSupportsDynamicEnumeration</key>
-					<true/>
-					<key>INIntentParameterTag</key>
-					<integer>5</integer>
-					<key>INIntentParameterType</key>
-					<string>String</string>
-				</dict>
-				<dict>
-					<key>INIntentParameterConfigurable</key>
-					<true/>
-					<key>INIntentParameterDisplayName</key>
-					<string>Валюта 3</string>
-					<key>INIntentParameterDisplayNameID</key>
-					<string>hXaLkL</string>
-					<key>INIntentParameterDisplayPriority</key>
-					<integer>3</integer>
-					<key>INIntentParameterMetadata</key>
-					<dict>
-						<key>INIntentParameterMetadataCapitalization</key>
-						<string>Sentences</string>
-						<key>INIntentParameterMetadataDefaultValueID</key>
-						<string>7LEac6</string>
-					</dict>
-					<key>INIntentParameterName</key>
-					<string>currencyThree</string>
-					<key>INIntentParameterPromptDialogs</key>
-					<array>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Configuration</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Primary</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>There are ${count} options matching ‘${currencyThree}’.</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>scIU6k</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${currencyThree}’?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>hkdD0f</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
-						</dict>
-					</array>
-					<key>INIntentParameterSupportsDynamicEnumeration</key>
-					<true/>
-					<key>INIntentParameterTag</key>
-					<integer>6</integer>
-					<key>INIntentParameterType</key>
-					<string>String</string>
-				</dict>
-				<dict>
-					<key>INIntentParameterConfigurable</key>
-					<true/>
-					<key>INIntentParameterDisplayName</key>
 					<string>Источник Данных</string>
 					<key>INIntentParameterDisplayNameID</key>
 					<string>Kqntzw</string>
 					<key>INIntentParameterDisplayPriority</key>
-					<integer>4</integer>
+					<integer>1</integer>
 					<key>INIntentParameterMetadata</key>
 					<dict>
 						<key>INIntentParameterMetadataCapitalization</key>
@@ -482,7 +302,7 @@
 					<key>INIntentParameterDisplayNameID</key>
 					<string>MvaTUI</string>
 					<key>INIntentParameterDisplayPriority</key>
-					<integer>5</integer>
+					<integer>2</integer>
 					<key>INIntentParameterMetadata</key>
 					<dict>
 						<key>INIntentParameterMetadataCapitalization</key>
@@ -531,6 +351,186 @@
 					<true/>
 					<key>INIntentParameterTag</key>
 					<integer>2</integer>
+					<key>INIntentParameterType</key>
+					<string>String</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Валюта 1</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>q2L6AJ</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>3</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCapitalization</key>
+						<string>Sentences</string>
+						<key>INIntentParameterMetadataDefaultValueID</key>
+						<string>vymKYm</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>currencyOne</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>There are ${count} options matching ‘${currencyOne}’.</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>Z4D7tN</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>DisambiguationIntroduction</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Just to confirm, you wanted ‘${currencyOne}’?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>4KHzMq</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Confirmation</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsDynamicEnumeration</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>4</integer>
+					<key>INIntentParameterType</key>
+					<string>String</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Валюта 2</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>j2ufXZ</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>4</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCapitalization</key>
+						<string>Sentences</string>
+						<key>INIntentParameterMetadataDefaultValueID</key>
+						<string>pTfeZf</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>currencyTwo</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>There are ${count} options matching ‘${currencyTwo}’.</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>jsizOE</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>DisambiguationIntroduction</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Just to confirm, you wanted ‘${currencyTwo}’?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>LvyaMB</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Confirmation</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsDynamicEnumeration</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>5</integer>
+					<key>INIntentParameterType</key>
+					<string>String</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Валюта 3</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>hXaLkL</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>5</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCapitalization</key>
+						<string>Sentences</string>
+						<key>INIntentParameterMetadataDefaultValueID</key>
+						<string>7LEac6</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>currencyThree</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>There are ${count} options matching ‘${currencyThree}’.</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>scIU6k</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>DisambiguationIntroduction</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Just to confirm, you wanted ‘${currencyThree}’?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>hkdD0f</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Confirmation</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsDynamicEnumeration</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>6</integer>
 					<key>INIntentParameterType</key>
 					<string>String</string>
 				</dict>

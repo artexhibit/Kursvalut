@@ -27,7 +27,8 @@ struct SingleCurrencyView: View {
                 RoundedTextView(text: currency.baseSource)
             }
             
-            Text("\(currency.value) \(currency.baseCurrency)")
+            Text("\(currency.currentValues.first ?? "") \(currency.baseCurrency)")
+                .frame(minHeight: 60)
                 .font(.system(showsBackground ? .title2 : .title, design: .rounded))
                 .bold()
                 .minimumScaleFactor(0.7)

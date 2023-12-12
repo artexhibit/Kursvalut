@@ -26,7 +26,6 @@
 		0B4B4C432B2398CA003B55A5 /* ChangeCurrencyIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C1E2B2393BD003B55A5 /* ChangeCurrencyIntent.intentdefinition */; };
 		0B4B4C442B23996D003B55A5 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C1A2B238E42003B55A5 /* CurrencyData.swift */; };
 		0B4B4C462B239D8F003B55A5 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
-		0B4B4C4C2B23B477003B55A5 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		0B6D80C72B223DE200E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0B6D80C82B223F3D00E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0BAA1F722B1FA18500188959 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA1F712B1FA18500188959 /* WidgetKit.framework */; };
@@ -36,13 +35,16 @@
 		0BAA1F7B2B1FA18600188959 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BAA1F7A2B1FA18600188959 /* Assets.xcassets */; };
 		0BAA1F7F2B1FA18600188959 /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0BAA1F702B1FA18500188959 /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0BC813202B25FA7F00AE5AE9 /* Kursvalut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */; };
-		0BC813222B25FAEC00AE5AE9 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		0BC813232B25FB2A00AE5AE9 /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
 		0BC813262B261C6400AE5AE9 /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
 		0BC813662B26260400AE5AE9 /* TripleCurrencyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC813642B26260400AE5AE9 /* TripleCurrencyWidget.swift */; };
 		0BC813692B262A0800AE5AE9 /* RoundedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC813682B262A0800AE5AE9 /* RoundedTextView.swift */; };
 		0BC8136B2B26345D00AE5AE9 /* MediumCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC8136A2B26345D00AE5AE9 /* MediumCurrencyView.swift */; };
-		0BFEC2E42B24772C00E14317 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
+		0BE247CB2B27AD38000C0566 /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
+		0BEEC2532B28DDAC00450E0A /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
+		0BEEC2542B28DDAD00450E0A /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
+		0BEEC2552B28DDCC00450E0A /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
+		0BEEC2562B28DE5300450E0A /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17227D90C4400769693 /* AboutAppTableViewController.swift */; };
 		7802A17727D924E200769693 /* AboutAppDeveloperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17627D924E200769693 /* AboutAppDeveloperTableViewCell.swift */; };
 		78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C182786F9FA00C4D861 /* AppDelegate.swift */; };
@@ -752,9 +754,10 @@
 			files = (
 				0B4B4C442B23996D003B55A5 /* CurrencyData.swift in Sources */,
 				0B4B4C3A2B239825003B55A5 /* IntentHandler.swift in Sources */,
-				0BC813222B25FAEC00AE5AE9 /* WidgetsData.swift in Sources */,
+				0BEEC2552B28DDCC00450E0A /* Date+ext.swift in Sources */,
 				0BC813262B261C6400AE5AE9 /* WidgetCurrency.swift in Sources */,
 				0B4B4C462B239D8F003B55A5 /* UserDefaults+Ext.swift in Sources */,
+				0BEEC2562B28DE5300450E0A /* WidgetsData.swift in Sources */,
 				0B4B4C432B2398CA003B55A5 /* ChangeCurrencyIntent.intentdefinition in Sources */,
 				0BC813202B25FA7F00AE5AE9 /* Kursvalut.xcdatamodeld in Sources */,
 			);
@@ -766,13 +769,14 @@
 			files = (
 				0B4B4C202B2393BD003B55A5 /* ChangeCurrencyIntent.intentdefinition in Sources */,
 				0B2D6AE92B25F0CE0074AB48 /* SingleCurrencyView.swift in Sources */,
+				0BEEC2532B28DDAC00450E0A /* WidgetsData.swift in Sources */,
 				0BC8136B2B26345D00AE5AE9 /* MediumCurrencyView.swift in Sources */,
 				0BC813692B262A0800AE5AE9 /* RoundedTextView.swift in Sources */,
 				0B3815D02B20F85400D75674 /* WidgetsCoreDataManager.swift in Sources */,
-				0B4B4C4C2B23B477003B55A5 /* WidgetsData.swift in Sources */,
 				0BC813662B26260400AE5AE9 /* TripleCurrencyWidget.swift in Sources */,
 				0B3815DA2B2107EA00D75674 /* Kursvalut.xcdatamodeld in Sources */,
 				0B4B4C1D2B238F58003B55A5 /* CurrencyData.swift in Sources */,
+				0BE247CB2B27AD38000C0566 /* Date+ext.swift in Sources */,
 				0B6D80C72B223DE200E2BE25 /* UserDefaults+Ext.swift in Sources */,
 				0B3815D92B21067E00D75674 /* Persistence.swift in Sources */,
 				0B2D6AEC2B25F19E0074AB48 /* WidgetCurrency.swift in Sources */,
@@ -814,10 +818,10 @@
 				7802A17727D924E200769693 /* AboutAppDeveloperTableViewCell.swift in Sources */,
 				78EF7D7E280B3767000CFB46 /* OnboardingCollectionViewCell.swift in Sources */,
 				78C6FAF727D3C188002E35E9 /* ThemeTableViewCell.swift in Sources */,
+				0BEEC2542B28DDAD00450E0A /* WidgetsData.swift in Sources */,
 				78CEB9AB2813F83900AE0903 /* OnboardingTableViewCell.swift in Sources */,
 				0B6D80C82B223F3D00E2BE25 /* UserDefaults+Ext.swift in Sources */,
 				78E9B79A27D7956300BB5249 /* PrivacyPolicyViewController.swift in Sources */,
-				0BFEC2E42B24772C00E14317 /* WidgetsData.swift in Sources */,
 				7831DAEA28B0FAC4008A1758 /* DatePickerTableViewCell.swift in Sources */,
 				78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */,
 				78137FD72833A78400F4621E /* TutorialViewController.swift in Sources */,
