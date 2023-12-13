@@ -102,4 +102,9 @@ struct WidgetsCoreDataManager {
         }
         return (current, previous)
     }
+    
+    static func getFullNames(with mainCurrencies: [String], for baseSource: String) -> [String] {
+        let currencies = get(currencies: mainCurrencies, for: baseSource).forex
+        return currencies.filter { mainCurrencies.contains($0.shortName ?? "") }.map { $0.fullName ?? "" }
+    }
 }

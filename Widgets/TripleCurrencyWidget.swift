@@ -22,7 +22,7 @@ struct TripleCurrencyProvider: IntentTimelineProvider {
         let values = WidgetsCoreDataManager.calculateValue(for: baseSource, with: mainCurrencies, and: String(baseCurrency), decimals: decimals, includePreviousValues: true)
         let dates = WidgetsCoreDataManager.getDates(baseSource: baseSource, mainCurrencies: mainCurrencies)
         
-        let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: mainCurrencies, currentValues: values.currentValues, previousValues: values.previousValues, currentValuesDate: dates.current, previousValuesDate: dates.previous)
+        let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: mainCurrencies, fullNames: nil, currentValues: values.currentValues, previousValues: values.previousValues, currentValuesDate: dates.current, previousValuesDate: dates.previous)
         
         let entry = TripleCurrencyEntry(date: Date(), currency: currency)
         let timeline = Timeline(entries: [entry], policy: .never)

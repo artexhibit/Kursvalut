@@ -351,8 +351,8 @@
 		0BC813252B260C9300AE5AE9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */,
 				0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */,
+				0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */,
 				0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */,
 			);
 			path = Model;
