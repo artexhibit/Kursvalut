@@ -10,6 +10,7 @@
 		0B158C682B1E43BA004EA97A /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
 		0B2D6AE92B25F0CE0074AB48 /* SingleCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AE82B25F0CE0074AB48 /* SingleCurrencyView.swift */; };
 		0B2D6AEC2B25F19E0074AB48 /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
+		0B30769A2B2A41EE00690727 /* MultipleCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3076992B2A41EE00690727 /* MultipleCurrencyView.swift */; };
 		0B3815CC2B20E83000D75674 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78041C242786F9FB00C4D861 /* Assets.xcassets */; };
 		0B3815D02B20F85400D75674 /* WidgetsCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */; };
 		0B3815D12B20F89700D75674 /* WidgetsCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */; };
@@ -28,6 +29,7 @@
 		0B4B4C462B239D8F003B55A5 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0B6D80C72B223DE200E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0B6D80C82B223F3D00E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
+		0B9872EC2B29F4D900A14F5D /* MultipleCurrencyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9872EB2B29F4D900A14F5D /* MultipleCurrencyWidget.swift */; };
 		0BAA1F722B1FA18500188959 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA1F712B1FA18500188959 /* WidgetKit.framework */; };
 		0BAA1F742B1FA18500188959 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA1F732B1FA18500188959 /* SwiftUI.framework */; };
 		0BAA1F772B1FA18600188959 /* WidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAA1F762B1FA18600188959 /* WidgetsBundle.swift */; };
@@ -165,6 +167,7 @@
 		0B158C692B1E4B68004EA97A /* Kursvalut_v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Kursvalut_v3.xcdatamodel; sourceTree = "<group>"; };
 		0B2D6AE82B25F0CE0074AB48 /* SingleCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleCurrencyView.swift; sourceTree = "<group>"; };
 		0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCurrency.swift; sourceTree = "<group>"; };
+		0B3076992B2A41EE00690727 /* MultipleCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleCurrencyView.swift; sourceTree = "<group>"; };
 		0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsCoreDataManager.swift; sourceTree = "<group>"; };
 		0B3815D72B2101B100D75674 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		0B4B4C1A2B238E42003B55A5 /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
@@ -176,6 +179,7 @@
 		0B4B4C422B239843003B55A5 /* WidgetsIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsIntents.entitlements; sourceTree = "<group>"; };
 		0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsData.swift; sourceTree = "<group>"; };
 		0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
+		0B9872EB2B29F4D900A14F5D /* MultipleCurrencyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleCurrencyWidget.swift; sourceTree = "<group>"; };
 		0BAA1F702B1FA18500188959 /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BAA1F712B1FA18500188959 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		0BAA1F732B1FA18500188959 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -327,6 +331,7 @@
 				0BAA1F762B1FA18600188959 /* WidgetsBundle.swift */,
 				0BAA1F782B1FA18600188959 /* SingleCurrencyWidget.swift */,
 				0BC813642B26260400AE5AE9 /* TripleCurrencyWidget.swift */,
+				0B9872EB2B29F4D900A14F5D /* MultipleCurrencyWidget.swift */,
 				0BC813252B260C9300AE5AE9 /* Model */,
 				0BC813242B260C8100AE5AE9 /* Views */,
 				0BAA1F7A2B1FA18600188959 /* Assets.xcassets */,
@@ -344,6 +349,7 @@
 				0BC813682B262A0800AE5AE9 /* RoundedTextView.swift */,
 				0BC8136A2B26345D00AE5AE9 /* MediumCurrencyView.swift */,
 				0BEEC2592B28F61E00450E0A /* TripleCurrencyRectangularView.swift */,
+				0B3076992B2A41EE00690727 /* MultipleCurrencyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -783,6 +789,7 @@
 				0B3815D02B20F85400D75674 /* WidgetsCoreDataManager.swift in Sources */,
 				0BC813662B26260400AE5AE9 /* TripleCurrencyWidget.swift in Sources */,
 				0B3815DA2B2107EA00D75674 /* Kursvalut.xcdatamodeld in Sources */,
+				0B9872EC2B29F4D900A14F5D /* MultipleCurrencyWidget.swift in Sources */,
 				0B4B4C1D2B238F58003B55A5 /* CurrencyData.swift in Sources */,
 				0BEEC2582B28F04000450E0A /* TripleCurrencyView.swift in Sources */,
 				0BE247CB2B27AD38000C0566 /* Date+ext.swift in Sources */,
@@ -790,6 +797,7 @@
 				0B3815D92B21067E00D75674 /* Persistence.swift in Sources */,
 				0BEEC25A2B28F61E00450E0A /* TripleCurrencyRectangularView.swift in Sources */,
 				0B2D6AEC2B25F19E0074AB48 /* WidgetCurrency.swift in Sources */,
+				0B30769A2B2A41EE00690727 /* MultipleCurrencyView.swift in Sources */,
 				0BAA1F772B1FA18600188959 /* WidgetsBundle.swift in Sources */,
 				0BAA1F792B1FA18600188959 /* SingleCurrencyWidget.swift in Sources */,
 			);

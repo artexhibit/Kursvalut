@@ -19,7 +19,7 @@ struct SingleCurrencyProvider: IntentTimelineProvider {
         guard let decimals = configuration.decimals as? Int else { return }
         let value = WidgetsCoreDataManager.calculateValue(for: baseSource, with: [String(mainCurrency)], and: String(baseCurrency), decimals: decimals)
         
-        let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: [String(mainCurrency)], fullNames: nil, currentValues: [value.currentValues.first ?? ""], previousValues: nil, currentValuesDate: nil, previousValuesDate: nil)
+        let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: [String(mainCurrency)], shortNames: nil, currentValues: [value.currentValues.first ?? ""], previousValues: nil, currentValuesDate: nil, previousValuesDate: nil)
         
         let entry = CurrencyEntry(date: .now, currency: currency)
         let timeline = Timeline(entries: [entry], policy: .never)

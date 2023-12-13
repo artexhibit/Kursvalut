@@ -24,11 +24,13 @@ struct MediumCurrencyView: View {
                     .foregroundStyle(.primary)
                     .frame(width: 82, alignment: .center)
                     .contentTransition(.numericText())
+                    .fixedSize(horizontal: false, vertical: true)
                 Text("\(currentValue)")
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .foregroundStyle(.primary)
                     .frame(width: 90, alignment: .center)
                     .contentTransition(.numericText())
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
