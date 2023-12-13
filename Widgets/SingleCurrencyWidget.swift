@@ -77,7 +77,7 @@ struct SingleCurrencyWidget: Widget {
             }
         }
         .configurationDisplayName("Одна валюта")
-        .description("Виджет, который показывает одну валюту на выбор.")
+        .description("Виджет, который показывает одну выбранную валюту")
         .supportedFamilies([.systemSmall, .accessoryCircular, .accessoryInline])
     }
 }

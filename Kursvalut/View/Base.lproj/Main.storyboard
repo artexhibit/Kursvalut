@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kPs-c4-rso">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kPs-c4-rso">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -97,7 +97,6 @@
                                             </constraints>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="Zej-6m-cn2" firstAttribute="leading" secondItem="6Ta-q7-UsF" secondAttribute="leading" constant="18" id="8Bb-gp-UW8"/>
                                         <constraint firstItem="0MO-36-Y7g" firstAttribute="leading" secondItem="6Ta-q7-UsF" secondAttribute="leading" constant="60" id="AWH-UN-sr8"/>
@@ -240,27 +239,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="converterCell" id="k3t-kg-8vc" userLabel="converterCell" customClass="ConverterTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="38" width="374" height="105.5"/>
+                                <rect key="frame" x="20" y="38" width="374" height="106.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k3t-kg-8vc" id="QOP-Fg-Vof">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="105.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="106.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="XZA-bt-zwe" userLabel="Info Stack View">
-                                            <rect key="frame" x="15" y="6" width="207" height="93.5"/>
+                                            <rect key="frame" x="15" y="6" width="207" height="94.5"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gnp-RA-fA6" userLabel="Flag View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="93.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="94.5"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RUB" translatesAutoresizingMaskIntoConstraints="NO" id="37A-2O-abH" userLabel="Flag">
-                                                            <rect key="frame" x="0.0" y="24.5" width="45" height="45"/>
+                                                            <rect key="frame" x="0.0" y="25" width="45" height="45"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="45" id="9kw-Sf-TMB"/>
                                                                 <constraint firstAttribute="height" constant="45" id="bka-NK-PW7"/>
                                                             </constraints>
                                                         </imageView>
                                                         <button hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4P1-Mn-Cez">
-                                                            <rect key="frame" x="37" y="53.5" width="11" height="11"/>
+                                                            <rect key="frame" x="37" y="54" width="11" height="11"/>
                                                             <color key="backgroundColor" name="OrangeColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="11" id="QVg-lM-cLe"/>
@@ -279,7 +278,7 @@
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="-2" translatesAutoresizingMaskIntoConstraints="NO" id="Wz7-HV-hEa" userLabel="Names Stack View">
-                                                    <rect key="frame" x="60" y="22.5" width="147" height="48.5"/>
+                                                    <rect key="frame" x="60" y="23" width="147" height="48.5"/>
                                                     <subviews>
                                                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YKk-H7-q4C">
                                                             <rect key="frame" x="0.0" y="0.0" width="147" height="21.5"/>
@@ -329,10 +328,10 @@
                                             </constraints>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Vr-hJ-2ij" userLabel="Number Text Field View">
-                                            <rect key="frame" x="222" y="6" width="142" height="93.5"/>
+                                            <rect key="frame" x="222" y="6" width="142" height="94.5"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="C3t-y4-RfR">
-                                                    <rect key="frame" x="122" y="0.0" width="20" height="93.5"/>
+                                                    <rect key="frame" x="122" y="0.0" width="20" height="94.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="mgF-jh-2PG"/>
@@ -1650,7 +1649,7 @@
                                         <rect key="frame" x="20" y="1050" width="374" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EAh-gz-pEo" id="cBd-wT-6WD">
-                                            <rect key="frame" x="0.0" y="0.0" width="343.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="355.5" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="iLl-pO-hXL">
@@ -3489,14 +3488,14 @@
                                                                 </constraints>
                                                                 <variation key="default">
                                                                     <mask key="constraints">
-                                                                        <exclude reference="b0r-Lj-uCY"/>
                                                                         <exclude reference="kE1-j0-bgj"/>
+                                                                        <exclude reference="b0r-Lj-uCY"/>
                                                                     </mask>
                                                                 </variation>
                                                                 <variation key="heightClass=regular">
                                                                     <mask key="constraints">
-                                                                        <include reference="b0r-Lj-uCY"/>
                                                                         <include reference="kE1-j0-bgj"/>
+                                                                        <include reference="b0r-Lj-uCY"/>
                                                                     </mask>
                                                                 </variation>
                                                             </tableViewCellContentView>
@@ -4005,9 +4004,9 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="wO4-FI-lnq"/>
                                                     <exclude reference="594-Dx-hXy"/>
                                                     <exclude reference="hfZ-sn-OmQ"/>
-                                                    <exclude reference="wO4-FI-lnq"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=compact">
@@ -4256,7 +4255,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="BlueColor">
             <color red="0.20399999618530273" green="0.47099998593330383" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -4271,7 +4270,7 @@
             <color red="0.93699997663497925" green="0.93300002813339233" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondarySystemFillColor">
             <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>

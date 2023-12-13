@@ -36,38 +36,19 @@ struct TripleCurrencyEntry: TimelineEntry {
 }
 
 struct TripleCurrencyWidgetEntryView: View {
+    @Environment(\.widgetFamily) var family
     var entry: TripleCurrencyEntry
-
+    
     var body: some View {
-        VStack {
-            HStack {
-                RoundedTextView(text: "\(entry.currency.baseSource)")
-                RoundedTextView(text: "\(entry.currency.baseCurrency)")
-                
-                Spacer()
-                
-                HStack(spacing: 13) {
-                    Text(Date.createWidgetDate(from: entry.currency.previousValuesDate ?? Date()))
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.secondary)
-                        .frame(alignment: .center)
-                        .contentTransition(.numericText())
-                    Text(Date.createWidgetDate(from: entry.currency.currentValuesDate ?? Date()))
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.secondary)
-                        .frame(width: 90, alignment: .center)
-                        .contentTransition(.numericText())
-                }
-            }
-            
-            Spacer()
-            
-            VStack(alignment: .leading, spacing: 12) {
-                ForEach(Array(entry.currency.mainCurrencies.enumerated()), id: \.element) { index, mainCurrency in
-                    MediumCurrencyView(mainCurrency: mainCurrency, currentValue: entry.currency.currentValues[index], previousValue: entry.currency.previousValues?[index] ?? "")
-                }
-            }
-            .padding(.leading, 3)
+        switch family {
+        case .systemMedium:
+            TripleCurrencyView(currency: entry.currency)
+        case .accessoryRectangular:
+            TripleCurrencyRectangularView(currency: entry.currency)
+        case .systemSmall, .systemLarge, .systemExtraLarge, .accessoryInline, .accessoryCircular:
+            EmptyView()
+        @unknown default:
+            EmptyView()
         }
     }
 }
@@ -87,12 +68,12 @@ struct TripleCurrencyWidget: Widget {
             }
         }
         .configurationDisplayName("Три валюты")
-        .description("Виджет, который показывает данные за 2 дня по 3 валютам на выбор")
-        .supportedFamilies([.systemMedium])
+        .description("Виджет, который показывает данные за 2 дня на 3 валюты по выбору")
+        .supportedFamilies([.systemMedium, .accessoryRectangular])
     }
 }
 
-#Preview(as: .systemMedium) {
+#Preview(as: .accessoryRectangular) {
     TripleCurrencyWidget()
 } timeline: {
     TripleCurrencyEntry(date: Date(), currency: WidgetsData.currencyExample)
