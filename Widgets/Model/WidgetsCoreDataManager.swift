@@ -4,10 +4,13 @@ import CoreData
 struct WidgetsCoreDataManager {
     static private let viewContext =  PersistenceController.shared.container.viewContext
     
-    static private func fetchPickedCurrencies<T: NSFetchRequestResult>(for entityName: T.Type, with targetCurrencies: [String]) -> [T] {
+    static private func fetchPickedCurrencies<T: NSFetchRequestResult>(for entityName: T.Type, with targetCurrencies: [String] = [], fetchAll: Bool = false) -> [T] {
         let request = NSFetchRequest<T>(entityName: String(describing: entityName))
-        let predicate = NSPredicate(format: "shortName IN %@", targetCurrencies)
-        request.predicate = predicate
+        
+        if !fetchAll {
+            let predicate = NSPredicate(format: "shortName IN %@", targetCurrencies)
+            request.predicate = predicate
+        }
         
         var fetchedCurrencies: [T] = []
         
@@ -19,14 +22,14 @@ struct WidgetsCoreDataManager {
         return fetchedCurrencies
     }
     
-    static func get(currencies: [String], for baseSource: String) -> (cbrf: [Currency], forex: [ForexCurrency]) {
+    static func get(currencies: [String] = [], for baseSource: String, fetchAll: Bool = false) -> (cbrf: [Currency], forex: [ForexCurrency]) {
         var CBRFCurrencyArray = [Currency]()
         var ForexCurrencyArray = [ForexCurrency]()
         
         if baseSource == WidgetsData.cbrf {
-            CBRFCurrencyArray = fetchPickedCurrencies(for: Currency.self, with: currencies)
+            CBRFCurrencyArray = fetchPickedCurrencies(for: Currency.self, with: currencies, fetchAll: fetchAll)
         } else {
-            ForexCurrencyArray = fetchPickedCurrencies(for: ForexCurrency.self, with: currencies)
+            ForexCurrencyArray = fetchPickedCurrencies(for: ForexCurrency.self, with: currencies, fetchAll: fetchAll)
         }
         return (CBRFCurrencyArray, ForexCurrencyArray)
     }
@@ -101,5 +104,13 @@ struct WidgetsCoreDataManager {
             previous = get(currencies: [mainCurrencies.first ?? ""], for: baseSource).forex.first?.previousDataDate ?? Date()
         }
         return (current, previous)
+    }
+    
+    static func getFirstTenCurrencies(for baseSource: String) -> [String] {
+        if baseSource == WidgetsData.cbrf {
+            return get(for: baseSource, fetchAll: true).cbrf.filter { $0.rowForCurrency <= 10 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }
+        } else {
+            return get(for: baseSource, fetchAll: true).forex.filter { $0.rowForCurrency <= 10 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }
+        }
     }
 }

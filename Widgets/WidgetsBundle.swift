@@ -6,5 +6,6 @@ struct WidgetsBundle: WidgetBundle {
     var body: some Widget {
         SingleCurrencyWidget()
         TripleCurrencyWidget()
+        MultipleCurrencyWidget()
     }
 }

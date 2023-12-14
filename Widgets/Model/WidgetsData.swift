@@ -7,7 +7,7 @@ struct WidgetsData {
     static let currencyExample = WidgetCurrency(baseSource: "Forex",
                                                 baseCurrency: "RUB",
                                                 mainCurrencies: ["USD", "EUR", "CNY"],
-                                                shortNames: ["Доллар США", "Евро", "Российский рубль"],
+                                                shortNames: ["Доллар", "Евро", "Рубль"],
                                                 currentValues: ["98.1877", "100.3422", "12.3444"],
                                                 previousValues: ["97.1135", "102.3454", "11.3144"],
                                                 currentValuesDate: Date(),
