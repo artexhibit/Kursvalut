@@ -6,6 +6,7 @@ class SortingTableViewController: UITableViewController {
     private let userDefaults = UserDefaults.standard
     private let customSortCellSection = 3
     private var currencyManager = CurrencyManager()
+    private var coreDataManager = CurrencyCoreDataManager()
     private var proPurchased: Bool {
         return userDefaults.bool(forKey: "kursvalutPro")
     }
@@ -301,6 +302,12 @@ class SortingTableViewController: UITableViewController {
                 mainSortCell.rotateChevron(sections[section].isOpened)
             }
             tableView.endUpdates()
+        }
+        
+        if pickedDataSource == "ЦБ РФ" {
+            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf ?? [])
+        } else {
+            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex ?? [])
         }
     }
     

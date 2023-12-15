@@ -221,16 +221,15 @@ extension CurrencyViewController {
             
             bankOfRussiaCurrencies.remove(at: sourceIndexPath.row)
             bankOfRussiaCurrencies.insert(bankOFRussiaCurrency, at: destinationIndexPath.row)
-            currencyManager.assignRowNumbers(to: bankOfRussiaCurrencies)
+            coreDataManager.assignRowNumbers(to: bankOfRussiaCurrencies)
         } else {
             var forexCurrencies = forexFRC.fetchedObjects!
             let forexCurrency = forexFRC.object(at: sourceIndexPath)
             
             forexCurrencies.remove(at: sourceIndexPath.row)
             forexCurrencies.insert(forexCurrency, at: destinationIndexPath.row)
-            currencyManager.assignRowNumbers(to: forexCurrencies)
+            coreDataManager.assignRowNumbers(to: forexCurrencies)
         }
-        coreDataManager.save()
 
         if needToRefreshFRCForCustomSort {
             userDefaults.set("Своя", forKey: "bankOfRussiaPickedSection")

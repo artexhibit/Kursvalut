@@ -85,27 +85,6 @@ struct CurrencyManager {
         return formatter.date(from: string) ?? Date()
     }
     
-    //MARK: - Display Data Helping Methods
-    func assignRowNumbers(to bankOfRussiaCurrencies: [Currency]) {
-        for (index, bankOfRussiaCurrency) in bankOfRussiaCurrencies.enumerated() {
-            if confirmedDateFromDataSourceVC == todaysDate {
-                bankOfRussiaCurrency.rowForCurrency = Int32(index)
-            } else {
-                bankOfRussiaCurrency.rowForHistoricalCurrency = Int32(index)
-            }
-        }
-    }
-    
-    func assignRowNumbers(to forexCurrencies: [ForexCurrency]) {
-        for (index, forexCurrency) in forexCurrencies.enumerated() {
-            if confirmedDateFromDataSourceVC == todaysDate {
-                forexCurrency.rowForCurrency = Int32(index)
-            } else {
-                forexCurrency.rowForHistoricalCurrency = Int32(index)
-            }
-         }
-    }
-    
     //MARK: - ViewController Configuration Methods
     func configureContentInset(for tableView: UITableView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
         tableView.contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
@@ -143,6 +122,7 @@ struct CurrencyManager {
     //MARK: - Check For Today's First Launch Method
     func checkOnFirstLaunchToday(with button: UIButton = UIButton()) {
         let currencyNetworking = CurrencyNetworking()
+        let coreDataManager = CurrencyCoreDataManager()
         var wasLaunched: String {
             return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
         }
@@ -174,6 +154,12 @@ struct CurrencyManager {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         button.setTitle(currencyUpdateTime, for: .normal)
+                        
+                        if pickedDataSource == "ЦБ РФ" {
+                            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf ?? [])
+                        } else {
+                            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex ?? [])
+                        }
                     }
                     if userHasOnboarded {
                         PopupQueueManager.shared.addPopupToQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)

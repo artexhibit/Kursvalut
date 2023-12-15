@@ -17,6 +17,12 @@ struct CurrencyCoreDataManager {
     var pickedBaseCurrency: String {
         return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
     }
+    private var confirmedDateFromDataSourceVC: String {
+        return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
+    }
+    private var todaysDate: String {
+        return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
+    }
     private let context = PersistenceController.shared.container.viewContext
     
     func save() {
@@ -151,6 +157,17 @@ struct CurrencyCoreDataManager {
     func fetchBankOfRussiaCurrenciesCurrentDate() -> Date {
         let currencies = fetchCurrencies(entityName: Currency.self)
         return currencies.first?.currentDataDate ?? Date()
+    }
+    
+    func assignRowNumbers(to bankOfRussiaCurrencies: [Currency]) {
+        for (index, bankOfRussiaCurrency) in bankOfRussiaCurrencies.enumerated() {
+            if confirmedDateFromDataSourceVC == todaysDate {
+                bankOfRussiaCurrency.rowForCurrency = Int32(index)
+            } else {
+                bankOfRussiaCurrency.rowForHistoricalCurrency = Int32(index)
+            }
+        }
+        save()
     }
     
    //MARK: - CRUD for Forex Currency
@@ -320,11 +337,27 @@ struct CurrencyCoreDataManager {
         }
     }
     
+    func assignRowNumbers(to forexCurrencies: [ForexCurrency]) {
+        for (index, forexCurrency) in forexCurrencies.enumerated() {
+            if confirmedDateFromDataSourceVC == todaysDate {
+                forexCurrency.rowForCurrency = Int32(index)
+            } else {
+                forexCurrency.rowForHistoricalCurrency = Int32(index)
+            }
+        }
+        save()
+    }
+    
     //MARK: - Common Methods
     
-    func fetchCurrencies<T: NSFetchRequestResult>(entityName: T.Type) -> [T] {
-        let request = NSFetchRequest<T>(entityName: String(describing: entityName))
+    func fetchCurrencies<T: NSFetchRequestResult>(entityName: T.Type, predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) -> [T] {
         var fetchedCurrencies: [T] = []
+        let request = NSFetchRequest<T>(entityName: String(describing: entityName))
+        
+        if (predicate != nil) && (sortDescriptors != nil) {
+            request.predicate = predicate
+            request.sortDescriptors = sortDescriptors
+        }
         
         do {
             fetchedCurrencies = try context.fetch(request)
@@ -332,6 +365,55 @@ struct CurrencyCoreDataManager {
             print(error)
         }
         return fetchedCurrencies
+    }
+    
+    func fetchSortedCurrencies() -> (cbrf: [Currency]?, forex: [ForexCurrency]?) {
+        var pickedDataSource: String {
+            return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+        }
+        
+        var pickedOrder: String {
+            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedOrder") ?? "")
+        }
+        var pickedSection: String {
+            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedSection") ?? "")
+        }
+        
+        var pickDateSwitchFromDataSourceIsOn: Bool {
+            return UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn")
+        }
+        
+        var sortingOrder: Bool {
+            return (pickedOrder == "По возрастанию (А→Я)" || pickedOrder == "По возрастанию (1→2)") ? true : false
+        }
+        
+        var predicate: NSCompoundPredicate {
+            let firstPredicate = NSPredicate(format: "isForCurrencyScreen == YES")
+            let secondPredicate = NSPredicate(format: "isBaseCurrency == NO")
+            return NSCompoundPredicate(type: .and, subpredicates: [firstPredicate, secondPredicate])
+        }
+        
+        var sortDescriptor: NSSortDescriptor {
+            if pickedSection == "По имени" {
+                return NSSortDescriptor(key: "fullName", ascending: sortingOrder)
+            } else if pickedSection == "По короткому имени" {
+                return NSSortDescriptor(key: "shortName", ascending: sortingOrder)
+            } else if pickedSection == "По значению" {
+                return NSSortDescriptor(key: "absoluteValue", ascending: sortingOrder)
+            } else {
+                if !pickDateSwitchFromDataSourceIsOn {
+                    return NSSortDescriptor(key: "rowForCurrency", ascending: true)
+                } else {
+                    return NSSortDescriptor(key: "rowForHistoricalCurrency", ascending: true)
+                }
+            }
+        }
+        
+        if pickedDataSource == "ЦБ РФ" {
+            return (fetchCurrencies(entityName: Currency.self, predicate: predicate, sortDescriptors: [sortDescriptor]), nil)
+        } else {
+            return (nil, fetchCurrencies(entityName: ForexCurrency.self, predicate: predicate, sortDescriptors: [sortDescriptor]))
+        }
     }
     
     //MARK: - FetchResultsController Setup
