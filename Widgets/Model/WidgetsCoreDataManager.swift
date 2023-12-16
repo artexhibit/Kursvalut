@@ -106,11 +106,11 @@ struct WidgetsCoreDataManager {
         return (current, previous)
     }
     
-    static func getFirstTenCurrencies(for baseSource: String) -> [String] {
+    static func getFirstTenCurrencies(for baseSource: String, and baseCurrency: String) -> [String] {
         if baseSource == WidgetsData.cbrf {
-            return get(for: baseSource, fetchAll: true).cbrf.filter { $0.rowForCurrency <= 9 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }
+            return get(for: baseSource, fetchAll: true).cbrf.filter { $0.rowForCurrency <= 9 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }.filter{ $0 != baseCurrency }
         } else {
-            return get(for: baseSource, fetchAll: true).forex.filter { $0.rowForCurrency <= 9 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }
+            return get(for: baseSource, fetchAll: true).forex.filter { $0.rowForCurrency <= 9 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }.filter{ $0 != baseCurrency }
         }
     }
 }

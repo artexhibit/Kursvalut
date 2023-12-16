@@ -168,6 +168,7 @@ struct CurrencyCoreDataManager {
             }
         }
         save()
+        WidgetsData.updateWidgets()
     }
     
    //MARK: - CRUD for Forex Currency
@@ -346,6 +347,7 @@ struct CurrencyCoreDataManager {
             }
         }
         save()
+        WidgetsData.updateWidgets()
     }
     
     //MARK: - Common Methods

@@ -50,6 +50,8 @@
 		0BEEC25A2B28F61E00450E0A /* TripleCurrencyRectangularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEEC2592B28F61E00450E0A /* TripleCurrencyRectangularView.swift */; };
 		0BEEC25E2B28FDDE00450E0A /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
 		0BEEC2642B2904F700450E0A /* MediumCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC8136A2B26345D00AE5AE9 /* MediumCurrencyView.swift */; };
+		0BFFA66A2B2E019C009EFA34 /* MultipleWidgetSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFFA6692B2E019C009EFA34 /* MultipleWidgetSmallView.swift */; };
+		0BFFA66C2B2E0E86009EFA34 /* MultipleWidgetBigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFFA66B2B2E0E86009EFA34 /* MultipleWidgetBigView.swift */; };
 		7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17227D90C4400769693 /* AboutAppTableViewController.swift */; };
 		7802A17727D924E200769693 /* AboutAppDeveloperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17627D924E200769693 /* AboutAppDeveloperTableViewCell.swift */; };
 		78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78041C182786F9FA00C4D861 /* AppDelegate.swift */; };
@@ -194,6 +196,8 @@
 		0BC8136A2B26345D00AE5AE9 /* MediumCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumCurrencyView.swift; sourceTree = "<group>"; };
 		0BEEC2572B28F04000450E0A /* TripleCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleCurrencyView.swift; sourceTree = "<group>"; };
 		0BEEC2592B28F61E00450E0A /* TripleCurrencyRectangularView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleCurrencyRectangularView.swift; sourceTree = "<group>"; };
+		0BFFA6692B2E019C009EFA34 /* MultipleWidgetSmallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWidgetSmallView.swift; sourceTree = "<group>"; };
+		0BFFA66B2B2E0E86009EFA34 /* MultipleWidgetBigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWidgetBigView.swift; sourceTree = "<group>"; };
 		7802A17227D90C4400769693 /* AboutAppTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppTableViewController.swift; sourceTree = "<group>"; };
 		7802A17627D924E200769693 /* AboutAppDeveloperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppDeveloperTableViewCell.swift; sourceTree = "<group>"; };
 		78041C152786F9FA00C4D861 /* Kursvalut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kursvalut.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -350,6 +354,8 @@
 				0BC8136A2B26345D00AE5AE9 /* MediumCurrencyView.swift */,
 				0BEEC2592B28F61E00450E0A /* TripleCurrencyRectangularView.swift */,
 				0B3076992B2A41EE00690727 /* MultipleCurrencyView.swift */,
+				0BFFA6692B2E019C009EFA34 /* MultipleWidgetSmallView.swift */,
+				0BFFA66B2B2E0E86009EFA34 /* MultipleWidgetBigView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -789,6 +795,7 @@
 				0B3815D02B20F85400D75674 /* WidgetsCoreDataManager.swift in Sources */,
 				0BC813662B26260400AE5AE9 /* TripleCurrencyWidget.swift in Sources */,
 				0B3815DA2B2107EA00D75674 /* Kursvalut.xcdatamodeld in Sources */,
+				0BFFA66A2B2E019C009EFA34 /* MultipleWidgetSmallView.swift in Sources */,
 				0B9872EC2B29F4D900A14F5D /* MultipleCurrencyWidget.swift in Sources */,
 				0B4B4C1D2B238F58003B55A5 /* CurrencyData.swift in Sources */,
 				0BEEC2582B28F04000450E0A /* TripleCurrencyView.swift in Sources */,
@@ -798,6 +805,7 @@
 				0BEEC25A2B28F61E00450E0A /* TripleCurrencyRectangularView.swift in Sources */,
 				0B2D6AEC2B25F19E0074AB48 /* WidgetCurrency.swift in Sources */,
 				0B30769A2B2A41EE00690727 /* MultipleCurrencyView.swift in Sources */,
+				0BFFA66C2B2E0E86009EFA34 /* MultipleWidgetBigView.swift in Sources */,
 				0BAA1F772B1FA18600188959 /* WidgetsBundle.swift in Sources */,
 				0BAA1F792B1FA18600188959 /* SingleCurrencyWidget.swift in Sources */,
 			);

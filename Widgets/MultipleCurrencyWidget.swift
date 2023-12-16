@@ -3,11 +3,11 @@ import SwiftUI
 
 struct MultipleCurrencyProvider: IntentTimelineProvider {
     func placeholder(in context: Context) -> MultipleCurrencyEntry {
-        MultipleCurrencyEntry(date: Date(), currency: WidgetsData.currencyExample)
+        MultipleCurrencyEntry(date: Date(), currency: WidgetsData.multipleCurrencyExample)
     }
     
     func getSnapshot(for configuration: SetMultipleCurrencyIntent, in context: Context, completion: @escaping (MultipleCurrencyEntry) -> Void) {
-        let entry = MultipleCurrencyEntry(date: Date(), currency: WidgetsData.currencyExample)
+        let entry = MultipleCurrencyEntry(date: Date(), currency: WidgetsData.multipleCurrencyExample)
         completion(entry)
     }
     
@@ -15,7 +15,7 @@ struct MultipleCurrencyProvider: IntentTimelineProvider {
         guard let baseCurrency = configuration.baseCurrency?.prefix(3) else { return }
         guard let baseSource = configuration.baseSource else { return }
         guard let decimals = configuration.decimals as? Int else { return }
-        let mainCurrencies = WidgetsCoreDataManager.getFirstTenCurrencies(for: baseSource)
+        let mainCurrencies = WidgetsCoreDataManager.getFirstTenCurrencies(for: baseSource, and: String(baseCurrency))
         let shortNames = WidgetsData.getShortNames(with: mainCurrencies)
         let values = WidgetsCoreDataManager.calculateValue(for: baseSource, with: mainCurrencies, and: String(baseCurrency), decimals: decimals, includePreviousValues: true)
         let dates = WidgetsCoreDataManager.getDates(baseSource: baseSource, mainCurrencies: mainCurrencies)
@@ -41,58 +41,11 @@ struct MultipleCurrencyEntryView : View {
     var body: some View {
         switch family {
         case .systemSmall:
-            VStack {
-                HStack {
-                    RoundedTextView(text: entry.currency.baseSource)
-                    Spacer()
-                    RoundedTextView(text: entry.currency.baseCurrency)
-                }
-                
-                Spacer()
-                
-                VStack (alignment: .leading, spacing: 10) {
-                    ForEach(Array(entry.currency.mainCurrencies.prefix(2).enumerated()), id: \.element) { index, mainCurrency in
-                        
-                        if let shortName = entry.currency.shortNames?[index] {
-                            let value = entry.currency.currentValues[index]
-                            
-                            MultipleCurrencyView(shortName: shortName, mainCurrency: mainCurrency, value: value)
-                        }
-                    }
-                }
-                .padding(.bottom, 5)
-            }
+            MultipleWidgetSmallView(currency: entry.currency)
         case .systemMedium:
-            VStack(spacing: 15) {
-                HStack {
-                    RoundedTextView(text: "Forex")
-                    RoundedTextView(text: "RUB")
-                    Spacer()
-                    RoundedTextView(text: "13.12.2023")
-                }
-                
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 25), GridItem(.flexible())], spacing: 10) {
-                    ForEach(0..<4) { _ in
-                       // MultipleCurrencyView()
-                    }
-                }
-            }
-            
+            MultipleWidgetBigView(currency: entry.currency, currenciesToShow: 4, spacing: 33, gridSpacing: 60, gridItemSpacing: 33)
         case .systemLarge:
-            VStack(spacing: 20) {
-                HStack {
-                    RoundedTextView(text: "Forex")
-                    RoundedTextView(text: "RUB")
-                    Spacer()
-                    RoundedTextView(text: "13.12.2023")
-                }
-                
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 25), GridItem(.flexible())], spacing: 12) {
-                    ForEach(0..<10) { _ in
-                      //  MultipleCurrencyView(scaleFactor: 0.5, shortNameFont: 19, valueFont: 19, iconSize: 40)
-                    }
-                }
-            }
+            MultipleWidgetBigView(currency: entry.currency, currenciesToShow: 10, spacing: 45, gridSpacing: 40, gridItemSpacing: 43)
         case .accessoryRectangular, .systemExtraLarge, .accessoryInline, .accessoryCircular:
             EmptyView()
         @unknown default:
@@ -115,14 +68,14 @@ struct MultipleCurrencyWidget: Widget {
                     .background()
             }
         }
-        .configurationDisplayName("Много валют")
+        .configurationDisplayName("Экран Валюты")
         .description("Виджет отображает данные экрана Валюты из приложения")
-        .supportedFamilies([.systemSmall])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
 
 #Preview(as: .systemLarge) {
     MultipleCurrencyWidget()
 } timeline: {
-    MultipleCurrencyEntry(date: .now, currency: WidgetsData.currencyExample)
+    MultipleCurrencyEntry(date: .now, currency: WidgetsData.multipleCurrencyExample)
 }
