@@ -141,7 +141,7 @@ class CurrencyViewController: UIViewController {
         }
         
         if menuView.superview == nil {
-            menuView.showView(under: dataSourceButton, in: self.view, items: (toShow: ["Forex (Биржа)", "ЦБ РФ"], checked: pickedDataSource))
+            menuView.showView(under: dataSourceButton, in: self.view, items: (toShow: ["Forex", "ЦБ РФ"], checked: pickedDataSource))
             datePickerView.hideView()
         } else {
             menuView.hideView()

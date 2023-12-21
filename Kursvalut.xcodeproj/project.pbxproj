@@ -313,9 +313,9 @@
 		0B158C662B1E43A6004EA97A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				78137FDA2833EC1200F4621E /* UIImage+extension.swift */,
 				0B158C672B1E43BA004EA97A /* Date+ext.swift */,
 				0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */,
+				78137FDA2833EC1200F4621E /* UIImage+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

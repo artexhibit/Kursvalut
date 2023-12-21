@@ -91,23 +91,4 @@ extension IntentHandler: SetTripleCurrencyIntentHandling {
     }
 }
 
-extension IntentHandler: SetMultipleCurrencyIntentHandling {
-    func provideBaseSourceOptionsCollection(for intent: SetMultipleCurrencyIntent) async throws -> INObjectCollection<NSString> {
-        return INObjectCollection(items: sourceStrings as [NSString])
-    }
-    
-    func provideBaseCurrencyOptionsCollection(for intent: SetMultipleCurrencyIntent) async throws -> INObjectCollection<NSString> {
-        let currencyStrings = setupCurrencyStrings()
-        return INObjectCollection(items: currencyStrings as [NSString])
-    }
-    
-    func defaultBaseSource(for intent: SetMultipleCurrencyIntent) -> String? {
-        return WidgetsData.forex
-    }
-    
-    func defaultBaseCurrency(for intent: SetMultipleCurrencyIntent) -> String? {
-        return "RUB - Российский Рубль"
-    }
-}
-
 

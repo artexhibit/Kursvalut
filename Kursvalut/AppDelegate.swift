@@ -15,43 +15,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        UserDefaults.standard.register(defaults: ["currencyScreenDecimals" : 2, "converterScreenDecimals" : 2, "currencyScreenPercentageDecimals" : 2, "startView": "Валюты", "pickedTheme": "Как в системе", "bankOfRussiaPickedSection": "По короткому имени", "bankOfRussiaPickedOrder": "По возрастанию (А→Я)", "bankOfRussiaPickedSectionNumber": 1, "forexPickedSection": "По короткому имени", "forexPickedOrder": "По возрастанию (А→Я)", "forexPickedSectionNumber": 1, "userHasOnboarded": false, "baseSource": "ЦБ РФ", "baseCurrency" : "RUB", "keyboardWithSound": true, "roundFlags": false, "confirmedDate": currencyManager.createStringDate(with: "", from: Date(), dateStyle: .medium), "pickDateSwitchIsOn": false, "updateRequestFromCurrencyDataSource": false, "customSortSwitchIsOnForBankOfRussia": false, "customSortSwitchIsOnForForex": false, "previousBankOfRussiaPickedOrder": "По возрастанию (А→Я)", "previousForexPickedOrder": "По возрастанию (А→Я)", "previousLastBankOfRussiaPickedSection": "По короткому имени", "previousForexPickedSection": "По короткому имени", "showCustomSortForBankOfRussia": true, "showCustomSortForForex": true, "needToRefreshFRCForCustomSort": true, "canResetValuesInActiveTextField": false, "bankOfRussiaPickedCurrency": "", "forexPickedCurrency": "", "canSaveConverterValues": false])
+        UserDefaults.standard.register(defaults: ["currencyScreenDecimals" : 2, "converterScreenDecimals" : 2, "currencyScreenPercentageDecimals" : 2, "startView": "Валюты", "pickedTheme": "Как в системе", "bankOfRussiaPickedSection": "По короткому имени", "bankOfRussiaPickedOrder": "По возрастанию (А→Я)", "bankOfRussiaPickedSectionNumber": 1, "forexPickedSection": "По короткому имени", "forexPickedOrder": "По возрастанию (А→Я)", "forexPickedSectionNumber": 1, "userHasOnboarded": false, "baseSource": "ЦБ РФ", "baseCurrency" : "RUB", "keyboardWithSound": true, "roundFlags": false, "confirmedDate": currencyManager.createStringDate(with: "", from: Date(), dateStyle: .medium), "pickDateSwitchIsOn": false, "updateRequestFromCurrencyDataSource": false, "customSortSwitchIsOnForBankOfRussia": false, "customSortSwitchIsOnForForex": false, "previousBankOfRussiaPickedOrder": "По возрастанию (А→Я)", "previousForexPickedOrder": "По возрастанию (А→Я)", "previousLastBankOfRussiaPickedSection": "По короткому имени", "previousForexPickedSection": "По короткому имени", "showCustomSortForBankOfRussia": true, "showCustomSortForForex": true, "needToRefreshFRCForCustomSort": true, "canResetValuesInActiveTextField": false, "bankOfRussiaPickedCurrency": "", "forexPickedCurrency": "", "canSaveConverterValues": false, "kursvalutPro": false, "migrationCompleted": false])
         
-        UserDefaults.sharedContainer.register(defaults: 
-        [
-            "currencyScreenDecimals" : UserDefaults.standard.integer(forKey: "currencyScreenDecimals"),
-            "converterScreenDecimals" : UserDefaults.standard.integer(forKey: "converterScreenDecimals"),
-            "currencyScreenPercentageDecimals" : UserDefaults.standard.integer(forKey: "currencyScreenPercentageDecimals"),
-            "startView": UserDefaults.standard.string(forKey: "startView") ?? "",
-            "pickedTheme": UserDefaults.standard.string(forKey: "pickedTheme") ?? "",
-            "bankOfRussiaPickedSection": UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection") ?? "",
-            "bankOfRussiaPickedOrder": UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder") ?? "",
-            "bankOfRussiaPickedSectionNumber": UserDefaults.standard.integer(forKey: "bankOfRussiaPickedSectionNumber"),
-            "forexPickedSection": UserDefaults.standard.string(forKey: "forexPickedSection") ?? "",
-            "forexPickedOrder": UserDefaults.standard.string(forKey: "forexPickedOrder") ?? "",
-            "forexPickedSectionNumber": UserDefaults.standard.integer(forKey: "forexPickedSectionNumber"),
-            "userHasOnboarded": UserDefaults.standard.bool(forKey: "userHasOnboarded"),
-            "baseSource": UserDefaults.standard.string(forKey: "baseSource") ?? "",
-            "baseCurrency" : UserDefaults.standard.string(forKey: "baseCurrency") ?? "",
-            "keyboardWithSound": UserDefaults.standard.bool(forKey: "keyboardWithSound"),
-            "roundFlags": UserDefaults.standard.bool(forKey: "roundFlags"),
-            "confirmedDate": currencyManager.createStringDate(with: "", from: Date(), dateStyle: .medium),
-            "pickDateSwitchIsOn": UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn"),
-            "updateRequestFromCurrencyDataSource": UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource"),
-            "customSortSwitchIsOnForBankOfRussia": UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForBankOfRussia"),
-            "customSortSwitchIsOnForForex": UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForForex"),
-            "previousBankOfRussiaPickedOrder": UserDefaults.standard.string(forKey: "previousBankOfRussiaPickedOrder") ?? "",
-            "previousForexPickedOrder": UserDefaults.standard.string(forKey: "previousForexPickedOrder") ?? "",
-            "previousLastBankOfRussiaPickedSection": UserDefaults.standard.string(forKey: "previousLastBankOfRussiaPickedSection") ?? "",
-            "previousForexPickedSection": UserDefaults.standard.string(forKey: "previousForexPickedSection") ?? "",
-            "showCustomSortForBankOfRussia": UserDefaults.standard.bool(forKey: "showCustomSortForBankOfRussia"),
-            "showCustomSortForForex": UserDefaults.standard.bool(forKey: "showCustomSortForForex"),
-            "needToRefreshFRCForCustomSort": UserDefaults.standard.bool(forKey: "needToRefreshFRCForCustomSort"),
-            "canResetValuesInActiveTextField": UserDefaults.standard.bool(forKey: "canResetValuesInActiveTextField"),
-            "bankOfRussiaPickedCurrency": UserDefaults.standard.string(forKey: "bankOfRussiaPickedCurrency") ?? "",
-            "forexPickedCurrency": UserDefaults.standard.string(forKey: "forexPickedCurrency") ?? "",
-            "canSaveConverterValues": UserDefaults.standard.bool(forKey: "canSaveConverterValues")
-        ])
+        if !UserDefaults.standard.bool(forKey: "migrationCompleted") {
+            
+            UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "currencyScreenDecimals"), forKey: "currencyScreenDecimals")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "converterScreenDecimals"), forKey: "converterScreenDecimals")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "currencyScreenPercentageDecimals"), forKey: "currencyScreenPercentageDecimals")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "startView")!, forKey: "startView")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "pickedTheme")!, forKey: "pickedTheme")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection")!, forKey: "bankOfRussiaPickedSection")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder")!, forKey: "bankOfRussiaPickedOrder")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "bankOfRussiaPickedSectionNumber"), forKey: "bankOfRussiaPickedSectionNumber")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "forexPickedSection")!, forKey: "forexPickedSection")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "forexPickedOrder")!, forKey: "forexPickedOrder")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "forexPickedSectionNumber"), forKey: "forexPickedSectionNumber")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "userHasOnboarded"), forKey: "userHasOnboarded")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "baseSource")!, forKey: "baseSource")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "baseCurrency")!, forKey: "baseCurrency")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "keyboardWithSound"), forKey: "keyboardWithSound")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "roundFlags"), forKey: "roundFlags")
+            UserDefaults.sharedContainer.set(currencyManager.createStringDate(with: "", from: Date(), dateStyle: .medium), forKey: "confirmedDate")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn"), forKey: "pickDateSwitchIsOn")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource"), forKey: "updateRequestFromCurrencyDataSource")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForBankOfRussia"), forKey: "customSortSwitchIsOnForBankOfRussia")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForForex"), forKey: "customSortSwitchIsOnForForex")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousBankOfRussiaPickedOrder")!, forKey: "previousBankOfRussiaPickedOrder")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousForexPickedOrder")!, forKey: "previousForexPickedOrder")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousLastBankOfRussiaPickedSection")!, forKey: "previousLastBankOfRussiaPickedSection")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousForexPickedSection")!, forKey: "previousForexPickedSection")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "showCustomSortForBankOfRussia"), forKey: "showCustomSortForBankOfRussia")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "showCustomSortForForex"), forKey: "showCustomSortForForex")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "needToRefreshFRCForCustomSort"), forKey: "needToRefreshFRCForCustomSort")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "canResetValuesInActiveTextField"), forKey: "canResetValuesInActiveTextField")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "bankOfRussiaPickedCurrency")!, forKey: "bankOfRussiaPickedCurrency")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "forexPickedCurrency")!, forKey: "forexPickedCurrency")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "canSaveConverterValues"), forKey: "canSaveConverterValues")
+            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "kursvalutPro"), forKey: "kursvalutPro")
+            
+            UserDefaults.standard.setValue(true, forKey: "migrationCompleted")
+        }
         
         UserDefaults.sharedContainer.set(false, forKey: "isActiveCurrencyVC")
         return true

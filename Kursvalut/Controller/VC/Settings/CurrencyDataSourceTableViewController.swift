@@ -6,7 +6,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     private let currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
     private let coreDataManager = CurrencyCoreDataManager()
-    private let dataSourceOptions = ["Forex (Биржа)", "ЦБ РФ"]
+    private let dataSourceOptions = ["Forex", "ЦБ РФ"]
     private let sectionsData = [
         (header: "", footer: ["Данные по курсам будут сразу загружены при выборе источника"]),
         (header: "", footer: ["В зависимости от выбранной базовой валюты будут отображаться соответствующие данные", "Для источника курсов по ЦБ РФ базовая валюта - только RUB"]),
@@ -254,6 +254,12 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             activatedCurrencyVC()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOff"), object: nil)
             tableView.reloadSections(IndexSet(integer: sections.baseCurrency), with: .fade)
+            
+            if pickedDataSource == "ЦБ РФ" {
+                coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf ?? [])
+            } else {
+                coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex ?? [])
+            }
         } else if indexPath.section == sections.concreteDate {
             if pickDateSwitchIsOn {
                 displayInlineDatePickerAt(indexPath: dateIndexPath as NSIndexPath)
