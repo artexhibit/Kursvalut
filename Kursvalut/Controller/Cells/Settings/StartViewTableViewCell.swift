@@ -6,7 +6,7 @@ class StartViewTableViewCell: UITableViewCell {
     @IBOutlet weak var viewNameLabel: UILabel!
     
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     
     override func awakeFromNib() {

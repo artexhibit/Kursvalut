@@ -6,7 +6,7 @@ class SubSortTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     
     override func awakeFromNib() {

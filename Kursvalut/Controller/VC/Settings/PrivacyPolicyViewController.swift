@@ -13,7 +13,7 @@ class PrivacyPolicyViewController: UIViewController {
         (header: "Сбор данных", text: "Приложение не отслеживает, не собирает и никуда не отправляет ваши данные.")
     ]
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     
     override func viewDidLoad() {

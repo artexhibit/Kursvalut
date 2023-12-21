@@ -14,7 +14,7 @@ class TermsOfUseViewController: UIViewController {
         (header: "Pro Версия", text: "Приобретается единоразово и разблокирует все возможности приложения.")
     ]
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     
     override func viewDidLoad() {

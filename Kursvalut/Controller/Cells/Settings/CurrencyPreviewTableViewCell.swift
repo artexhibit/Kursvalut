@@ -11,7 +11,7 @@ class CurrencyPreviewTableViewCell: UITableViewCell {
     @IBOutlet weak var currencyPreviewCellStackView: UIStackView!
     
     private var roundFlags: Bool {
-        return UserDefaults.standard.bool(forKey: "roundFlags")
+        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
     }
     
     override func awakeFromNib() {

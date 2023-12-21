@@ -15,7 +15,7 @@ class OnboardingViewController: UIViewController {
     private var buttonScroll = false
     private var orientationChanged = false
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     private var currentPage = 0 {
         didSet {
@@ -51,7 +51,7 @@ class OnboardingViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UserDefaults.standard.set(true, forKey: "userHasOnboarded")
+        UserDefaults.sharedContainer.set(true, forKey: "userHasOnboarded")
     }
     
     @IBAction func closeButtonClicked(_ sender: UIButton) {

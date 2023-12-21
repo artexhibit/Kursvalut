@@ -14,28 +14,28 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     ]
     private let sections = (dataSource: 0, baseCurrency: 1, concreteDate: 2)
     private var proPurchased: Bool {
-        return UserDefaults.standard.bool(forKey: "kursvalutPro")
+        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
     }
     private var pickedBaseCurrency: String {
-        return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
     private var pickedDataSource: String {
-        return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
     }
     private var pickedSection: String {
-        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedSection") ?? "")
+        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexPickedSection") ?? "")
     }
     private var wasActiveCurrencyVC: Bool {
-        return UserDefaults.standard.bool(forKey: "isActiveCurrencyVC")
+        return UserDefaults.sharedContainer.bool(forKey: "isActiveCurrencyVC")
     }
     private var confirmedDate: String {
-        return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
     }
     private var todaysDate: String {
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
     }
     private var pickDateSwitchIsOn: Bool {
-        return UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn")
+        return UserDefaults.sharedContainer.bool(forKey: "pickDateSwitchIsOn")
     }
     private var pickedDate: String?
     private var lastConfirmedDate: String?
@@ -105,11 +105,11 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "concreteDateCell") as! ConcreteDateTableViewCell
         
         if sender.isOn {
-            UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn")
+            UserDefaults.sharedContainer.set(true, forKey: "pickDateSwitchIsOn")
             displayInlineDatePickerAt(indexPath: dateIndexPath as NSIndexPath)
             cell.selectionStyle = .default
         } else {
-            UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
+            UserDefaults.sharedContainer.set(false, forKey: "pickDateSwitchIsOn")
             pickedDate = todaysDate
             lastConfirmedDate = confirmedDate
             turnOffDateSwitch = true
@@ -120,7 +120,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             }
             if pickedDate != confirmedDate {
                 startDateSpinner = true
-                UserDefaults.standard.set(self.pickedDate, forKey: "confirmedDate")
+                UserDefaults.sharedContainer.set(self.pickedDate, forKey: "confirmedDate")
                 requestDataForConfirmedDate()
             }
         }
@@ -144,7 +144,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         startDateSpinner = true
         turnOffDateSwitch = false
         tableView.reloadRows(at: [dateIndexPath], with: .none)
-        UserDefaults.standard.set(self.pickedDate, forKey: "confirmedDate")
+        UserDefaults.sharedContainer.set(self.pickedDate, forKey: "confirmedDate")
         requestDataForConfirmedDate()
     }
     
@@ -241,14 +241,14 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             let pickedOption = cell.sourceNameLabel.text ?? ""
          
             cell.dataUpdateSpinner.startAnimating()
-            UserDefaults.standard.set(pickedOption, forKey: "baseSource")
+            UserDefaults.sharedContainer.set(pickedOption, forKey: "baseSource")
             
             if pickedOption == "ЦБ РФ" {
-                UserDefaults.standard.set("RUB", forKey: "baseCurrency")
-                UserDefaults.standard.set(true, forKey: "setTextFieldToZero")
+                UserDefaults.sharedContainer.set("RUB", forKey: "baseCurrency")
+                UserDefaults.sharedContainer.set(true, forKey: "setTextFieldToZero")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
             } else {
-                UserDefaults.standard.set(true, forKey: "setTextFieldToZero")
+                UserDefaults.sharedContainer.set(true, forKey: "setTextFieldToZero")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
             }
             activatedCurrencyVC()
@@ -300,10 +300,10 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     @objc func activatedCurrencyVC() {
         if wasActiveCurrencyVC {
-            UserDefaults.standard.set(true, forKey: "updateRequestFromCurrencyDataSource")
+            UserDefaults.sharedContainer.set(true, forKey: "updateRequestFromCurrencyDataSource")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
-            UserDefaults.standard.set(false, forKey: "userClosedApp")
-            UserDefaults.standard.set(true, forKey: "needToScrollUpViewController")
+            UserDefaults.sharedContainer.set(false, forKey: "userClosedApp")
+            UserDefaults.sharedContainer.set(true, forKey: "needToScrollUpViewController")
             tableView.reloadRows(at: [dateIndexPath], with: .none)
         } else {
             if targetIndexPath == nil {
@@ -325,17 +325,17 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     func resetStateToTheLastConfirmedDate() {
         if let lastConfirmedDate = self.lastConfirmedDate {
             self.pickedDate = lastConfirmedDate
-            UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
+            UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
             
             if !self.pickDateSwitchIsOn {
-                UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn")
+                UserDefaults.sharedContainer.set(true, forKey: "pickDateSwitchIsOn")
             }
             self.tableView.reloadRows(at: [self.datePickerIndexPath], with: .none)
         }
     }
     
     func setDateSwitchStateToOff(with cell: ConcreteDateTableViewCell) {
-        UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
+        UserDefaults.sharedContainer.set(false, forKey: "pickDateSwitchIsOn")
         cell.pickDateSwitch.setOn(false, animated: true)
         cell.selectionStyle = .none
     }
@@ -365,7 +365,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                     }
                     self.resetStateToTheLastConfirmedDate()
                 } else {
-                    UserDefaults.standard.set(self.pickedDate, forKey: "confirmedDate")
+                    UserDefaults.sharedContainer.set(self.pickedDate, forKey: "confirmedDate")
                     
                     if self.pickDateSwitchIsOn && !self.dataSourceCellWasPressed {
                         self.displayInlineDatePickerAt(indexPath: self.dateIndexPath as NSIndexPath)
@@ -373,7 +373,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                     if self.pickedSection == "Своя" && self.confirmedDate != self.todaysDate {
                         self.resetCurrencyHistoricalRow()
                     }
-                    UserDefaults.standard.set(true, forKey: "needToScrollUpViewController")
+                    UserDefaults.sharedContainer.set(true, forKey: "needToScrollUpViewController")
                     PopupQueueManager.shared.addPopupToQueue(title: "Успешно", message: "Курсы загружены", style: .success)
                 }
                 self.dataSourceCellWasPressed = false

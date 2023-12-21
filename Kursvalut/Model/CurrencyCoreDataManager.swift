@@ -6,19 +6,19 @@ import CoreData
 struct CurrencyCoreDataManager {
     private let currencyManager = CurrencyManager()
     private var pickCurrencyRequest: Bool {
-        return UserDefaults.standard.bool(forKey: "pickCurrencyRequest")
+        return UserDefaults.sharedContainer.bool(forKey: "pickCurrencyRequest")
     }
     private var amountOfPickedBankOfRussiaCurrencies: Int {
-        return UserDefaults.standard.integer(forKey: "savedAmountForBankOfRussia")
+        return UserDefaults.sharedContainer.integer(forKey: "savedAmountForBankOfRussia")
     }
     private var amountOfPickedForexCurrencies: Int {
-        return UserDefaults.standard.integer(forKey: "savedAmountForForex")
+        return UserDefaults.sharedContainer.integer(forKey: "savedAmountForForex")
     }
     var pickedBaseCurrency: String {
-        return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
     private var confirmedDateFromDataSourceVC: String {
-        return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
     }
     private var todaysDate: String {
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
@@ -78,7 +78,7 @@ struct CurrencyCoreDataManager {
         if currency.shortName == "USD" {
             currency.rowForConverter = 1
             currency.isForConverter = true
-            UserDefaults.standard.set(2, forKey: "savedAmountForBankOfRussia")
+            UserDefaults.sharedContainer.set(2, forKey: "savedAmountForBankOfRussia")
         }
     }
     
@@ -146,7 +146,7 @@ struct CurrencyCoreDataManager {
                     array.append(currency)
                 }
             }
-            UserDefaults.standard.set(currentAmount, forKey: "savedAmountForBankOfRussia")
+            UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForBankOfRussia")
         }
         array.sort(by: ({$0.rowForConverter < $1.rowForConverter}))
         for (row, currency) in array.enumerated() {
@@ -215,7 +215,7 @@ struct CurrencyCoreDataManager {
         if currency.shortName == "USD" || currency.shortName == "EUR" {
             currency.rowForConverter = currency.shortName == "USD" ? 1 : 2
             currency.isForConverter = true
-            UserDefaults.standard.set(2, forKey: "savedAmountForForex")
+            UserDefaults.sharedContainer.set(2, forKey: "savedAmountForForex")
         }
     }
     
@@ -270,7 +270,7 @@ struct CurrencyCoreDataManager {
         if currency.shortName == "USD" || currency.shortName == "EUR" {
             currency.rowForConverter = currency.shortName == "USD" ? 1 : 2
             currency.isForConverter = true
-            UserDefaults.standard.set(2, forKey: "savedAmountForForex")
+            UserDefaults.sharedContainer.set(2, forKey: "savedAmountForForex")
         }
     }
     
@@ -329,7 +329,7 @@ struct CurrencyCoreDataManager {
                     array.append(currency)
                 }
             }
-            UserDefaults.standard.set(currentAmount, forKey: "savedAmountForForex")
+            UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForForex")
         }
         array.sort(by: ({$0.rowForConverter < $1.rowForConverter}))
         
@@ -371,18 +371,18 @@ struct CurrencyCoreDataManager {
     
     func fetchSortedCurrencies() -> (cbrf: [Currency]?, forex: [ForexCurrency]?) {
         var pickedDataSource: String {
-            return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+            return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
         }
         
         var pickedOrder: String {
-            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedOrder") ?? "")
+            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaPickedOrder") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexPickedOrder") ?? "")
         }
         var pickedSection: String {
-            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.standard.string(forKey: "forexPickedSection") ?? "")
+            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexPickedSection") ?? "")
         }
         
         var pickDateSwitchFromDataSourceIsOn: Bool {
-            return UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn")
+            return UserDefaults.sharedContainer.bool(forKey: "pickDateSwitchIsOn")
         }
         
         var sortingOrder: Bool {
@@ -429,7 +429,7 @@ struct CurrencyCoreDataManager {
         if let additionalSortDescriptor = sortDescriptor {
             request.sortDescriptors = [additionalSortDescriptor, baseSortDescriptor]
             sectionName = pickCurrencyRequest ? "fullName.firstStringCharacter" : nil
-            UserDefaults.standard.set(false, forKey: "pickCurrencyRequest")
+            UserDefaults.sharedContainer.set(false, forKey: "pickCurrencyRequest")
         } else {
             request.sortDescriptors = [baseSortDescriptor]
             sectionName = nil
@@ -446,7 +446,7 @@ struct CurrencyCoreDataManager {
         if let additionalSortDescriptor = sortDescriptor {
             request.sortDescriptors = [additionalSortDescriptor, baseSortDescriptor]
             sectionName = pickCurrencyRequest ? "fullName.firstStringCharacter" : nil
-            UserDefaults.standard.set(false, forKey: "pickCurrencyRequest")
+            UserDefaults.sharedContainer.set(false, forKey: "pickCurrencyRequest")
         } else {
             request.sortDescriptors = [baseSortDescriptor]
             sectionName = nil

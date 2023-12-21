@@ -4,7 +4,7 @@ import UIKit
 class DecimalsTableViewController: UITableViewController {
     
     private var currencyManager = CurrencyManager()
-    private let userDefaults = UserDefaults.standard
+    private let userDefaults = UserDefaults.sharedContainer
     private let optionsArray = ["Количество знаков для цифры с курсом", "Количество знаков для процентов", "Количество знаков для цифры с курсом"]
     private let sectionsArray = [
         (header: "Экран Валюты", footer: ""),

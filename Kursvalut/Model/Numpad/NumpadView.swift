@@ -8,7 +8,7 @@ class NumpadView: UIView, UIInputViewAudioFeedback {
     @IBOutlet weak var deleteButton: NumpadButton!
     
     private var keyboardWithSound: Bool {
-        return UserDefaults.standard.bool(forKey: "keyboardWithSound")
+        return UserDefaults.sharedContainer.bool(forKey: "keyboardWithSound")
     }
     private var target: UITextInput?
     private var view: UIView?

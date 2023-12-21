@@ -17,13 +17,13 @@ class DatePickerView: UIView {
     private let currencyManager = CurrencyManager()
     private let minimumDate = Date(timeIntervalSinceReferenceDate: -31622400.0)
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     private var todaysDate: String {
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
     }
     private var confirmedDate: String {
-        return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
     }
     private var interfaceOrientation: UIInterfaceOrientation {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return .unknown }
@@ -45,7 +45,7 @@ class DatePickerView: UIView {
     }
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {
-        UserDefaults.standard.set(pickedDate, forKey: "confirmedDate")
+        UserDefaults.sharedContainer.set(pickedDate, forKey: "confirmedDate")
         delegate?.didPickedDateFromPicker(self, pickedDate: pickedDate ?? "", lastConfirmedDate: lastConfirmedDate ?? "")
         hideView()
     }

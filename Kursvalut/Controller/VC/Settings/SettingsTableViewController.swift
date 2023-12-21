@@ -16,22 +16,22 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var saveConverterValuesSwitch: UISwitch!
     
     private var pickedTheme: String {
-        return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "pickedTheme") ?? ""
     }
     private var proPurchased: Bool {
-        return UserDefaults.standard.bool(forKey: "kursvalutPro")
+        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
     }
     private var keyboardWithSound: Bool {
-        return UserDefaults.standard.bool(forKey: "keyboardWithSound")
+        return UserDefaults.sharedContainer.bool(forKey: "keyboardWithSound")
     }
     private var roundFlags: Bool {
-        return UserDefaults.standard.bool(forKey: "roundFlags")
+        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
     }
     private var canResetValuesInActiveTextField: Bool {
-        return UserDefaults.standard.bool(forKey: "canResetValuesInActiveTextField")
+        return UserDefaults.sharedContainer.bool(forKey: "canResetValuesInActiveTextField")
     }
     private var saveConverterValuesTurnedOn: Bool {
-        return UserDefaults.standard.bool(forKey: "canSaveConverterValues")
+        return UserDefaults.sharedContainer.bool(forKey: "canSaveConverterValues")
     }
     
     override func viewDidLoad() {
@@ -53,9 +53,9 @@ class SettingsTableViewController: UITableViewController {
     
     @IBAction func roundFlagsSwitchPressed(_ sender: UISwitch) {
         if roundFlagsSwitch.isOn {
-            UserDefaults.standard.set(true, forKey: "roundFlags")
+            UserDefaults.sharedContainer.set(true, forKey: "roundFlags")
         } else {
-            UserDefaults.standard.set(false, forKey: "roundFlags")
+            UserDefaults.sharedContainer.set(false, forKey: "roundFlags")
         }
     }
     
@@ -69,25 +69,25 @@ class SettingsTableViewController: UITableViewController {
     
     @IBAction func converterValueSwitchPressed(_ sender: UISwitch) {
         if converterValuesResetSwitch.isOn {
-            UserDefaults.standard.set(true, forKey: "canResetValuesInActiveTextField")
+            UserDefaults.sharedContainer.set(true, forKey: "canResetValuesInActiveTextField")
         } else {
-            UserDefaults.standard.set(false, forKey: "canResetValuesInActiveTextField")
+            UserDefaults.sharedContainer.set(false, forKey: "canResetValuesInActiveTextField")
         }
     }
     
     @IBAction func saveConverterValuesSwitchPressed(_ sender: UISwitch) {
         if saveConverterValuesSwitch.isOn {
-            UserDefaults.standard.set(true, forKey: "canSaveConverterValues")
+            UserDefaults.sharedContainer.set(true, forKey: "canSaveConverterValues")
         } else {
-            UserDefaults.standard.set(false, forKey: "canSaveConverterValues")
+            UserDefaults.sharedContainer.set(false, forKey: "canSaveConverterValues")
         }
     }
     
     @IBAction func keyboardSoundSwitchPressed(_ sender: UISwitch) {
         if keyboardSoundSwitch.isOn {
-            UserDefaults.standard.set(true, forKey: "keyboardWithSound")
+            UserDefaults.sharedContainer.set(true, forKey: "keyboardWithSound")
         } else {
-            UserDefaults.standard.set(false, forKey: "keyboardWithSound")
+            UserDefaults.sharedContainer.set(false, forKey: "keyboardWithSound")
         }
     }
     
@@ -215,7 +215,7 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             if transaction.transactionState == .restored {
-                UserDefaults.standard.set(true, forKey: "kursvalutPro")
+                UserDefaults.sharedContainer.set(true, forKey: "kursvalutPro")
                 SKPaymentQueue.default().finishTransaction(transaction)
                 SKPaymentQueue.default().remove(self)
                 unlockPro(for: proLabel)

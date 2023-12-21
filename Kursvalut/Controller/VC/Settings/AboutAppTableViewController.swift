@@ -19,7 +19,7 @@ class AboutAppTableViewController: UITableViewController {
         return "Версия \(version)"
     }
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
 
     override func viewDidLoad() {

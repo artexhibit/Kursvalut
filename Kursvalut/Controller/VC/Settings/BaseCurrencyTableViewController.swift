@@ -9,10 +9,10 @@ class BaseCurrencyTableViewController: UITableViewController {
     private var currencyManager = CurrencyManager()
     private var coreDataManager = CurrencyCoreDataManager()
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     private var pickedBaseCurrency: String {
-        return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
     
     override func viewDidLoad() {
@@ -72,7 +72,7 @@ class BaseCurrencyTableViewController: UITableViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.searchController.isActive = false
         }
-        UserDefaults.standard.set(forexCurrency.shortName, forKey: "baseCurrency")
+        UserDefaults.sharedContainer.set(forexCurrency.shortName, forKey: "baseCurrency")
         cell.picker.image = forexCurrency.shortName == pickedBaseCurrency ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshDataFromDataSourceVC"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
@@ -87,7 +87,7 @@ class BaseCurrencyTableViewController: UITableViewController {
 
 extension BaseCurrencyTableViewController: NSFetchedResultsControllerDelegate {
     func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
-        UserDefaults.standard.set(true, forKey: "pickCurrencyRequest")
+        UserDefaults.sharedContainer.set(true, forKey: "pickCurrencyRequest")
         let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
         var searchCompoundPredicate: NSCompoundPredicate {
             let additionalPredicate = NSPredicate(format: "isForCurrencyScreen == YES")

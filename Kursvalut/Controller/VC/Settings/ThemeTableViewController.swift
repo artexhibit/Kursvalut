@@ -7,7 +7,7 @@ class ThemeTableViewController: UITableViewController {
     private let optionsArray = ["Светлая", "Тёмная", "Как в системе"]
     private let sectionArray = [(header: "", footer: "Принудительно установить один из вариантов оформления или переключать согласно системной настройке оформления")]
     private var pickedTheme: String {
-        return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "pickedTheme") ?? ""
     }
     
     override func viewDidLoad() {
@@ -54,7 +54,7 @@ class ThemeTableViewController: UITableViewController {
             }
             cell.accessoryType = .checkmark
         }
-        UserDefaults.standard.set(pickedOption, forKey: "pickedTheme")
+        UserDefaults.sharedContainer.set(pickedOption, forKey: "pickedTheme")
         
         UIView.transition(with: firstWindow, duration: 0.3, options: .transitionCrossDissolve, animations: {firstWindow.overrideUserInterfaceStyle = self.currencyManager.switchTheme()}, completion: nil)
     }

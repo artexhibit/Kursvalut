@@ -9,7 +9,7 @@ class DatePickerTableViewCell: UITableViewCell {
     
     let minimumDate = Date(timeIntervalSinceReferenceDate: -31622400.0)
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     
     override func awakeFromNib() {

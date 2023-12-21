@@ -3,7 +3,7 @@ import UIKit
 
 class SortingTableViewController: UITableViewController {
     
-    private let userDefaults = UserDefaults.standard
+    private let userDefaults = UserDefaults.sharedContainer
     private let customSortCellSection = 3
     private var currencyManager = CurrencyManager()
     private var coreDataManager = CurrencyCoreDataManager()

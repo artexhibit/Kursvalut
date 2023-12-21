@@ -14,7 +14,7 @@ class CurrencyTableViewCell: UITableViewCell {
     @IBOutlet weak var currencyCellStackViewLeading: NSLayoutConstraint!
     
     private var roundFlags: Bool {
-        return UserDefaults.standard.bool(forKey: "roundFlags")
+        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
     }
     
     override func didMoveToSuperview() {

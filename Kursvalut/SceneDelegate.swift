@@ -6,28 +6,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var currencyManager = CurrencyManager()
     var needToScrollUpViewController: Bool {
-        return UserDefaults.standard.bool(forKey: "needToScrollUpViewController")
+        return UserDefaults.sharedContainer.bool(forKey: "needToScrollUpViewController")
     }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         //Temporary set the color for future change color section in settings
-        UserDefaults.standard.set("ColorOrange", forKey: "appColor")
+        UserDefaults.sharedContainer.set("ColorOrange", forKey: "appColor")
         
         var appColor: String {
-            return UserDefaults.standard.string(forKey: "appColor") ?? ""
+            return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
         }
         
         guard let tabBarController = self.window?.rootViewController as? UITabBarController else { return }
-        tabBarController.selectedIndex = UserDefaults.standard.string(forKey: "startView") == "Валюты" ? 0 : 1
+        tabBarController.selectedIndex = UserDefaults.sharedContainer.string(forKey: "startView") == "Валюты" ? 0 : 1
         tabBarController.tabBar.tintColor = UIColor(named: "\(appColor)")
         UINavigationBar.appearance().tintColor = UIColor(named: "\(appColor)")
         window?.overrideUserInterfaceStyle = currencyManager.switchTheme()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        needToScrollUpViewController ? UserDefaults.standard.set(true, forKey: "userClosedApp") : UserDefaults.standard.set(false, forKey: "userClosedApp")
+        needToScrollUpViewController ? UserDefaults.sharedContainer.set(true, forKey: "userClosedApp") : UserDefaults.sharedContainer.set(false, forKey: "userClosedApp")
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

@@ -10,7 +10,7 @@ class ConcreteDateTableViewCell: UITableViewCell {
     @IBOutlet weak var proLabel: UIView!
     
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     
     override func awakeFromNib() {

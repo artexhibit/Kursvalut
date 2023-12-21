@@ -19,25 +19,25 @@ struct CurrencyManager {
         }
     }
     private var currencyScreenDecimalsAmount: Int {
-        return UserDefaults.standard.integer(forKey: "currencyScreenDecimals")
+        return UserDefaults.sharedContainer.integer(forKey: "currencyScreenDecimals")
     }
     private var converterScreenDecimalsAmount: Int {
-        return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
+        return UserDefaults.sharedContainer.integer(forKey: "converterScreenDecimals")
     }
     private var currencyScreenPercentageAmount: Int {
-        return UserDefaults.standard.integer(forKey: "currencyScreenPercentageDecimals")
+        return UserDefaults.sharedContainer.integer(forKey: "currencyScreenPercentageDecimals")
     }
     private var pickedBaseCurrency: String {
-        return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
     private var confirmedDateFromDataSourceVC: String {
-        return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
     }
     private var todaysDate: String {
         return createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
     }
     private var roundFlags: Bool {
-        return UserDefaults.standard.bool(forKey: "roundFlags")
+        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
     }
     
     func showCurrencyFlag(_ shortName: String) -> UIImage? {
@@ -92,7 +92,7 @@ struct CurrencyManager {
     
     func switchTheme() -> UIUserInterfaceStyle {
         var pickedTheme: String {
-            return UserDefaults.standard.string(forKey: "pickedTheme") ?? ""
+            return UserDefaults.sharedContainer.string(forKey: "pickedTheme") ?? ""
         }
         
         if pickedTheme == "Светлая" {
@@ -124,31 +124,31 @@ struct CurrencyManager {
         let currencyNetworking = CurrencyNetworking()
         let coreDataManager = CurrencyCoreDataManager()
         var wasLaunched: String {
-            return UserDefaults.standard.string(forKey: "isFirstLaunchToday") ?? ""
+            return UserDefaults.sharedContainer.string(forKey: "isFirstLaunchToday") ?? ""
         }
         var today: String {
             return self.createStringDate(with: "MM/dd/yyyy", dateStyle: nil)
         }
         var pickedDataSource: String {
-            return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+            return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
         }
         var currencyUpdateTime: String {
-            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (UserDefaults.standard.string(forKey: "forexUpdateTime") ?? "")
+            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexUpdateTime") ?? "")
         }
         var userHasOnboarded: Bool {
-            return UserDefaults.standard.bool(forKey: "userHasOnboarded")
+            return UserDefaults.sharedContainer.bool(forKey: "userHasOnboarded")
         }
         if wasLaunched != today {
             let lastConfirmedDate = confirmedDateFromDataSourceVC
-            UserDefaults.standard.setValue(today, forKey:"isFirstLaunchToday")
-            UserDefaults.standard.set(todaysDate, forKey: "confirmedDate")
+            UserDefaults.sharedContainer.setValue(today, forKey:"isFirstLaunchToday")
+            UserDefaults.sharedContainer.set(todaysDate, forKey: "confirmedDate")
             
             currencyNetworking.performRequest { networkingError, parsingError in
                 if networkingError != nil {
                     guard let error = networkingError else { return }
                     PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
-                    UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
-                    UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn")
+                    UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
+                    UserDefaults.sharedContainer.set(true, forKey: "pickDateSwitchIsOn")
                 } else {
                     delegate?.firstLaunchDidEndSuccess(currencyManager: self)
                     

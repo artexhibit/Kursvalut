@@ -10,7 +10,7 @@ class ConverterPreviewTableViewCell: UITableViewCell {
     @IBOutlet weak var converterPreviewCellStackView: UIStackView!
     
     private var roundFlags: Bool {
-        return UserDefaults.standard.bool(forKey: "roundFlags")
+        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
     }
     
     override func awakeFromNib() {

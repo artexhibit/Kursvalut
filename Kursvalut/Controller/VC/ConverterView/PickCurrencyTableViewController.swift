@@ -11,19 +11,19 @@ class PickCurrencyTableViewController: UITableViewController {
     private let coreDataManager = CurrencyCoreDataManager()
     private let converterManager = ConverterManager()
     private var proPurchased: Bool {
-        return UserDefaults.standard.bool(forKey: "kursvalutPro")
+        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
     }
     private var pickedDataSource: String {
-        return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
     }
     private var amountOfPickedBankOfRussiaCurrencies: Int {
-        return UserDefaults.standard.integer(forKey: "savedAmountForBankOfRussia")
+        return UserDefaults.sharedContainer.integer(forKey: "savedAmountForBankOfRussia")
     }
     private var amountOfPickedForexCurrencies: Int {
-        return UserDefaults.standard.integer(forKey: "savedAmountForForex")
+        return UserDefaults.sharedContainer.integer(forKey: "savedAmountForForex")
     }
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     
     override func viewDidLoad() {
@@ -120,7 +120,7 @@ class PickCurrencyTableViewController: UITableViewController {
                 bankOfRussiaCurrency.isForConverter = false
                 bankOfRussiaCurrency.rowForConverter = 0
             }
-            UserDefaults.standard.set(currentAmount, forKey: "savedAmountForBankOfRussia")
+            UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForBankOfRussia")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCells"), object: nil, userInfo: ["currencyWasAdded": bankOfRussiaCurrency.isForConverter])
         } else if pickedDataSource == "Forex (Биржа)" {
             var currentAmount = amountOfPickedForexCurrencies
@@ -144,7 +144,7 @@ class PickCurrencyTableViewController: UITableViewController {
                 forexCurrency.isForConverter = false
                 forexCurrency.rowForConverter = 0
             }
-            UserDefaults.standard.set(currentAmount, forKey: "savedAmountForForex")
+            UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForForex")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCells"), object: nil, userInfo: ["currencyWasAdded": forexCurrency.isForConverter])
         }
         coreDataManager.save()
@@ -155,7 +155,7 @@ class PickCurrencyTableViewController: UITableViewController {
 
 extension PickCurrencyTableViewController: NSFetchedResultsControllerDelegate {
     func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
-        UserDefaults.standard.set(true, forKey: "pickCurrencyRequest")
+        UserDefaults.sharedContainer.set(true, forKey: "pickCurrencyRequest")
         let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
         var searchCompoundPredicate: NSCompoundPredicate {
             let additionalPredicate = NSPredicate(format: "isForCurrencyScreen == YES")

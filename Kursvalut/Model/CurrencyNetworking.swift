@@ -8,13 +8,13 @@ struct CurrencyNetworking {
     private let currencyManager = CurrencyManager()
     private let dataToFilterOut = Set(["BTC", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPD", "XPF", "XPT"])
     private var pickedDataSource: String {
-        return UserDefaults.standard.string(forKey: "baseSource") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
     }
     private var pickedBaseCurrency: String {
-        return UserDefaults.standard.string(forKey: "baseCurrency") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
     private var confirmedDate: String {
-        return UserDefaults.standard.string(forKey: "confirmedDate") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
     }
     private var updateTime: String {
         return currencyManager.createStringDate(with: confirmedDate, dateStyle: .long)
@@ -105,7 +105,7 @@ struct CurrencyNetworking {
                 completion(nil, parsingError)
             }
             DispatchQueue.main.async { self.coreDataManager.save() }
-            pickedDataSource == "ЦБ РФ" ? UserDefaults.standard.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.standard.setValue(updateTime, forKey: "forexUpdateTime")
+            pickedDataSource == "ЦБ РФ" ? UserDefaults.sharedContainer.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.sharedContainer.setValue(updateTime, forKey: "forexUpdateTime")
             WidgetsData.updateWidgets()
         }
     }

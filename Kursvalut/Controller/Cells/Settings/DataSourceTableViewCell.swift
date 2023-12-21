@@ -7,7 +7,7 @@ class DataSourceTableViewCell: UITableViewCell {
     @IBOutlet weak var dataUpdateSpinner: UIActivityIndicatorView!
     
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     
     override func awakeFromNib() {

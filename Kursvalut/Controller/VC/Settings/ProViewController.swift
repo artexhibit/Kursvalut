@@ -13,10 +13,10 @@ class ProViewController: UIViewController {
     @IBOutlet weak var priceSpinner: UIActivityIndicatorView!
     
     private var proPurchased: Bool {
-        return UserDefaults.standard.bool(forKey: "kursvalutPro")
+        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
     }
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     private var proPurchase: SKProduct?
     private let dataArray = [
@@ -128,7 +128,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
     //MARK: - User Interface Manage Methods
     
     func setPurchasedButton() {
-        UserDefaults.standard.set(true, forKey: "kursvalutPro")
+        UserDefaults.sharedContainer.set(true, forKey: "kursvalutPro")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pro"), object: nil)
         purchaseButton.backgroundColor = UIColor.systemGreen
         purchaseButton.setTitle("КУПЛЕНО", for: .normal)

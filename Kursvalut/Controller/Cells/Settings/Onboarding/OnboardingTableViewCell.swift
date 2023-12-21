@@ -12,7 +12,7 @@ class OnboardingTableViewCell: UITableViewCell {
     @IBOutlet weak var openTutorialIconButton: UIButton!
     
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
     var openOnboardingAction: (() -> Void)?
 

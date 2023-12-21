@@ -26,7 +26,7 @@ class ConverterTableViewCell: UITableViewCell {
     @IBOutlet weak var infoStackViewLeadingConstraint: NSLayoutConstraint!
     
     private var roundFlags: Bool {
-        return UserDefaults.standard.bool(forKey: "roundFlags")
+        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
     }
     private var numberTextFieldInitialWidth: CGFloat = 0.0
     private var infoStackViewWidthConstraint: NSLayoutConstraint?

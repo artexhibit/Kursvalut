@@ -4,7 +4,7 @@ import UIKit
 
 struct ConverterManager {
     private var converterScreenDecimalsAmount: Int {
-        return UserDefaults.standard.integer(forKey: "converterScreenDecimals")
+        return UserDefaults.sharedContainer.integer(forKey: "converterScreenDecimals")
     }
     
     //MARK: - Calculation Methods

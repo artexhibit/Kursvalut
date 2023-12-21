@@ -10,7 +10,7 @@ class CurrencyViewController: UIViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var separatorViewHeight: NSLayoutConstraint!
     
-    private let userDefaults = UserDefaults.standard
+    private let userDefaults = UserDefaults.sharedContainer
     private var currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
     private let coreDataManager = CurrencyCoreDataManager()
@@ -49,7 +49,7 @@ class CurrencyViewController: UIViewController {
         return userDefaults.bool(forKey: "userHasOnboarded")
     }
     private var currencyUpdateTime: String {
-        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.standard.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (userDefaults.string(forKey: "forexUpdateTime") ?? "")
+        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (userDefaults.string(forKey: "forexUpdateTime") ?? "")
     }
     private var needToScrollUpViewController: Bool {
         return userDefaults.bool(forKey: "needToScrollUpViewController")
@@ -509,7 +509,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
             if networkingError != nil {
                 guard let error = networkingError else { return }
                 PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
-                UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
+                UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
             } else if parsingError != nil {
                 guard let parsingError = parsingError else { return }
                 if parsingError.code == 4865 {
@@ -517,7 +517,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 } else {
                     PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(parsingError.localizedDescription)", style: .failure)
                 }
-                UserDefaults.standard.set(lastConfirmedDate, forKey: "confirmedDate")
+                UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
             } else {
                 self.setupFetchedResultsController()
                 PopupQueueManager.shared.changePopupDataInQueue(title: "Успешно", message: "Курсы загружены", style: .success)
@@ -525,7 +525,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
                     self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
                 }
             }
-            pickedDate != self.todaysDate || lastConfirmedDate != self.todaysDate ? UserDefaults.standard.set(true, forKey: "pickDateSwitchIsOn") : UserDefaults.standard.set(false, forKey: "pickDateSwitchIsOn")
+            pickedDate != self.todaysDate || lastConfirmedDate != self.todaysDate ? UserDefaults.sharedContainer.set(true, forKey: "pickDateSwitchIsOn") : UserDefaults.sharedContainer.set(false, forKey: "pickDateSwitchIsOn")
         }
     }
 }

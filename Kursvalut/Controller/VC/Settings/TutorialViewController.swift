@@ -8,7 +8,7 @@ class TutorialViewController: UIViewController {
     var gifName: String?
     var tutorialData: [(icon: String, text: String)]?
     private var appColor: String {
-        return UserDefaults.standard.string(forKey: "appColor") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
 
     override func viewDidLoad() {

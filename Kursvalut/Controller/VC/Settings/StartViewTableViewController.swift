@@ -7,7 +7,7 @@ class StartViewTableViewController: UITableViewController {
     private let optionsArray = ["Валюты", "Конвертер"]
     private let sectionArray = [(header: "", footer: "Выбранный экран будет открываться сразу после запуска приложения")]
     private var pickedStartView: String {
-        return UserDefaults.standard.string(forKey: "startView") ?? ""
+        return UserDefaults.sharedContainer.string(forKey: "startView") ?? ""
     }
     
     override func viewDidLoad() {
@@ -52,7 +52,7 @@ class StartViewTableViewController: UITableViewController {
             }
             cell.accessoryType = .checkmark
         }
-        UserDefaults.standard.set(pickedOption, forKey: "startView")
+        UserDefaults.sharedContainer.set(pickedOption, forKey: "startView")
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
