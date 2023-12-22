@@ -1,8 +1,18 @@
 import Foundation
 
 extension Date {
-   static func createDate(from string: String) -> Date {
+    static var currentDate: Date {
+        return Date()
+    }
+    
+    static func createDate(from string: String) -> Date {
         let formatter = ISO8601DateFormatter()
+        return formatter.date(from: string) ?? Date()
+    }
+    
+    static func formatDate(from string: String, dateStyle: DateFormatter.Style = .medium) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateStyle = dateStyle
         return formatter.date(from: string) ?? Date()
     }
     

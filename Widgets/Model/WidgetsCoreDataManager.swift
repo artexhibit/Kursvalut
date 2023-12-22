@@ -107,10 +107,23 @@ struct WidgetsCoreDataManager {
     }
     
     static func getFirstTenCurrencies(for baseSource: String, and baseCurrency: String) -> [String] {
+        var confirmedDate: Date {
+            let date = UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
+            return Date.formatDate(from: date)
+        }
+        
         if baseSource == WidgetsData.cbrf {
-            return get(for: baseSource, fetchAll: true).cbrf.filter { $0.rowForCurrency <= 9 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }.filter{ $0 != baseCurrency }
+            if Calendar.current.isDate(confirmedDate, inSameDayAs: Date.currentDate) {
+                return get(for: baseSource, fetchAll: true).cbrf.filter { $0.rowForCurrency <= 9 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }.filter { $0 != baseCurrency }
+            } else {
+                return get(for: baseSource, fetchAll: true).cbrf.filter { $0.rowForHistoricalCurrency <= 9 }.sorted { $0.rowForHistoricalCurrency < $1.rowForHistoricalCurrency }.compactMap { $0.shortName }.filter { $0 != baseCurrency }
+            }
         } else {
-            return get(for: baseSource, fetchAll: true).forex.filter { $0.rowForCurrency <= 9 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }.filter{ $0 != baseCurrency }
+            if Calendar.current.isDate(confirmedDate, inSameDayAs: Date.currentDate) {
+                return get(for: baseSource, fetchAll: true).forex.filter { $0.rowForCurrency <= 9 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }.filter{ $0 != baseCurrency }
+            } else {
+                return get(for: baseSource, fetchAll: true).forex.filter { $0.rowForHistoricalCurrency <= 9 }.sorted { $0.rowForHistoricalCurrency < $1.rowForHistoricalCurrency }.compactMap { $0.shortName }.filter{ $0 != baseCurrency }
+            }
         }
     }
 }

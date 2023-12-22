@@ -519,13 +519,15 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 }
                 UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
             } else {
+                pickedDate != self.todaysDate ? UserDefaults.sharedContainer.set(true, forKey: "pickDateSwitchIsOn") : UserDefaults.sharedContainer.set(false, forKey: "pickDateSwitchIsOn")
+                
                 self.setupFetchedResultsController()
                 PopupQueueManager.shared.changePopupDataInQueue(title: "Успешно", message: "Курсы загружены", style: .success)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
                 }
+                WidgetsData.updateWidgets()
             }
-            pickedDate != self.todaysDate || lastConfirmedDate != self.todaysDate ? UserDefaults.sharedContainer.set(true, forKey: "pickDateSwitchIsOn") : UserDefaults.sharedContainer.set(false, forKey: "pickDateSwitchIsOn")
         }
     }
 }
