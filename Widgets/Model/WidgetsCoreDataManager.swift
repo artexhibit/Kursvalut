@@ -45,12 +45,12 @@ struct WidgetsCoreDataManager {
                 let mainValue = get(currencies: [mainCurrency], for: baseSource).cbrf.first?.absoluteValue ?? 0
                 let baseValue = get(currencies: [baseCurrency], for: baseSource).cbrf.first?.absoluteValue ?? 0
                 
-                value = String(format: "%.\(decimals)f", mainValue / baseValue)
+                value = String.roundDouble(mainValue / baseValue, maxDecimals: decimals)
             } else {
                 let mainValue = get(currencies: [mainCurrency], for: baseSource).forex.first?.absoluteValue ?? 0
                 let baseValue = get(currencies: [baseCurrency], for: baseSource).forex.first?.absoluteValue ?? 0
                 
-                value = String(format: "%.\(decimals)f", mainValue / baseValue)
+                value = String.roundDouble(mainValue / baseValue, maxDecimals: decimals)
             }
             currentValues.append(value)
             
@@ -88,7 +88,7 @@ struct WidgetsCoreDataManager {
             baseValue = basePrevValue / Double(baseNominal)
         }
         
-        value = String(format: "%.\(decimals)f", mainValue / baseValue)
+        value = String.roundDouble(mainValue / baseValue, maxDecimals: decimals)
         return value
     }
     

@@ -29,6 +29,8 @@
 		0B4B4C462B239D8F003B55A5 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0B6D80C72B223DE200E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0B6D80C82B223F3D00E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
+		0B81E0B02B3703900011F99D /* String+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B81E0AF2B3703900011F99D /* String+ext.swift */; };
+		0B81E0B12B3703900011F99D /* String+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B81E0AF2B3703900011F99D /* String+ext.swift */; };
 		0B9872EC2B29F4D900A14F5D /* MultipleCurrencyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9872EB2B29F4D900A14F5D /* MultipleCurrencyWidget.swift */; };
 		0BAA1F722B1FA18500188959 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA1F712B1FA18500188959 /* WidgetKit.framework */; };
 		0BAA1F742B1FA18500188959 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA1F732B1FA18500188959 /* SwiftUI.framework */; };
@@ -181,6 +183,7 @@
 		0B4B4C422B239843003B55A5 /* WidgetsIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsIntents.entitlements; sourceTree = "<group>"; };
 		0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsData.swift; sourceTree = "<group>"; };
 		0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
+		0B81E0AF2B3703900011F99D /* String+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ext.swift"; sourceTree = "<group>"; };
 		0B9872EB2B29F4D900A14F5D /* MultipleCurrencyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleCurrencyWidget.swift; sourceTree = "<group>"; };
 		0BAA1F702B1FA18500188959 /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BAA1F712B1FA18500188959 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -314,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				0B158C672B1E43BA004EA97A /* Date+ext.swift */,
+				0B81E0AF2B3703900011F99D /* String+ext.swift */,
 				0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */,
 				78137FDA2833EC1200F4621E /* UIImage+extension.swift */,
 			);
@@ -793,6 +797,7 @@
 				0BC8136B2B26345D00AE5AE9 /* MediumCurrencyView.swift in Sources */,
 				0BC813692B262A0800AE5AE9 /* RoundedTextView.swift in Sources */,
 				0B3815D02B20F85400D75674 /* WidgetsCoreDataManager.swift in Sources */,
+				0B81E0B12B3703900011F99D /* String+ext.swift in Sources */,
 				0BC813662B26260400AE5AE9 /* TripleCurrencyWidget.swift in Sources */,
 				0B3815DA2B2107EA00D75674 /* Kursvalut.xcdatamodeld in Sources */,
 				0BFFA66A2B2E019C009EFA34 /* MultipleWidgetSmallView.swift in Sources */,
@@ -874,6 +879,7 @@
 				78B40A1027D659BB0016D9E6 /* TermsOfUseViewController.swift in Sources */,
 				7877053A29B25F2C004C5C1D /* MenuView.swift in Sources */,
 				789FD81E288F06B80084468F /* NumpadView.swift in Sources */,
+				0B81E0B02B3703900011F99D /* String+ext.swift in Sources */,
 				780AA2E7280ACE9000ECC3C4 /* OnboardingViewController.swift in Sources */,
 				0B3815D12B20F89700D75674 /* WidgetsCoreDataManager.swift in Sources */,
 				78B9F55D2801B9B50030ECF4 /* MainSortTableViewCell.swift in Sources */,

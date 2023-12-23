@@ -51,10 +51,7 @@ struct CurrencyManager {
     }
     
     func showRate(with value: Double, forConverter: Bool = false) -> String {
-        let format = forConverter ? "%.\(converterScreenDecimalsAmount)f" : "%.\(currencyScreenDecimalsAmount)f \(pickedBaseCurrency)"
-        let formattedRate = String(format: format, value)
-        let formattedDecimalSign = formattedRate.replacingOccurrences(of: ".", with: ",")
-        return formattedDecimalSign
+        return forConverter ? String.roundDouble(value, maxDecimals: converterScreenDecimalsAmount) + " \(pickedBaseCurrency)" : String.roundDouble(value, maxDecimals: currencyScreenDecimalsAmount) + " \(pickedBaseCurrency)"
     }
     
     func showColor() -> UIColor {
@@ -64,8 +61,8 @@ struct CurrencyManager {
     mutating func showDifference(with absoluteValue: Double, and previousValue: Double) -> String {
         difference = absoluteValue - previousValue
         let differencePercentage = (abs(difference) / ((absoluteValue + previousValue)/2)) * 100
-        let formattedDifference = String(format: "%.\(currencyScreenPercentageAmount)f", abs(difference))
-        let formattedPercentage = String(format: "%.\(currencyScreenPercentageAmount)f", differencePercentage)
+        let formattedDifference = String.roundDouble(abs(difference), maxDecimals: currencyScreenPercentageAmount)
+        let formattedPercentage = String.roundDouble(differencePercentage, maxDecimals: currencyScreenPercentageAmount)
         return "\(differenceAttributes.Sign)\(formattedDifference) (\(formattedPercentage)%)\(differenceAttributes.Symbol)"
     }
     
