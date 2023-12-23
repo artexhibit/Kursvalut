@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct MultipleCurrencyView: View {
+    @Environment(\.showsWidgetContainerBackground) var showsBackground
     var scaleFactor: Double = 0.6
     var shortNameFont: CGFloat = 15
     var valueFont: CGFloat = 17
@@ -15,18 +16,18 @@ struct MultipleCurrencyView: View {
             Image("\(mainCurrency)Round")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(height: iconSize)
+                .frame(height: showsBackground ? iconSize : 40)
                 .clipShape(Circle())
                 .padding(.trailing, 5)
             
             VStack (alignment: .leading) {
                 Text(shortName)
-                    .font(.system(size: shortNameFont, weight: .regular, design: .rounded))
+                    .font(.system(size: showsBackground ? shortNameFont : 20, weight: showsBackground ? .regular : .bold, design: .rounded))
                     .foregroundStyle(.secondary)
                     .lineLimit(2)
                     .minimumScaleFactor(0.9)
                 Text(value)
-                    .font(.system(size: valueFont, weight: .medium, design: .rounded))
+                    .font(.system(size: showsBackground ? valueFont : 25, weight: showsBackground ? .medium : .bold, design: .rounded))
                     .lineLimit(1)
                     .minimumScaleFactor(scaleFactor)
                     .fixedSize(horizontal: false, vertical: true)
@@ -34,7 +35,7 @@ struct MultipleCurrencyView: View {
             }
             .frame(minWidth: 80, alignment: .leading)
         }
-        .frame(maxWidth: 140, minHeight: minHeight)
+        .frame(maxWidth: showsBackground ? 140 : .infinity, minHeight: minHeight)
     }
 }
 

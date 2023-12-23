@@ -74,7 +74,7 @@ struct MultipleCurrencyWidget: Widget {
     }
 }
 
-#Preview(as: .systemLarge) {
+#Preview(as: .systemSmall) {
     MultipleCurrencyWidget()
 } timeline: {
     MultipleCurrencyEntry(date: .now, currency: WidgetsData.multipleCurrencyExample)
