@@ -73,8 +73,10 @@ struct TripleCurrencyWidget: Widget {
     }
 }
 
-#Preview(as: .systemMedium) {
-    TripleCurrencyWidget()
-} timeline: {
-    TripleCurrencyEntry(date: Date(), currency: WidgetsData.currencyExample)
-}
+//#Preview(as: .systemMedium) {
+//    TripleCurrencyWidget()
+//} timeline: {
+//    TripleCurrencyEntry(date: Date(), currency: WidgetsData.currencyExample)
+//}
+
+

@@ -2,7 +2,7 @@ import Foundation
 
 extension String {
     static func roundDouble(_ number: Double, maxDecimals: Int) -> String {
-        let separator = Locale.current.decimalSeparator ?? "."
+        let separator = maxDecimals == 0 ? "" : Locale.current.decimalSeparator ?? "."
         let stringNum = String(number).components(separatedBy: ".")
         let decimalsPart = Array(stringNum[1])
         var resNumber = "\(stringNum[0])\(separator)"

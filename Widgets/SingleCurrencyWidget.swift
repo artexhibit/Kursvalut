@@ -82,8 +82,8 @@ struct SingleCurrencyWidget: Widget {
     }
 }
 
-#Preview(as: .systemSmall) {
-    SingleCurrencyWidget()
-} timeline: {
-    CurrencyEntry(date: .now, currency: WidgetsData.currencyExample)
-}
+//#Preview(as: .systemSmall) {
+//    SingleCurrencyWidget()
+//} timeline: {
+//    CurrencyEntry(date: .now, currency: WidgetsData.currencyExample)
+//}
