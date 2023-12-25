@@ -7,6 +7,9 @@
 
 import UIKit
 import CoreData
+import FirebaseCore
+import FirebaseMessaging
+import UserNotificationsUI
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -57,6 +60,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         UserDefaults.sharedContainer.set(false, forKey: "isActiveCurrencyVC")
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { success, _ in
+            guard success else { return }
+        }
+        application.registerForRemoteNotifications()
         return true
     }
 
@@ -72,6 +83,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        messaging.token { token, _ in
+            guard let token = token else { return }
+            print("Token: \(token)")
+        }
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
     }
 }
 
