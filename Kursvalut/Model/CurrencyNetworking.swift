@@ -22,20 +22,20 @@ struct CurrencyNetworking {
     private var yesterdaysDate: String {
         let confirmedDate = currencyManager.createDate(from: confirmedDate)
         let confirmedStringDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: confirmedDate, dateStyle: nil)
-        let todaysDate = currencyManager.createStringDate(with: "yyyy-MM-dd", dateStyle: nil)
+        let todaysDate = currencyManager.createStringDate(with: "yyyy-MM-dd")
         
         if confirmedStringDate != todaysDate {
             let date = Calendar.current.date(byAdding: .day, value: -1, to: confirmedDate) ?? Date()
-            return currencyManager.createStringDate(with: "yyyy-MM-dd", from: date, dateStyle: nil)
+            return currencyManager.createStringDate(with: "yyyy-MM-dd", from: date)
         } else {
             let date = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
-            return currencyManager.createStringDate(with: "yyyy-MM-dd", from: date, dateStyle: nil)
+            return currencyManager.createStringDate(with: "yyyy-MM-dd", from: date)
         }
     }
     private var currentBankOfRussiaURL: URL {
         let date = currencyManager.createDate(from: confirmedDate)
-        let confirmedDate = currencyManager.createStringDate(with: "yyyy/MM/dd", from: date, dateStyle: nil)
-        let todaysDate = currencyManager.createStringDate(with: "yyyy/MM/dd", dateStyle: nil)
+        let confirmedDate = currencyManager.createStringDate(with: "yyyy/MM/dd", from: date)
+        let todaysDate = currencyManager.createStringDate(with: "yyyy/MM/dd")
         
         if confirmedDate != todaysDate {
             return URL(string: "https://www.cbr-xml-daily.ru/archive/\(confirmedDate)/daily_json.js") ?? URL(fileURLWithPath: "")
@@ -45,8 +45,8 @@ struct CurrencyNetworking {
     }
     private var currentForexURL: URL {
         let date = currencyManager.createDate(from: confirmedDate)
-        let confirmedDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: date, dateStyle: nil)
-        let todaysDate = currencyManager.createStringDate(with: "yyyy-MM-dd", dateStyle: nil)
+        let confirmedDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: date)
+        let todaysDate = currencyManager.createStringDate(with: "yyyy-MM-dd")
         
         if confirmedDate != todaysDate {
             return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(confirmedDate)/currencies/\(pickedBaseCurrency.lowercased()).json")!

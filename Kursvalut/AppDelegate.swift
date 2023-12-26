@@ -89,9 +89,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         messaging.token { token, _ in
-            guard let token = token else { return }
-            print("Token: \(token)")
+            guard let _ = token else { return }
         }
+        Messaging.messaging().subscribe(toTopic: "kursvalut")
     }
 }
 
@@ -103,6 +103,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         completionHandler()
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        let currentDate = currencyManager.createStringDate(from: Date(), dateStyle: .medium)
+        UserDefaults.sharedContainer.set(currentDate, forKey: "confirmedDate")
+        currencyManager.updateAllCurrencyTypesData()
+        completionHandler(.newData)
     }
 }
 

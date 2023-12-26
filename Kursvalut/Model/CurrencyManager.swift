@@ -66,7 +66,7 @@ struct CurrencyManager {
         return "\(differenceAttributes.Sign)\(formattedDifference) (\(formattedPercentage)%)\(differenceAttributes.Symbol)"
     }
     
-    func createStringDate(with text: String, from date: Date = Date(), dateStyle: DateFormatter.Style?) -> String {
+    func createStringDate(with text: String = "", from date: Date = Date(), dateStyle: DateFormatter.Style? = nil) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = text
         
@@ -117,6 +117,21 @@ struct CurrencyManager {
     }
     
     //MARK: - Check For Today's First Launch Method
+    
+    func updateAllCurrencyTypesData() {
+        let currencyNetworking = CurrencyNetworking()
+        let baseCurrencies = ["ЦБ РФ", "Forex"]
+        var lastPickedBaseCurrency: String {
+            return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
+        }
+        
+        for baseCurrency in baseCurrencies {
+            UserDefaults.sharedContainer.set(baseCurrency, forKey: "baseCurrency")
+            currencyNetworking.performRequest { _, _ in }
+        }
+        UserDefaults.sharedContainer.set(lastPickedBaseCurrency, forKey: "baseCurrency")
+    }
+    
     func checkOnFirstLaunchToday(with button: UIButton = UIButton()) {
         let currencyNetworking = CurrencyNetworking()
         let coreDataManager = CurrencyCoreDataManager()
