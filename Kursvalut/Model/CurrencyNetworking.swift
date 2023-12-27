@@ -126,16 +126,21 @@ struct CurrencyNetworking {
                 coreDataManager.removeResetBankOfRussiaCurrenciesFromConverter()
             } else {
                 let decodedData = try JSONDecoder().decode(ForexCurrencyData.self, from: currencyData)
-                
+                var historicalDates = (current: Date(), prev: Date())
                 let currenciesCurrentDate = Date.createDate(from: decodedData.date)
                 let currenciesPreviousDate = Date.createYesterdaysDate(from: currenciesCurrentDate)
+                  
+                if url == currentForexURL {
+                    historicalDates.current = currenciesCurrentDate
+                    historicalDates.prev = currenciesPreviousDate
+                }
                 let decodedDict = decodedData.currencies as [String: Double]
                 
                 let filteredData = decodedDict.filter({ CurrencyData.currencyFullNameDict.keys.contains($0.key.uppercased())}).reduce(into: [String: String]()) { (result, dict) in
                     result[dict.key.uppercased()] = String(dict.value)
                 }
                 coreDataManager.resetCurrencyScreenPropertyForForexCurrencies()
-                url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData, currentDate: currenciesCurrentDate, previousDate: currenciesPreviousDate) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData, currentDate: currenciesCurrentDate, previousDate: currenciesPreviousDate)
+                url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData, currentDate: currenciesCurrentDate, previousDate: currenciesPreviousDate) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData, currentDate: historicalDates.current, previousDate: historicalDates.prev)
                 
                 if pickedDataSource != "ЦБ РФ" {
                     coreDataManager.filterOutForexBaseCurrency()
@@ -144,7 +149,6 @@ struct CurrencyNetworking {
             }
             return nil
         } catch {
-            print(error)
             return error as NSError
         }
     }

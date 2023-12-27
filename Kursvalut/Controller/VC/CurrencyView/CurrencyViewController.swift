@@ -31,7 +31,7 @@ class CurrencyViewController: UIViewController {
         return userDefaults.bool(forKey: "decimalsNumberChanged")
     }
     private var proPurchased: Bool {
-        return userDefaults.bool(forKey: "kursvalutPro")
+        return true
     }
     private var pickedDataSource: String {
         return userDefaults.string(forKey: "baseSource") ?? ""

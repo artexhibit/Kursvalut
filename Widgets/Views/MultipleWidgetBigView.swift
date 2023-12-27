@@ -22,7 +22,7 @@ struct MultipleWidgetBigView: View {
                 RoundedTextView(text: currency.baseSource)
                 RoundedTextView(text: currency.baseCurrency)
                 Spacer()
-                RoundedTextView(text: Date.createWidgetDate(from: currency.currentValuesDate ?? Date()))
+                RoundedTextView(text: Date.createStringDate(from: currency.currentValuesDate ?? Date()))
             }
             .frame(minHeight: 20)
             

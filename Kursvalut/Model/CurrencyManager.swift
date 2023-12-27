@@ -120,16 +120,14 @@ struct CurrencyManager {
     
     func updateAllCurrencyTypesData() {
         let currencyNetworking = CurrencyNetworking()
-        let baseCurrencies = ["ЦБ РФ", "Forex"]
-        var lastPickedBaseCurrency: String {
-            return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
-        }
+        let baseSources = ["ЦБ РФ", "Forex"]
+        let lastPickedBaseSource = UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
         
-        for baseCurrency in baseCurrencies {
-            UserDefaults.sharedContainer.set(baseCurrency, forKey: "baseCurrency")
+        for baseSource in baseSources {
+            UserDefaults.sharedContainer.set(baseSource, forKey: "baseSource")
             currencyNetworking.performRequest { _, _ in }
         }
-        UserDefaults.sharedContainer.set(lastPickedBaseCurrency, forKey: "baseCurrency")
+        UserDefaults.sharedContainer.set(lastPickedBaseSource, forKey: "baseSource")
     }
     
     func checkOnFirstLaunchToday(with button: UIButton = UIButton()) {

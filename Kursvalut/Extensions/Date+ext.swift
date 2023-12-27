@@ -6,8 +6,19 @@ extension Date {
     }
     
     static func createDate(from string: String) -> Date {
-        let formatter = ISO8601DateFormatter()
-        return formatter.date(from: string) ?? Date()
+        let isoFormatter = ISO8601DateFormatter()
+        if let date = isoFormatter.date(from: string) {
+            return date
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        if let date = dateFormatter.date(from: string) {
+            return date
+        }
+        return Date()
     }
     
     static func formatDate(from string: String, dateStyle: DateFormatter.Style = .medium) -> Date {
@@ -20,7 +31,7 @@ extension Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: today) ?? Date()
     }
     
-    static func createWidgetDate(from date: Date) -> String {
+    static func createStringDate(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         return formatter.string(from: date)

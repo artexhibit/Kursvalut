@@ -12,12 +12,12 @@ struct TripleCurrencyView: View {
                 Spacer()
                 
                 HStack(spacing: 13) {
-                    Text(Date.createWidgetDate(from: currency.previousValuesDate ?? Date()))
+                    Text(Date.createStringDate(from: currency.previousValuesDate ?? Date()))
                         .font(.system(size: 14, weight: .semibold, design: .rounded))
                         .foregroundStyle(.secondary)
                         .frame(alignment: .center)
                         .contentTransition(.numericText())
-                    Text(Date.createWidgetDate(from: currency.currentValuesDate ?? Date()))
+                    Text(Date.createStringDate(from: currency.currentValuesDate ?? Date()))
                         .font(.system(size: 14, weight: .semibold, design: .rounded))
                         .foregroundStyle(.secondary)
                         .frame(width: 90, alignment: .center)
