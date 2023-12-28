@@ -81,9 +81,9 @@ class BaseCurrencyTableViewController: UITableViewController {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
         
         if pickedDataSource == "ЦБ РФ" {
-            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf ?? [])
+            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)
         } else {
-            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex ?? [])
+            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

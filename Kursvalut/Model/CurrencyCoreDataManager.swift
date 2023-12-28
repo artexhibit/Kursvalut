@@ -4,7 +4,6 @@ import UIKit
 import CoreData
 
 struct CurrencyCoreDataManager {
-    private let currencyManager = CurrencyManager()
     private var pickCurrencyRequest: Bool {
         return UserDefaults.sharedContainer.bool(forKey: "pickCurrencyRequest")
     }
@@ -21,6 +20,7 @@ struct CurrencyCoreDataManager {
         return UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
     }
     private var todaysDate: String {
+        let currencyManager = CurrencyManager()
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
     }
     private let context = PersistenceController.shared.container.viewContext
@@ -338,6 +338,11 @@ struct CurrencyCoreDataManager {
         }
     }
     
+    func fetchForexCurrenciesCurrentDate() -> Date {
+        let currencies = fetchCurrencies(entityName: ForexCurrency.self)
+        return currencies.first?.currentDataDate ?? Date()
+    }
+    
     func assignRowNumbers(to forexCurrencies: [ForexCurrency]) {
         for (index, forexCurrency) in forexCurrencies.enumerated() {
             if confirmedDateFromDataSourceVC == todaysDate {
@@ -369,7 +374,7 @@ struct CurrencyCoreDataManager {
         return fetchedCurrencies
     }
     
-    func fetchSortedCurrencies() -> (cbrf: [Currency]?, forex: [ForexCurrency]?) {
+    func fetchSortedCurrencies() -> (cbrf: [Currency], forex: [ForexCurrency]) {
         var pickedDataSource: String {
             return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
         }
@@ -410,12 +415,7 @@ struct CurrencyCoreDataManager {
                 }
             }
         }
-        
-        if pickedDataSource == "ЦБ РФ" {
-            return (fetchCurrencies(entityName: Currency.self, predicate: predicate, sortDescriptors: [sortDescriptor]), nil)
-        } else {
-            return (nil, fetchCurrencies(entityName: ForexCurrency.self, predicate: predicate, sortDescriptors: [sortDescriptor]))
-        }
+        return (fetchCurrencies(entityName: Currency.self, predicate: predicate, sortDescriptors: [sortDescriptor]), fetchCurrencies(entityName: ForexCurrency.self, predicate: predicate, sortDescriptors: [sortDescriptor]))
     }
     
     //MARK: - FetchResultsController Setup

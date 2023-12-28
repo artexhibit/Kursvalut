@@ -125,8 +125,15 @@ struct CurrencyManager {
         
         for baseSource in baseSources {
             UserDefaults.sharedContainer.set(baseSource, forKey: "baseSource")
-            currencyNetworking.performRequest { _, _ in }
+            currencyNetworking.performRequest { _, _, isNewData in
+                if isNewData && baseSource == "ЦБ РФ" {
+                    CurrencyNotificationManager.createNotification(title: "Данные обновлены", text: "Курс ЦБ РФ на 28/12/2023: USD - 89.3444 RUB, EUR - 102.3445 RUB")
+                } else if isNewData && baseSource == "Forex" {
+                    CurrencyNotificationManager.createNotification(title: "Данные обновлены", text: "Курс Forex на 28/12/2023: USD - 88.3444 RUB, EUR - 105.3445 RUB")
+                }
+            }
         }
+        WidgetsData.updateWidgets()
         UserDefaults.sharedContainer.set(lastPickedBaseSource, forKey: "baseSource")
     }
     
@@ -153,7 +160,7 @@ struct CurrencyManager {
             UserDefaults.sharedContainer.setValue(today, forKey:"isFirstLaunchToday")
             UserDefaults.sharedContainer.set(todaysDate, forKey: "confirmedDate")
             
-            currencyNetworking.performRequest { networkingError, parsingError in
+            currencyNetworking.performRequest { networkingError, parsingError, _ in
                 if networkingError != nil {
                     guard let error = networkingError else { return }
                     PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
@@ -166,9 +173,9 @@ struct CurrencyManager {
                         button.setTitle(currencyUpdateTime, for: .normal)
                         
                         if pickedDataSource == "ЦБ РФ" {
-                            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf ?? [])
+                            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)
                         } else {
-                            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex ?? [])
+                            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)
                         }
                     }
                     if userHasOnboarded {

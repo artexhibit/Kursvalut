@@ -256,9 +256,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             tableView.reloadSections(IndexSet(integer: sections.baseCurrency), with: .fade)
             
             if pickedDataSource == "ЦБ РФ" {
-                coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf ?? [])
+                coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)
             } else {
-                coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex ?? [])
+                coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)
             }
         } else if indexPath.section == sections.concreteDate {
             if pickDateSwitchIsOn {
@@ -356,7 +356,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     func requestDataForConfirmedDate() {
-        currencyNetworking.performRequest { networkingError, parsingError in
+        currencyNetworking.performRequest { networkingError, parsingError, _ in
             DispatchQueue.main.async {
                 if networkingError != nil {
                     guard let error = networkingError else { return }

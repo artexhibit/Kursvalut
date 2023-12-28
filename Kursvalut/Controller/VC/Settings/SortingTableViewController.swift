@@ -305,9 +305,9 @@ class SortingTableViewController: UITableViewController {
         }
         
         if pickedDataSource == "ЦБ РФ" {
-            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf ?? [])
+            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)
         } else {
-            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex ?? [])
+            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)
         }
     }
     

@@ -60,13 +60,14 @@ struct CurrencyNetworking {
     
     //MARK: - Networking Methods
     
-    func performRequest(_ completion: @escaping (Error?, NSError?) -> Void) {
+    func performRequest(_ completion: @escaping (Error?, NSError?, Bool) -> Void) {
         let group = DispatchGroup()
         var urlArray = [URL]()
         var dataDict = [URL: Data]()
         var completed = 0
         var errorToShow: Error!
         var parsingError: NSError?
+        var isNewData = false
         
         if pickedDataSource == "ЦБ РФ" {
             urlArray.append(currentBankOfRussiaURL)
@@ -97,12 +98,13 @@ struct CurrencyNetworking {
         
         group.notify(queue: .main) {
             if errorToShow != nil {
-                completion(errorToShow, nil)
+                completion(errorToShow, nil, isNewData)
             } else if completed == urlArray.count {
                 dataDict.forEach { url, data in
-                    parsingError = self.parseJSON(with: data, from: url)
+                    parsingError = self.parseJSON(with: data, from: url).error
+                    isNewData = self.parseJSON(with: data, from: url).isNewData
                 }
-                completion(nil, parsingError)
+                completion(nil, parsingError, isNewData)
             }
             DispatchQueue.main.async { self.coreDataManager.save() }
             pickedDataSource == "ЦБ РФ" ? UserDefaults.sharedContainer.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.sharedContainer.setValue(updateTime, forKey: "forexUpdateTime")
@@ -110,7 +112,8 @@ struct CurrencyNetworking {
         }
     }
     
-    func parseJSON(with currencyData: Data, from url: URL) -> NSError? {
+    func parseJSON(with currencyData: Data, from url: URL) -> (error: NSError?, isNewData: Bool) {
+        var isNewData = false
         let decoder = JSONDecoder()
         
         do {
@@ -119,6 +122,11 @@ struct CurrencyNetworking {
                 let filteredData = decodedData.Valute.filter({ dataToFilterOut.contains($0.value.CharCode) == false }).values
                 let currenciesCurrentDate = Date.createDate(from: decodedData.Date)
                 let currenciesPreviousDate = Date.createDate(from: decodedData.PreviousDate)
+                let currenciesStoredCurrentDate = coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate()
+                
+                if Date.createStringDate(from: currenciesStoredCurrentDate) != Date.createStringDate(from: currenciesCurrentDate) {
+                    isNewData = true
+                }
                 
                 coreDataManager.resetCurrencyScreenPropertyForBankOfRussiaCurrencies()
                 coreDataManager.createOrUpdateBankOfRussiaCurrency(with: filteredData, currentDate: currenciesCurrentDate, previousDate: currenciesPreviousDate)
@@ -129,7 +137,12 @@ struct CurrencyNetworking {
                 var historicalDates = (current: Date(), prev: Date())
                 let currenciesCurrentDate = Date.createDate(from: decodedData.date)
                 let currenciesPreviousDate = Date.createYesterdaysDate(from: currenciesCurrentDate)
-                  
+                let currenciesStoredCurrentDate = coreDataManager.fetchForexCurrenciesCurrentDate()
+                
+                if Date.createStringDate(from: currenciesStoredCurrentDate) != Date.createStringDate(from: currenciesCurrentDate) {
+                    isNewData = true
+                }
+                
                 if url == currentForexURL {
                     historicalDates.current = currenciesCurrentDate
                     historicalDates.prev = currenciesPreviousDate
@@ -147,9 +160,9 @@ struct CurrencyNetworking {
                 }
                 coreDataManager.removeResetForexCurrenciesFromConverter()
             }
-            return nil
+            return (nil, isNewData)
         } catch {
-            return error as NSError
+            return (error as NSError, isNewData)
         }
     }
 }

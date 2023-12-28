@@ -31,7 +31,7 @@ class CurrencyViewController: UIViewController {
         return userDefaults.bool(forKey: "decimalsNumberChanged")
     }
     private var proPurchased: Bool {
-        return true
+        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
     }
     private var pickedDataSource: String {
         return userDefaults.string(forKey: "baseSource") ?? ""
@@ -473,7 +473,7 @@ extension CurrencyViewController {
         }
         setupFetchedResultsController()
         
-        currencyNetworking.performRequest { networkingError, parsingError in
+        currencyNetworking.performRequest { networkingError, parsingError, _ in
             if networkingError != nil {
                 guard let error = networkingError else { return }
                 self.tableView.refreshControl?.endRefreshing()
@@ -505,7 +505,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
     func didPickedDateFromPicker(_ datePickerView: DatePickerView, pickedDate: String, lastConfirmedDate: String) {
         PopupQueueManager.shared.addPopupToQueue(title: "Секунду", message: "Загружаем", style: .load, type: .manual)
         
-        currencyNetworking.performRequest { networkingError, parsingError in
+        currencyNetworking.performRequest { networkingError, parsingError, _ in
             if networkingError != nil {
                 guard let error = networkingError else { return }
                 PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
@@ -543,7 +543,7 @@ extension CurrencyViewController: MenuViewDelegate {
             PopupQueueManager.shared.addPopupToQueue(title: "Загружаем", message: "Секунду", style: .load, type: .manual)
         }
         
-        self.currencyNetworking.performRequest { networkingError, parsingError in
+        self.currencyNetworking.performRequest { networkingError, parsingError, _ in
             if networkingError != nil {
                 guard let error = networkingError else { return }
                 
