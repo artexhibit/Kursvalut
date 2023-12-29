@@ -434,6 +434,7 @@
 				787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */,
 				7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */,
 				78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */,
+				0BEE9A1A2B3DDD5E00A3DB9E /* CurrencyNotificationManager.swift */,
 				7813102727D75FE000065410 /* SMailComposeViewController.swift */,
 				78BD46DE27F07460002AFDA1 /* PopupView.swift */,
 				7877053929B25F2C004C5C1D /* MenuView.swift */,
@@ -442,7 +443,6 @@
 				78B9F5602801BBAA0030ECF4 /* SortingSection.swift */,
 				780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */,
 				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,
-				0BEE9A1A2B3DDD5E00A3DB9E /* CurrencyNotificationManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

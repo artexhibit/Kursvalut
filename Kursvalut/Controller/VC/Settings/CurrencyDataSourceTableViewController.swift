@@ -356,7 +356,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     func requestDataForConfirmedDate() {
-        currencyNetworking.performRequest { networkingError, parsingError, _ in
+        currencyNetworking.performRequest { networkingError, parsingError in
             DispatchQueue.main.async {
                 if networkingError != nil {
                     guard let error = networkingError else { return }

@@ -8,6 +8,7 @@ protocol CurrencyManagerDelegate {
 
 struct CurrencyManager {
     var delegate: CurrencyManagerDelegate?
+    private let coreDataManager = CurrencyCoreDataManager()
     private var difference: Double = 0.0
     private var differenceAttributes: (Sign: String, Color: UIColor, Symbol: String) {
         if difference > 0 {
@@ -122,24 +123,29 @@ struct CurrencyManager {
         let currencyNetworking = CurrencyNetworking()
         let baseSources = ["ЦБ РФ", "Forex"]
         let lastPickedBaseSource = UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
+        var currentCBRFDates = (lastStored: coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate(), newStored: Date())
+        var currentForexDates = (lastStored: coreDataManager.fetchForexCurrenciesCurrentDate(), newStored: Date())
         
         for baseSource in baseSources {
             UserDefaults.sharedContainer.set(baseSource, forKey: "baseSource")
-            currencyNetworking.performRequest { _, _, isNewData in
-                if isNewData && baseSource == "ЦБ РФ" {
-                    CurrencyNotificationManager.createNotification(title: "Данные обновлены", text: "Курс ЦБ РФ на 28/12/2023: USD - 89.3444 RUB, EUR - 102.3445 RUB")
-                } else if isNewData && baseSource == "Forex" {
-                    CurrencyNotificationManager.createNotification(title: "Данные обновлены", text: "Курс Forex на 28/12/2023: USD - 88.3444 RUB, EUR - 105.3445 RUB")
+            currencyNetworking.performRequest { _, _ in
+                currentCBRFDates.newStored = coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate()
+                currentForexDates.newStored = coreDataManager.fetchForexCurrenciesCurrentDate()
+                
+                if baseSource == "ЦБ РФ" {
+                    CurrencyNotificationManager.createNotification(with: baseSource, dates: currentCBRFDates)
+                }
+                if baseSource == "Forex" {
+                    CurrencyNotificationManager.createNotification(with: baseSource, dates: currentForexDates)
                 }
             }
         }
-        WidgetsData.updateWidgets()
         UserDefaults.sharedContainer.set(lastPickedBaseSource, forKey: "baseSource")
+        WidgetsData.updateWidgets()
     }
     
     func checkOnFirstLaunchToday(with button: UIButton = UIButton()) {
         let currencyNetworking = CurrencyNetworking()
-        let coreDataManager = CurrencyCoreDataManager()
         var wasLaunched: String {
             return UserDefaults.sharedContainer.string(forKey: "isFirstLaunchToday") ?? ""
         }
@@ -160,7 +166,7 @@ struct CurrencyManager {
             UserDefaults.sharedContainer.setValue(today, forKey:"isFirstLaunchToday")
             UserDefaults.sharedContainer.set(todaysDate, forKey: "confirmedDate")
             
-            currencyNetworking.performRequest { networkingError, parsingError, _ in
+            currencyNetworking.performRequest { networkingError, parsingError in
                 if networkingError != nil {
                     guard let error = networkingError else { return }
                     PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
@@ -186,4 +192,3 @@ struct CurrencyManager {
         }
     }
 }
-
