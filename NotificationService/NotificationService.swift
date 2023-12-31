@@ -24,10 +24,12 @@ class NotificationService: UNNotificationServiceExtension {
                 currencyManager.updateAllCurrencyTypesData {
                     let cbrfPushText = currencyManager.createNotificationText(with: "ЦБ РФ", newStoredDate: coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate())
                     let forexPushText = currencyManager.createNotificationText(with: "Forex", newStoredDate: coreDataManager.fetchForexCurrenciesCurrentDate())
+                    let notificationName = "ru.igorcodes.makeNetworkRequest" as CFString
+                    DarwinNotificationService.postNotification(name: notificationName)
                     
                     bestAttemptContent.title = "Данные обновлены"
                     bestAttemptContent.body = cbrfNew ? cbrfPushText : forexPushText
-                    bestAttemptContent.sound = nil
+                    bestAttemptContent.sound = .default
                     contentHandler(bestAttemptContent)
                 }
             }
@@ -35,11 +37,12 @@ class NotificationService: UNNotificationServiceExtension {
     }
     
     override func serviceExtensionTimeWillExpire() {
-        // Called just before the extension will be terminated by the system.
-        // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
         if let contentHandler = contentHandler, let bestAttemptContent =  bestAttemptContent {
+            
+            bestAttemptContent.title = "Новые курсы доступны"
+            bestAttemptContent.body = "Обновите в приложении"
+            bestAttemptContent.sound = .default
             contentHandler(bestAttemptContent)
         }
     }
-
 }

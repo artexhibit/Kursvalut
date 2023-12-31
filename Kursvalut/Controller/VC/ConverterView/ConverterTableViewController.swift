@@ -24,6 +24,7 @@ class ConverterTableViewController: UITableViewController {
     private var shouldAnimateCellAppear = false
     private var textFieldTextWasEdited = false
     private var longTapIsActiveOnTextField = false
+    private let notificationName = "ru.igorcodes.makeNetworkRequest" as CFString
     private var formatter: NumberFormatter?
     private var lastPickedData = (number: 0.0, shortName: "", textField: UITextField())
     private var converterScreenDecimalsAmount: Int {
@@ -74,6 +75,7 @@ class ConverterTableViewController: UITableViewController {
         formatter = converterManager.setupNumberFormatter()
         setupKeyboardBehaviour()
         currencyManager.configureContentInset(for: tableView, top: 10)
+        DarwinNotificationService.addNetworkRequestObserver(name: notificationName)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshConverterFRC), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCells), name: NSNotification.Name(rawValue: "updateCells"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)

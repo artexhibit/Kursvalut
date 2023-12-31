@@ -24,6 +24,7 @@ class CurrencyViewController: UIViewController {
     private var userPulledToRefresh: Bool = false
     private var viewWasSwitched: Bool = false
     private var canHideOpenedView = true
+    private let notificationName = "ru.igorcodes.makeNetworkRequest" as CFString
     private var needToRefreshFRCForCustomSort: Bool {
         return userDefaults.bool(forKey: "needToRefreshFRCForCustomSort")
     }
@@ -31,7 +32,7 @@ class CurrencyViewController: UIViewController {
         return userDefaults.bool(forKey: "decimalsNumberChanged")
     }
     private var proPurchased: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
+        return true
     }
     private var pickedDataSource: String {
         return userDefaults.string(forKey: "baseSource") ?? ""
@@ -87,7 +88,14 @@ class CurrencyViewController: UIViewController {
         self.view.addGestureRecognizer(tapGestureRecognizer)
         self.navigationController?.navigationBar.addGestureRecognizer(navigationBarGestureRecogniser)
         currencyManager.configureContentInset(for: tableView, top: -updateButtonTopInset)
+        DarwinNotificationService.addNetworkRequestObserver(name: notificationName)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(makeNetworkRequest), name: NSNotification.Name(rawValue: "makeNetworkRequest"), object: nil)
+    }
+    
+    @objc func makeNetworkRequest() {
+        print("called")
+        currencyNetworking.performRequest { _, _ in }
     }
     
     override func viewWillAppear(_ animated: Bool) {
