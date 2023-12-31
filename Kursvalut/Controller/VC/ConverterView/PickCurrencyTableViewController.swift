@@ -147,7 +147,7 @@ class PickCurrencyTableViewController: UITableViewController {
             UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForForex")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCells"), object: nil, userInfo: ["currencyWasAdded": forexCurrency.isForConverter])
         }
-        coreDataManager.save()
+        PersistenceController.shared.saveContext()
     }
 }
 

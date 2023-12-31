@@ -104,7 +104,7 @@ struct CurrencyNetworking {
                 }
                 completion(nil, parsingError)
             }
-            DispatchQueue.main.async { self.coreDataManager.save() }
+            PersistenceController.shared.saveContext()
             pickedDataSource == "ЦБ РФ" ? UserDefaults.sharedContainer.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.sharedContainer.setValue(updateTime, forKey: "forexUpdateTime")
             WidgetsData.updateWidgets()
         }

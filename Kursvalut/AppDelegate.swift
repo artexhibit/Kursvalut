@@ -106,11 +106,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        
-        let currentDate = currencyManager.createStringDate(from: Date(), dateStyle: .medium)
-        UserDefaults.sharedContainer.set(currentDate, forKey: "confirmedDate")
-        UserDefaults.sharedContainer.set(false, forKey: "pickDateSwitchIsOn")
-        currencyManager.updateAllCurrencyTypesData()
         completionHandler(.newData)
     }
 }

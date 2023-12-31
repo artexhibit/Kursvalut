@@ -31,9 +31,13 @@ extension Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: today) ?? Date()
     }
     
-    static func createStringDate(from date: Date) -> String {
+    static func createStringDate(from date: Date = Date(), dateStyle: DateFormatter.Style? = nil, format: String = "dd.MM.yyyy") -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
+        formatter.dateFormat = format
+        
+        if let dateStyle = dateStyle {
+            formatter.dateStyle = dateStyle
+        }
         return formatter.string(from: date)
     }
 }

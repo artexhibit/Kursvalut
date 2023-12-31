@@ -25,14 +25,6 @@ struct CurrencyCoreDataManager {
     }
     private let context = PersistenceController.shared.container.viewContext
     
-    func save() {
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
-    }
-    
   //MARK: - CRUD for Bank Of Russia Currency
     
     func createOrUpdateBankOfRussiaCurrency(with dictionary: Dictionary<String, Details>.Values, currentDate: Date, previousDate: Date) {
@@ -167,7 +159,7 @@ struct CurrencyCoreDataManager {
                 bankOfRussiaCurrency.rowForHistoricalCurrency = Int32(index)
             }
         }
-        save()
+        PersistenceController.shared.saveContext()
         WidgetsData.updateWidgets()
     }
     
@@ -351,7 +343,7 @@ struct CurrencyCoreDataManager {
                 forexCurrency.rowForHistoricalCurrency = Int32(index)
             }
         }
-        save()
+        PersistenceController.shared.saveContext()
         WidgetsData.updateWidgets()
     }
     

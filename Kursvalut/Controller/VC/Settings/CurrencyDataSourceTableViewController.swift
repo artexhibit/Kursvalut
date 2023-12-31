@@ -352,7 +352,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         } else {
             coreDataManager.resetRowForHistoricalCurrencyPropertyForForexCurrencies()
         }
-        coreDataManager.save()
+        PersistenceController.shared.saveContext()
     }
     
     func requestDataForConfirmedDate() {

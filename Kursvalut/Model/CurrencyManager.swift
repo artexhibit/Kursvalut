@@ -119,24 +119,19 @@ struct CurrencyManager {
     
     //MARK: - Check For Today's First Launch Method
     
-    func updateAllCurrencyTypesData() {
+    func updateAllCurrencyTypesData(completion: @escaping () -> Void) {
         let currencyNetworking = CurrencyNetworking()
         let baseSources = ["ЦБ РФ", "Forex"]
         let lastPickedBaseSource = UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
-        var currentCBRFDates = (lastStored: coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate(), newStored: Date())
-        var currentForexDates = (lastStored: coreDataManager.fetchForexCurrenciesCurrentDate(), newStored: Date())
+        var completedRequests = 0
         
         for baseSource in baseSources {
             UserDefaults.sharedContainer.set(baseSource, forKey: "baseSource")
             currencyNetworking.performRequest { _, _ in
-                currentCBRFDates.newStored = coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate()
-                currentForexDates.newStored = coreDataManager.fetchForexCurrenciesCurrentDate()
+                completedRequests += 1
                 
-                if baseSource == "ЦБ РФ" {
-                    CurrencyNotificationManager.createNotification(with: baseSource, dates: currentCBRFDates)
-                }
-                if baseSource == "Forex" {
-                    CurrencyNotificationManager.createNotification(with: baseSource, dates: currentForexDates)
+                if completedRequests == baseSources.count {
+                    completion()
                 }
             }
         }
@@ -144,51 +139,66 @@ struct CurrencyManager {
         WidgetsData.updateWidgets()
     }
     
-    func checkOnFirstLaunchToday(with button: UIButton = UIButton()) {
-        let currencyNetworking = CurrencyNetworking()
-        var wasLaunched: String {
-            return UserDefaults.sharedContainer.string(forKey: "isFirstLaunchToday") ?? ""
-        }
-        var today: String {
-            return self.createStringDate(with: "MM/dd/yyyy", dateStyle: nil)
-        }
-        var pickedDataSource: String {
-            return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
-        }
-        var currencyUpdateTime: String {
-            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexUpdateTime") ?? "")
-        }
-        var userHasOnboarded: Bool {
-            return UserDefaults.sharedContainer.bool(forKey: "userHasOnboarded")
-        }
-        if wasLaunched != today {
-            let lastConfirmedDate = confirmedDateFromDataSourceVC
-            UserDefaults.sharedContainer.setValue(today, forKey:"isFirstLaunchToday")
-            UserDefaults.sharedContainer.set(todaysDate, forKey: "confirmedDate")
-            
-            currencyNetworking.performRequest { networkingError, parsingError in
-                if networkingError != nil {
-                    guard let error = networkingError else { return }
-                    PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
-                    UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
-                    UserDefaults.sharedContainer.set(true, forKey: "pickDateSwitchIsOn")
-                } else {
-                    delegate?.firstLaunchDidEndSuccess(currencyManager: self)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        button.setTitle(currencyUpdateTime, for: .normal)
-                        
-                        if pickedDataSource == "ЦБ РФ" {
-                            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)
-                        } else {
-                            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)
-                        }
-                    }
-                    if userHasOnboarded {
-                        PopupQueueManager.shared.addPopupToQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
-                    }
-                }
-            }
-        }
+    func createNotificationText(with baseSource: String, newStoredDate: Date) -> String {
+        let baseCurrency = UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
+        
+        let date = Date.createStringDate(from: newStoredDate)
+        let cbrfCurrencies = coreDataManager.fetchCurrencies(entityName: Currency.self).filter { $0.shortName == "USD" || $0.shortName == "EUR" }.sorted { $0.shortName ?? "" > $1.shortName ?? "" }
+        let forexCurrencies = coreDataManager.fetchCurrencies(entityName: ForexCurrency.self).filter { $0.shortName == "USD" || $0.shortName == "EUR" }.sorted { $0.shortName ?? "" > $1.shortName ?? "" }
+        
+        let usd = baseSource == "ЦБ РФ" ? cbrfCurrencies.first?.shortName ?? "USD" : forexCurrencies.first?.shortName ?? "USD"
+        let usdValue = baseSource == "ЦБ РФ" ? String.roundDouble(cbrfCurrencies.first?.absoluteValue ?? 0, maxDecimals: 4) : String.roundDouble(forexCurrencies.first?.absoluteValue ?? 0, maxDecimals: 4)
+        let eur = baseSource == "ЦБ РФ" ? cbrfCurrencies.last?.shortName ?? "EUR" : forexCurrencies.last?.shortName ?? "EUR"
+        let eurValue = baseSource == "ЦБ РФ" ? String.roundDouble(cbrfCurrencies.last?.absoluteValue ?? 0, maxDecimals: 4) : String.roundDouble(forexCurrencies.last?.absoluteValue ?? 0, maxDecimals: 4)
+        
+        return "Курс \(baseSource) на \(date): \(usd) - \(usdValue) \(baseCurrency), \(eur) - \(eurValue) \(baseCurrency)"
     }
+    
+//    func checkOnFirstLaunchToday(with button: UIButton = UIButton()) {
+//        let currencyNetworking = CurrencyNetworking()
+//        var wasLaunched: String {
+//            return UserDefaults.sharedContainer.string(forKey: "isFirstLaunchToday") ?? ""
+//        }
+//        var today: String {
+//            return self.createStringDate(with: "MM/dd/yyyy", dateStyle: nil)
+//        }
+//        var pickedDataSource: String {
+//            return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
+//        }
+//        var currencyUpdateTime: String {
+//            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexUpdateTime") ?? "")
+//        }
+//        var userHasOnboarded: Bool {
+//            return UserDefaults.sharedContainer.bool(forKey: "userHasOnboarded")
+//        }
+//        if wasLaunched != today {
+//            let lastConfirmedDate = confirmedDateFromDataSourceVC
+//            UserDefaults.sharedContainer.setValue(today, forKey:"isFirstLaunchToday")
+//            UserDefaults.sharedContainer.set(todaysDate, forKey: "confirmedDate")
+//            
+//            currencyNetworking.performRequest { networkingError, parsingError in
+//                if networkingError != nil {
+//                    guard let error = networkingError else { return }
+//                    PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
+//                    UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
+//                    UserDefaults.sharedContainer.set(true, forKey: "pickDateSwitchIsOn")
+//                } else {
+//                    delegate?.firstLaunchDidEndSuccess(currencyManager: self)
+//                    
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//                        button.setTitle(currencyUpdateTime, for: .normal)
+//                        
+//                        if pickedDataSource == "ЦБ РФ" {
+//                            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)
+//                        } else {
+//                            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)
+//                        }
+//                    }
+//                    if userHasOnboarded {
+//                        PopupQueueManager.shared.addPopupToQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
+//                    }
+//                }
+//            }
+//        }
+//    }
 }

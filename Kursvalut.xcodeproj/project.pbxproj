@@ -42,13 +42,27 @@
 		0BAA1F792B1FA18600188959 /* SingleCurrencyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAA1F782B1FA18600188959 /* SingleCurrencyWidget.swift */; };
 		0BAA1F7B2B1FA18600188959 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BAA1F7A2B1FA18600188959 /* Assets.xcassets */; };
 		0BAA1F7F2B1FA18600188959 /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0BAA1F702B1FA18500188959 /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0BC0086F2B405A4A00775BC2 /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0BC008632B404EA700775BC2 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0BC008742B406F7500775BC2 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
+		0BC0087C2B40705600775BC2 /* BankOfRussiaCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FF27885B86007D34AA /* BankOfRussiaCurrencyData.swift */; };
+		0BC0087E2B40706D00775BC2 /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
+		0BC008852B4070AD00775BC2 /* ForexCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E00278283EA57100EE9B4C /* ForexCurrencyData.swift */; };
+		0BC008862B4075EE00775BC2 /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
+		0BC008872B407DC400775BC2 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC008652B404EA700775BC2 /* NotificationService.swift */; };
+		0BC0088D2B40876A00775BC2 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0D2787687400A91511 /* CurrencyManager.swift */; };
+		0BC0088E2B40877000775BC2 /* CurrencyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */; };
+		0BC0088F2B40877800775BC2 /* CurrencyCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */; };
+		0BC008902B40878200775BC2 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815D72B2101B100D75674 /* Persistence.swift */; };
+		0BC008912B40879000775BC2 /* Kursvalut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */; };
+		0BC008922B40879F00775BC2 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C1A2B238E42003B55A5 /* CurrencyData.swift */; };
+		0BC008932B4087AF00775BC2 /* String+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B81E0AF2B3703900011F99D /* String+ext.swift */; };
+		0BC008942B4087BD00775BC2 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		0BC813202B25FA7F00AE5AE9 /* Kursvalut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */; };
 		0BC813232B25FB2A00AE5AE9 /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
 		0BC813662B26260400AE5AE9 /* TripleCurrencyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC813642B26260400AE5AE9 /* TripleCurrencyWidget.swift */; };
 		0BC813692B262A0800AE5AE9 /* RoundedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC813682B262A0800AE5AE9 /* RoundedTextView.swift */; };
 		0BC8136B2B26345D00AE5AE9 /* MediumCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC8136A2B26345D00AE5AE9 /* MediumCurrencyView.swift */; };
 		0BE247CB2B27AD38000C0566 /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
-		0BEE9A1B2B3DDD5E00A3DB9E /* CurrencyNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEE9A1A2B3DDD5E00A3DB9E /* CurrencyNotificationManager.swift */; };
 		0BEEC2532B28DDAC00450E0A /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		0BEEC2542B28DDAD00450E0A /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		0BEEC2552B28DDCC00450E0A /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
@@ -154,6 +168,13 @@
 			remoteGlobalIDString = 0BAA1F6F2B1FA18500188959;
 			remoteInfo = WidgetsExtension;
 		};
+		0BC008702B405A4A00775BC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 78041C0D2786F9FA00C4D861 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0BC008622B404EA700775BC2;
+			remoteInfo = NotificationService;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -164,6 +185,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				0B4B4C3E2B239825003B55A5 /* WidgetsIntents.appex in Embed Foundation Extensions */,
+				0BC0086F2B405A4A00775BC2 /* NotificationService.appex in Embed Foundation Extensions */,
 				0BAA1F7F2B1FA18600188959 /* WidgetsExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -200,10 +222,13 @@
 		0BAA1F7C2B1FA18600188959 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BAA1F842B1FA1D500188959 /* Kursvalut.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kursvalut.entitlements; sourceTree = "<group>"; };
 		0BAA1F852B1FA25A00188959 /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
+		0BC008632B404EA700775BC2 /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BC008652B404EA700775BC2 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		0BC008672B404EA700775BC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0BC0086E2B404EDE00775BC2 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
 		0BC813642B26260400AE5AE9 /* TripleCurrencyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleCurrencyWidget.swift; sourceTree = "<group>"; };
 		0BC813682B262A0800AE5AE9 /* RoundedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextView.swift; sourceTree = "<group>"; };
 		0BC8136A2B26345D00AE5AE9 /* MediumCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumCurrencyView.swift; sourceTree = "<group>"; };
-		0BEE9A1A2B3DDD5E00A3DB9E /* CurrencyNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyNotificationManager.swift; sourceTree = "<group>"; };
 		0BEEC2572B28F04000450E0A /* TripleCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleCurrencyView.swift; sourceTree = "<group>"; };
 		0BEEC2592B28F61E00450E0A /* TripleCurrencyRectangularView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleCurrencyRectangularView.swift; sourceTree = "<group>"; };
 		0BFFA6692B2E019C009EFA34 /* MultipleWidgetSmallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWidgetSmallView.swift; sourceTree = "<group>"; };
@@ -309,6 +334,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0BC008602B404EA700775BC2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		78041C122786F9FA00C4D861 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -358,6 +390,16 @@
 			path = Widgets;
 			sourceTree = "<group>";
 		};
+		0BC008642B404EA700775BC2 /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				0BC0086E2B404EDE00775BC2 /* NotificationService.entitlements */,
+				0BC008652B404EA700775BC2 /* NotificationService.swift */,
+				0BC008672B404EA700775BC2 /* Info.plist */,
+			);
+			path = NotificationService;
+			sourceTree = "<group>";
+		};
 		0BC813242B260C8100AE5AE9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +433,7 @@
 				78041C172786F9FA00C4D861 /* Kursvalut */,
 				0BAA1F752B1FA18600188959 /* Widgets */,
 				0B4B4C382B239825003B55A5 /* WidgetsIntents */,
+				0BC008642B404EA700775BC2 /* NotificationService */,
 				78041C162786F9FA00C4D861 /* Products */,
 				78425CD527E104DA007F78F0 /* Frameworks */,
 			);
@@ -402,6 +445,7 @@
 				78041C152786F9FA00C4D861 /* Kursvalut.app */,
 				0BAA1F702B1FA18500188959 /* WidgetsExtension.appex */,
 				0B4B4C362B239825003B55A5 /* WidgetsIntents.appex */,
+				0BC008632B404EA700775BC2 /* NotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -434,7 +478,6 @@
 				787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */,
 				7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */,
 				78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */,
-				0BEE9A1A2B3DDD5E00A3DB9E /* CurrencyNotificationManager.swift */,
 				7813102727D75FE000065410 /* SMailComposeViewController.swift */,
 				78BD46DE27F07460002AFDA1 /* PopupView.swift */,
 				7877053929B25F2C004C5C1D /* MenuView.swift */,
@@ -679,6 +722,23 @@
 			productReference = 0BAA1F702B1FA18500188959 /* WidgetsExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		0BC008622B404EA700775BC2 /* NotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0BC0086D2B404EA700775BC2 /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildPhases = (
+				0BC0085F2B404EA700775BC2 /* Sources */,
+				0BC008602B404EA700775BC2 /* Frameworks */,
+				0BC008612B404EA700775BC2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationService;
+			productName = NotificationService;
+			productReference = 0BC008632B404EA700775BC2 /* NotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		78041C142786F9FA00C4D861 /* Kursvalut */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 78041C2C2786F9FB00C4D861 /* Build configuration list for PBXNativeTarget "Kursvalut" */;
@@ -693,6 +753,7 @@
 			dependencies = (
 				0BAA1F7E2B1FA18600188959 /* PBXTargetDependency */,
 				0B4B4C3D2B239825003B55A5 /* PBXTargetDependency */,
+				0BC008712B405A4A00775BC2 /* PBXTargetDependency */,
 			);
 			name = Kursvalut;
 			packageProductDependencies = (
@@ -709,7 +770,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1510;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					0B4B4C352B239825003B55A5 = {
@@ -717,6 +778,9 @@
 					};
 					0BAA1F6F2B1FA18500188959 = {
 						CreatedOnToolsVersion = 15.0.1;
+					};
+					0BC008622B404EA700775BC2 = {
+						CreatedOnToolsVersion = 15.1;
 					};
 					78041C142786F9FA00C4D861 = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -743,6 +807,7 @@
 				78041C142786F9FA00C4D861 /* Kursvalut */,
 				0BAA1F6F2B1FA18500188959 /* WidgetsExtension */,
 				0B4B4C352B239825003B55A5 /* WidgetsIntents */,
+				0BC008622B404EA700775BC2 /* NotificationService */,
 			);
 		};
 /* End PBXProject section */
@@ -763,6 +828,13 @@
 				0B3815CC2B20E83000D75674 /* Assets.xcassets in Resources */,
 				0BAA1F7B2B1FA18600188959 /* Assets.xcassets in Resources */,
 				0B919C6B2B39F16C005C4BB5 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0BC008612B404EA700775BC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,6 +907,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0BC0085F2B404EA700775BC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0BC008852B4070AD00775BC2 /* ForexCurrencyData.swift in Sources */,
+				0BC0087C2B40705600775BC2 /* BankOfRussiaCurrencyData.swift in Sources */,
+				0BC008932B4087AF00775BC2 /* String+ext.swift in Sources */,
+				0BC0088D2B40876A00775BC2 /* CurrencyManager.swift in Sources */,
+				0BC0087E2B40706D00775BC2 /* WidgetCurrency.swift in Sources */,
+				0BC0088F2B40877800775BC2 /* CurrencyCoreDataManager.swift in Sources */,
+				0BC008912B40879000775BC2 /* Kursvalut.xcdatamodeld in Sources */,
+				0BC008922B40879F00775BC2 /* CurrencyData.swift in Sources */,
+				0BC008742B406F7500775BC2 /* UserDefaults+Ext.swift in Sources */,
+				0BC008942B4087BD00775BC2 /* WidgetsData.swift in Sources */,
+				0BC008872B407DC400775BC2 /* NotificationService.swift in Sources */,
+				0BC0088E2B40877000775BC2 /* CurrencyNetworking.swift in Sources */,
+				0BC008862B4075EE00775BC2 /* Date+ext.swift in Sources */,
+				0BC008902B40878200775BC2 /* Persistence.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		78041C112786F9FA00C4D861 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -888,7 +981,6 @@
 				786479AA27981E410077ABC7 /* ConverterTableViewController.swift in Sources */,
 				78FECEAD299C0F9B00A6C597 /* PopupQueueManager.swift in Sources */,
 				7838F8FE278856CB007D34AA /* CurrencyNetworking.swift in Sources */,
-				0BEE9A1B2B3DDD5E00A3DB9E /* CurrencyNotificationManager.swift in Sources */,
 				78F2716B27CFDF6000381CA9 /* StartViewTableViewController.swift in Sources */,
 				786A002B283935CA00D0DAA4 /* DataSourceTableViewCell.swift in Sources */,
 				780AA2EB280ADF7F00ECC3C4 /* OnboardingSlide.swift in Sources */,
@@ -928,6 +1020,11 @@
 			isa = PBXTargetDependency;
 			target = 0BAA1F6F2B1FA18500188959 /* WidgetsExtension */;
 			targetProxy = 0BAA1F7D2B1FA18600188959 /* PBXContainerItemProxy */;
+		};
+		0BC008712B405A4A00775BC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0BC008622B404EA700775BC2 /* NotificationService */;
+			targetProxy = 0BC008702B405A4A00775BC2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1077,6 +1174,67 @@
 			};
 			name = Release;
 		};
+		0BC0086B2B404EA700775BC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y43668Q2S4;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 3.0.4;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0BC0086C2B404EA700775BC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y43668Q2S4;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 3.0.4;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		78041C2A2786F9FB00C4D861 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1131,7 +1289,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1189,7 +1347,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1280,6 +1438,15 @@
 			buildConfigurations = (
 				0BAA1F812B1FA18600188959 /* Debug */,
 				0BAA1F822B1FA18600188959 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0BC0086D2B404EA700775BC2 /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0BC0086B2B404EA700775BC2 /* Debug */,
+				0BC0086C2B404EA700775BC2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

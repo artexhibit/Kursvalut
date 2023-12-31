@@ -100,7 +100,7 @@ class CurrencyViewController: UIViewController {
         updateTimeButton.setTitle(currencyUpdateTime, for: .normal)
         
         if !pickDateSwitchFromDataSourceIsOn {
-            currencyManager.checkOnFirstLaunchToday(with: updateTimeButton)
+           // currencyManager.checkOnFirstLaunchToday(with: updateTimeButton)
         }
         if !userClosedApp {
             scrollVCUp()

@@ -86,7 +86,7 @@ class ConverterTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         setupFetchedResultsController()
         
-        if pickedStartView == "Конвертер" { currencyManager.checkOnFirstLaunchToday() }
+        //if pickedStartView == "Конвертер" { currencyManager.checkOnFirstLaunchToday() }
         shouldAnimateCellAppear = tableViewIsInEditingMode ? true : false
         
         if dataSourceWasChanged {
@@ -240,7 +240,7 @@ class ConverterTableViewController: UITableViewController {
     
                     currencies.forEach { currency in
                         currency.converterValue = "0"
-                        coreDataManager.save()
+                        PersistenceController.shared.saveContext()
                     }
                 }
                 converterManager.deleteRow(for: currency, in: currencies)
@@ -260,12 +260,12 @@ class ConverterTableViewController: UITableViewController {
                     
                     currencies.forEach { currency in
                         currency.converterValue = "0"
-                        coreDataManager.save()
+                        PersistenceController.shared.saveContext()
                     }
                 }
                 converterManager.deleteRow(for: currency, in: currencies)
             }
-            coreDataManager.save()
+            PersistenceController.shared.saveContext()
             updateCellsHeightAfterDeletion(at: indexPath)
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
@@ -460,7 +460,7 @@ class ConverterTableViewController: UITableViewController {
                 forexCurrency.converterValue = converterManager.performCalculation(with: number, pickedCurrency, forexCurrency)
             }
         }
-        coreDataManager.save()
+        PersistenceController.shared.saveContext()
         textFieldIsEditing = true
         tableView.reloadData()
         textFieldIsEditing = false
@@ -480,7 +480,7 @@ class ConverterTableViewController: UITableViewController {
                     }
                 }
             }
-            coreDataManager.save()
+            PersistenceController.shared.saveContext()
         }
         avoidTriggerCellsHeightChange = false
     }
@@ -516,7 +516,7 @@ class ConverterTableViewController: UITableViewController {
                 currency.rowForConverter = Int32(index)
             }
         }
-        coreDataManager.save()
+        PersistenceController.shared.saveContext()
         recalculateCellsHeight(clearCellHeightNames: false)
     }
     
@@ -896,14 +896,14 @@ extension ConverterTableViewController: UITextFieldDelegate {
             
             currencies.forEach { currency in
                 currency.converterValue = "0"
-                coreDataManager.save()
+                PersistenceController.shared.saveContext()
             }
         } else {
             UserDefaults.sharedContainer.set("", forKey: "forexPickedCurrency")
             let currencies = forexFRC.fetchedObjects!
             currencies.forEach { currency in
                 currency.converterValue = "0"
-                coreDataManager.save()
+                PersistenceController.shared.saveContext()
             }
         }
     }
