@@ -16,9 +16,6 @@ struct CurrencyNetworking {
     private var confirmedDate: String {
         return UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
     }
-    private var updateTime: String {
-        return currencyManager.createStringDate(with: confirmedDate, dateStyle: .long)
-    }
     private var yesterdaysDate: String {
         let confirmedDate = currencyManager.createDate(from: confirmedDate)
         let confirmedStringDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: confirmedDate, dateStyle: nil)
@@ -105,7 +102,6 @@ struct CurrencyNetworking {
                 completion(nil, parsingError)
             }
             PersistenceController.shared.saveContext()
-            pickedDataSource == "ЦБ РФ" ? UserDefaults.sharedContainer.setValue(updateTime, forKey: "bankOfRussiaUpdateTime") : UserDefaults.sharedContainer.setValue(updateTime, forKey: "forexUpdateTime")
             WidgetsData.updateWidgets()
         }
     }

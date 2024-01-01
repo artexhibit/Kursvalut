@@ -40,4 +40,10 @@ extension Date {
         }
         return formatter.string(from: date)
     }
+    
+    static func isTomorrow(date: Date) -> Bool {
+        let calendar = Calendar.current
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate
+        return calendar.isDate(date, inSameDayAs: tomorrow)
+    }
 }

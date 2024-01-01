@@ -15,7 +15,20 @@ class DatePickerView: UIView {
     var delegate: DatePickerViewDelegate?
     private var pickedDate: String?
     private let currencyManager = CurrencyManager()
+    private let currencyCoreDataManager = CurrencyCoreDataManager()
+    private var pickedDataSource: String {
+        return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
+    }
     private let minimumDate = Date(timeIntervalSinceReferenceDate: -31622400.0)
+    private var maximumDate: Date {
+        if pickedDataSource == "ЦБ РФ" {
+            let currentStoredDate = currencyCoreDataManager.fetchBankOfRussiaCurrenciesCurrentDate()
+            if Date.isTomorrow(date: currentStoredDate) { return currentStoredDate }
+            return Date.currentDate
+        } else {
+            return Date.currentDate
+        }
+    }
     private var appColor: String {
         return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
@@ -168,7 +181,7 @@ class DatePickerView: UIView {
     private func configureDatePicker() {
         datePicker.tintColor = UIColor(named: appColor)
         datePicker.minimumDate = minimumDate
-        datePicker.maximumDate = Date()
+        datePicker.maximumDate = maximumDate
         datePicker.preferredDatePickerStyle = interfaceOrientation.isPortrait ? .inline : .wheels
     }
     

@@ -32,7 +32,7 @@ class CurrencyViewController: UIViewController {
         return userDefaults.bool(forKey: "decimalsNumberChanged")
     }
     private var proPurchased: Bool {
-        return true
+        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
     }
     private var pickedDataSource: String {
         return userDefaults.string(forKey: "baseSource") ?? ""
@@ -49,8 +49,9 @@ class CurrencyViewController: UIViewController {
     private var userHasOnboarded: Bool {
         return userDefaults.bool(forKey: "userHasOnboarded")
     }
-    private var currencyUpdateTime: String {
-        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (userDefaults.string(forKey: "forexUpdateTime") ?? "")
+    private var confirmedDate: String {
+        let date = Date.formatDate(from: UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? "")
+        return Date.createStringDate(from: date, dateStyle: .long)
     }
     private var needToScrollUpViewController: Bool {
         return userDefaults.bool(forKey: "needToScrollUpViewController")
@@ -99,7 +100,7 @@ class CurrencyViewController: UIViewController {
         setupFetchedResultsController()
         updateDecimalsNumber()
         dataSourceButton.setTitle(pickedDataSource, for: .normal)
-        updateTimeButton.setTitle(currencyUpdateTime, for: .normal)
+        updateTimeButton.setTitle(confirmedDate, for: .normal)
         
         if !userClosedApp {
             scrollVCUp()
@@ -112,7 +113,7 @@ class CurrencyViewController: UIViewController {
         if !userHasOnboarded {
             performSegue(withIdentifier: "showOnboarding", sender: self)
             currencyManager.updateAllCurrencyTypesData {
-                self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
+                self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
             }
         }
     }
@@ -493,7 +494,7 @@ extension CurrencyViewController {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
                 PopupQueueManager.shared.addPopupToQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
+                    self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
                 }
                 self.userDefaults.set(false, forKey: "updateRequestFromCurrencyDataSource")
             }
@@ -530,7 +531,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 self.setupFetchedResultsController()
                 PopupQueueManager.shared.changePopupDataInQueue(title: "Успешно", message: "Курсы загружены", style: .success)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
+                    self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
                 }
                 WidgetsData.updateWidgets()
             }
@@ -561,7 +562,7 @@ extension CurrencyViewController: MenuViewDelegate {
                 self.setupFetchedResultsController()
                 DispatchQueue.main.async {
                     PopupQueueManager.shared.changePopupDataInQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
-                    self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
+                    self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
                     self.dataSourceButton.setTitle(self.pickedDataSource, for: .normal)
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)

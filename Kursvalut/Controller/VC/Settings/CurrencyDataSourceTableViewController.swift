@@ -69,7 +69,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func toggleDatePickerFor(indexPath: NSIndexPath) {
+    private func toggleDatePickerFor(indexPath: NSIndexPath) {
         tableView.beginUpdates()
         let cell = tableView.cellForRow(at: indexPath as IndexPath)
         
@@ -81,7 +81,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         tableView.endUpdates()
     }
     
-    func displayInlineDatePickerAt(indexPath: NSIndexPath) {
+    private func displayInlineDatePickerAt(indexPath: NSIndexPath) {
         tableView.beginUpdates()
         guard let cell = tableView.cellForRow(at: indexPath as IndexPath) as? ConcreteDateTableViewCell else { return }
         let sameCellTapped = targetIndexPath?.row ?? 0 == indexPath.row + 1
@@ -284,7 +284,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     //MARK: - User Interface Handling Methods
     
-    func configureDatePicker(cell: DatePickerTableViewCell) {
+    private func configureDatePicker(cell: DatePickerTableViewCell) {
         if let dataForPickedDate = pickedDate {
             cell.datePicker.date = currencyManager.createDate(from: dataForPickedDate)
         } else {
@@ -304,7 +304,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         }
     }
     
-    @objc func activatedCurrencyVC() {
+    @objc private func activatedCurrencyVC() {
         if wasActiveCurrencyVC {
             UserDefaults.sharedContainer.set(true, forKey: "updateRequestFromCurrencyDataSource")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
@@ -320,7 +320,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         }
     }
     
-    @objc func stopActivityIndicatorInDataSourceCell() {
+    @objc private func stopActivityIndicatorInDataSourceCell() {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "dataSourceCell") as? DataSourceTableViewCell else { return }
         
         cell.dataUpdateSpinner.stopAnimating()
@@ -328,7 +328,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         self.tableView.reloadSections(IndexSet(integer: sections.dataSource), with: .none)
     }
     
-    func resetStateToTheLastConfirmedDate() {
+    private func resetStateToTheLastConfirmedDate() {
         if let lastConfirmedDate = self.lastConfirmedDate {
             self.pickedDate = lastConfirmedDate
             UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
@@ -340,13 +340,13 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         }
     }
     
-    func setDateSwitchStateToOff(with cell: ConcreteDateTableViewCell) {
+  private func setDateSwitchStateToOff(with cell: ConcreteDateTableViewCell) {
         UserDefaults.sharedContainer.set(false, forKey: "pickDateSwitchIsOn")
         cell.pickDateSwitch.setOn(false, animated: true)
         cell.selectionStyle = .none
     }
     
-    func resetCurrencyHistoricalRow() {
+   private func resetCurrencyHistoricalRow() {
         if pickedDataSource == "ЦБ РФ" {
             coreDataManager.resetRowForHistoricalCurrencyPropertyForBankOfRussiaCurrencies()
         } else {
@@ -355,7 +355,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         PersistenceController.shared.saveContext()
     }
     
-    func requestDataForConfirmedDate() {
+   private func requestDataForConfirmedDate() {
         currencyNetworking.performRequest { networkingError, parsingError in
             DispatchQueue.main.async {
                 if networkingError != nil {
