@@ -80,7 +80,6 @@ class CurrencyViewController: UIViewController {
         tabBarController?.delegate = self
         datePickerView.delegate = self
         menuView.delegate = self
-        currencyManager.delegate = self
         setupButtonsDesign()
         setupSearchController()
         setupRefreshControl()
@@ -93,11 +92,6 @@ class CurrencyViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(makeNetworkRequest), name: NSNotification.Name(rawValue: "makeNetworkRequest"), object: nil)
     }
     
-    @objc func makeNetworkRequest() {
-        print("called")
-        currencyNetworking.performRequest { _, _ in }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         currencyManager.setupSymbolAndText(for: dataSourceButton, with: pickedDataSource)
@@ -107,9 +101,6 @@ class CurrencyViewController: UIViewController {
         dataSourceButton.setTitle(pickedDataSource, for: .normal)
         updateTimeButton.setTitle(currencyUpdateTime, for: .normal)
         
-        if !pickDateSwitchFromDataSourceIsOn {
-           // currencyManager.checkOnFirstLaunchToday(with: updateTimeButton)
-        }
         if !userClosedApp {
             scrollVCUp()
         }
@@ -120,6 +111,9 @@ class CurrencyViewController: UIViewController {
         
         if !userHasOnboarded {
             performSegue(withIdentifier: "showOnboarding", sender: self)
+            currencyManager.updateAllCurrencyTypesData {
+                self.updateTimeButton.setTitle(self.currencyUpdateTime, for: .normal)
+            }
         }
     }
     
@@ -465,6 +459,10 @@ extension CurrencyViewController {
         if !menuView.frame.contains(location) { menuView.hideView() }
     }
     
+    @objc func makeNetworkRequest() {
+        currencyNetworking.performRequest { _, _ in }
+    }
+    
     @objc func refreshData() {
         var updateRequestFromCurrencyDataSource: Bool {
             return userDefaults.bool(forKey: "updateRequestFromCurrencyDataSource")
@@ -574,14 +572,6 @@ extension CurrencyViewController: MenuViewDelegate {
     
     func didFinishHideAnimation(_ menuView: MenuView) {
         canHideOpenedView = true
-    }
-}
-
-//MARK: - CurrencyManager Delegate Method
-
-extension CurrencyViewController: CurrencyManagerDelegate {
-    func firstLaunchDidEndSuccess(currencyManager: CurrencyManager) {
-        DispatchQueue.main.async { self.tableView.reloadData() }
     }
 }
 

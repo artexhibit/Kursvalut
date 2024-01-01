@@ -2,12 +2,7 @@
 import Foundation
 import UIKit
 
-protocol CurrencyManagerDelegate {
-    func firstLaunchDidEndSuccess(currencyManager: CurrencyManager)
-}
-
 struct CurrencyManager {
-    var delegate: CurrencyManagerDelegate?
     private let coreDataManager = CurrencyCoreDataManager()
     private var difference: Double = 0.0
     private var differenceAttributes: (Sign: String, Color: UIColor, Symbol: String) {
@@ -153,52 +148,4 @@ struct CurrencyManager {
         
         return "Курс \(baseSource) на \(date): \(usd) - \(usdValue) \(baseCurrency), \(eur) - \(eurValue) \(baseCurrency)"
     }
-    
-//    func checkOnFirstLaunchToday(with button: UIButton = UIButton()) {
-//        let currencyNetworking = CurrencyNetworking()
-//        var wasLaunched: String {
-//            return UserDefaults.sharedContainer.string(forKey: "isFirstLaunchToday") ?? ""
-//        }
-//        var today: String {
-//            return self.createStringDate(with: "MM/dd/yyyy", dateStyle: nil)
-//        }
-//        var pickedDataSource: String {
-//            return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
-//        }
-//        var currencyUpdateTime: String {
-//            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaUpdateTime") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexUpdateTime") ?? "")
-//        }
-//        var userHasOnboarded: Bool {
-//            return UserDefaults.sharedContainer.bool(forKey: "userHasOnboarded")
-//        }
-//        if wasLaunched != today {
-//            let lastConfirmedDate = confirmedDateFromDataSourceVC
-//            UserDefaults.sharedContainer.setValue(today, forKey:"isFirstLaunchToday")
-//            UserDefaults.sharedContainer.set(todaysDate, forKey: "confirmedDate")
-//            
-//            currencyNetworking.performRequest { networkingError, parsingError in
-//                if networkingError != nil {
-//                    guard let error = networkingError else { return }
-//                    PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
-//                    UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
-//                    UserDefaults.sharedContainer.set(true, forKey: "pickDateSwitchIsOn")
-//                } else {
-//                    delegate?.firstLaunchDidEndSuccess(currencyManager: self)
-//                    
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-//                        button.setTitle(currencyUpdateTime, for: .normal)
-//                        
-//                        if pickedDataSource == "ЦБ РФ" {
-//                            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)
-//                        } else {
-//                            coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)
-//                        }
-//                    }
-//                    if userHasOnboarded {
-//                        PopupQueueManager.shared.addPopupToQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
