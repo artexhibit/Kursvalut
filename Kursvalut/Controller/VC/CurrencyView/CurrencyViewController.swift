@@ -116,6 +116,7 @@ class CurrencyViewController: UIViewController {
                 self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
             }
         }
+        showNotificationPermissionScreen()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -447,6 +448,18 @@ extension CurrencyViewController {
             tableView.reloadData()
         }
         userDefaults.set(false, forKey: "decimalsNumberChanged")
+    }
+    
+    func showNotificationPermissionScreen() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            if settings.authorizationStatus == .notDetermined {
+                if self.userHasOnboarded {
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "goToNotificationPermisson", sender: self)
+                    }
+                }
+            }
+        }
     }
     
     @objc func handleTap(_ tap: UITapGestureRecognizer) {

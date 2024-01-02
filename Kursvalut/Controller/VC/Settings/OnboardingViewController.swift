@@ -17,6 +17,9 @@ class OnboardingViewController: UIViewController {
     private var appColor: String {
         return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
+    private var userHasOnboarded: Bool {
+        return UserDefaults.sharedContainer.bool(forKey: "userHasOnboarded")
+    }
     private var currentPage = 0 {
         didSet {
             pageControl.currentPage = currentPage
@@ -55,7 +58,11 @@ class OnboardingViewController: UIViewController {
     }
     
     @IBAction func closeButtonClicked(_ sender: UIButton) {
-        dismiss(animated: true)
+        if !userHasOnboarded {
+            performSegue(withIdentifier: "goToNotificationPermisson", sender: self)
+        } else {
+            self.dismiss(animated: true)
+        }
     }
     
     @IBAction func prevButtonClicked(_ sender: UIButton) {
@@ -75,7 +82,11 @@ class OnboardingViewController: UIViewController {
     }
     
     @IBAction func closeNavigationButtonClicked(_ sender: UIButton) {
-        dismiss(animated: true)
+        if !userHasOnboarded {
+            performSegue(withIdentifier: "goToNotificationPermisson", sender: self)
+        } else {
+            self.dismiss(animated: true)
+        }
     }
     
     @IBAction func pageControlDotClicked(_ sender: UIPageControl) {
@@ -84,6 +95,12 @@ class OnboardingViewController: UIViewController {
         frame.origin.x = frame.size.width * CGFloat(page)
         frame.origin.y = 0
         collectionView.scrollRectToVisible(frame, animated: false)
+    }
+    
+    @IBAction func unwind(segue: UIStoryboardSegue) {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true)
+        }
     }
 }
 

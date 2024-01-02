@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 import FirebaseCore
 import FirebaseMessaging
-import UserNotificationsUI
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -63,10 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { success, _ in
-            guard success else { return }
-        }
         application.registerForRemoteNotifications()
         return true
     }

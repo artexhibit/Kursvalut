@@ -38,6 +38,8 @@
 		0B919C6C2B39F16C005C4BB5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B919C692B39F16C005C4BB5 /* GoogleService-Info.plist */; };
 		0B919C6F2B39F469005C4BB5 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0B919C6E2B39F469005C4BB5 /* FirebaseMessaging */; };
 		0B9872EC2B29F4D900A14F5D /* MultipleCurrencyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9872EB2B29F4D900A14F5D /* MultipleCurrencyWidget.swift */; };
+		0BA08AC42B441D2200BFF59C /* NotificationPermissionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA08AC32B441D2200BFF59C /* NotificationPermissionTableViewController.swift */; };
+		0BA08AC62B441DC400BFF59C /* NotificationPermissionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA08AC52B441DC400BFF59C /* NotificationPermissionTableViewCell.swift */; };
 		0BAA1F722B1FA18500188959 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA1F712B1FA18500188959 /* WidgetKit.framework */; };
 		0BAA1F742B1FA18500188959 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA1F732B1FA18500188959 /* SwiftUI.framework */; };
 		0BAA1F772B1FA18600188959 /* WidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAA1F762B1FA18600188959 /* WidgetsBundle.swift */; };
@@ -216,6 +218,8 @@
 		0B81E0AF2B3703900011F99D /* String+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ext.swift"; sourceTree = "<group>"; };
 		0B919C692B39F16C005C4BB5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0B9872EB2B29F4D900A14F5D /* MultipleCurrencyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleCurrencyWidget.swift; sourceTree = "<group>"; };
+		0BA08AC32B441D2200BFF59C /* NotificationPermissionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionTableViewController.swift; sourceTree = "<group>"; };
+		0BA08AC52B441DC400BFF59C /* NotificationPermissionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionTableViewCell.swift; sourceTree = "<group>"; };
 		0BAA1F702B1FA18500188959 /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BAA1F712B1FA18500188959 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		0BAA1F732B1FA18500188959 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -627,6 +631,7 @@
 				78C39E06284CC0A000376365 /* BaseCurrencyTableViewCell.swift */,
 				78FE672528AC15E90091A1A3 /* ConcreteDateTableViewCell.swift */,
 				7831DAE928B0FAC4008A1758 /* DatePickerTableViewCell.swift */,
+				0BA08AC52B441DC400BFF59C /* NotificationPermissionTableViewCell.swift */,
 				7828735028146B0000B65D6F /* Sorting */,
 				7828734F28146AD700B65D6F /* Onboarding */,
 			);
@@ -650,6 +655,7 @@
 				78137FD62833A78400F4621E /* TutorialViewController.swift */,
 				786A00282839327500D0DAA4 /* CurrencyDataSourceTableViewController.swift */,
 				78C39E04284CBF8600376365 /* BaseCurrencyTableViewController.swift */,
+				0BA08AC32B441D2200BFF59C /* NotificationPermissionTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -948,12 +954,14 @@
 				7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */,
 				78B40A1327D659F60016D9E6 /* TermsOfUseTableViewCell.swift in Sources */,
 				0B4B4C1F2B2393BD003B55A5 /* ChangeCurrencyIntent.intentdefinition in Sources */,
+				0BA08AC62B441DC400BFF59C /* NotificationPermissionTableViewCell.swift in Sources */,
 				786A002D2839361300D0DAA4 /* PickedBaseCurrencyTableViewCell.swift in Sources */,
 				7877053F29B2609E004C5C1D /* MenuTableViewCell.swift in Sources */,
 				78F13FF327CE9AD80076613A /* ConverterPreviewTableViewCell.swift in Sources */,
 				7813102827D75FE000065410 /* SMailComposeViewController.swift in Sources */,
 				7852295F279B19E300507877 /* PickCurrencyTableViewController.swift in Sources */,
 				0B158C682B1E43BA004EA97A /* Date+ext.swift in Sources */,
+				0BA08AC42B441D2200BFF59C /* NotificationPermissionTableViewController.swift in Sources */,
 				78041C1D2786F9FA00C4D861 /* CurrencyViewController.swift in Sources */,
 				78BD46DF27F07460002AFDA1 /* PopupView.swift in Sources */,
 				78D3DA0E2787687400A91511 /* CurrencyManager.swift in Sources */,
