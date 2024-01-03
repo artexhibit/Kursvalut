@@ -124,8 +124,8 @@
 		789FD81C288F065C0084468F /* NumpadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 789FD81B288F065C0084468F /* NumpadView.xib */; };
 		789FD81E288F06B80084468F /* NumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789FD81D288F06B80084468F /* NumpadView.swift */; };
 		789FD820288F06E70084468F /* NumpadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789FD81F288F06E70084468F /* NumpadButton.swift */; };
-		78B40A1027D659BB0016D9E6 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B40A0F27D659BB0016D9E6 /* TermsOfUseViewController.swift */; };
-		78B40A1327D659F60016D9E6 /* TermsOfUseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B40A1227D659F60016D9E6 /* TermsOfUseTableViewCell.swift */; };
+		78B40A1027D659BB0016D9E6 /* PermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B40A0F27D659BB0016D9E6 /* PermissionsViewController.swift */; };
+		78B40A1327D659F60016D9E6 /* PermissionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B40A1227D659F60016D9E6 /* PermissionsTableViewCell.swift */; };
 		78B49AE427CBD3D5003C975D /* DecimalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */; };
 		78B9F55B2801B5900030ECF4 /* SortingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B9F55A2801B5900030ECF4 /* SortingTableViewController.swift */; };
 		78B9F55D2801B9B50030ECF4 /* MainSortTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B9F55C2801B9B50030ECF4 /* MainSortTableViewCell.swift */; };
@@ -291,8 +291,8 @@
 		789FD81B288F065C0084468F /* NumpadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumpadView.xib; sourceTree = "<group>"; };
 		789FD81D288F06B80084468F /* NumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadView.swift; sourceTree = "<group>"; };
 		789FD81F288F06E70084468F /* NumpadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadButton.swift; sourceTree = "<group>"; };
-		78B40A0F27D659BB0016D9E6 /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
-		78B40A1227D659F60016D9E6 /* TermsOfUseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseTableViewCell.swift; sourceTree = "<group>"; };
+		78B40A0F27D659BB0016D9E6 /* PermissionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsViewController.swift; sourceTree = "<group>"; };
+		78B40A1227D659F60016D9E6 /* PermissionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsTableViewCell.swift; sourceTree = "<group>"; };
 		78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalsTableViewController.swift; sourceTree = "<group>"; };
 		78B9F55A2801B5900030ECF4 /* SortingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingTableViewController.swift; sourceTree = "<group>"; };
 		78B9F55C2801B9B50030ECF4 /* MainSortTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSortTableViewCell.swift; sourceTree = "<group>"; };
@@ -620,7 +620,7 @@
 				78F13FF227CE9AD80076613A /* ConverterPreviewTableViewCell.swift */,
 				78F2716C27CFE00400381CA9 /* StartViewTableViewCell.swift */,
 				78C6FAF627D3C188002E35E9 /* ThemeTableViewCell.swift */,
-				78B40A1227D659F60016D9E6 /* TermsOfUseTableViewCell.swift */,
+				78B40A1227D659F60016D9E6 /* PermissionsTableViewCell.swift */,
 				78E9B79B27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift */,
 				7802A17627D924E200769693 /* AboutAppDeveloperTableViewCell.swift */,
 				789A767127DA74F700B8EE06 /* AboutAppDataProvidersTableViewCell.swift */,
@@ -645,7 +645,7 @@
 				78B49AE327CBD3D5003C975D /* DecimalsTableViewController.swift */,
 				78F2716A27CFDF6000381CA9 /* StartViewTableViewController.swift */,
 				78C6FAF427D3C160002E35E9 /* ThemeTableViewController.swift */,
-				78B40A0F27D659BB0016D9E6 /* TermsOfUseViewController.swift */,
+				78B40A0F27D659BB0016D9E6 /* PermissionsViewController.swift */,
 				78E9B79927D7956300BB5249 /* PrivacyPolicyViewController.swift */,
 				7802A17227D90C4400769693 /* AboutAppTableViewController.swift */,
 				786C01A227DE50E300868EBE /* TipJarTableViewController.swift */,
@@ -952,7 +952,7 @@
 				0BC813232B25FB2A00AE5AE9 /* WidgetCurrency.swift in Sources */,
 				78B9F55F2801B9F10030ECF4 /* SubSortTableViewCell.swift in Sources */,
 				7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */,
-				78B40A1327D659F60016D9E6 /* TermsOfUseTableViewCell.swift in Sources */,
+				78B40A1327D659F60016D9E6 /* PermissionsTableViewCell.swift in Sources */,
 				0B4B4C1F2B2393BD003B55A5 /* ChangeCurrencyIntent.intentdefinition in Sources */,
 				0BA08AC62B441DC400BFF59C /* NotificationPermissionTableViewCell.swift in Sources */,
 				786A002D2839361300D0DAA4 /* PickedBaseCurrencyTableViewCell.swift in Sources */,
@@ -1002,7 +1002,7 @@
 				786479AC279825DF0077ABC7 /* ConverterTableViewCell.swift in Sources */,
 				78041C232786F9FA00C4D861 /* Kursvalut.xcdatamodeld in Sources */,
 				78F13FF127CE9AC60076613A /* CurrencyPreviewTableViewCell.swift in Sources */,
-				78B40A1027D659BB0016D9E6 /* TermsOfUseViewController.swift in Sources */,
+				78B40A1027D659BB0016D9E6 /* PermissionsViewController.swift in Sources */,
 				7877053A29B25F2C004C5C1D /* MenuView.swift in Sources */,
 				789FD81E288F06B80084468F /* NumpadView.swift in Sources */,
 				0B81E0B02B3703900011F99D /* String+ext.swift in Sources */,

@@ -44,7 +44,7 @@ class CurrencyViewController: UIViewController {
         return pickedDataSource == "ЦБ РФ" ? (userDefaults.string(forKey: "bankOfRussiaPickedSection") ?? "") : (userDefaults.string(forKey: "forexPickedSection") ?? "")
     }
     private var todaysDate: String {
-        return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
+        return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .long)
     }
     private var userHasOnboarded: Bool {
         return userDefaults.bool(forKey: "userHasOnboarded")
@@ -99,6 +99,10 @@ class CurrencyViewController: UIViewController {
         currencyManager.setupSeparatorDesign(with: separatorView, and: separatorViewHeight)
         setupFetchedResultsController()
         updateDecimalsNumber()
+        
+        if !pickDateSwitchFromDataSourceIsOn && confirmedDate != todaysDate {
+            userDefaults.set(todaysDate, forKey: "confirmedDate")
+        }
         dataSourceButton.setTitle(pickedDataSource, for: .normal)
         updateTimeButton.setTitle(confirmedDate, for: .normal)
         
