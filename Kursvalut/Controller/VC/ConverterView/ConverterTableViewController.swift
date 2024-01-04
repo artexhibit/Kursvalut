@@ -75,6 +75,7 @@ class ConverterTableViewController: UITableViewController {
         formatter = converterManager.setupNumberFormatter()
         setupKeyboardBehaviour()
         currencyManager.configureContentInset(for: tableView, top: 10)
+        if pickedStartView == "Конвертер" { currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch() }
         DarwinNotificationService.addNetworkRequestObserver(name: notificationName)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshConverterFRC), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCells), name: NSNotification.Name(rawValue: "updateCells"), object: nil)
@@ -87,8 +88,6 @@ class ConverterTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupFetchedResultsController()
-        
-        //if pickedStartView == "Конвертер" { currencyManager.checkOnFirstLaunchToday() }
         shouldAnimateCellAppear = tableViewIsInEditingMode ? true : false
         
         if dataSourceWasChanged {

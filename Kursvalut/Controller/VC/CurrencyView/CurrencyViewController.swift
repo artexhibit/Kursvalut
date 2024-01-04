@@ -88,6 +88,7 @@ class CurrencyViewController: UIViewController {
         self.view.addGestureRecognizer(tapGestureRecognizer)
         self.navigationController?.navigationBar.addGestureRecognizer(navigationBarGestureRecogniser)
         currencyManager.configureContentInset(for: tableView, top: -updateButtonTopInset)
+        currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch()
         DarwinNotificationService.addNetworkRequestObserver(name: notificationName)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(makeNetworkRequest), name: NSNotification.Name(rawValue: "makeNetworkRequest"), object: nil)
@@ -99,10 +100,6 @@ class CurrencyViewController: UIViewController {
         currencyManager.setupSeparatorDesign(with: separatorView, and: separatorViewHeight)
         setupFetchedResultsController()
         updateDecimalsNumber()
-        
-        if !pickDateSwitchFromDataSourceIsOn && confirmedDate != todaysDate {
-            userDefaults.set(todaysDate, forKey: "confirmedDate")
-        }
         dataSourceButton.setTitle(pickedDataSource, for: .normal)
         updateTimeButton.setTitle(confirmedDate, for: .normal)
         

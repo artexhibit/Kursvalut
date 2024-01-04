@@ -148,4 +148,14 @@ struct CurrencyManager {
         
         return "Курс \(baseSource) на \(date): \(usd) - \(usdValue) \(baseCurrency), \(eur) - \(eurValue) \(baseCurrency)"
     }
+    
+    func updateAllCurrencyTypesOnEachDayFirstLaunch() {
+        let wasLaunched = UserDefaults.sharedContainer.string(forKey: "isFirstLaunchToday") ?? ""
+
+        if wasLaunched != todaysDate {
+            UserDefaults.sharedContainer.set(todaysDate, forKey:"isFirstLaunchToday")
+            UserDefaults.sharedContainer.set(todaysDate, forKey: "confirmedDate")
+            updateAllCurrencyTypesData { }
+        }
+    }
 }
