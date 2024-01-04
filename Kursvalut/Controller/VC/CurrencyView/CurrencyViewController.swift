@@ -452,11 +452,14 @@ extension CurrencyViewController {
     }
     
     func showNotificationPermissionScreen() {
+        let permissionScreenWasShown = userDefaults.bool(forKey: "permissionScreenWasShown")
+        
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             if settings.authorizationStatus == .notDetermined {
-                if self.userHasOnboarded {
+                if self.userHasOnboarded && !permissionScreenWasShown {
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "goToNotificationPermisson", sender: self)
+                        self.userDefaults.set(true, forKey: "permissionScreenWasShown")
                     }
                 }
             }
