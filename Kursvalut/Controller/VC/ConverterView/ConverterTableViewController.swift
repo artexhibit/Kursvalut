@@ -802,7 +802,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
             }
         }
         numberFromTextField = numberForTextField
-        if allowedToReloadCurrencyRows(using: rangeString) { reloadCurrencyRows() }
+        reloadCurrencyRows()
 
         //Update textField's caret after copying a number from a clipboard
         DispatchQueue.main.async {
@@ -828,12 +828,6 @@ extension ConverterTableViewController: UITextFieldDelegate {
             guard string.filter({!",.=".contains($0)}).count <= maxDigits + converterScreenDecimalsAmount else { return false }
         }
         return true
-    }
-    
-    func allowedToReloadCurrencyRows(using string: String) -> Bool {
-        guard let decimalSeparator = string.firstIndex(where: { $0 == "," || $0 == "." }) else { return true }
-        let digitsAmountAfterDecimalSeparator = string[decimalSeparator...].dropFirst().count
-        return digitsAmountAfterDecimalSeparator <= converterScreenDecimalsAmount ? true : false
     }
     
     func turnOnCellActivityIndicator(with textField: UITextField) {
