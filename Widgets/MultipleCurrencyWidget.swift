@@ -13,7 +13,7 @@ struct MultipleCurrencyProvider: IntentTimelineProvider {
     
     func getTimeline(for configuration: SetMultipleCurrencyIntent, in context: Context, completion: @escaping (Timeline<MultipleCurrencyEntry>) -> Void) {
         var baseCurrency: String { UserDefaults.sharedContainer.string(forKey: "baseCurrency")!}
-        var baseSource: String { UserDefaults.sharedContainer.string(forKey: "baseSource")!}
+        var baseSource: String { UserDefaultsManager.pickedDataSource }
         guard let decimals = configuration.decimals as? Int else { return }
         let mainCurrencies = WidgetsCoreDataManager.getFirstTenCurrencies(for: baseSource, and: String(baseCurrency))
         let shortNames = WidgetsData.getShortNames(with: mainCurrencies)

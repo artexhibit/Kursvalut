@@ -117,11 +117,11 @@ struct CurrencyManager {
     func updateAllCurrencyTypesData(completion: @escaping () -> Void) {
         let currencyNetworking = CurrencyNetworking()
         let baseSources = ["ЦБ РФ", "Forex"]
-        let lastPickedBaseSource = UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
+        let lastPickedBaseSource = UserDefaultsManager.pickedDataSource
         var completedRequests = 0
         
         for baseSource in baseSources {
-            UserDefaults.sharedContainer.set(baseSource, forKey: "baseSource")
+            UserDefaultsManager.pickedDataSource = baseSource
             currencyNetworking.performRequest { _, _ in
                 completedRequests += 1
                 
@@ -130,7 +130,7 @@ struct CurrencyManager {
                 }
             }
         }
-        UserDefaults.sharedContainer.set(lastPickedBaseSource, forKey: "baseSource")
+        UserDefaultsManager.pickedDataSource = lastPickedBaseSource
         WidgetsData.updateWidgets()
     }
     

@@ -12,9 +12,6 @@ class ProViewController: UIViewController {
     @IBOutlet weak var purchaseSpinner: UIActivityIndicatorView!
     @IBOutlet weak var priceSpinner: UIActivityIndicatorView!
     
-    private var proPurchased: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
-    }
     private var appColor: String {
         return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
@@ -40,9 +37,7 @@ class ProViewController: UIViewController {
         priceSpinner.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
         SKPaymentQueue.default().add(self)
         
-        if proPurchased {
-            setPurchasedButton()
-        }
+        if UserDefaultsManager.proPurchased { setPurchasedButton() }
     }
     
     @IBAction func closeButtonPressed(_ sender: UIButton) {
@@ -128,7 +123,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
     //MARK: - User Interface Manage Methods
     
     func setPurchasedButton() {
-        UserDefaults.sharedContainer.set(true, forKey: "kursvalutPro")
+        UserDefaultsManager.proPurchased = true
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pro"), object: nil)
         purchaseButton.backgroundColor = UIColor.systemGreen
         purchaseButton.setTitle("КУПЛЕНО", for: .normal)

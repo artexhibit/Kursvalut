@@ -14,9 +14,6 @@ class BaseCurrencyTableViewController: UITableViewController {
     private var pickedBaseCurrency: String {
         return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
-    private var pickedDataSource: String {
-        return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +77,7 @@ class BaseCurrencyTableViewController: UITableViewController {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshDataFromDataSourceVC"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)
         } else {
             coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)

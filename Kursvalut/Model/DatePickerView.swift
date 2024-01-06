@@ -16,12 +16,9 @@ class DatePickerView: UIView {
     private var pickedDate: String?
     private let currencyManager = CurrencyManager()
     private let currencyCoreDataManager = CurrencyCoreDataManager()
-    private var pickedDataSource: String {
-        return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
-    }
     private let minimumDate = Date(timeIntervalSinceReferenceDate: -31622400.0)
     private var maximumDate: Date {
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             let currentStoredDate = currencyCoreDataManager.fetchBankOfRussiaCurrenciesCurrentDate()
             if Date.isTomorrow(date: currentStoredDate) { return currentStoredDate }
             return Date.currentDate

@@ -24,24 +24,8 @@ class CurrencyViewController: UIViewController {
     private var userPulledToRefresh: Bool = false
     private var viewWasSwitched: Bool = false
     private var canHideOpenedView = true
-    private let notificationName = "ru.igorcodes.makeNetworkRequest" as CFString
-    private var needToRefreshFRCForCustomSort: Bool {
-        return userDefaults.bool(forKey: "needToRefreshFRCForCustomSort")
-    }
-    private var decimalsNumberChanged: Bool {
-        return userDefaults.bool(forKey: "decimalsNumberChanged")
-    }
-    private var proPurchased: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
-    }
-    private var pickedDataSource: String {
-        return userDefaults.string(forKey: "baseSource") ?? ""
-    }
-    private var pickedOrder: String {
-        return pickedDataSource == "ЦБ РФ" ? (userDefaults.string(forKey: "bankOfRussiaPickedOrder") ?? "") : (userDefaults.string(forKey: "forexPickedOrder") ?? "")
-    }
     private var pickedSection: String {
-        return pickedDataSource == "ЦБ РФ" ? (userDefaults.string(forKey: "bankOfRussiaPickedSection") ?? "") : (userDefaults.string(forKey: "forexPickedSection") ?? "")
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? (userDefaults.string(forKey: "bankOfRussiaPickedSection") ?? "") : (userDefaults.string(forKey: "forexPickedSection") ?? "")
     }
     private var todaysDate: String {
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .long)
@@ -89,18 +73,18 @@ class CurrencyViewController: UIViewController {
         self.navigationController?.navigationBar.addGestureRecognizer(navigationBarGestureRecogniser)
         currencyManager.configureContentInset(for: tableView, top: -updateButtonTopInset)
         currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch()
-        DarwinNotificationService.addNetworkRequestObserver(name: notificationName)
+        DarwinNotificationService.addNetworkRequestObserver(name: K.Notifications.networkNotification)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(makeNetworkRequest), name: NSNotification.Name(rawValue: "makeNetworkRequest"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        currencyManager.setupSymbolAndText(for: dataSourceButton, with: pickedDataSource)
+        currencyManager.setupSymbolAndText(for: dataSourceButton, with: UserDefaultsManager.pickedDataSource)
         currencyManager.setupSeparatorDesign(with: separatorView, and: separatorViewHeight)
         setupFetchedResultsController()
         updateDecimalsNumber()
-        dataSourceButton.setTitle(pickedDataSource, for: .normal)
+        dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
         updateTimeButton.setTitle(confirmedDate, for: .normal)
         
         if !userClosedApp {
@@ -128,7 +112,7 @@ class CurrencyViewController: UIViewController {
     }
     
     @IBAction func updateTimeButtonPressed(_ sender: UIButton) {
-        if !proPurchased {
+        if !UserDefaultsManager.proPurchased {
            return PopupQueueManager.shared.addPopupToQueue(title: "Только для Pro", message: "Переключение с этого экрана доступно в Pro-версии", style: .lock)
         }
         
@@ -141,12 +125,12 @@ class CurrencyViewController: UIViewController {
     }
     
     @IBAction func dataSourceButtonPressed(_ sender: UIButton) {
-        guard proPurchased == true else {
+        guard UserDefaultsManager.proPurchased == true else {
             return PopupQueueManager.shared.addPopupToQueue(title: "Только для Pro", message: "Выбор даты с этого экрана доступен в Pro-версии", style: .lock)
         }
         
         if menuView.superview == nil {
-            menuView.showView(under: dataSourceButton, in: self.view, items: (toShow: ["Forex", "ЦБ РФ"], checked: pickedDataSource))
+            menuView.showView(under: dataSourceButton, in: self.view, items: (toShow: ["Forex", "ЦБ РФ"], checked: UserDefaultsManager.pickedDataSource))
             datePickerView.hideView()
         } else {
             menuView.hideView()
@@ -166,7 +150,7 @@ extension CurrencyViewController: UIScrollViewDelegate {
 
 extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].numberOfObjects : forexFRC.sections![section].numberOfObjects
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].numberOfObjects : forexFRC.sections![section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -175,7 +159,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         let lastCellRow = tableView.numberOfRows(inSection: 0) - 1
         cell.separatorInset.right = indexPath.row == lastCellRow ? .greatestFiniteMagnitude : 19
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             let currency = bankOfRussiaFRC.object(at: indexPath)
             
             cell.selectionStyle = .none
@@ -207,7 +191,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         move.image = UIImage(systemName: "line.3.horizontal")
         move.backgroundColor = UIColor(named: "ColorBlue")
         
-        configuration = proPurchased ? UISwipeActionsConfiguration(actions: [move]) : UISwipeActionsConfiguration(actions: [])
+        configuration = UserDefaultsManager.proPurchased ? UISwipeActionsConfiguration(actions: [move]) : UISwipeActionsConfiguration(actions: [])
         return configuration
     }
 }
@@ -220,7 +204,7 @@ extension CurrencyViewController {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             var bankOfRussiaCurrencies = bankOfRussiaFRC.fetchedObjects!
             let bankOFRussiaCurrency = bankOfRussiaFRC.object(at: sourceIndexPath)
             
@@ -236,10 +220,10 @@ extension CurrencyViewController {
             coreDataManager.assignRowNumbers(to: forexCurrencies)
         }
 
-        if needToRefreshFRCForCustomSort {
+        if UserDefaultsManager.CurrencyVC.needToRefreshFRCForCustomSort {
             userDefaults.set("Своя", forKey: "bankOfRussiaPickedSection")
             setupFetchedResultsController()
-            userDefaults.set(false, forKey: "needToRefreshFRCForCustomSort")
+            UserDefaultsManager.CurrencyVC.needToRefreshFRCForCustomSort = false
         }
     }
     
@@ -262,8 +246,8 @@ extension CurrencyViewController: UITableViewDragDelegate, UITableViewDropDelega
     }
     
     func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
-        if proPurchased && !searchController.isActive {
-            if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.proPurchased && !searchController.isActive {
+            if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
                 userDefaults.set(true, forKey: "customSortSwitchIsOnForBankOfRussia")
                 userDefaults.set("Своя", forKey: "bankOfRussiaPickedSection")
                 userDefaults.set(false, forKey: "showCustomSortForBankOfRussia")
@@ -278,7 +262,7 @@ extension CurrencyViewController: UITableViewDragDelegate, UITableViewDropDelega
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidEnd session: UIDropSession) {
-        if !proPurchased && !searchController.isActive {
+        if !UserDefaultsManager.proPurchased && !searchController.isActive {
             PopupQueueManager.shared.addPopupToQueue(title: "Только для Pro", message: "Своя сортировка доступна в Pro-версии", style: .lock)
         }
         if searchController.isActive {
@@ -290,7 +274,7 @@ extension CurrencyViewController: UITableViewDragDelegate, UITableViewDropDelega
         var dropProposal = UITableViewDropProposal(operation: .forbidden)
         guard session.items.count == 1 else { return dropProposal }
         guard !searchController.isActive else { return dropProposal }
-        dropProposal = proPurchased ? UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath) : UITableViewDropProposal(operation: .forbidden)
+        dropProposal = UserDefaultsManager.proPurchased ? UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath) : UITableViewDropProposal(operation: .forbidden)
         return dropProposal
     }
     
@@ -350,15 +334,15 @@ extension CurrencyViewController {
 
 extension CurrencyViewController: NSFetchedResultsControllerDelegate {
     var sortingOrder: Bool {
-        return (pickedOrder == "По возрастанию (А→Я)" || pickedOrder == "По возрастанию (1→2)") ? true : false
+        return (UserDefaultsManager.CurrencyVC.PickedOrder.value == "По возрастанию (А→Я)" || UserDefaultsManager.CurrencyVC.PickedOrder.value == "По возрастанию (1→2)") ? true : false
     }
     
     func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
-        if searchPredicate != nil && pickedDataSource == "ЦБ РФ" {
+        if searchPredicate != nil && UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: searchPredicate)
             bankOfRussiaFRC.delegate = self
             try? bankOfRussiaFRC.performFetch()
-        } else if searchPredicate != nil && pickedDataSource != "ЦБ РФ" {
+        } else if searchPredicate != nil && UserDefaultsManager.pickedDataSource != "ЦБ РФ" {
             forexFRC = coreDataManager.createForexCurrencyFRC(with: searchPredicate)
             forexFRC.delegate = self
             try? forexFRC.performFetch()
@@ -384,7 +368,7 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
                     }
                 }
             }
-            if pickedDataSource == "ЦБ РФ" {
+            if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
                 bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: currencyScreenViewPredicate, and: sortDescriptor)
                 bankOfRussiaFRC.delegate = self
                 try? bankOfRussiaFRC.performFetch()
@@ -445,10 +429,10 @@ extension CurrencyViewController {
     }
     
     func updateDecimalsNumber() {
-        if decimalsNumberChanged {
+        if UserDefaultsManager.CurrencyVC.decimalsNumberChanged {
             tableView.reloadData()
         }
-        userDefaults.set(false, forKey: "decimalsNumberChanged")
+        UserDefaultsManager.CurrencyVC.decimalsNumberChanged = false
     }
     
     func showNotificationPermissionScreen() {
@@ -490,7 +474,7 @@ extension CurrencyViewController {
             userDefaults.set(self.todaysDate, forKey: "confirmedDate")
             userDefaults.set(false, forKey: "pickDateSwitchIsOn")
         }
-        if pickedDataSource != "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource != "ЦБ РФ" {
             DispatchQueue.main.async {
                 self.coreDataManager.filterOutForexBaseCurrency()
             }
@@ -560,8 +544,8 @@ extension CurrencyViewController: DatePickerViewDelegate {
 
 extension CurrencyViewController: MenuViewDelegate {
     func didPickDataSource(_ menuView: MenuView, dataSource: String) {
-        let lastPickedSource = self.pickedDataSource
-        self.userDefaults.set(dataSource, forKey: "baseSource")
+        let lastPickedSource = UserDefaultsManager.pickedDataSource
+        UserDefaultsManager.pickedDataSource = dataSource
         
         DispatchQueue.main.async {
             PopupQueueManager.shared.addPopupToQueue(title: "Загружаем", message: "Секунду", style: .load, type: .manual)
@@ -574,13 +558,13 @@ extension CurrencyViewController: MenuViewDelegate {
                 DispatchQueue.main.async {
                     PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
                 }
-                self.userDefaults.set(lastPickedSource, forKey: "baseSource")
+                UserDefaultsManager.pickedDataSource = lastPickedSource
             } else {
                 self.setupFetchedResultsController()
                 DispatchQueue.main.async {
                     PopupQueueManager.shared.changePopupDataInQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
                     self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
-                    self.dataSourceButton.setTitle(self.pickedDataSource, for: .normal)
+                    self.dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)

@@ -7,9 +7,6 @@ struct CurrencyNetworking {
     private let coreDataManager = CurrencyCoreDataManager()
     private let currencyManager = CurrencyManager()
     private let dataToFilterOut = Set(["BTC", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPD", "XPF", "XPT"])
-    private var pickedDataSource: String {
-        return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
-    }
     private var pickedBaseCurrency: String {
         return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
@@ -65,7 +62,7 @@ struct CurrencyNetworking {
         var errorToShow: Error!
         var parsingError: NSError?
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             urlArray.append(currentBankOfRussiaURL)
         } else {
             urlArray.append(currentForexURL)
@@ -138,7 +135,7 @@ struct CurrencyNetworking {
                 coreDataManager.resetCurrencyScreenPropertyForForexCurrencies()
                 url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData, currentDate: currenciesCurrentDate, previousDate: currenciesPreviousDate) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData, currentDate: historicalDates.current, previousDate: historicalDates.prev)
                 
-                if pickedDataSource != "ЦБ РФ" {
+                if UserDefaultsManager.pickedDataSource != "ЦБ РФ" {
                     coreDataManager.filterOutForexBaseCurrency()
                 }
                 coreDataManager.removeResetForexCurrenciesFromConverter()

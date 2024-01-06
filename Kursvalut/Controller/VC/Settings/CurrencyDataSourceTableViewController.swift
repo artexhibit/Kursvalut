@@ -13,17 +13,11 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         (header: "Курс на конкретную дату", footer: [""])
     ]
     private let sections = (dataSource: 0, baseCurrency: 1, concreteDate: 2)
-    private var proPurchased: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
-    }
     private var pickedBaseCurrency: String {
         return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
-    private var pickedDataSource: String {
-        return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
-    }
     private var pickedSection: String {
-        return pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexPickedSection") ?? "")
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexPickedSection") ?? "")
     }
     private var wasActiveCurrencyVC: Bool {
         return UserDefaults.sharedContainer.bool(forKey: "isActiveCurrencyVC")
@@ -176,7 +170,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == sections.baseCurrency {
-            return pickedDataSource == "ЦБ РФ" ? sectionsData[section].footer[1] : sectionsData[section].footer[0]
+            return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? sectionsData[section].footer[1] : sectionsData[section].footer[0]
         } else {
             return sectionsData[section].footer[0]
         }
@@ -186,13 +180,13 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         if indexPath.section == sections.dataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "dataSourceCell", for: indexPath) as! DataSourceTableViewCell
             cell.sourceNameLabel.text = dataSourceOptions[indexPath.row]
-            cell.accessoryType = cell.sourceNameLabel.text == pickedDataSource ? .checkmark : .none
+            cell.accessoryType = cell.sourceNameLabel.text == UserDefaultsManager.pickedDataSource ? .checkmark : .none
             return cell
         } else if indexPath.section == sections.baseCurrency {
             let cell = tableView.dequeueReusableCell(withIdentifier: "pickedBaseCurrencyCell", for: indexPath) as! PickedBaseCurrencyTableViewCell
             cell.pickedBaseCurrencyLabel.text = pickedBaseCurrency
             
-            if pickedDataSource == "ЦБ РФ" {
+            if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
                 cell.backgroundColor = .systemGray5
                 cell.isUserInteractionEnabled = false
             } else {
@@ -204,9 +198,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "concreteDateCell", for: indexPath) as! ConcreteDateTableViewCell
                 cell.dateLabel.text = confirmedDate
-                cell.proLabel.isHidden = !proPurchased ? false : true
-                cell.backgroundColor = !proPurchased ? .systemGray5 : .none
-                cell.pickDateSwitch.isEnabled = !proPurchased ? false : true
+                cell.proLabel.isHidden = !UserDefaultsManager.proPurchased ? false : true
+                cell.backgroundColor = !UserDefaultsManager.proPurchased ? .systemGray5 : .none
+                cell.pickDateSwitch.isEnabled = !UserDefaultsManager.proPurchased ? false : true
                 
                 if pickDateSwitchIsOn {
                     cell.pickDateSwitch.setOn(true, animated: false)
@@ -241,7 +235,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             let pickedOption = cell.sourceNameLabel.text ?? ""
          
             cell.dataUpdateSpinner.startAnimating()
-            UserDefaults.sharedContainer.set(pickedOption, forKey: "baseSource")
+            UserDefaultsManager.pickedDataSource = pickedOption
             
             if pickedOption == "ЦБ РФ" {
                 UserDefaults.sharedContainer.set("RUB", forKey: "baseCurrency")
@@ -255,7 +249,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOff"), object: nil)
             tableView.reloadSections(IndexSet(integer: sections.baseCurrency), with: .fade)
             
-            if pickedDataSource == "ЦБ РФ" {
+            if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
                 coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)
             } else {
                 coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)
@@ -347,7 +341,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
    private func resetCurrencyHistoricalRow() {
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             coreDataManager.resetRowForHistoricalCurrencyPropertyForBankOfRussiaCurrencies()
         } else {
             coreDataManager.resetRowForHistoricalCurrencyPropertyForForexCurrencies()

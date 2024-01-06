@@ -28,13 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "startView")!, forKey: "startView")
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "pickedTheme")!, forKey: "pickedTheme")
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection")!, forKey: "bankOfRussiaPickedSection")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder")!, forKey: "bankOfRussiaPickedOrder")
+            UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder")!
             UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "bankOfRussiaPickedSectionNumber"), forKey: "bankOfRussiaPickedSectionNumber")
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "forexPickedSection")!, forKey: "forexPickedSection")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "forexPickedOrder")!, forKey: "forexPickedOrder")
+            UserDefaultsManager.CurrencyVC.PickedOrder.forexOrder = UserDefaults.standard.string(forKey: "forexPickedOrder")!
             UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "forexPickedSectionNumber"), forKey: "forexPickedSectionNumber")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "userHasOnboarded"), forKey: "userHasOnboarded")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "baseSource")!, forKey: "baseSource")
+            UserDefaultsManager.pickedDataSource = UserDefaults.standard.string(forKey: "baseSource")!
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "baseCurrency")!, forKey: "baseCurrency")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "keyboardWithSound"), forKey: "keyboardWithSound")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "roundFlags"), forKey: "roundFlags")
@@ -49,12 +49,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousForexPickedSection")!, forKey: "previousForexPickedSection")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "showCustomSortForBankOfRussia"), forKey: "showCustomSortForBankOfRussia")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "showCustomSortForForex"), forKey: "showCustomSortForForex")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "needToRefreshFRCForCustomSort"), forKey: "needToRefreshFRCForCustomSort")
+            UserDefaultsManager.CurrencyVC.needToRefreshFRCForCustomSort = UserDefaults.standard.bool(forKey: "needToRefreshFRCForCustomSort")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "canResetValuesInActiveTextField"), forKey: "canResetValuesInActiveTextField")
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "bankOfRussiaPickedCurrency")!, forKey: "bankOfRussiaPickedCurrency")
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "forexPickedCurrency")!, forKey: "forexPickedCurrency")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "canSaveConverterValues"), forKey: "canSaveConverterValues")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "kursvalutPro"), forKey: "kursvalutPro")
+            UserDefaultsManager.proPurchased = UserDefaults.standard.bool(forKey: "kursvalutPro")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "permissionScreenWasShown"), forKey: "permissionScreenWasShown")
             
             UserDefaults.standard.setValue(true, forKey: "migrationCompleted")

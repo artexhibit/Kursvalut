@@ -11,12 +11,9 @@ class DatePickerTableViewCell: UITableViewCell {
     private var appColor: String {
         return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
-    private var pickedDataSource: String {
-        return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
-    }
     let minimumDate = Date(timeIntervalSinceReferenceDate: -31622400.0)
     private var maximumDate: Date {
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             let currentStoredDate = currencyCoreDataManager.fetchBankOfRussiaCurrenciesCurrentDate()
             if Date.isTomorrow(date: currentStoredDate) { return currentStoredDate }
             return Date.currentDate

@@ -367,15 +367,8 @@ struct CurrencyCoreDataManager {
     }
     
     func fetchSortedCurrencies() -> (cbrf: [Currency], forex: [ForexCurrency]) {
-        var pickedDataSource: String {
-            return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
-        }
-        
-        var pickedOrder: String {
-            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaPickedOrder") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexPickedOrder") ?? "")
-        }
         var pickedSection: String {
-            return pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexPickedSection") ?? "")
+            return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexPickedSection") ?? "")
         }
         
         var pickDateSwitchFromDataSourceIsOn: Bool {
@@ -383,7 +376,7 @@ struct CurrencyCoreDataManager {
         }
         
         var sortingOrder: Bool {
-            return (pickedOrder == "По возрастанию (А→Я)" || pickedOrder == "По возрастанию (1→2)") ? true : false
+            return (UserDefaultsManager.CurrencyVC.PickedOrder.value == "По возрастанию (А→Я)" || UserDefaultsManager.CurrencyVC.PickedOrder.value == "По возрастанию (1→2)") ? true : false
         }
         
         var predicate: NSCompoundPredicate {

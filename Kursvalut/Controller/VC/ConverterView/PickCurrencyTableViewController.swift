@@ -10,12 +10,6 @@ class PickCurrencyTableViewController: UITableViewController {
     private var currencyManager = CurrencyManager()
     private let coreDataManager = CurrencyCoreDataManager()
     private let converterManager = ConverterManager()
-    private var proPurchased: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
-    }
-    private var pickedDataSource: String {
-        return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
-    }
     private var amountOfPickedBankOfRussiaCurrencies: Int {
         return UserDefaults.sharedContainer.integer(forKey: "savedAmountForBankOfRussia")
     }
@@ -40,17 +34,17 @@ class PickCurrencyTableViewController: UITableViewController {
     // MARK: - TableView Delegate & DataSource Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections!.count : forexFRC.sections!.count
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections!.count : forexFRC.sections!.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].name : forexFRC.sections![section].name
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].name : forexFRC.sections![section].name
     }
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         var sectionTitles = [String]()
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             guard let sections = bankOfRussiaFRC?.sections else { return nil }
             
             for section in sections {
@@ -69,17 +63,17 @@ class PickCurrencyTableViewController: UITableViewController {
     }
     
     func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.section(forSectionIndexTitle: title, at: index) : forexFRC.section(forSectionIndexTitle: title, at: index)
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.section(forSectionIndexTitle: title, at: index) : forexFRC.section(forSectionIndexTitle: title, at: index)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].numberOfObjects : forexFRC.sections![section].numberOfObjects
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].numberOfObjects : forexFRC.sections![section].numberOfObjects
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "pickCurrencyCell", for: indexPath) as! PickCurrencyTableViewCell
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             let currency = bankOfRussiaFRC.object(at: indexPath)
             
             cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
@@ -98,7 +92,7 @@ class PickCurrencyTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             var currentAmount = amountOfPickedBankOfRussiaCurrencies
             let bankOfRussiaCurrencies = coreDataManager.fetchCurrencies(entityName: Currency.self)
             let bankOfRussiaCurrency = bankOfRussiaFRC.object(at: indexPath)
@@ -107,9 +101,9 @@ class PickCurrencyTableViewController: UITableViewController {
             bankOfRussiaCurrency.isForConverter ? (currentAmount += 1) : (currentAmount -= 1)
             
             if bankOfRussiaCurrency.isForConverter {
-                if proPurchased {
+                if UserDefaultsManager.proPurchased {
                     converterManager.setRow(for: bankOfRussiaCurrency, in: bankOfRussiaCurrencies)
-                } else if !proPurchased && currentAmount <= 3 {
+                } else if !UserDefaultsManager.proPurchased && currentAmount <= 3 {
                     converterManager.setRow(for: bankOfRussiaCurrency, in: bankOfRussiaCurrencies)
                 } else {
                     bankOfRussiaCurrency.isForConverter = false
@@ -122,7 +116,7 @@ class PickCurrencyTableViewController: UITableViewController {
             }
             UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForBankOfRussia")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCells"), object: nil, userInfo: ["currencyWasAdded": bankOfRussiaCurrency.isForConverter])
-        } else if pickedDataSource == "Forex" {
+        } else if UserDefaultsManager.pickedDataSource == "Forex" {
             var currentAmount = amountOfPickedForexCurrencies
             let forexCurrencies = coreDataManager.fetchCurrencies(entityName: ForexCurrency.self)
             let forexCurrency = forexFRC.object(at: indexPath)
@@ -131,9 +125,9 @@ class PickCurrencyTableViewController: UITableViewController {
             forexCurrency.isForConverter ? (currentAmount += 1) : (currentAmount -= 1)
             
             if forexCurrency.isForConverter {
-                if proPurchased {
+                if UserDefaultsManager.proPurchased {
                     converterManager.setRow(for: forexCurrency, in: forexCurrencies)
-                } else if !proPurchased && currentAmount <= 3 {
+                } else if !UserDefaultsManager.proPurchased && currentAmount <= 3 {
                     converterManager.setRow(for: forexCurrency, in: forexCurrencies)
                 } else {
                     forexCurrency.isForConverter = false
@@ -167,7 +161,7 @@ extension PickCurrencyTableViewController: NSFetchedResultsControllerDelegate {
             }
         }
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: searchCompoundPredicate, and: sortDescriptor)
             bankOfRussiaFRC.delegate = self
             try? bankOfRussiaFRC.performFetch()

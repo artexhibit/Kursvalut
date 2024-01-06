@@ -7,29 +7,20 @@ class SortingTableViewController: UITableViewController {
     private let customSortCellSection = 3
     private var currencyManager = CurrencyManager()
     private var coreDataManager = CurrencyCoreDataManager()
-    private var proPurchased: Bool {
-        return userDefaults.bool(forKey: "kursvalutPro")
-    }
-    private var pickedOrder: String {
-        return pickedDataSource == "ЦБ РФ" ? (userDefaults.string(forKey: "bankOfRussiaPickedOrder") ?? "") : (userDefaults.string(forKey: "forexPickedOrder") ?? "")
-    }
     private var pickedSectionNumber: Int {
-        return pickedDataSource == "ЦБ РФ" ?userDefaults.integer(forKey: "bankOfRussiaPickedSectionNumber") : userDefaults.integer(forKey: "forexPickedSectionNumber")
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ?userDefaults.integer(forKey: "bankOfRussiaPickedSectionNumber") : userDefaults.integer(forKey: "forexPickedSectionNumber")
     }
     private var previousPickedOrder: String {
-        return pickedDataSource == "ЦБ РФ" ? (userDefaults.string(forKey: "previousBankOfRussiaPickedOrder") ?? "") : (userDefaults.string(forKey: "previousForexPickedOrder") ?? "")
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? (userDefaults.string(forKey: "previousBankOfRussiaPickedOrder") ?? "") : (userDefaults.string(forKey: "previousForexPickedOrder") ?? "")
     }
     private var previousPickedSection: String {
-        return pickedDataSource == "ЦБ РФ" ? (userDefaults.string(forKey: "previousLastBankOfRussiaPickedSection") ?? "") : (userDefaults.string(forKey: "previousForexPickedSection") ?? "")
-    }
-    private var pickedDataSource: String {
-        return userDefaults.string(forKey: "baseSource") ?? ""
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? (userDefaults.string(forKey: "previousLastBankOfRussiaPickedSection") ?? "") : (userDefaults.string(forKey: "previousForexPickedSection") ?? "")
     }
     private var customSortSwitchIsOn: Bool {
-        return pickedDataSource == "ЦБ РФ" ? userDefaults.bool(forKey: "customSortSwitchIsOnForBankOfRussia") : userDefaults.bool(forKey: "customSortSwitchIsOnForForex")
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? userDefaults.bool(forKey: "customSortSwitchIsOnForBankOfRussia") : userDefaults.bool(forKey: "customSortSwitchIsOnForForex")
     }
     private var showCustomSortInCurrencyScreen: Bool {
-        return pickedDataSource == "ЦБ РФ" ? userDefaults.bool(forKey: "showCustomSortForBankOfRussia") : userDefaults.bool(forKey: "showCustomSortForForex")
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? userDefaults.bool(forKey: "showCustomSortForBankOfRussia") : userDefaults.bool(forKey: "showCustomSortForForex")
     }
     private var sections = [
         SortingSection(title: "По имени", subtitle: "Российский рубль", options: ["По возрастанию (А→Я)", "По убыванию (Я→А)"]),
@@ -67,12 +58,12 @@ class SortingTableViewController: UITableViewController {
         var indexPaths = [IndexPath]()
         var mainCells = [MainSortTableViewCell]()
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             userDefaults.set(true, forKey: "customSortSwitchIsOnForBankOfRussia")
             
             if !showCustomSortInCurrencyScreen {
                 userDefaults.set(customSortCell.titleLabel.text, forKey: "bankOfRussiaPickedSection")
-                userDefaults.set("Включить", forKey: "bankOfRussiaPickedOrder")
+                UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = "Включить"
             } else {
                 userDefaults.set(previousPickedSection, forKey: "bankOfRussiaPickedSection")
             }
@@ -81,7 +72,7 @@ class SortingTableViewController: UITableViewController {
             
             if !showCustomSortInCurrencyScreen {
                 userDefaults.set(customSortCell.titleLabel.text, forKey: "forexPickedSection")
-                userDefaults.set("Включить", forKey: "forexPickedOrder")
+                UserDefaultsManager.CurrencyVC.PickedOrder.forexOrder = "Включить"
             } else {
                 userDefaults.set(previousPickedSection, forKey: "forexPickedSection")
             }
@@ -116,16 +107,16 @@ class SortingTableViewController: UITableViewController {
         var indexPathsToInsert = [IndexPath]()
         var rowIndexPathToReload = [IndexPath]()
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             userDefaults.set(false, forKey: "customSortSwitchIsOnForBankOfRussia")
             userDefaults.set(previousPickedSection, forKey: "bankOfRussiaPickedSection")
-            userDefaults.set(previousPickedOrder, forKey: "bankOfRussiaPickedOrder")
+            UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = previousPickedOrder
         } else {
             userDefaults.set(false, forKey: "customSortSwitchIsOnForForex")
             userDefaults.set(previousPickedSection, forKey: "forexPickedSection")
-            userDefaults.set(previousPickedOrder, forKey: "forexPickedOrder")
+            UserDefaultsManager.CurrencyVC.PickedOrder.forexOrder = previousPickedOrder
         }
-        userDefaults.set(true, forKey: "needToRefreshFRCForCustomSort")
+        UserDefaultsManager.CurrencyVC.needToRefreshFRCForCustomSort = true
         
         for section in 0..<(tableView.numberOfSections - 1) {
             if section != pickedSectionNumber {
@@ -144,7 +135,7 @@ class SortingTableViewController: UITableViewController {
             for row in 1..<tableView.numberOfRows(inSection: section) {
                 guard let subSortCell = tableView.cellForRow(at: IndexPath(row: row, section: section)) as? SubSortTableViewCell else { return }
                 
-                if subSortCell.titleLabel.text == pickedOrder {
+                if subSortCell.titleLabel.text == UserDefaultsManager.CurrencyVC.PickedOrder.value {
                     let indexPath = IndexPath(row: row, section: pickedSectionNumber)
                     rowIndexPathToReload.append(indexPath)
                 }
@@ -196,9 +187,9 @@ class SortingTableViewController: UITableViewController {
             cell.subtitleLabel.text = sections[customSortCellSection].subtitle
             cell.selectionStyle = .none
             
-            cell.proLabel.isHidden = !proPurchased ? false : true
-            cell.backgroundColor = !proPurchased ? .systemGray5 : .none
-            cell.customSortSwitch.isEnabled = !proPurchased ? false : true
+            cell.proLabel.isHidden = !UserDefaultsManager.proPurchased ? false : true
+            cell.backgroundColor = !UserDefaultsManager.proPurchased ? .systemGray5 : .none
+            cell.customSortSwitch.isEnabled = !UserDefaultsManager.proPurchased ? false : true
             
             if customSortSwitchIsOn {
                 cell.customSortSwitch.setOn(true, animated: false)
@@ -211,7 +202,7 @@ class SortingTableViewController: UITableViewController {
             cell.titleLabel.text = sections[section].options[indexPath.row - 1]
             
             if pickedSectionNumber == section {
-                cell.accessoryType = cell.titleLabel.text == pickedOrder && !customSortSwitchIsOn ? .checkmark : .none
+                cell.accessoryType = cell.titleLabel.text == UserDefaultsManager.CurrencyVC.PickedOrder.value && !customSortSwitchIsOn ? .checkmark : .none
             } else {
                 cell.accessoryType = .none
             }
@@ -220,7 +211,7 @@ class SortingTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "На экране Валюты для \(pickedDataSource)" : ""
+        return section == 0 ? "На экране Валюты для \(UserDefaultsManager.pickedDataSource)" : ""
     }
     
     //MARK: - TableView Delegate Methods
@@ -263,22 +254,22 @@ class SortingTableViewController: UITableViewController {
                 guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: customSortCellSection)) as? CustomSortTableViewCell else { return }
                 cell.customSortSwitch.setOn(false, animated: true)
             }
-            if pickedDataSource == "ЦБ РФ" {
+            if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
                 userDefaults.set(false, forKey: "customSortSwitchIsOnForBankOfRussia")
-                userDefaults.set(pickedOrder, forKey: "bankOfRussiaPickedOrder")
+                UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = pickedOrder
                 userDefaults.set(pickedSection, forKey: "bankOfRussiaPickedSection")
                 userDefaults.set(section, forKey: "bankOfRussiaPickedSectionNumber")
                 userDefaults.set(pickedOrder, forKey: "previousBankOfRussiaPickedOrder")
                 userDefaults.set(pickedSection, forKey: "previousLastBankOfRussiaPickedSection")
             } else {
                 userDefaults.set(false, forKey: "customSortSwitchIsOnForForex")
-                userDefaults.set(pickedOrder, forKey: "forexPickedOrder")
+                UserDefaultsManager.CurrencyVC.PickedOrder.forexOrder = pickedOrder
                 userDefaults.set(pickedSection, forKey: "forexPickedSection")
                 userDefaults.set(section, forKey: "forexPickedSectionNumber")
                 userDefaults.set(pickedOrder, forKey: "previousForexPickedOrder")
                 userDefaults.set(pickedSection, forKey: "previousForexPickedSection")
             }
-            userDefaults.set(true, forKey: "needToRefreshFRCForCustomSort")
+            UserDefaultsManager.CurrencyVC.needToRefreshFRCForCustomSort = true
             
             for section in 0..<(tableView.numberOfSections - 1) {
                 if section != pickedSectionNumber {
@@ -304,7 +295,7 @@ class SortingTableViewController: UITableViewController {
             tableView.endUpdates()
         }
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)
         } else {
             coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)

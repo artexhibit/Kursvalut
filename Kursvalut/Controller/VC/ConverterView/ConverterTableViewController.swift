@@ -38,9 +38,6 @@ class ConverterTableViewController: UITableViewController {
     private var pickedStartView: String {
         return UserDefaults.sharedContainer.string(forKey: "startView") ?? ""
     }
-    private var proPurchased: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
-    }
     private var amountOfPickedBankOfRussiaCurrencies: Int {
         return UserDefaults.sharedContainer.integer(forKey: "savedAmountForBankOfRussia")
     }
@@ -49,9 +46,6 @@ class ConverterTableViewController: UITableViewController {
     }
     private var appColor: String {
         return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
-    private var pickedDataSource: String {
-        return UserDefaults.sharedContainer.string(forKey: "baseSource") ?? ""
     }
     private var setTextFieldToZero: Bool {
         UserDefaults.sharedContainer.bool(forKey: "setTextFieldToZero")
@@ -63,7 +57,7 @@ class ConverterTableViewController: UITableViewController {
         return UserDefaults.sharedContainer.bool(forKey: "canSaveConverterValues")
     }
     private var pickedConverterCurrency: String {
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
            return UserDefaults.sharedContainer.string(forKey: "bankOfRussiaPickedCurrency") ?? ""
         } else {
             return UserDefaults.sharedContainer.string(forKey: "forexPickedCurrency") ?? ""
@@ -134,7 +128,7 @@ class ConverterTableViewController: UITableViewController {
     // MARK: - TableView DataSource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].numberOfObjects : forexFRC.sections![section].numberOfObjects
+        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].numberOfObjects : forexFRC.sections![section].numberOfObjects
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -144,7 +138,7 @@ class ConverterTableViewController: UITableViewController {
         let longTapGestureRecogniser = UILongPressGestureRecognizer(target: self, action: #selector(deleteButtonLongPressed(_:)))
         numpadView.deleteButton.addGestureRecognizer(longTapGestureRecogniser)
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             let currency = bankOfRussiaFRC.object(at: indexPath)
             cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
             cell.shortName.text = currency.shortName
@@ -225,13 +219,13 @@ class ConverterTableViewController: UITableViewController {
             shouldAnimateCellAppear = false
             avoidTriggerCellsHeightChange = true
             
-            if pickedDataSource == "ЦБ РФ" {
+            if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
                 var currentAmount = amountOfPickedBankOfRussiaCurrencies
                 let currencies = bankOfRussiaFRC.fetchedObjects!
                 let currency = bankOfRussiaFRC.object(at: indexPath)
                 
                 currency.isForConverter = false
-                if !proPurchased {
+                if !UserDefaultsManager.proPurchased {
                     currentAmount -= 1
                     UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForBankOfRussia")
                 }
@@ -251,7 +245,7 @@ class ConverterTableViewController: UITableViewController {
                 let currency = forexFRC.object(at: indexPath)
                 
                 currency.isForConverter = false
-                if !proPurchased {
+                if !UserDefaultsManager.proPurchased {
                     currentAmount -= 1
                     UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForForex")
                 }
@@ -278,7 +272,7 @@ class ConverterTableViewController: UITableViewController {
         delete.image = UIImage(systemName: "trash")
         delete.backgroundColor = UIColor(named: "ColorRed")
         
-        if proPurchased {
+        if UserDefaultsManager.proPurchased {
             let configuration = UISwipeActionsConfiguration(actions: [delete, move])
             return configuration
         } else {
@@ -313,7 +307,7 @@ class ConverterTableViewController: UITableViewController {
     }
     
     @objc func hideKeyboardButtonPressed() {
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             let currencies = bankOfRussiaFRC.fetchedObjects
             
             currencies?.forEach({ currency in
@@ -434,7 +428,7 @@ class ConverterTableViewController: UITableViewController {
         let lastRow = tableView.numberOfRows(inSection: 0) - 1
         let indexPath = IndexPath(row: lastRow, section: 0)
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             let bankOfRussiaCurrency = bankOfRussiaFRC.object(at: indexPath)
             let allCurrencies = bankOfRussiaFRC.fetchedObjects
             
@@ -472,7 +466,7 @@ class ConverterTableViewController: UITableViewController {
             avoidTriggerCellsHeightChange = true
             for cell in activeConverterCells {
                 if let indexPath = tableView.indexPath(for: cell) {
-                    if pickedDataSource == "ЦБ РФ" {
+                    if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
                         let currency = bankOfRussiaFRC.object(at: indexPath)
                         currency.converterValue = cell.numberTextField.text
                     } else {
@@ -496,7 +490,7 @@ class ConverterTableViewController: UITableViewController {
         shouldAnimateCellAppear = true
         canSetCustomCellHeight = false
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             var currencies = bankOfRussiaFRC.fetchedObjects!
             let currency = bankOfRussiaFRC.object(at: sourceIndexPath)
             
@@ -578,7 +572,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         if text.isEmpty {
             textField.text = "0"
             
-            if pickedDataSource == "ЦБ РФ" {
+            if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
                 UserDefaults.sharedContainer.set("", forKey: "bankOfRussiaPickedCurrency")
             } else {
                 UserDefaults.sharedContainer.set("", forKey: "forexPickedCurrency")
@@ -612,7 +606,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         lastPickedData.textField = textField
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             pickedBankOfRussiaCurrency = bankOfRussiaFRC.object(at: pickedCurrencyIndexPath)
         } else {
             pickedForexCurrency = forexFRC.object(at: pickedCurrencyIndexPath)
@@ -865,7 +859,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: textField, and: tableView)
         let currentlyEditingCell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             UserDefaults.sharedContainer.set(currentlyEditingCell?.shortName.text, forKey: "bankOfRussiaPickedCurrency")
         } else {
             UserDefaults.sharedContainer.set(currentlyEditingCell?.shortName.text, forKey: "forexPickedCurrency")
@@ -885,7 +879,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         
         for cell in activeConverterCells { cell.numberTextField.text = "0" }
         
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             UserDefaults.sharedContainer.set("", forKey: "bankOfRussiaPickedCurrency")
             let currencies = bankOfRussiaFRC.fetchedObjects!
             
@@ -978,7 +972,7 @@ extension ConverterTableViewController {
 
 extension ConverterTableViewController: NSFetchedResultsControllerDelegate {
     @objc func setupFetchedResultsController() {
-        if pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             let predicate = NSPredicate(format: "isForConverter == YES")
             let sortDescriptor = NSSortDescriptor(key: "rowForConverter", ascending: true)
             bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: predicate, and: sortDescriptor)

@@ -98,11 +98,11 @@ extension DecimalsTableViewController: StepperDelegate {
         
         if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 0 {
             userDefaults.set(number, forKey: "currencyScreenDecimals")
-            userDefaults.set(true, forKey: "decimalsNumberChanged")
+            UserDefaultsManager.CurrencyVC.decimalsNumberChanged = true
             tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
         } else if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 1 {
             userDefaults.set(number, forKey: "currencyScreenPercentageDecimals")
-            userDefaults.set(true, forKey: "decimalsNumberChanged")
+            UserDefaultsManager.CurrencyVC.decimalsNumberChanged = true
             tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
         } else {
             userDefaults.set(number, forKey: "converterScreenDecimals")

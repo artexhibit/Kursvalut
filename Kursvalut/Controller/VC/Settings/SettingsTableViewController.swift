@@ -18,9 +18,6 @@ class SettingsTableViewController: UITableViewController {
     private var pickedTheme: String {
         return UserDefaults.sharedContainer.string(forKey: "pickedTheme") ?? ""
     }
-    private var proPurchased: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "kursvalutPro")
-    }
     private var keyboardWithSound: Bool {
         return UserDefaults.sharedContainer.bool(forKey: "keyboardWithSound")
     }
@@ -37,7 +34,7 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         roundViewCorners()
-        if proPurchased { unlockPro(for: proLabel) }
+        if UserDefaultsManager.proPurchased { unlockPro(for: proLabel) }
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: "pro"), object: nil)
     }
@@ -125,7 +122,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     @objc func reloadData(notification: NSNotification) {
-        if proPurchased {
+        if UserDefaultsManager.proPurchased {
             unlockPro(for: proLabel)
         }
     }
@@ -145,9 +142,9 @@ class SettingsTableViewController: UITableViewController {
         } else if pickedSection == 5 && pickedCell == 4 {
             sendUserToLeaveReview()
         } else if pickedSection == 3 && pickedCell == 1 {
-            proPurchased ? PopupQueueManager.shared.addPopupToQueue(title: "Всё в порядке", message: "Pro уже восстановлен", style: .success) : startProVersionRestore()
+            UserDefaultsManager.proPurchased ? PopupQueueManager.shared.addPopupToQueue(title: "Всё в порядке", message: "Pro уже восстановлен", style: .success) : startProVersionRestore()
         } else if pickedSection == 1 && (pickedCell == 1 || pickedCell == 2 || pickedCell == 3) {
-            if proPurchased {
+            if UserDefaultsManager.proPurchased {
                unlockPro(for: pickedCell)
             } else {
                 PopupQueueManager.shared.addPopupToQueue(title: "Закрыто", message: "Доступно только в Pro", style: .lock)
@@ -215,7 +212,7 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             if transaction.transactionState == .restored {
-                UserDefaults.sharedContainer.set(true, forKey: "kursvalutPro")
+                UserDefaultsManager.proPurchased = true
                 SKPaymentQueue.default().finishTransaction(transaction)
                 SKPaymentQueue.default().remove(self)
                 unlockPro(for: proLabel)
