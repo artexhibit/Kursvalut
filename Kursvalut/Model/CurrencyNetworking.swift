@@ -10,11 +10,8 @@ struct CurrencyNetworking {
     private var pickedBaseCurrency: String {
         return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
-    private var confirmedDate: String {
-        return UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
-    }
     private var yesterdaysDate: String {
-        let confirmedDate = currencyManager.createDate(from: confirmedDate)
+        let confirmedDate = currencyManager.createDate(from: UserDefaultsManager.confirmedDate)
         let confirmedStringDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: confirmedDate, dateStyle: nil)
         let todaysDate = currencyManager.createStringDate(with: "yyyy-MM-dd")
         
@@ -27,7 +24,7 @@ struct CurrencyNetworking {
         }
     }
     private var currentBankOfRussiaURL: URL {
-        let date = currencyManager.createDate(from: confirmedDate)
+        let date = currencyManager.createDate(from: UserDefaultsManager.confirmedDate)
         let confirmedDate = currencyManager.createStringDate(with: "yyyy/MM/dd", from: date)
         let todaysDate = currencyManager.createStringDate(with: "yyyy/MM/dd")
         
@@ -38,7 +35,7 @@ struct CurrencyNetworking {
         }
     }
     private var currentForexURL: URL {
-        let date = currencyManager.createDate(from: confirmedDate)
+        let date = currencyManager.createDate(from: UserDefaultsManager.confirmedDate)
         let confirmedDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: date)
         let todaysDate = currencyManager.createStringDate(with: "yyyy-MM-dd")
         

@@ -16,7 +16,7 @@ class NotificationService: UNNotificationServiceExtension {
                 
                 let currentDate = Date.createStringDate(from: Date(), dateStyle: .medium)
                 UserDefaults.sharedContainer.set(currentDate, forKey: "confirmedDate")
-                UserDefaults.sharedContainer.set(false, forKey: "pickDateSwitchIsOn")
+                UserDefaultsManager.pickDateSwitchIsOn = false
                 
                 let currencyManager = CurrencyManager()
                 let coreDataManager = CurrencyCoreDataManager()

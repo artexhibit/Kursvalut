@@ -26,9 +26,6 @@ struct CurrencyManager {
     private var pickedBaseCurrency: String {
         return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
-    private var confirmedDateFromDataSourceVC: String {
-        return UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
-    }
     private var todaysDate: String {
         return createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
     }

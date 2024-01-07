@@ -107,10 +107,7 @@ struct WidgetsCoreDataManager {
     }
     
     static func getFirstTenCurrencies(for baseSource: String, and baseCurrency: String) -> [String] {
-        var confirmedDate: Date {
-            let date = UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
-            return Date.formatDate(from: date)
-        }
+        let confirmedDate = Date.formatDate(from: UserDefaultsManager.confirmedDate)
         
         if baseSource == WidgetsData.cbrf {
             if Calendar.current.isDate(confirmedDate, inSameDayAs: Date.currentDate) {

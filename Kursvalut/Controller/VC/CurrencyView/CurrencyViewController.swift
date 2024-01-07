@@ -24,17 +24,8 @@ class CurrencyViewController: UIViewController {
     private var userPulledToRefresh: Bool = false
     private var viewWasSwitched: Bool = false
     private var canHideOpenedView = true
-    private var pickedSection: String {
-        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? (userDefaults.string(forKey: "bankOfRussiaPickedSection") ?? "") : (userDefaults.string(forKey: "forexPickedSection") ?? "")
-    }
-    private var todaysDate: String {
-        return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .long)
-    }
-    private var userHasOnboarded: Bool {
-        return userDefaults.bool(forKey: "userHasOnboarded")
-    }
     private var confirmedDate: String {
-        let date = Date.formatDate(from: UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? "")
+        let date = Date.formatDate(from: UserDefaultsManager.confirmedDate)
         return Date.createStringDate(from: date, dateStyle: .long)
     }
     private var needToScrollUpViewController: Bool {
@@ -42,9 +33,6 @@ class CurrencyViewController: UIViewController {
     }
     private var userClosedApp: Bool {
         return userDefaults.bool(forKey: "userClosedApp")
-    }
-    private var pickDateSwitchFromDataSourceIsOn: Bool {
-        return userDefaults.bool(forKey: "pickDateSwitchIsOn")
     }
     private var tapGestureRecognizer: UITapGestureRecognizer {
         let recogniser = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -95,7 +83,7 @@ class CurrencyViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if !userHasOnboarded {
+        if !UserDefaultsManager.userHasOnboarded {
             performSegue(withIdentifier: "showOnboarding", sender: self)
             currencyManager.updateAllCurrencyTypesData {
                 self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
@@ -221,7 +209,7 @@ extension CurrencyViewController {
         }
 
         if UserDefaultsManager.CurrencyVC.needToRefreshFRCForCustomSort {
-            userDefaults.set("Своя", forKey: "bankOfRussiaPickedSection")
+            UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = "Своя"
             setupFetchedResultsController()
             UserDefaultsManager.CurrencyVC.needToRefreshFRCForCustomSort = false
         }
@@ -249,11 +237,11 @@ extension CurrencyViewController: UITableViewDragDelegate, UITableViewDropDelega
         if UserDefaultsManager.proPurchased && !searchController.isActive {
             if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
                 userDefaults.set(true, forKey: "customSortSwitchIsOnForBankOfRussia")
-                userDefaults.set("Своя", forKey: "bankOfRussiaPickedSection")
+                UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = "Своя"
                 userDefaults.set(false, forKey: "showCustomSortForBankOfRussia")
             } else {
                 userDefaults.set(true, forKey: "customSortSwitchIsOnForForex")
-                userDefaults.set("Своя", forKey: "forexPickedSection")
+                UserDefaultsManager.CurrencyVC.PickedSection.forexSection = "Своя"
                 userDefaults.set(false, forKey: "showCustomSortForForex")
             }
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOn"), object: nil)
@@ -354,14 +342,14 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
             }
             
             var sortDescriptor: NSSortDescriptor {
-                if pickedSection == "По имени" {
+                if UserDefaultsManager.CurrencyVC.PickedSection.value == "По имени" {
                     return NSSortDescriptor(key: "fullName", ascending: sortingOrder)
-                } else if pickedSection == "По короткому имени" {
+                } else if UserDefaultsManager.CurrencyVC.PickedSection.value == "По короткому имени" {
                     return NSSortDescriptor(key: "shortName", ascending: sortingOrder)
-                } else if pickedSection == "По значению" {
+                } else if UserDefaultsManager.CurrencyVC.PickedSection.value == "По значению" {
                     return NSSortDescriptor(key: "absoluteValue", ascending: sortingOrder)
                 } else {
-                    if !pickDateSwitchFromDataSourceIsOn {
+                    if !UserDefaultsManager.pickDateSwitchIsOn {
                         return NSSortDescriptor(key: "rowForCurrency", ascending: true)
                     } else {
                         return NSSortDescriptor(key: "rowForHistoricalCurrency", ascending: true)
@@ -440,7 +428,7 @@ extension CurrencyViewController {
         
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             if settings.authorizationStatus == .notDetermined {
-                if self.userHasOnboarded && !permissionScreenWasShown {
+                if UserDefaultsManager.userHasOnboarded && !permissionScreenWasShown {
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "goToNotificationPermisson", sender: self)
                         self.userDefaults.set(true, forKey: "permissionScreenWasShown")
@@ -471,8 +459,8 @@ extension CurrencyViewController {
         }
         
         if !updateRequestFromCurrencyDataSource {
-            userDefaults.set(self.todaysDate, forKey: "confirmedDate")
-            userDefaults.set(false, forKey: "pickDateSwitchIsOn")
+            userDefaults.set(Date.todaysLongDate, forKey: "confirmedDate")
+            UserDefaultsManager.pickDateSwitchIsOn = false
         }
         if UserDefaultsManager.pickedDataSource != "ЦБ РФ" {
             DispatchQueue.main.async {
@@ -527,8 +515,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 }
                 UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
             } else {
-                pickedDate != self.todaysDate ? UserDefaults.sharedContainer.set(true, forKey: "pickDateSwitchIsOn") : UserDefaults.sharedContainer.set(false, forKey: "pickDateSwitchIsOn")
-                
+                UserDefaultsManager.pickDateSwitchIsOn = pickedDate != Date.todaysLongDate ? true : false
                 self.setupFetchedResultsController()
                 PopupQueueManager.shared.changePopupDataInQueue(title: "Успешно", message: "Курсы загружены", style: .success)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

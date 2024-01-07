@@ -16,20 +16,11 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     private var pickedBaseCurrency: String {
         return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
-    private var pickedSection: String {
-        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexPickedSection") ?? "")
-    }
     private var wasActiveCurrencyVC: Bool {
         return UserDefaults.sharedContainer.bool(forKey: "isActiveCurrencyVC")
     }
-    private var confirmedDate: String {
-        return UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
-    }
     private var todaysDate: String {
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
-    }
-    private var pickDateSwitchIsOn: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "pickDateSwitchIsOn")
     }
     private var pickedDate: String?
     private var lastConfirmedDate: String?
@@ -52,7 +43,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if confirmedDate == todaysDate {
+        if UserDefaultsManager.confirmedDate == todaysDate {
             let cell = tableView.dequeueReusableCell(withIdentifier: "concreteDateCell") as! ConcreteDateTableViewCell
             setDateSwitchStateToOff(with: cell)
         }
@@ -84,7 +75,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             tableView.deleteRows(at: [datePickerIndexPath], with: .fade)
             targetIndexPath = nil
             
-            if confirmedDate == todaysDate {
+            if UserDefaultsManager.confirmedDate == todaysDate {
                setDateSwitchStateToOff(with: cell)
             }
         }
@@ -99,20 +90,20 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "concreteDateCell") as! ConcreteDateTableViewCell
         
         if sender.isOn {
-            UserDefaults.sharedContainer.set(true, forKey: "pickDateSwitchIsOn")
+            UserDefaultsManager.pickDateSwitchIsOn = true
             displayInlineDatePickerAt(indexPath: dateIndexPath as NSIndexPath)
             cell.selectionStyle = .default
         } else {
-            UserDefaults.sharedContainer.set(false, forKey: "pickDateSwitchIsOn")
+            UserDefaultsManager.pickDateSwitchIsOn = false
             pickedDate = todaysDate
-            lastConfirmedDate = confirmedDate
+            lastConfirmedDate = UserDefaultsManager.confirmedDate
             turnOffDateSwitch = true
             cell.selectionStyle = .none
             
             if targetIndexPath != nil {
                 displayInlineDatePickerAt(indexPath: dateIndexPath as NSIndexPath)
             }
-            if pickedDate != confirmedDate {
+            if pickedDate != UserDefaultsManager.confirmedDate {
                 startDateSpinner = true
                 UserDefaults.sharedContainer.set(self.pickedDate, forKey: "confirmedDate")
                 requestDataForConfirmedDate()
@@ -134,7 +125,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
-        lastConfirmedDate = confirmedDate
+        lastConfirmedDate = UserDefaultsManager.confirmedDate
         startDateSpinner = true
         turnOffDateSwitch = false
         tableView.reloadRows(at: [dateIndexPath], with: .none)
@@ -143,7 +134,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     @IBAction func resetDateButtonPressed(_ sender: UIButton) {
-        pickedDate = confirmedDate
+        pickedDate = UserDefaultsManager.confirmedDate
         turnOffDateSwitch = false
         tableView.reloadRows(at: [datePickerIndexPath], with: .none)
     }
@@ -197,12 +188,12 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         } else {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "concreteDateCell", for: indexPath) as! ConcreteDateTableViewCell
-                cell.dateLabel.text = confirmedDate
+                cell.dateLabel.text = UserDefaultsManager.confirmedDate
                 cell.proLabel.isHidden = !UserDefaultsManager.proPurchased ? false : true
                 cell.backgroundColor = !UserDefaultsManager.proPurchased ? .systemGray5 : .none
                 cell.pickDateSwitch.isEnabled = !UserDefaultsManager.proPurchased ? false : true
                 
-                if pickDateSwitchIsOn {
+                if UserDefaultsManager.pickDateSwitchIsOn {
                     cell.pickDateSwitch.setOn(true, animated: false)
                     cell.selectionStyle = .default
                 } else {
@@ -255,7 +246,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)
             }
         } else if indexPath.section == sections.concreteDate {
-            if pickDateSwitchIsOn {
+            if UserDefaultsManager.pickDateSwitchIsOn {
                 displayInlineDatePickerAt(indexPath: dateIndexPath as NSIndexPath)
             }
             if turnOffDateSwitch {
@@ -282,10 +273,10 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         if let dataForPickedDate = pickedDate {
             cell.datePicker.date = currencyManager.createDate(from: dataForPickedDate)
         } else {
-            cell.datePicker.date = currencyManager.createDate(from: confirmedDate)
+            cell.datePicker.date = currencyManager.createDate(from: UserDefaultsManager.confirmedDate)
         }
         
-        if let dataForPickedDate = pickedDate, confirmedDate != dataForPickedDate {
+        if let dataForPickedDate = pickedDate, UserDefaultsManager.confirmedDate != dataForPickedDate {
             cell.confirmButton.isEnabled = true
             cell.confirmButton.isHidden = false
             cell.resetDateButton.isEnabled = true
@@ -309,7 +300,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             if targetIndexPath == nil {
                 dataSourceCellWasPressed = true
             }
-            pickedDate = confirmedDate
+            pickedDate = UserDefaultsManager.confirmedDate
             requestDataForConfirmedDate()
         }
     }
@@ -327,15 +318,15 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             self.pickedDate = lastConfirmedDate
             UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
             
-            if !self.pickDateSwitchIsOn {
-                UserDefaults.sharedContainer.set(true, forKey: "pickDateSwitchIsOn")
+            if !UserDefaultsManager.pickDateSwitchIsOn {
+                UserDefaultsManager.pickDateSwitchIsOn = true
             }
             self.tableView.reloadRows(at: [self.datePickerIndexPath], with: .none)
         }
     }
     
   private func setDateSwitchStateToOff(with cell: ConcreteDateTableViewCell) {
-        UserDefaults.sharedContainer.set(false, forKey: "pickDateSwitchIsOn")
+      UserDefaultsManager.pickDateSwitchIsOn = false
         cell.pickDateSwitch.setOn(false, animated: true)
         cell.selectionStyle = .none
     }
@@ -367,10 +358,10 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 } else {
                     UserDefaults.sharedContainer.set(self.pickedDate, forKey: "confirmedDate")
                     
-                    if self.pickDateSwitchIsOn && !self.dataSourceCellWasPressed {
+                    if UserDefaultsManager.pickDateSwitchIsOn && !self.dataSourceCellWasPressed {
                         self.displayInlineDatePickerAt(indexPath: self.dateIndexPath as NSIndexPath)
                     }
-                    if self.pickedSection == "Своя" && self.confirmedDate != self.todaysDate {
+                    if UserDefaultsManager.CurrencyVC.PickedSection.value == "Своя" && UserDefaultsManager.confirmedDate != self.todaysDate {
                         self.resetCurrencyHistoricalRow()
                     }
                     UserDefaults.sharedContainer.set(true, forKey: "needToScrollUpViewController")

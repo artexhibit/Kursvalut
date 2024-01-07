@@ -17,9 +17,6 @@ class OnboardingViewController: UIViewController {
     private var appColor: String {
         return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
     }
-    private var userHasOnboarded: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "userHasOnboarded")
-    }
     private var currentPage = 0 {
         didSet {
             pageControl.currentPage = currentPage
@@ -54,11 +51,11 @@ class OnboardingViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UserDefaults.sharedContainer.set(true, forKey: "userHasOnboarded")
+        UserDefaultsManager.userHasOnboarded = true
     }
     
     @IBAction func closeButtonClicked(_ sender: UIButton) {
-        if !userHasOnboarded {
+        if !UserDefaultsManager.userHasOnboarded {
             performSegue(withIdentifier: "goToNotificationPermisson", sender: self)
         } else {
             self.dismiss(animated: true)
@@ -82,7 +79,7 @@ class OnboardingViewController: UIViewController {
     }
     
     @IBAction func closeNavigationButtonClicked(_ sender: UIButton) {
-        if !userHasOnboarded {
+        if !UserDefaultsManager.userHasOnboarded {
             performSegue(withIdentifier: "goToNotificationPermisson", sender: self)
         } else {
             self.dismiss(animated: true)

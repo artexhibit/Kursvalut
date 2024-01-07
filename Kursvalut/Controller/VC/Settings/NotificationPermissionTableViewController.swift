@@ -3,10 +3,6 @@ import UserNotificationsUI
 
 class NotificationPermissionTableViewController: UITableViewController {
     
-    private var userHasOnboarded: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "userHasOnboarded")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -19,7 +15,7 @@ class NotificationPermissionTableViewController: UITableViewController {
     @IBAction func permissionButtonPressed(_ sender: UIButton) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in
             DispatchQueue.main.async {
-                if !self.userHasOnboarded {
+                if !UserDefaultsManager.userHasOnboarded {
                     self.performSegue(withIdentifier: "unwindToApp", sender: self)
                 }
                 self.dismiss(animated: true)
@@ -29,7 +25,7 @@ class NotificationPermissionTableViewController: UITableViewController {
     
     @IBAction func closeButtonPressed(_ sender: UIBarButtonItem) {
         DispatchQueue.main.async {
-            if !self.userHasOnboarded {
+            if !UserDefaultsManager.userHasOnboarded {
                 self.performSegue(withIdentifier: "unwindToApp", sender: self)
             }
             self.dismiss(animated: true)

@@ -32,9 +32,6 @@ class DatePickerView: UIView {
     private var todaysDate: String {
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
     }
-    private var confirmedDate: String {
-        return UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
-    }
     private var interfaceOrientation: UIInterfaceOrientation {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return .unknown }
         let interfaceOrientation = windowScene.interfaceOrientation
@@ -61,7 +58,7 @@ class DatePickerView: UIView {
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
-        pickedDate = confirmedDate
+        pickedDate = UserDefaultsManager.confirmedDate
         hideView()
     }
     
@@ -88,8 +85,8 @@ class DatePickerView: UIView {
     
     func showView(under button: UIButton, in view: UIView) {
         configureView(under: button, in: view)
-        datePicker.date = currencyManager.createDate(from: confirmedDate)
-        lastConfirmedDate = confirmedDate
+        datePicker.date = currencyManager.createDate(from: UserDefaultsManager.confirmedDate)
+        lastConfirmedDate = UserDefaultsManager.confirmedDate
         configureButtons()
         configureDatePicker()
         configureViewDesign()
@@ -158,7 +155,7 @@ class DatePickerView: UIView {
     
     private func animateDoneButton() {
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn) { [self] in
-            if let dataForPickedDate = pickedDate, confirmedDate != dataForPickedDate {
+            if let dataForPickedDate = pickedDate, UserDefaultsManager.confirmedDate != dataForPickedDate {
                 doneButton.alpha = 1.0
                 doneButton.isUserInteractionEnabled = true
             } else {

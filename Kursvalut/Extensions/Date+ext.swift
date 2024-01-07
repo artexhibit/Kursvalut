@@ -5,6 +5,10 @@ extension Date {
         return Date()
     }
     
+    static var todaysLongDate: String {
+        createStringDate(from: Date(), dateStyle: .long, format: "dd.MM.yyyy")
+    }
+    
     static func createDate(from string: String) -> Date {
         let isoFormatter = ISO8601DateFormatter()
         if let date = isoFormatter.date(from: string) {

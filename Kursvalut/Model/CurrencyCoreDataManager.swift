@@ -16,9 +16,6 @@ struct CurrencyCoreDataManager {
     var pickedBaseCurrency: String {
         return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
-    private var confirmedDateFromDataSourceVC: String {
-        return UserDefaults.sharedContainer.string(forKey: "confirmedDate") ?? ""
-    }
     private var todaysDate: String {
         let currencyManager = CurrencyManager()
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
@@ -153,7 +150,7 @@ struct CurrencyCoreDataManager {
     
     func assignRowNumbers(to bankOfRussiaCurrencies: [Currency]) {
         for (index, bankOfRussiaCurrency) in bankOfRussiaCurrencies.enumerated() {
-            if confirmedDateFromDataSourceVC == todaysDate {
+            if UserDefaultsManager.confirmedDate == todaysDate {
                 bankOfRussiaCurrency.rowForCurrency = Int32(index)
             } else {
                 bankOfRussiaCurrency.rowForHistoricalCurrency = Int32(index)
@@ -337,7 +334,7 @@ struct CurrencyCoreDataManager {
     
     func assignRowNumbers(to forexCurrencies: [ForexCurrency]) {
         for (index, forexCurrency) in forexCurrencies.enumerated() {
-            if confirmedDateFromDataSourceVC == todaysDate {
+            if UserDefaultsManager.confirmedDate == todaysDate {
                 forexCurrency.rowForCurrency = Int32(index)
             } else {
                 forexCurrency.rowForHistoricalCurrency = Int32(index)
@@ -367,14 +364,6 @@ struct CurrencyCoreDataManager {
     }
     
     func fetchSortedCurrencies() -> (cbrf: [Currency], forex: [ForexCurrency]) {
-        var pickedSection: String {
-            return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? (UserDefaults.sharedContainer.string(forKey: "bankOfRussiaPickedSection") ?? "") : (UserDefaults.sharedContainer.string(forKey: "forexPickedSection") ?? "")
-        }
-        
-        var pickDateSwitchFromDataSourceIsOn: Bool {
-            return UserDefaults.sharedContainer.bool(forKey: "pickDateSwitchIsOn")
-        }
-        
         var sortingOrder: Bool {
             return (UserDefaultsManager.CurrencyVC.PickedOrder.value == "По возрастанию (А→Я)" || UserDefaultsManager.CurrencyVC.PickedOrder.value == "По возрастанию (1→2)") ? true : false
         }
@@ -386,14 +375,14 @@ struct CurrencyCoreDataManager {
         }
         
         var sortDescriptor: NSSortDescriptor {
-            if pickedSection == "По имени" {
+            if UserDefaultsManager.CurrencyVC.PickedSection.value == "По имени" {
                 return NSSortDescriptor(key: "fullName", ascending: sortingOrder)
-            } else if pickedSection == "По короткому имени" {
+            } else if UserDefaultsManager.CurrencyVC.PickedSection.value == "По короткому имени" {
                 return NSSortDescriptor(key: "shortName", ascending: sortingOrder)
-            } else if pickedSection == "По значению" {
+            } else if UserDefaultsManager.CurrencyVC.PickedSection.value == "По значению" {
                 return NSSortDescriptor(key: "absoluteValue", ascending: sortingOrder)
             } else {
-                if !pickDateSwitchFromDataSourceIsOn {
+                if !UserDefaultsManager.pickDateSwitchIsOn {
                     return NSSortDescriptor(key: "rowForCurrency", ascending: true)
                 } else {
                     return NSSortDescriptor(key: "rowForHistoricalCurrency", ascending: true)

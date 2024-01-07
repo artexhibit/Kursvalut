@@ -27,19 +27,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "currencyScreenPercentageDecimals"), forKey: "currencyScreenPercentageDecimals")
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "startView")!, forKey: "startView")
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "pickedTheme")!, forKey: "pickedTheme")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection")!, forKey: "bankOfRussiaPickedSection")
+            UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection")!
             UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder")!
             UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "bankOfRussiaPickedSectionNumber"), forKey: "bankOfRussiaPickedSectionNumber")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "forexPickedSection")!, forKey: "forexPickedSection")
+            UserDefaultsManager.CurrencyVC.PickedSection.forexSection = UserDefaults.standard.string(forKey: "forexPickedSection")!
             UserDefaultsManager.CurrencyVC.PickedOrder.forexOrder = UserDefaults.standard.string(forKey: "forexPickedOrder")!
             UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "forexPickedSectionNumber"), forKey: "forexPickedSectionNumber")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "userHasOnboarded"), forKey: "userHasOnboarded")
+            UserDefaultsManager.userHasOnboarded = UserDefaults.standard.bool(forKey: "userHasOnboarded")
             UserDefaultsManager.pickedDataSource = UserDefaults.standard.string(forKey: "baseSource")!
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "baseCurrency")!, forKey: "baseCurrency")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "keyboardWithSound"), forKey: "keyboardWithSound")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "roundFlags"), forKey: "roundFlags")
             UserDefaults.sharedContainer.set(currencyManager.createStringDate(with: "", from: Date(), dateStyle: .medium), forKey: "confirmedDate")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn"), forKey: "pickDateSwitchIsOn")
+            UserDefaultsManager.pickDateSwitchIsOn = UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource"), forKey: "updateRequestFromCurrencyDataSource")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForBankOfRussia"), forKey: "customSortSwitchIsOnForBankOfRussia")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForForex"), forKey: "customSortSwitchIsOnForForex")

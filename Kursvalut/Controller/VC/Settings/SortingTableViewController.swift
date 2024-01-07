@@ -62,19 +62,19 @@ class SortingTableViewController: UITableViewController {
             userDefaults.set(true, forKey: "customSortSwitchIsOnForBankOfRussia")
             
             if !showCustomSortInCurrencyScreen {
-                userDefaults.set(customSortCell.titleLabel.text, forKey: "bankOfRussiaPickedSection")
+                UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = customSortCell.titleLabel.text ?? ""
                 UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = "Включить"
             } else {
-                userDefaults.set(previousPickedSection, forKey: "bankOfRussiaPickedSection")
+                UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = previousPickedSection
             }
         } else {
             userDefaults.set(true, forKey: "customSortSwitchIsOnForForex")
             
             if !showCustomSortInCurrencyScreen {
-                userDefaults.set(customSortCell.titleLabel.text, forKey: "forexPickedSection")
+                UserDefaultsManager.CurrencyVC.PickedSection.forexSection = customSortCell.titleLabel.text ?? ""
                 UserDefaultsManager.CurrencyVC.PickedOrder.forexOrder = "Включить"
             } else {
-                userDefaults.set(previousPickedSection, forKey: "forexPickedSection")
+                UserDefaultsManager.CurrencyVC.PickedSection.forexSection = previousPickedSection
             }
         }
         
@@ -109,11 +109,11 @@ class SortingTableViewController: UITableViewController {
         
         if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             userDefaults.set(false, forKey: "customSortSwitchIsOnForBankOfRussia")
-            userDefaults.set(previousPickedSection, forKey: "bankOfRussiaPickedSection")
+            UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = previousPickedSection
             UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = previousPickedOrder
         } else {
             userDefaults.set(false, forKey: "customSortSwitchIsOnForForex")
-            userDefaults.set(previousPickedSection, forKey: "forexPickedSection")
+            UserDefaultsManager.CurrencyVC.PickedSection.forexSection = previousPickedSection
             UserDefaultsManager.CurrencyVC.PickedOrder.forexOrder = previousPickedOrder
         }
         UserDefaultsManager.CurrencyVC.needToRefreshFRCForCustomSort = true
@@ -257,14 +257,14 @@ class SortingTableViewController: UITableViewController {
             if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
                 userDefaults.set(false, forKey: "customSortSwitchIsOnForBankOfRussia")
                 UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = pickedOrder
-                userDefaults.set(pickedSection, forKey: "bankOfRussiaPickedSection")
+                UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = pickedSection
                 userDefaults.set(section, forKey: "bankOfRussiaPickedSectionNumber")
                 userDefaults.set(pickedOrder, forKey: "previousBankOfRussiaPickedOrder")
                 userDefaults.set(pickedSection, forKey: "previousLastBankOfRussiaPickedSection")
             } else {
                 userDefaults.set(false, forKey: "customSortSwitchIsOnForForex")
                 UserDefaultsManager.CurrencyVC.PickedOrder.forexOrder = pickedOrder
-                userDefaults.set(pickedSection, forKey: "forexPickedSection")
+                UserDefaultsManager.CurrencyVC.PickedSection.forexSection = pickedSection
                 userDefaults.set(section, forKey: "forexPickedSectionNumber")
                 userDefaults.set(pickedOrder, forKey: "previousForexPickedOrder")
                 userDefaults.set(pickedSection, forKey: "previousForexPickedSection")

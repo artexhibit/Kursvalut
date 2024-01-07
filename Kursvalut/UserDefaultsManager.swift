@@ -13,6 +13,21 @@ struct UserDefaultsManager {
         set { ud.setValue(newValue, forKey: K.baseSourceKey) }
     }
     
+    static var userHasOnboarded: Bool {
+        get { ud.bool(forKey: K.userHasOnboardedKey) }
+        set { ud.setValue(newValue, forKey: K.userHasOnboardedKey) }
+    }
+    
+    static var pickDateSwitchIsOn: Bool {
+        get { ud.bool(forKey: K.pickDateSwitchIsOnKey) }
+        set { ud.setValue(newValue, forKey: K.pickDateSwitchIsOnKey) }
+    }
+    
+    static var confirmedDate: String {
+        get { ud.string(forKey: K.confirmedDateKey) ?? "" }
+        set { ud.setValue(newValue, forKey: K.confirmedDateKey) }
+    }
+    
     struct CurrencyVC {
         static var needToRefreshFRCForCustomSort: Bool {
             get { ud.bool(forKey: K.CurrencyVC.needToRefreshFRCForCustomSortKey) }
@@ -37,6 +52,23 @@ struct UserDefaultsManager {
             static var forexOrder: String = "По убыванию (2→1)" {
                 didSet {
                     ud.setValue(forexOrder, forKey: K.CurrencyVC.forexPickedOrderKey)
+                }
+            }
+        }
+        
+        struct PickedSection {
+            static var value: String {
+                get { UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? ud.string(forKey: K.CurrencyVC.bankOfRussiaPickedSectionKey) ?? "" : ud.string(forKey: K.CurrencyVC.forexPickedSectionKey) ?? "" }
+            }
+            
+            static var bankOfRussiaSection: String = "По значению" {
+                didSet {
+                    ud.setValue(bankOfRussiaSection, forKey: K.CurrencyVC.bankOfRussiaPickedSectionKey)
+                }
+            }
+            static var forexSection: String = "По значению" {
+                didSet {
+                    ud.setValue(forexSection, forKey: K.CurrencyVC.forexPickedSectionKey)
                 }
             }
         }
