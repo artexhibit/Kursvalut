@@ -22,17 +22,11 @@ class CurrencyViewController: UIViewController {
     private var biggestTopSafeAreaInset: CGFloat = 0
     private let updateButtonTopInset: CGFloat = 8.0
     private var userPulledToRefresh: Bool = false
-    private var viewWasSwitched: Bool = false
+    private var tabBarIndex: Int = 0
     private var canHideOpenedView = true
     private var confirmedDate: String {
         let date = Date.formatDate(from: UserDefaultsManager.confirmedDate)
         return Date.createStringDate(from: date, dateStyle: .long)
-    }
-    private var needToScrollUpViewController: Bool {
-        return userDefaults.bool(forKey: "needToScrollUpViewController")
-    }
-    private var userClosedApp: Bool {
-        return userDefaults.bool(forKey: "userClosedApp")
     }
     private var tapGestureRecognizer: UITapGestureRecognizer {
         let recogniser = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -56,7 +50,7 @@ class CurrencyViewController: UIViewController {
         setupButtonsDesign()
         setupSearchController()
         setupRefreshControl()
-        userDefaults.set(true, forKey: "isActiveCurrencyVC")
+        UserDefaultsManager.CurrencyVC.isActiveCurrencyVC = true
         self.view.addGestureRecognizer(tapGestureRecognizer)
         self.navigationController?.navigationBar.addGestureRecognizer(navigationBarGestureRecogniser)
         currencyManager.configureContentInset(for: tableView, top: -updateButtonTopInset)
@@ -75,8 +69,9 @@ class CurrencyViewController: UIViewController {
         dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
         updateTimeButton.setTitle(confirmedDate, for: .normal)
         
-        if !userClosedApp {
-            scrollVCUp()
+        if UserDefaultsManager.CurrencyVC.needToScrollUpViewController {
+            scrollViewToTop()
+            UserDefaultsManager.CurrencyVC.needToScrollUpViewController = false
         }
     }
     
@@ -90,13 +85,12 @@ class CurrencyViewController: UIViewController {
             }
         }
         showNotificationPermissionScreen()
+        UIDevice.current.orientation == .portrait ? assignYValue(for: .portrait) : assignYValue(for: .landscapeLeft)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        viewWasSwitched = true
         self.navigationController?.navigationBar.removeGestureRecognizer(navigationBarGestureRecogniser)
-
     }
     
     @IBAction func updateTimeButtonPressed(_ sender: UIButton) {
@@ -424,14 +418,12 @@ extension CurrencyViewController {
     }
     
     func showNotificationPermissionScreen() {
-        let permissionScreenWasShown = userDefaults.bool(forKey: "permissionScreenWasShown")
-        
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             if settings.authorizationStatus == .notDetermined {
-                if UserDefaultsManager.userHasOnboarded && !permissionScreenWasShown {
+                if UserDefaultsManager.userHasOnboarded && !UserDefaultsManager.permissionScreenWasShown {
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "goToNotificationPermisson", sender: self)
-                        self.userDefaults.set(true, forKey: "permissionScreenWasShown")
+                        UserDefaultsManager.permissionScreenWasShown = true
                     }
                 }
             }
@@ -454,12 +446,8 @@ extension CurrencyViewController {
     }
     
     @objc func refreshData() {
-        var updateRequestFromCurrencyDataSource: Bool {
-            return userDefaults.bool(forKey: "updateRequestFromCurrencyDataSource")
-        }
-        
-        if !updateRequestFromCurrencyDataSource {
-            userDefaults.set(Date.todaysLongDate, forKey: "confirmedDate")
+        if !UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource {
+            UserDefaultsManager.confirmedDate = Date.todaysLongDate
             UserDefaultsManager.pickDateSwitchIsOn = false
         }
         if UserDefaultsManager.pickedDataSource != "ЦБ РФ" {
@@ -485,7 +473,7 @@ extension CurrencyViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
                 }
-                self.userDefaults.set(false, forKey: "updateRequestFromCurrencyDataSource")
+                UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = false
             }
         }
     }
@@ -505,7 +493,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
             if networkingError != nil {
                 guard let error = networkingError else { return }
                 PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
-                UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
+                UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else if parsingError != nil {
                 guard let parsingError = parsingError else { return }
                 if parsingError.code == 4865 {
@@ -513,7 +501,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 } else {
                     PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(parsingError.localizedDescription)", style: .failure)
                 }
-                UserDefaults.sharedContainer.set(lastConfirmedDate, forKey: "confirmedDate")
+                UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else {
                 UserDefaultsManager.pickDateSwitchIsOn = pickedDate != Date.todaysLongDate ? true : false
                 self.setupFetchedResultsController()
@@ -567,45 +555,52 @@ extension CurrencyViewController: MenuViewDelegate {
 //MARK: - UITabBarControllerDelegate Methods To Scroll VC Up
 
 extension CurrencyViewController: UITabBarControllerDelegate {
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        userPulledToRefresh = true
-    }
     
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-        if !userPulledToRefresh {
-            self.biggestTopSafeAreaInset = max(view.safeAreaInsets.top, biggestTopSafeAreaInset)
-        }
-        userPulledToRefresh = false
-    }
-    
-    func setVCOffset(with viewInset: CGFloat, and labelInset: CGFloat, delayValue: Double = 0.0) {
-        let firstVC = navigationController?.viewControllers.first as? CurrencyViewController
-        guard let scrollView = firstVC?.view.subviews.first(where: { $0 is UIScrollView }) as? UIScrollView else { return }
-        
-        if delayValue > 0.0 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + delayValue) {
-                scrollView.setContentOffset(CGPoint(x: 0, y: -(viewInset - labelInset)), animated: true)
-            }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+                
+        if UIDevice.current.orientation == .portrait {
+            assignYValue(for: .portrait)
         } else {
-            scrollView.setContentOffset(CGPoint(x: 0, y: -(viewInset - labelInset)), animated: true)
+            UserDefaults.sharedContainer.set(0.0, forKey: "yLandscape")
+            assignYValue(for: .landscapeLeft)
         }
     }
     
-    func scrollVCUp() {
-        if needToScrollUpViewController {
-            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateButtonTopInset, delayValue: 0.01) : setVCOffset(with: biggestTopSafeAreaInset, and: updateButtonTopInset, delayValue: 0.01)
-            traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateButtonTopInset, delayValue: 0.40) : setVCOffset(with: biggestTopSafeAreaInset, and: updateButtonTopInset, delayValue: 0.40)
-            userDefaults.set(false, forKey: "needToScrollUpViewController")
+    func assignYValue(for orientation: UIDeviceOrientation) {
+        let value = orientation == .portrait ? UserDefaultsManager.CurrencyVC.yPortrait : UserDefaultsManager.CurrencyVC.yLandscape
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            if value < self.tableView.adjustedContentInset.top.rounded(.up) {
+                if orientation == .portrait {
+                    UserDefaultsManager.CurrencyVC.yPortrait = self.tableView.adjustedContentInset.top.rounded(.up)
+                } else {
+                    UserDefaultsManager.CurrencyVC.yLandscape = self.tableView.adjustedContentInset.top.rounded(.up)
+                }
+            }
         }
+    }
+    
+    func setOffset(for orientation: UIDeviceOrientation) {
+        let value = orientation == .portrait ? UserDefaultsManager.CurrencyVC.yPortrait : UserDefaultsManager.CurrencyVC.yLandscape
+        
+        DispatchQueue.main.async {
+            self.tableView.setContentOffset(CGPoint(x: 0, y: -value), animated: true)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                self.tableView.setContentOffset(CGPoint(x: 0, y: -value), animated: true)
+            }
+        }
+    }
+    
+    func scrollViewToTop() {
+        UIDevice.current.orientation == .portrait ? setOffset(for: .portrait) : setOffset(for: .landscapeLeft)
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if tabBarController.selectedIndex == 0 {
-            if !viewWasSwitched {
-                traitCollection.verticalSizeClass == .compact ? setVCOffset(with: view.safeAreaInsets.top, and: updateButtonTopInset) : setVCOffset(with: biggestTopSafeAreaInset, and: updateButtonTopInset)
-            }
-            viewWasSwitched = false
+        if tabBarController.selectedIndex == 0 && tabBarIndex == 0 {
+            scrollViewToTop()
         }
+        tabBarIndex = tabBarController.selectedIndex
     }
 }

@@ -28,15 +28,45 @@ struct UserDefaultsManager {
         set { ud.setValue(newValue, forKey: K.confirmedDateKey) }
     }
     
+    static var permissionScreenWasShown: Bool {
+        get { ud.bool(forKey: K.permissionScreenWasShownKey) }
+        set { ud.setValue(newValue, forKey: K.permissionScreenWasShownKey) }
+    }
+    
     struct CurrencyVC {
         static var needToRefreshFRCForCustomSort: Bool {
             get { ud.bool(forKey: K.CurrencyVC.needToRefreshFRCForCustomSortKey) }
             set { ud.setValue(newValue, forKey: K.CurrencyVC.needToRefreshFRCForCustomSortKey) }
         }
         
+        static var needToScrollUpViewController: Bool {
+            get { ud.bool(forKey: K.CurrencyVC.needToScrollUpViewControllerKey) }
+            set { ud.setValue(newValue, forKey: K.CurrencyVC.needToScrollUpViewControllerKey) }
+        }
+        
         static var decimalsNumberChanged: Bool {
             get { ud.bool(forKey: K.CurrencyVC.decimalsNumberChangedKey) }
             set { ud.setValue(newValue, forKey: K.CurrencyVC.decimalsNumberChangedKey) }
+        }
+        
+        static var yPortrait: CGFloat {
+            get { CGFloat(ud.float(forKey: K.CurrencyVC.yPortraitKey)) }
+            set { ud.setValue(newValue, forKey: K.CurrencyVC.yPortraitKey) }
+        }
+        
+        static var yLandscape: CGFloat {
+            get { CGFloat(ud.float(forKey: K.CurrencyVC.yLandscapeKey)) }
+            set { ud.setValue(newValue, forKey: K.CurrencyVC.yLandscapeKey) }
+        }
+        
+        static var isActiveCurrencyVC: Bool {
+            get { ud.bool(forKey: K.CurrencyVC.isActiveCurrencyVCKey) }
+            set { ud.setValue(newValue, forKey: K.CurrencyVC.isActiveCurrencyVCKey) }
+        }
+        
+        static var updateRequestFromCurrencyDataSource: Bool {
+            get { ud.bool(forKey: K.CurrencyVC.updateRequestFromCurrencyDataSourceKey) }
+            set { ud.setValue(newValue, forKey: K.CurrencyVC.updateRequestFromCurrencyDataSourceKey) }
         }
         
         struct PickedOrder {

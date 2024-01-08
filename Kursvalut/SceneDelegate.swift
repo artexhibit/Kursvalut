@@ -5,9 +5,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     var currencyManager = CurrencyManager()
-    var needToScrollUpViewController: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "needToScrollUpViewController")
-    }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
@@ -27,7 +24,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        needToScrollUpViewController ? UserDefaults.sharedContainer.set(true, forKey: "userClosedApp") : UserDefaults.sharedContainer.set(false, forKey: "userClosedApp")
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

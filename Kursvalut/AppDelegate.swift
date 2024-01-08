@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "roundFlags"), forKey: "roundFlags")
             UserDefaults.sharedContainer.set(currencyManager.createStringDate(with: "", from: Date(), dateStyle: .medium), forKey: "confirmedDate")
             UserDefaultsManager.pickDateSwitchIsOn = UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource"), forKey: "updateRequestFromCurrencyDataSource")
+            UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForBankOfRussia"), forKey: "customSortSwitchIsOnForBankOfRussia")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForForex"), forKey: "customSortSwitchIsOnForForex")
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousBankOfRussiaPickedOrder")!, forKey: "previousBankOfRussiaPickedOrder")
@@ -55,12 +55,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "forexPickedCurrency")!, forKey: "forexPickedCurrency")
             UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "canSaveConverterValues"), forKey: "canSaveConverterValues")
             UserDefaultsManager.proPurchased = UserDefaults.standard.bool(forKey: "kursvalutPro")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "permissionScreenWasShown"), forKey: "permissionScreenWasShown")
+            UserDefaultsManager.permissionScreenWasShown = UserDefaults.standard.bool(forKey: "permissionScreenWasShown")
             
             UserDefaults.standard.setValue(true, forKey: "migrationCompleted")
         }
+        if UserDefaults.sharedContainer.object(forKey: "yPortrait") == nil {
+            UserDefaultsManager.CurrencyVC.yPortrait = 0.0
+        }
+        if UserDefaults.sharedContainer.object(forKey: "yLandscape") == nil {
+            UserDefaultsManager.CurrencyVC.yLandscape = 0.0
+        }
         
-        UserDefaults.sharedContainer.set(false, forKey: "isActiveCurrencyVC")
+        UserDefaultsManager.CurrencyVC.isActiveCurrencyVC = false
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self

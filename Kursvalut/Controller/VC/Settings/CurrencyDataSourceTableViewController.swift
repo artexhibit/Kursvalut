@@ -16,9 +16,6 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     private var pickedBaseCurrency: String {
         return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
-    private var wasActiveCurrencyVC: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "isActiveCurrencyVC")
-    }
     private var todaysDate: String {
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
     }
@@ -290,11 +287,10 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     @objc private func activatedCurrencyVC() {
-        if wasActiveCurrencyVC {
-            UserDefaults.sharedContainer.set(true, forKey: "updateRequestFromCurrencyDataSource")
+        if UserDefaultsManager.CurrencyVC.isActiveCurrencyVC {
+            UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = true
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
-            UserDefaults.sharedContainer.set(false, forKey: "userClosedApp")
-            UserDefaults.sharedContainer.set(true, forKey: "needToScrollUpViewController")
+            UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true
             tableView.reloadRows(at: [dateIndexPath], with: .none)
         } else {
             if targetIndexPath == nil {
@@ -364,7 +360,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                     if UserDefaultsManager.CurrencyVC.PickedSection.value == "Своя" && UserDefaultsManager.confirmedDate != self.todaysDate {
                         self.resetCurrencyHistoricalRow()
                     }
-                    UserDefaults.sharedContainer.set(true, forKey: "needToScrollUpViewController")
+                    UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true
                     PopupQueueManager.shared.addPopupToQueue(title: "Успешно", message: "Курсы загружены", style: .success)
                 }
                 self.dataSourceCellWasPressed = false
