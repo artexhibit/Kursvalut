@@ -18,12 +18,6 @@ class DecimalsTableViewController: UITableViewController {
     )
     private let previewNumber = (forCurrencyScreen: 65.1234, forConverterScreen: 60.1234, forCurrencyPercentageOne: 57.9855, forCurrencyPercentageTwo: 65.4128)
     
-    private var currencyScreenDecimalsAmount: Int {
-        return userDefaults.integer(forKey: "currencyScreenDecimals")
-    }
-    private var converterScreenDecimalsAmount: Int {
-        return userDefaults.integer(forKey: "converterScreenDecimals")
-    }
     private var currencyScreenPercentageAmount: Int {
         return userDefaults.integer(forKey: "currencyScreenPercentageDecimals")
     }
@@ -52,11 +46,11 @@ class DecimalsTableViewController: UITableViewController {
         
         var loadDecimalsAmount: Int {
             if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 0 {
-                return currencyScreenDecimalsAmount
+                return UserDefaultsManager.CurrencyVC.currencyScreenDecimalsAmount
             } else if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 1 {
                 return currencyScreenPercentageAmount
             } else {
-                return converterScreenDecimalsAmount
+                return UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount
             }
         }
         
@@ -97,7 +91,7 @@ extension DecimalsTableViewController: StepperDelegate {
         let pickedRow = indexPath.row
         
         if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 0 {
-            userDefaults.set(number, forKey: "currencyScreenDecimals")
+            UserDefaultsManager.CurrencyVC.currencyScreenDecimalsAmount = number
             UserDefaultsManager.CurrencyVC.decimalsNumberChanged = true
             tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
         } else if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 1 {
@@ -105,7 +99,7 @@ extension DecimalsTableViewController: StepperDelegate {
             UserDefaultsManager.CurrencyVC.decimalsNumberChanged = true
             tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
         } else {
-            userDefaults.set(number, forKey: "converterScreenDecimals")
+            UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount = number
             tableView.reloadRows(at: [IndexPath(row: sectionNumber.converterCell.row, section: sectionNumber.converterCell.section)], with: .none)
         }
     }

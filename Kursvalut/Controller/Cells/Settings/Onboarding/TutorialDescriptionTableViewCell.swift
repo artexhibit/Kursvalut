@@ -8,13 +8,9 @@ class TutorialDescriptionTableViewCell: UITableViewCell {
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var centerConstraint: NSLayoutConstraint!
     
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        tintColor = UIColor(named: "\(appColor)")
+        tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         iPadGifImageSizeSetup()
     }
     

@@ -10,7 +10,6 @@ class CurrencyViewController: UIViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var separatorViewHeight: NSLayoutConstraint!
     
-    private let userDefaults = UserDefaults.sharedContainer
     private var currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
     private let coreDataManager = CurrencyCoreDataManager()
@@ -19,9 +18,7 @@ class CurrencyViewController: UIViewController {
     private var bankOfRussiaFRC: NSFetchedResultsController<Currency>!
     private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let searchController = UISearchController(searchResultsController: nil)
-    private var biggestTopSafeAreaInset: CGFloat = 0
     private let updateButtonTopInset: CGFloat = 8.0
-    private var userPulledToRefresh: Bool = false
     private var tabBarIndex: Int = 0
     private var canHideOpenedView = true
     private var confirmedDate: String {
@@ -107,7 +104,7 @@ class CurrencyViewController: UIViewController {
     }
     
     @IBAction func dataSourceButtonPressed(_ sender: UIButton) {
-        guard UserDefaultsManager.proPurchased == true else {
+        guard UserDefaultsManager.proPurchased else {
             return PopupQueueManager.shared.addPopupToQueue(title: "Только для Pro", message: "Выбор даты с этого экрана доступен в Pro-версии", style: .lock)
         }
         
@@ -230,13 +227,13 @@ extension CurrencyViewController: UITableViewDragDelegate, UITableViewDropDelega
     func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
         if UserDefaultsManager.proPurchased && !searchController.isActive {
             if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
-                userDefaults.set(true, forKey: "customSortSwitchIsOnForBankOfRussia")
+                UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForBankOfRussia = true
                 UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = "Своя"
-                userDefaults.set(false, forKey: "showCustomSortForBankOfRussia")
+                UserDefaultsManager.CurrencyVC.ShowCustomSort.showCustomSortForBankOfRussia = false
             } else {
-                userDefaults.set(true, forKey: "customSortSwitchIsOnForForex")
+                UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForForex = true
                 UserDefaultsManager.CurrencyVC.PickedSection.forexSection = "Своя"
-                userDefaults.set(false, forKey: "showCustomSortForForex")
+                UserDefaultsManager.CurrencyVC.ShowCustomSort.showCustomSortForForex = false
             }
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOn"), object: nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadSortingVCTableView"), object: nil)
@@ -411,9 +408,7 @@ extension CurrencyViewController {
     }
     
     func updateDecimalsNumber() {
-        if UserDefaultsManager.CurrencyVC.decimalsNumberChanged {
-            tableView.reloadData()
-        }
+        if UserDefaultsManager.CurrencyVC.decimalsNumberChanged { tableView.reloadData() }
         UserDefaultsManager.CurrencyVC.decimalsNumberChanged = false
     }
     
@@ -598,9 +593,7 @@ extension CurrencyViewController: UITabBarControllerDelegate {
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if tabBarController.selectedIndex == 0 && tabBarIndex == 0 {
-            scrollViewToTop()
-        }
+        if tabBarController.selectedIndex == 0 && tabBarIndex == 0 { scrollViewToTop() }
         tabBarIndex = tabBarController.selectedIndex
     }
 }

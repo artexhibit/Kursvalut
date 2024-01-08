@@ -12,14 +12,11 @@ class PrivacyPolicyViewController: UIViewController {
         (header: "Хранение данных", text: "Все данные хранятся на вашем устройстве локально. Единственное, что приложение сохраняет - это ваши настройки. Никто, кроме Вас, не может получить к ним доступ."),
         (header: "Сбор данных", text: "Приложение не отслеживает, не собирает и никуда не отправляет ваши данные.")
     ]
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         contactButton.layer.cornerRadius = 15
-        contactButton.backgroundColor = UIColor(named: "\(appColor)")
+        contactButton.backgroundColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         currencyManager.configureContentInset(for: tableView, top: 20)
     }
     

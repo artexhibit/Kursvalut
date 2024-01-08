@@ -24,12 +24,6 @@ class SettingsTableViewController: UITableViewController {
     private var roundFlags: Bool {
         return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
     }
-    private var canResetValuesInActiveTextField: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "canResetValuesInActiveTextField")
-    }
-    private var saveConverterValuesTurnedOn: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "canSaveConverterValues")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,19 +59,11 @@ class SettingsTableViewController: UITableViewController {
     }
     
     @IBAction func converterValueSwitchPressed(_ sender: UISwitch) {
-        if converterValuesResetSwitch.isOn {
-            UserDefaults.sharedContainer.set(true, forKey: "canResetValuesInActiveTextField")
-        } else {
-            UserDefaults.sharedContainer.set(false, forKey: "canResetValuesInActiveTextField")
-        }
+        UserDefaultsManager.ConverterVC.canResetValuesInActiveTextField = converterValuesResetSwitch.isOn ? true : false
     }
     
     @IBAction func saveConverterValuesSwitchPressed(_ sender: UISwitch) {
-        if saveConverterValuesSwitch.isOn {
-            UserDefaults.sharedContainer.set(true, forKey: "canSaveConverterValues")
-        } else {
-            UserDefaults.sharedContainer.set(false, forKey: "canSaveConverterValues")
-        }
+        UserDefaultsManager.ConverterVC.canSaveConverterValues = saveConverterValuesSwitch.isOn ? true : false
     }
     
     @IBAction func keyboardSoundSwitchPressed(_ sender: UISwitch) {
@@ -97,7 +83,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     func loadConverterValueSwitchState() {
-        if canResetValuesInActiveTextField {
+        if UserDefaultsManager.ConverterVC.canResetValuesInActiveTextField {
             converterValuesResetSwitch.setOn(true, animated: false)
         } else {
             converterValuesResetSwitch.setOn(false, animated: false)
@@ -105,7 +91,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     func loadSaveConverterValueSwitchState() {
-        if saveConverterValuesTurnedOn {
+        if UserDefaultsManager.ConverterVC.canSaveConverterValues {
             saveConverterValuesSwitch.setOn(true, animated: false)
         } else {
             saveConverterValuesSwitch.setOn(false, animated: false)

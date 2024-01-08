@@ -225,14 +225,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             cell.dataUpdateSpinner.startAnimating()
             UserDefaultsManager.pickedDataSource = pickedOption
             
-            if pickedOption == "ЦБ РФ" {
-                UserDefaults.sharedContainer.set("RUB", forKey: "baseCurrency")
-                UserDefaults.sharedContainer.set(true, forKey: "setTextFieldToZero")
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
-            } else {
-                UserDefaults.sharedContainer.set(true, forKey: "setTextFieldToZero")
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
-            }
+            if pickedOption == "ЦБ РФ" { UserDefaults.sharedContainer.set("RUB", forKey: "baseCurrency") }
+            UserDefaultsManager.ConverterVC.setTextFieldToZero = true
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
             activatedCurrencyVC()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOff"), object: nil)
             tableView.reloadSections(IndexSet(integer: sections.baseCurrency), with: .fade)

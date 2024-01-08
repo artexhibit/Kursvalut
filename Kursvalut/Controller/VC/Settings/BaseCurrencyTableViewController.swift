@@ -8,9 +8,6 @@ class BaseCurrencyTableViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private var currencyManager = CurrencyManager()
     private var coreDataManager = CurrencyCoreDataManager()
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
     private var pickedBaseCurrency: String {
         return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
@@ -19,7 +16,7 @@ class BaseCurrencyTableViewController: UITableViewController {
         super.viewDidLoad()
         setupFetchedResultsController()
         setupSearchController()
-        tableView.tintColor = UIColor(named: "\(appColor)")
+        tableView.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
     }
     
     // MARK: - TableView Delegate & DataSource Methods

@@ -7,12 +7,6 @@ struct CurrencyCoreDataManager {
     private var pickCurrencyRequest: Bool {
         return UserDefaults.sharedContainer.bool(forKey: "pickCurrencyRequest")
     }
-    private var amountOfPickedBankOfRussiaCurrencies: Int {
-        return UserDefaults.sharedContainer.integer(forKey: "savedAmountForBankOfRussia")
-    }
-    private var amountOfPickedForexCurrencies: Int {
-        return UserDefaults.sharedContainer.integer(forKey: "savedAmountForForex")
-    }
     var pickedBaseCurrency: String {
         return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
@@ -67,7 +61,7 @@ struct CurrencyCoreDataManager {
         if currency.shortName == "USD" {
             currency.rowForConverter = 1
             currency.isForConverter = true
-            UserDefaults.sharedContainer.set(2, forKey: "savedAmountForBankOfRussia")
+            UserDefaultsManager.ConverterVC.amountOfPickedBankOfRussiaCurrencies = 2
         }
     }
     
@@ -121,7 +115,7 @@ struct CurrencyCoreDataManager {
     }
     
     func removeResetBankOfRussiaCurrenciesFromConverter() {
-        var currentAmount = amountOfPickedBankOfRussiaCurrencies
+        var currentAmount = UserDefaultsManager.ConverterVC.amountOfPickedBankOfRussiaCurrencies
         let currencies = fetchCurrencies(entityName: Currency.self)
         var array = [Currency]()
         
@@ -135,7 +129,7 @@ struct CurrencyCoreDataManager {
                     array.append(currency)
                 }
             }
-            UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForBankOfRussia")
+            UserDefaultsManager.ConverterVC.amountOfPickedBankOfRussiaCurrencies = currentAmount
         }
         array.sort(by: ({$0.rowForConverter < $1.rowForConverter}))
         for (row, currency) in array.enumerated() {
@@ -204,7 +198,7 @@ struct CurrencyCoreDataManager {
         if currency.shortName == "USD" || currency.shortName == "EUR" {
             currency.rowForConverter = currency.shortName == "USD" ? 1 : 2
             currency.isForConverter = true
-            UserDefaults.sharedContainer.set(2, forKey: "savedAmountForForex")
+            UserDefaultsManager.ConverterVC.amountOfPickedForexCurrencies = 2
         }
     }
     
@@ -259,7 +253,7 @@ struct CurrencyCoreDataManager {
         if currency.shortName == "USD" || currency.shortName == "EUR" {
             currency.rowForConverter = currency.shortName == "USD" ? 1 : 2
             currency.isForConverter = true
-            UserDefaults.sharedContainer.set(2, forKey: "savedAmountForForex")
+            UserDefaultsManager.ConverterVC.amountOfPickedForexCurrencies = 2
         }
     }
     
@@ -304,7 +298,7 @@ struct CurrencyCoreDataManager {
     }
     
     func removeResetForexCurrenciesFromConverter() {
-        var currentAmount = amountOfPickedForexCurrencies
+        var currentAmount = UserDefaultsManager.ConverterVC.amountOfPickedForexCurrencies
         let currencies = fetchCurrencies(entityName: ForexCurrency.self)
         var array = [ForexCurrency]()
         
@@ -318,7 +312,7 @@ struct CurrencyCoreDataManager {
                     array.append(currency)
                 }
             }
-            UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForForex")
+            UserDefaultsManager.ConverterVC.amountOfPickedForexCurrencies = currentAmount
         }
         array.sort(by: ({$0.rowForConverter < $1.rowForConverter}))
         

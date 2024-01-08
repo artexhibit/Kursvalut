@@ -14,9 +14,6 @@ class OnboardingViewController: UIViewController {
     
     private var buttonScroll = false
     private var orientationChanged = false
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
     private var currentPage = 0 {
         didSet {
             pageControl.currentPage = currentPage
@@ -41,11 +38,11 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationView.layer.cornerRadius = 20
-        navigationView.tintColor = UIColor(named: "\(appColor)")
+        navigationView.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         closeButtonView.layer.cornerRadius = closeButtonView.frame.height / 2
-        closeButtonView.tintColor = UIColor(named: "\(appColor)")
+        closeButtonView.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         pageControl.numberOfPages = slides.count
-        pageControl.currentPageIndicatorTintColor = UIColor(named: "\(appColor)")
+        pageControl.currentPageIndicatorTintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         currentPage == 0 ? hidePreviousButton() : showPreviousButton()
     }
     
@@ -211,7 +208,7 @@ extension OnboardingViewController {
             self.closeButtonView.transform = CGAffineTransform(translationX: 50, y: 0)
         } completion: { _ in
             UIView.animate(withDuration: 0.4, delay: 0.2, options: .curveEaseInOut) {
-                self.navigationView.contentView.backgroundColor = UIColor(named: "\(self.appColor)")
+                self.navigationView.contentView.backgroundColor = UIColor(named: "\(UserDefaultsManager.appColor)")
                 self.closeLabel.alpha = 1.0
                 self.closeNavigationButton.isHidden = false
                 self.closeLabel.isHidden = false

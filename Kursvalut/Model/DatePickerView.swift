@@ -26,9 +26,6 @@ class DatePickerView: UIView {
             return Date.currentDate
         }
     }
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
     private var todaysDate: String {
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
     }
@@ -166,14 +163,14 @@ class DatePickerView: UIView {
     }
     
     private func configureButtons() {
-        cancelButton.tintColor = UIColor(named: appColor)
-        doneButton.tintColor = UIColor(named: appColor)
+        cancelButton.tintColor = UIColor(named: UserDefaultsManager.appColor)
+        doneButton.tintColor = UIColor(named: UserDefaultsManager.appColor)
         doneButton.alpha = 0.0
         doneButton.isUserInteractionEnabled = false
     }
     
     private func configureDatePicker() {
-        datePicker.tintColor = UIColor(named: appColor)
+        datePicker.tintColor = UIColor(named: UserDefaultsManager.appColor)
         datePicker.minimumDate = minimumDate
         datePicker.maximumDate = maximumDate
         datePicker.preferredDatePickerStyle = interfaceOrientation.isPortrait ? .inline : .wheels

@@ -10,21 +10,12 @@ class PickCurrencyTableViewController: UITableViewController {
     private var currencyManager = CurrencyManager()
     private let coreDataManager = CurrencyCoreDataManager()
     private let converterManager = ConverterManager()
-    private var amountOfPickedBankOfRussiaCurrencies: Int {
-        return UserDefaults.sharedContainer.integer(forKey: "savedAmountForBankOfRussia")
-    }
-    private var amountOfPickedForexCurrencies: Int {
-        return UserDefaults.sharedContainer.integer(forKey: "savedAmountForForex")
-    }
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFetchedResultsController()
         setupSearchController()
-        tableView.tintColor = UIColor(named: "\(appColor)")
+        tableView.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
     }
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
@@ -93,7 +84,7 @@ class PickCurrencyTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
-            var currentAmount = amountOfPickedBankOfRussiaCurrencies
+            var currentAmount = UserDefaultsManager.ConverterVC.amountOfPickedBankOfRussiaCurrencies
             let bankOfRussiaCurrencies = coreDataManager.fetchCurrencies(entityName: Currency.self)
             let bankOfRussiaCurrency = bankOfRussiaFRC.object(at: indexPath)
             
@@ -114,10 +105,10 @@ class PickCurrencyTableViewController: UITableViewController {
                 bankOfRussiaCurrency.isForConverter = false
                 bankOfRussiaCurrency.rowForConverter = 0
             }
-            UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForBankOfRussia")
+            UserDefaultsManager.ConverterVC.amountOfPickedBankOfRussiaCurrencies = currentAmount
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCells"), object: nil, userInfo: ["currencyWasAdded": bankOfRussiaCurrency.isForConverter])
         } else if UserDefaultsManager.pickedDataSource == "Forex" {
-            var currentAmount = amountOfPickedForexCurrencies
+            var currentAmount = UserDefaultsManager.ConverterVC.amountOfPickedForexCurrencies
             let forexCurrencies = coreDataManager.fetchCurrencies(entityName: ForexCurrency.self)
             let forexCurrency = forexFRC.object(at: indexPath)
             
@@ -138,7 +129,7 @@ class PickCurrencyTableViewController: UITableViewController {
                 forexCurrency.isForConverter = false
                 forexCurrency.rowForConverter = 0
             }
-            UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForForex")
+            UserDefaultsManager.ConverterVC.amountOfPickedForexCurrencies = currentAmount
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCells"), object: nil, userInfo: ["currencyWasAdded": forexCurrency.isForConverter])
         }
         PersistenceController.shared.saveContext()

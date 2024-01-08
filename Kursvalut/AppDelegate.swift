@@ -22,10 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if !UserDefaults.standard.bool(forKey: "migrationCompleted") {
             
-            UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "currencyScreenDecimals"), forKey: "currencyScreenDecimals")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "converterScreenDecimals"), forKey: "converterScreenDecimals")
+            UserDefaultsManager.CurrencyVC.currencyScreenDecimalsAmount = UserDefaults.standard.integer(forKey: "currencyScreenDecimals")
+            UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount = UserDefaults.standard.integer(forKey: "converterScreenDecimals")
             UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "currencyScreenPercentageDecimals"), forKey: "currencyScreenPercentageDecimals")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "startView")!, forKey: "startView")
+            UserDefaultsManager.pickedStartView = UserDefaults.standard.string(forKey: "startView")!
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "pickedTheme")!, forKey: "pickedTheme")
             UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection")!
             UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder")!
@@ -41,19 +41,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.sharedContainer.set(currencyManager.createStringDate(with: "", from: Date(), dateStyle: .medium), forKey: "confirmedDate")
             UserDefaultsManager.pickDateSwitchIsOn = UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn")
             UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForBankOfRussia"), forKey: "customSortSwitchIsOnForBankOfRussia")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForForex"), forKey: "customSortSwitchIsOnForForex")
+            UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForBankOfRussia = UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForBankOfRussia")
+            UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForForex = UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForForex")
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousBankOfRussiaPickedOrder")!, forKey: "previousBankOfRussiaPickedOrder")
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousForexPickedOrder")!, forKey: "previousForexPickedOrder")
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousLastBankOfRussiaPickedSection")!, forKey: "previousLastBankOfRussiaPickedSection")
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousForexPickedSection")!, forKey: "previousForexPickedSection")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "showCustomSortForBankOfRussia"), forKey: "showCustomSortForBankOfRussia")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "showCustomSortForForex"), forKey: "showCustomSortForForex")
+            UserDefaultsManager.CurrencyVC.ShowCustomSort.showCustomSortForBankOfRussia = UserDefaults.standard.bool(forKey: "showCustomSortForBankOfRussia")
+            UserDefaultsManager.CurrencyVC.ShowCustomSort.showCustomSortForForex = UserDefaults.standard.bool(forKey: "showCustomSortForForex")
             UserDefaultsManager.CurrencyVC.needToRefreshFRCForCustomSort = UserDefaults.standard.bool(forKey: "needToRefreshFRCForCustomSort")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "canResetValuesInActiveTextField"), forKey: "canResetValuesInActiveTextField")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "bankOfRussiaPickedCurrency")!, forKey: "bankOfRussiaPickedCurrency")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "forexPickedCurrency")!, forKey: "forexPickedCurrency")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "canSaveConverterValues"), forKey: "canSaveConverterValues")
+            UserDefaultsManager.ConverterVC.canResetValuesInActiveTextField = UserDefaults.standard.bool(forKey: "canResetValuesInActiveTextField")
+            UserDefaultsManager.ConverterVC.PickedConverterCurrency.bankOfRussiaPickedCurrency = UserDefaults.standard.string(forKey: "bankOfRussiaPickedCurrency")!
+            UserDefaultsManager.ConverterVC.PickedConverterCurrency.forexPickedCurrency = UserDefaults.standard.string(forKey: "forexPickedCurrency")!
+            UserDefaultsManager.ConverterVC.canSaveConverterValues = UserDefaults.standard.bool(forKey: "canSaveConverterValues")
             UserDefaultsManager.proPurchased = UserDefaults.standard.bool(forKey: "kursvalutPro")
             UserDefaultsManager.permissionScreenWasShown = UserDefaults.standard.bool(forKey: "permissionScreenWasShown")
             

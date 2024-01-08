@@ -8,9 +8,6 @@ class DatePickerTableViewCell: UITableViewCell {
     @IBOutlet weak var confirmButton: UIButton!
     
     private let currencyCoreDataManager = CurrencyCoreDataManager()
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
     let minimumDate = Date(timeIntervalSinceReferenceDate: -31622400.0)
     private var maximumDate: Date {
         if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
@@ -33,7 +30,7 @@ class DatePickerTableViewCell: UITableViewCell {
     }
     
     func setupDatePicker() {
-        datePicker.tintColor = UIColor(named: appColor)
+        datePicker.tintColor = UIColor(named: UserDefaultsManager.appColor)
         datePicker.minimumDate = minimumDate
         datePicker.maximumDate = Date()
         
@@ -43,7 +40,7 @@ class DatePickerTableViewCell: UITableViewCell {
     }
     
     func setupButtons() {
-        resetDateButton.tintColor = UIColor(named: appColor)
-        confirmButton.tintColor = UIColor(named: appColor)
+        resetDateButton.tintColor = UIColor(named: UserDefaultsManager.appColor)
+        confirmButton.tintColor = UIColor(named: UserDefaultsManager.appColor)
     }
 }

@@ -9,16 +9,12 @@ class ConcreteDateTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var proLabel: UIView!
     
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         proLabel.layer.cornerRadius = 3.0
         calendarIconBackground.layer.cornerRadius = 6
-        calendarIconBackground.backgroundColor = UIColor(named: appColor)
-        dateLabel.textColor = UIColor(named: appColor)
+        calendarIconBackground.backgroundColor = UIColor(named: UserDefaultsManager.appColor)
+        dateLabel.textColor = UIColor(named: UserDefaultsManager.appColor)
         dateSpinner.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
     }
 

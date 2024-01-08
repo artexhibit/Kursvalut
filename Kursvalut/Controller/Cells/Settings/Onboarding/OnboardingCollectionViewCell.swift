@@ -11,13 +11,9 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     var subtitleLabel: String?
     var notifyControllerAction: (() -> Void)?
     
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.tintColor = UIColor(named: "\(appColor)")
+        self.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
     }
 }
 

@@ -11,15 +11,12 @@ class OnboardingTableViewCell: UITableViewCell {
     @IBOutlet weak var openTutorialButton: UIButton!
     @IBOutlet weak var openTutorialIconButton: UIButton!
     
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
     var openOnboardingAction: (() -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         setupShadowView()
-        openTutorialButton.tintColor = UIColor(named: "\(appColor)")
+        openTutorialButton.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         openTutorialButton.addTarget(self, action: #selector(openTutorialButtonPressed(_:)), for: .touchUpInside)
         openTutorialIconButton.addTarget(self, action: #selector(openTutorialButtonPressed(_:)), for: .touchUpInside)
   }

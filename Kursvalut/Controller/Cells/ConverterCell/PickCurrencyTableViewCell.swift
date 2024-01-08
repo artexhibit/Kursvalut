@@ -11,16 +11,13 @@ class PickCurrencyTableViewCell: UITableViewCell {
     @IBOutlet weak var flagHeight: NSLayoutConstraint!
     @IBOutlet weak var pickCurrencyFlagStackView: UIStackView!
     
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
     private var roundFlags: Bool {
         return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.tintColor = UIColor(named: "\(appColor)")
+        self.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
     }
     
     override func layoutSubviews() {

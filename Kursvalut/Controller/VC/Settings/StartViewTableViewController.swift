@@ -6,9 +6,6 @@ class StartViewTableViewController: UITableViewController {
     private var currencyManager = CurrencyManager()
     private let optionsArray = ["Валюты", "Конвертер"]
     private let sectionArray = [(header: "", footer: "Выбранный экран будет открываться сразу после запуска приложения")]
-    private var pickedStartView: String {
-        return UserDefaults.sharedContainer.string(forKey: "startView") ?? ""
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +29,7 @@ class StartViewTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "startViewCell", for: indexPath) as! StartViewTableViewCell
         cell.viewNameLabel.text = optionsArray[indexPath.row]
-        cell.accessoryType = cell.viewNameLabel.text == pickedStartView ? .checkmark : .none
+        cell.accessoryType = cell.viewNameLabel.text == UserDefaultsManager.pickedStartView ? .checkmark : .none
         return cell
     }
     

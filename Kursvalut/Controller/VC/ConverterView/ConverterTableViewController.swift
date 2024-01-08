@@ -24,53 +24,21 @@ class ConverterTableViewController: UITableViewController {
     private var shouldAnimateCellAppear = false
     private var textFieldTextWasEdited = false
     private var longTapIsActiveOnTextField = false
-    private let notificationName = "ru.igorcodes.makeNetworkRequest" as CFString
     private var formatter: NumberFormatter?
     private var lastPickedData = (number: 0.0, shortName: "", textField: UITextField())
-    private var converterScreenDecimalsAmount: Int {
-        return UserDefaults.sharedContainer.integer(forKey: "converterScreenDecimals")
-    }
     private var canSetCustomCellHeight = true
     private var avoidTriggerCellsHeightChange = false
     private var dataSourceWasChanged = false
     private var cellHeights: [IndexPath: CGFloat] = [:]
     private var cellHeightNames: [String: CGFloat] = [:]
-    private var pickedStartView: String {
-        return UserDefaults.sharedContainer.string(forKey: "startView") ?? ""
-    }
-    private var amountOfPickedBankOfRussiaCurrencies: Int {
-        return UserDefaults.sharedContainer.integer(forKey: "savedAmountForBankOfRussia")
-    }
-    private var amountOfPickedForexCurrencies: Int {
-        return UserDefaults.sharedContainer.integer(forKey: "savedAmountForForex")
-    }
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
-    private var setTextFieldToZero: Bool {
-        UserDefaults.sharedContainer.bool(forKey: "setTextFieldToZero")
-    }
-    private var canResetValuesInActiveTextField: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "canResetValuesInActiveTextField")
-    }
-    private var saveConverterValuesTurnedOn: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "canSaveConverterValues")
-    }
-    private var pickedConverterCurrency: String {
-        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
-           return UserDefaults.sharedContainer.string(forKey: "bankOfRussiaPickedCurrency") ?? ""
-        } else {
-            return UserDefaults.sharedContainer.string(forKey: "forexPickedCurrency") ?? ""
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         formatter = converterManager.setupNumberFormatter()
         setupKeyboardBehaviour()
         currencyManager.configureContentInset(for: tableView, top: 10)
-        if pickedStartView == "Конвертер" { currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch() }
-        DarwinNotificationService.addNetworkRequestObserver(name: notificationName)
+        if UserDefaultsManager.pickedStartView == "Конвертер" { currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch() }
+        DarwinNotificationService.addNetworkRequestObserver(name: K.Notifications.networkNotification)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshConverterFRC), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCells), name: NSNotification.Name(rawValue: "updateCells"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
@@ -92,17 +60,17 @@ class ConverterTableViewController: UITableViewController {
             tableView.reloadData()
         }
         
-        if !saveConverterValuesTurnedOn && lastPickedData.number == 0 {
-            UserDefaults.sharedContainer.set("", forKey: "bankOfRussiaPickedCurrency")
-            UserDefaults.sharedContainer.set("", forKey: "forexPickedCurrency")
+        if !UserDefaultsManager.ConverterVC.canSaveConverterValues && lastPickedData.number == 0 {
+            UserDefaultsManager.ConverterVC.PickedConverterCurrency.bankOfRussiaPickedCurrency = ""
+            UserDefaultsManager.ConverterVC.PickedConverterCurrency.forexPickedCurrency = ""
         }
-        if saveConverterValuesTurnedOn { saveTextFieldNumbers() }
+        if UserDefaultsManager.ConverterVC.canSaveConverterValues { saveTextFieldNumbers() }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         avoidTriggerCellsHeightChange = true
-        if saveConverterValuesTurnedOn { saveTextFieldNumbers() }
+        if UserDefaultsManager.ConverterVC.canSaveConverterValues { saveTextFieldNumbers() }
     }
     
     @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
@@ -145,12 +113,12 @@ class ConverterTableViewController: UITableViewController {
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
             cell.numberTextField.inputView = numpadView
-            cell.activityIndicator.isHidden = cell.shortName.text == pickedConverterCurrency ? false : true
+            cell.activityIndicator.isHidden = cell.shortName.text == UserDefaultsManager.ConverterVC.PickedConverterCurrency.value ? false : true
             
             if let number = numberFromTextField, let pickedCurrency = pickedBankOfRussiaCurrency {
                 calculationResult = converterManager.performCalculation(with: number, pickedCurrency, currency)
             }
-            if saveConverterValuesTurnedOn {
+            if UserDefaultsManager.ConverterVC.canSaveConverterValues {
                 cell.numberTextField.text = textFieldIsEditing ? calculationResult : currency.converterValue
             } else {
                 cell.numberTextField.text = calculationResult
@@ -162,12 +130,12 @@ class ConverterTableViewController: UITableViewController {
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
             cell.numberTextField.inputView = numpadView
-            cell.activityIndicator.isHidden = cell.shortName.text == pickedConverterCurrency ? false : true
+            cell.activityIndicator.isHidden = cell.shortName.text == UserDefaultsManager.ConverterVC.PickedConverterCurrency.value ? false : true
             
             if let number = numberFromTextField, let pickedCurrency = pickedForexCurrency {
                 calculationResult = converterManager.performCalculation(with: number, pickedCurrency, currency)
             }
-            if saveConverterValuesTurnedOn {
+            if UserDefaultsManager.ConverterVC.canSaveConverterValues {
                 cell.numberTextField.text = textFieldIsEditing ? calculationResult : currency.converterValue
             } else {
                 cell.numberTextField.text = calculationResult
@@ -178,7 +146,7 @@ class ConverterTableViewController: UITableViewController {
         cell.numberTextField.isUserInteractionEnabled = tableViewIsInEditingMode ? false : true
         cell.secondFullName.text = CurrencyData.currencyFullNameDict[cell.shortName.text ?? "RUB"]?.shortName
         
-        if setTextFieldToZero && !saveConverterValuesTurnedOn {
+        if UserDefaultsManager.ConverterVC.setTextFieldToZero && !UserDefaultsManager.ConverterVC.canSaveConverterValues {
             cell.numberTextField.text = "0"
             numberFromTextField = 0
             cell.activityIndicator.isHidden = true
@@ -220,16 +188,16 @@ class ConverterTableViewController: UITableViewController {
             avoidTriggerCellsHeightChange = true
             
             if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
-                var currentAmount = amountOfPickedBankOfRussiaCurrencies
+                var currentAmount = UserDefaultsManager.ConverterVC.amountOfPickedBankOfRussiaCurrencies
                 let currencies = bankOfRussiaFRC.fetchedObjects!
                 let currency = bankOfRussiaFRC.object(at: indexPath)
                 
                 currency.isForConverter = false
                 if !UserDefaultsManager.proPurchased {
                     currentAmount -= 1
-                    UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForBankOfRussia")
+                    UserDefaultsManager.ConverterVC.amountOfPickedBankOfRussiaCurrencies = currentAmount
                 }
-                if pickedConverterCurrency == currency.shortName {
+                if UserDefaultsManager.ConverterVC.PickedConverterCurrency.value == currency.shortName {
                     UserDefaults.sharedContainer.set("", forKey: "bankOfRussiaPickedCurrency")
                     numberFromTextField = 0
     
@@ -240,16 +208,16 @@ class ConverterTableViewController: UITableViewController {
                 }
                 converterManager.deleteRow(for: currency, in: currencies)
             } else {
-                var currentAmount = amountOfPickedForexCurrencies
+                var currentAmount = UserDefaultsManager.ConverterVC.amountOfPickedForexCurrencies
                 let currencies = forexFRC.fetchedObjects!
                 let currency = forexFRC.object(at: indexPath)
                 
                 currency.isForConverter = false
                 if !UserDefaultsManager.proPurchased {
                     currentAmount -= 1
-                    UserDefaults.sharedContainer.set(currentAmount, forKey: "savedAmountForForex")
+                    UserDefaultsManager.ConverterVC.amountOfPickedForexCurrencies = currentAmount
                 }
-                if pickedConverterCurrency == currency.shortName {
+                if UserDefaultsManager.ConverterVC.PickedConverterCurrency.value == currency.shortName {
                     UserDefaults.sharedContainer.set("", forKey: "forexPickedCurrency")
                     numberFromTextField = 0
                     
@@ -296,7 +264,7 @@ class ConverterTableViewController: UITableViewController {
     }
     
     @objc func refreshConverterFRC() {
-        UserDefaults.sharedContainer.set(true, forKey: "setTextFieldToZero")
+        UserDefaultsManager.ConverterVC.setTextFieldToZero = true
         setupFetchedResultsController()
         dataSourceWasChanged = true
     }
@@ -403,7 +371,7 @@ class ConverterTableViewController: UITableViewController {
            var pickedConverterCurrencyWasDeleted = true
             
             for cell in activeConverterCells {
-                if cell.shortName.text == pickedConverterCurrency {
+                if cell.shortName.text == UserDefaultsManager.ConverterVC.PickedConverterCurrency.value {
                     pickedConverterCurrencyWasDeleted = false
                     break
                 }
@@ -433,7 +401,7 @@ class ConverterTableViewController: UITableViewController {
             let allCurrencies = bankOfRussiaFRC.fetchedObjects
             
             allCurrencies?.forEach({ currency in
-                if currency.shortName == pickedConverterCurrency {
+                if currency.shortName == UserDefaultsManager.ConverterVC.PickedConverterCurrency.value {
                     pickedBankOfRussiaCurrency = currency
                     numberFromTextField = formatter?.number(from: currency.converterValue ?? "0")?.doubleValue ?? 0
                 }
@@ -446,7 +414,7 @@ class ConverterTableViewController: UITableViewController {
             let allCurrencies = forexFRC.fetchedObjects
 
             allCurrencies?.forEach({ currency in
-                if currency.shortName == pickedConverterCurrency {
+                if currency.shortName == UserDefaultsManager.ConverterVC.PickedConverterCurrency.value {
                     pickedForexCurrency = currency
                     numberFromTextField = formatter?.number(from: currency.converterValue ?? "0")?.doubleValue ?? 0
                 }
@@ -543,7 +511,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         setupNumpadResetButtonTitle(accordingTo: textField)
         turnOnCellActivityIndicator(with: textField)
         
-        if canResetValuesInActiveTextField {
+        if UserDefaultsManager.ConverterVC.canResetValuesInActiveTextField {
             setCellActiveIndicator(in: textField)
             for cell in activeConverterCells { cell.numberTextField.text = "0" }
         }
@@ -553,8 +521,8 @@ extension ConverterTableViewController: UITextFieldDelegate {
             textField.placeholder = "0"
             textField.text = ""
         }
-        textField.textColor = UIColor(named: "\(appColor)")
-        UserDefaults.sharedContainer.set(false, forKey: "setTextFieldToZero")
+        textField.textColor = UIColor(named: "\(UserDefaultsManager.appColor)")
+        UserDefaultsManager.ConverterVC.setTextFieldToZero = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
@@ -573,9 +541,9 @@ extension ConverterTableViewController: UITextFieldDelegate {
             textField.text = "0"
             
             if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
-                UserDefaults.sharedContainer.set("", forKey: "bankOfRussiaPickedCurrency")
+                UserDefaultsManager.ConverterVC.PickedConverterCurrency.bankOfRussiaPickedCurrency = ""
             } else {
-                UserDefaults.sharedContainer.set("", forKey: "forexPickedCurrency")
+                UserDefaultsManager.ConverterVC.PickedConverterCurrency.forexPickedCurrency = ""
             }
             for cell in activeConverterCells { cell.activityIndicator.isHidden = true }
         }
@@ -616,7 +584,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         textFieldTextWasEdited = true
         var digitsLimitNotReached = true
-        let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount, roundDown: true, needMinFractionDigits: true)
+        let formatter = converterManager.setupNumberFormatter(withMaxFractionDigits: UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount, roundDown: true, needMinFractionDigits: true)
         let numberString = "\(textField.text ?? "")".replacingOccurrences(of: formatter.groupingSeparator, with: "")
         let rangeString = (((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)).replacingOccurrences(of: formatter.groupingSeparator, with: "")
         
@@ -819,7 +787,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         if parts.count == 1 {
             guard string.filter({!",.=".contains($0)}).count <= maxDigits else { return false }
         } else if parts.count == 2 {
-            guard string.filter({!",.=".contains($0)}).count <= maxDigits + converterScreenDecimalsAmount else { return false }
+            guard string.filter({!",.=".contains($0)}).count <= maxDigits + UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount else { return false }
         }
         return true
     }
@@ -848,7 +816,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
     
     func saveLastPickedTextFieldData() {
         for cell in activeConverterCells {
-            if cell.shortName.text == pickedConverterCurrency {
+            if cell.shortName.text == UserDefaultsManager.ConverterVC.PickedConverterCurrency.value {
                 lastPickedData.number = formatter?.number(from: cell.numberTextField.text ?? "0")?.doubleValue ?? 0.0
                 lastPickedData.shortName = cell.shortName.text ?? ""
             }
@@ -860,9 +828,9 @@ extension ConverterTableViewController: UITextFieldDelegate {
         let currentlyEditingCell = tableView.cellForRow(at: pickedCurrencyIndexPath) as? ConverterTableViewCell
         
         if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
-            UserDefaults.sharedContainer.set(currentlyEditingCell?.shortName.text, forKey: "bankOfRussiaPickedCurrency")
+            UserDefaultsManager.ConverterVC.PickedConverterCurrency.bankOfRussiaPickedCurrency = currentlyEditingCell?.shortName.text ?? ""
         } else {
-            UserDefaults.sharedContainer.set(currentlyEditingCell?.shortName.text, forKey: "forexPickedCurrency")
+            UserDefaultsManager.ConverterVC.PickedConverterCurrency.forexPickedCurrency = currentlyEditingCell?.shortName.text ?? ""
         }
         
         for cell in activeConverterCells {
@@ -880,7 +848,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         for cell in activeConverterCells { cell.numberTextField.text = "0" }
         
         if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
-            UserDefaults.sharedContainer.set("", forKey: "bankOfRussiaPickedCurrency")
+            UserDefaultsManager.ConverterVC.PickedConverterCurrency.bankOfRussiaPickedCurrency = ""
             let currencies = bankOfRussiaFRC.fetchedObjects!
             
             currencies.forEach { currency in
@@ -888,7 +856,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
                 PersistenceController.shared.saveContext()
             }
         } else {
-            UserDefaults.sharedContainer.set("", forKey: "forexPickedCurrency")
+            UserDefaultsManager.ConverterVC.PickedConverterCurrency.forexPickedCurrency = ""
             let currencies = forexFRC.fetchedObjects!
             currencies.forEach { currency in
                 currency.converterValue = "0"
@@ -912,7 +880,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
         var targetCell: ConverterTableViewCell?
         
         for cell in activeConverterCells {
-            if cell.shortName.text == pickedConverterCurrency { targetCell = cell }
+            if cell.shortName.text == UserDefaultsManager.ConverterVC.PickedConverterCurrency.value { targetCell = cell }
         }
         if longTapIsActiveOnTextField { targetCell?.numberTextField.deleteBackward() }
         

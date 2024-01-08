@@ -3,10 +3,6 @@ import Foundation
 import UIKit
 
 struct ConverterManager {
-    private var converterScreenDecimalsAmount: Int {
-        return UserDefaults.sharedContainer.integer(forKey: "converterScreenDecimals")
-    }
-    
     //MARK: - Calculation Methods
     
     func setupNumberFormatter(withMaxFractionDigits digits: Int = 0, roundDown: Bool = false, needMinFractionDigits: Bool = false) -> NumberFormatter {
@@ -36,7 +32,7 @@ struct ConverterManager {
         }
         if let decimalSeparator = tempString.firstIndex(of: Character(formatter.decimalSeparator)) {
             let decimalPart = tempString[decimalSeparator...].dropFirst()
-            let truncatedDecimalPart = decimalPart.prefix(converterScreenDecimalsAmount)
+            let truncatedDecimalPart = decimalPart.prefix(UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount)
             let mainPart = tempString[...decimalSeparator]
             tempString = String(mainPart + truncatedDecimalPart)
         }
@@ -45,13 +41,13 @@ struct ConverterManager {
     
     func performCalculation(with number: Double, _ pickedBankOfRussiaCurrency: Currency, _ cellCurrency: Currency) -> String {
         let unformattedNumber = (pickedBankOfRussiaCurrency.currentValue/Double(pickedBankOfRussiaCurrency.nominal))/(cellCurrency.currentValue/Double(cellCurrency.nominal)) * number
-        let formatter = setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount, roundDown: true)
+        let formatter = setupNumberFormatter(withMaxFractionDigits: UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount, roundDown: true)
         return formatter.string(from: NSNumber(value: unformattedNumber)) ?? "0"
     }
     
     func performCalculation(with number: Double, _ pickedForexCurrency: ForexCurrency, _ cellCurrency: ForexCurrency) -> String {
         let unformattedNumber = (cellCurrency.currentValue/Double(cellCurrency.nominal)/(pickedForexCurrency.currentValue/Double(pickedForexCurrency.nominal))) * number
-        let formatter = setupNumberFormatter(withMaxFractionDigits: converterScreenDecimalsAmount, roundDown: true)
+        let formatter = setupNumberFormatter(withMaxFractionDigits: UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount, roundDown: true)
         return formatter.string(from: NSNumber(value: unformattedNumber)) ?? "0"
     }
     

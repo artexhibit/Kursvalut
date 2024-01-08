@@ -10,16 +10,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         //Temporary set the color for future change color section in settings
-        UserDefaults.sharedContainer.set("ColorOrange", forKey: "appColor")
-        
-        var appColor: String {
-            return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-        }
+        UserDefaultsManager.appColor = "ColorOrange"
         
         guard let tabBarController = self.window?.rootViewController as? UITabBarController else { return }
-        tabBarController.selectedIndex = UserDefaults.sharedContainer.string(forKey: "startView") == "Валюты" ? 0 : 1
-        tabBarController.tabBar.tintColor = UIColor(named: "\(appColor)")
-        UINavigationBar.appearance().tintColor = UIColor(named: "\(appColor)")
+        tabBarController.selectedIndex = UserDefaultsManager.pickedStartView == "Валюты" ? 0 : 1
+        tabBarController.tabBar.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
+        UINavigationBar.appearance().tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         window?.overrideUserInterfaceStyle = currencyManager.switchTheme()
     }
 

@@ -14,12 +14,6 @@ struct CurrencyManager {
             return (Sign: "", Color: .systemGray, Symbol: "＝")
         }
     }
-    private var currencyScreenDecimalsAmount: Int {
-        return UserDefaults.sharedContainer.integer(forKey: "currencyScreenDecimals")
-    }
-    private var converterScreenDecimalsAmount: Int {
-        return UserDefaults.sharedContainer.integer(forKey: "converterScreenDecimals")
-    }
     private var currencyScreenPercentageAmount: Int {
         return UserDefaults.sharedContainer.integer(forKey: "currencyScreenPercentageDecimals")
     }
@@ -44,7 +38,7 @@ struct CurrencyManager {
     }
     
     func showRate(with value: Double, forConverter: Bool = false) -> String {
-        return forConverter ? String.roundDouble(value, maxDecimals: converterScreenDecimalsAmount) + " \(pickedBaseCurrency)" : String.roundDouble(value, maxDecimals: currencyScreenDecimalsAmount) + " \(pickedBaseCurrency)"
+        return forConverter ? String.roundDouble(value, maxDecimals: UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount) + " \(pickedBaseCurrency)" : String.roundDouble(value, maxDecimals: UserDefaultsManager.CurrencyVC.currencyScreenDecimalsAmount) + " \(pickedBaseCurrency)"
     }
     
     func showColor() -> UIColor {

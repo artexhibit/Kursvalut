@@ -7,14 +7,11 @@ class TutorialViewController: UIViewController {
     
     var gifName: String?
     var tutorialData: [(icon: String, text: String)]?
-    private var appColor: String {
-        return UserDefaults.sharedContainer.string(forKey: "appColor") ?? ""
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         closeButtonView.layer.cornerRadius = closeButtonView.frame.height / 2
-        closeButtonView.tintColor = UIColor(named: "\(appColor)")
+        closeButtonView.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
     }
     
     @IBAction func closeButtonPressed(_ sender: UIButton) {
