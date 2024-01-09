@@ -9,10 +9,6 @@ class ConverterPreviewTableViewCell: UITableViewCell {
     @IBOutlet weak var flagWidth: NSLayoutConstraint!
     @IBOutlet weak var converterPreviewCellStackView: UIStackView!
     
-    private var roundFlags: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -27,10 +23,10 @@ class ConverterPreviewTableViewCell: UITableViewCell {
     }
 
     private func setupDesignForRoundFlag() {
-        flagHeight.constant = roundFlags ? 35.0 : 45.0
-        flagWidth.constant = roundFlags ? 35.0 : 45.0
-        flag.image = roundFlags ? UIImage(named: "USDRound") : UIImage(named: "USD")
-        flag.layer.cornerRadius = roundFlags ? flagHeight.constant/2 : 0
-        converterPreviewCellStackView.spacing = roundFlags ? 1.0 : 6.0
+        flagHeight.constant = UserDefaultsManager.roundCountryFlags ? 35.0 : 45.0
+        flagWidth.constant = UserDefaultsManager.roundCountryFlags ? 35.0 : 45.0
+        flag.image = UserDefaultsManager.roundCountryFlags ? UIImage(named: "USDRound") : UIImage(named: "USD")
+        flag.layer.cornerRadius = UserDefaultsManager.roundCountryFlags ? flagHeight.constant/2 : 0
+        converterPreviewCellStackView.spacing = UserDefaultsManager.roundCountryFlags ? 1.0 : 6.0
     }
 }

@@ -7,13 +7,10 @@ class NumpadView: UIView, UIInputViewAudioFeedback {
     @IBOutlet weak var decimalButton: NumpadButton!
     @IBOutlet weak var deleteButton: NumpadButton!
     
-    private var keyboardWithSound: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "keyboardWithSound")
-    }
     private var target: UITextInput?
     private var view: UIView?
     var enableInputClicksWhenVisible: Bool {
-        return keyboardWithSound ? true : false
+        return UserDefaultsManager.SettingsVC.keyboardWithSound ? true : false
     }
     private var decimalSeparator: String {
         return Locale.current.decimalSeparator ?? "."

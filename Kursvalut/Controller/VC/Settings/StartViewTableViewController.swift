@@ -49,7 +49,7 @@ class StartViewTableViewController: UITableViewController {
             }
             cell.accessoryType = .checkmark
         }
-        UserDefaults.sharedContainer.set(pickedOption, forKey: "startView")
+        UserDefaultsManager.pickedStartView = pickedOption
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

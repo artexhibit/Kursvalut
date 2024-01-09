@@ -13,10 +13,6 @@ class CurrencyTableViewCell: UITableViewCell {
     @IBOutlet weak var currencyCellStackView: UIStackView!
     @IBOutlet weak var currencyCellStackViewLeading: NSLayoutConstraint!
     
-    private var roundFlags: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
-    }
-    
     override func didMoveToSuperview() {
         self.layoutIfNeeded()
     }
@@ -38,12 +34,12 @@ class CurrencyTableViewCell: UITableViewCell {
     }
     
     private func setupRoundFlagDesign() {
-        self.separatorInset.left = roundFlags ? 60.0 : 72.0
-        flagWidth.constant = roundFlags ? 35.0 : 45.0
-        flagHeight.constant = roundFlags ? 35.0 : 45.0
-        currencyCellStackView.spacing = roundFlags ? 1.0 : 6.0
-        flag.layer.cornerRadius = roundFlags ? flagHeight.constant/2 : 0
-        currencyCellStackViewLeading.constant = roundFlags ? 13.0 : 20.0
+        self.separatorInset.left = UserDefaultsManager.roundCountryFlags ? 60.0 : 72.0
+        flagWidth.constant = UserDefaultsManager.roundCountryFlags ? 35.0 : 45.0
+        flagHeight.constant = UserDefaultsManager.roundCountryFlags ? 35.0 : 45.0
+        currencyCellStackView.spacing = UserDefaultsManager.roundCountryFlags ? 1.0 : 6.0
+        flag.layer.cornerRadius = UserDefaultsManager.roundCountryFlags ? flagHeight.constant/2 : 0
+        currencyCellStackViewLeading.constant = UserDefaultsManager.roundCountryFlags ? 13.0 : 20.0
     }
 }
 

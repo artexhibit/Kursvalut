@@ -4,7 +4,6 @@ import UIKit
 class DecimalsTableViewController: UITableViewController {
     
     private var currencyManager = CurrencyManager()
-    private let userDefaults = UserDefaults.sharedContainer
     private let optionsArray = ["Количество знаков для цифры с курсом", "Количество знаков для процентов", "Количество знаков для цифры с курсом"]
     private let sectionsArray = [
         (header: "Экран Валюты", footer: ""),
@@ -17,10 +16,6 @@ class DecimalsTableViewController: UITableViewController {
                          converterCell: (row: 0, section: 2)
     )
     private let previewNumber = (forCurrencyScreen: 65.1234, forConverterScreen: 60.1234, forCurrencyPercentageOne: 57.9855, forCurrencyPercentageTwo: 65.4128)
-    
-    private var currencyScreenPercentageAmount: Int {
-        return userDefaults.integer(forKey: "currencyScreenPercentageDecimals")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +43,7 @@ class DecimalsTableViewController: UITableViewController {
             if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 0 {
                 return UserDefaultsManager.CurrencyVC.currencyScreenDecimalsAmount
             } else if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 1 {
-                return currencyScreenPercentageAmount
+                return UserDefaultsManager.CurrencyVC.currencyScreenPercentageAmount
             } else {
                 return UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount
             }
@@ -95,7 +90,7 @@ extension DecimalsTableViewController: StepperDelegate {
             UserDefaultsManager.CurrencyVC.decimalsNumberChanged = true
             tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
         } else if pickedSection == sectionNumber.decimalCell.firstCell && pickedRow == 1 {
-            userDefaults.set(number, forKey: "currencyScreenPercentageDecimals")
+            UserDefaultsManager.CurrencyVC.currencyScreenPercentageAmount = number
             UserDefaultsManager.CurrencyVC.decimalsNumberChanged = true
             tableView.reloadRows(at: [IndexPath(row: sectionNumber.currencyCell.row, section: sectionNumber.currencyCell.section)], with: .none)
         } else {

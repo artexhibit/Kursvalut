@@ -10,10 +10,6 @@ class CurrencyPreviewTableViewCell: UITableViewCell {
     @IBOutlet weak var flag: UIImageView!
     @IBOutlet weak var currencyPreviewCellStackView: UIStackView!
     
-    private var roundFlags: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -28,10 +24,10 @@ class CurrencyPreviewTableViewCell: UITableViewCell {
     }
 
     private func setupDesignForRoundFlag() {
-        flagHeight.constant = roundFlags ? 35.0 : 45.0
-        flagWidth.constant = roundFlags ? 35.0 : 45.0
-        flag.image = roundFlags ? UIImage(named: "EURRound") : UIImage(named: "EUR")
-        flag.layer.cornerRadius = roundFlags ? flagHeight.constant/2 : 0
-        currencyPreviewCellStackView.spacing = roundFlags ? 1.0 : 6.0
+        flagHeight.constant = UserDefaultsManager.roundCountryFlags ? 35.0 : 45.0
+        flagWidth.constant = UserDefaultsManager.roundCountryFlags ? 35.0 : 45.0
+        flag.image = UserDefaultsManager.roundCountryFlags ? UIImage(named: "EURRound") : UIImage(named: "EUR")
+        flag.layer.cornerRadius = UserDefaultsManager.roundCountryFlags ? flagHeight.constant/2 : 0
+        currencyPreviewCellStackView.spacing = UserDefaultsManager.roundCountryFlags ? 1.0 : 6.0
     }
 }

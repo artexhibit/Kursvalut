@@ -14,21 +14,15 @@ struct CurrencyManager {
             return (Sign: "", Color: .systemGray, Symbol: "＝")
         }
     }
-    private var currencyScreenPercentageAmount: Int {
-        return UserDefaults.sharedContainer.integer(forKey: "currencyScreenPercentageDecimals")
-    }
     private var pickedBaseCurrency: String {
         return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
     }
     private var todaysDate: String {
         return createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
     }
-    private var roundFlags: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
-    }
     
     func showCurrencyFlag(_ shortName: String) -> UIImage? {
-        if roundFlags {
+        if UserDefaultsManager.roundCountryFlags {
             guard let image = UIImage(named: "\(shortName)Round") else { return UIImage(named: "notFoundRound") }
             return image
         } else {
@@ -48,8 +42,8 @@ struct CurrencyManager {
     mutating func showDifference(with absoluteValue: Double, and previousValue: Double) -> String {
         difference = absoluteValue - previousValue
         let differencePercentage = (abs(difference) / ((absoluteValue + previousValue)/2)) * 100
-        let formattedDifference = String.roundDouble(abs(difference), maxDecimals: currencyScreenPercentageAmount)
-        let formattedPercentage = String.roundDouble(differencePercentage, maxDecimals: currencyScreenPercentageAmount)
+        let formattedDifference = String.roundDouble(abs(difference), maxDecimals: UserDefaultsManager.CurrencyVC.currencyScreenPercentageAmount)
+        let formattedPercentage = String.roundDouble(differencePercentage, maxDecimals: UserDefaultsManager.CurrencyVC.currencyScreenPercentageAmount)
         return "\(differenceAttributes.Sign)\(formattedDifference) (\(formattedPercentage)%)\(differenceAttributes.Symbol)"
     }
     
@@ -75,13 +69,9 @@ struct CurrencyManager {
     }
     
     func switchTheme() -> UIUserInterfaceStyle {
-        var pickedTheme: String {
-            return UserDefaults.sharedContainer.string(forKey: "pickedTheme") ?? ""
-        }
-        
-        if pickedTheme == "Светлая" {
+        if UserDefaultsManager.pickedTheme == "Светлая" {
             return .light
-        } else if pickedTheme == "Тёмная" {
+        } else if UserDefaultsManager.pickedTheme == "Тёмная" {
             return .dark
         } else {
             return .unspecified

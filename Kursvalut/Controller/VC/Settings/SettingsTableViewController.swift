@@ -15,16 +15,6 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var converterValuesResetSwitch: UISwitch!
     @IBOutlet weak var saveConverterValuesSwitch: UISwitch!
     
-    private var pickedTheme: String {
-        return UserDefaults.sharedContainer.string(forKey: "pickedTheme") ?? ""
-    }
-    private var keyboardWithSound: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "keyboardWithSound")
-    }
-    private var roundFlags: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         roundViewCorners()
@@ -35,7 +25,7 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        pickedThemeLabel.text = pickedTheme
+        pickedThemeLabel.text = UserDefaultsManager.pickedTheme
         loadKeyboardSoundSwitchState()
         loadConverterValueSwitchState()
         loadSaveConverterValueSwitchState()
@@ -43,15 +33,11 @@ class SettingsTableViewController: UITableViewController {
     }
     
     @IBAction func roundFlagsSwitchPressed(_ sender: UISwitch) {
-        if roundFlagsSwitch.isOn {
-            UserDefaults.sharedContainer.set(true, forKey: "roundFlags")
-        } else {
-            UserDefaults.sharedContainer.set(false, forKey: "roundFlags")
-        }
+        UserDefaultsManager.roundCountryFlags = roundFlagsSwitch.isOn ? true : false
     }
     
     func loadFlagsSwitchState() {
-        if roundFlags {
+        if UserDefaultsManager.roundCountryFlags {
             roundFlagsSwitch.setOn(true, animated: false)
         } else {
             roundFlagsSwitch.setOn(false, animated: false)
@@ -67,15 +53,11 @@ class SettingsTableViewController: UITableViewController {
     }
     
     @IBAction func keyboardSoundSwitchPressed(_ sender: UISwitch) {
-        if keyboardSoundSwitch.isOn {
-            UserDefaults.sharedContainer.set(true, forKey: "keyboardWithSound")
-        } else {
-            UserDefaults.sharedContainer.set(false, forKey: "keyboardWithSound")
-        }
+        UserDefaultsManager.SettingsVC.keyboardWithSound = keyboardSoundSwitch.isOn ? true : false
     }
     
     func loadKeyboardSoundSwitchState() {
-        if keyboardWithSound {
+        if UserDefaultsManager.SettingsVC.keyboardWithSound {
             keyboardSoundSwitch.setOn(true, animated: false)
         } else {
             keyboardSoundSwitch.setOn(false, animated: false)

@@ -24,9 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             UserDefaultsManager.CurrencyVC.currencyScreenDecimalsAmount = UserDefaults.standard.integer(forKey: "currencyScreenDecimals")
             UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount = UserDefaults.standard.integer(forKey: "converterScreenDecimals")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "currencyScreenPercentageDecimals"), forKey: "currencyScreenPercentageDecimals")
+            UserDefaultsManager.CurrencyVC.currencyScreenPercentageAmount = UserDefaults.standard.integer(forKey: "currencyScreenPercentageDecimals")
             UserDefaultsManager.pickedStartView = UserDefaults.standard.string(forKey: "startView")!
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "pickedTheme")!, forKey: "pickedTheme")
+            UserDefaultsManager.pickedTheme = UserDefaults.standard.string(forKey: "pickedTheme")!
             UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection")!
             UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder")!
             UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "bankOfRussiaPickedSectionNumber"), forKey: "bankOfRussiaPickedSectionNumber")
@@ -36,8 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaultsManager.userHasOnboarded = UserDefaults.standard.bool(forKey: "userHasOnboarded")
             UserDefaultsManager.pickedDataSource = UserDefaults.standard.string(forKey: "baseSource")!
             UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "baseCurrency")!, forKey: "baseCurrency")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "keyboardWithSound"), forKey: "keyboardWithSound")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.bool(forKey: "roundFlags"), forKey: "roundFlags")
+            UserDefaultsManager.SettingsVC.keyboardWithSound = UserDefaults.standard.bool(forKey: "keyboardWithSound")
+            UserDefaultsManager.roundCountryFlags = UserDefaults.standard.bool(forKey: "roundFlags")
             UserDefaults.sharedContainer.set(currencyManager.createStringDate(with: "", from: Date(), dateStyle: .medium), forKey: "confirmedDate")
             UserDefaultsManager.pickDateSwitchIsOn = UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn")
             UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource")

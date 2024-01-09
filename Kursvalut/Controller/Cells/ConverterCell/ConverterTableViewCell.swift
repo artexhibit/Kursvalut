@@ -25,9 +25,6 @@ class ConverterTableViewCell: UITableViewCell {
     @IBOutlet weak var numberTextFieldWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var infoStackViewLeadingConstraint: NSLayoutConstraint!
     
-    private var roundFlags: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
-    }
     private var numberTextFieldInitialWidth: CGFloat = 0.0
     private var infoStackViewWidthConstraint: NSLayoutConstraint?
     private var storyboardNumberTextFieldViewWidthConstraint: NSLayoutConstraint?
@@ -58,14 +55,14 @@ class ConverterTableViewCell: UITableViewCell {
     }
     
     private func setupDesignForRoundFlag() {
-        self.separatorInset.left = roundFlags ? 50.0 : 62.0
-        flagHeight.constant = roundFlags ? 35.0 : 45.0
-        flagWidth.constant = roundFlags ? 35.0 : 45.0
-        flag.layer.cornerRadius = roundFlags ? flagHeight.constant/2 : 0
-        activityIndicatorBottom.constant = roundFlags ? -1.5 : 5.0
-        activityIndicatorTrailing.constant = roundFlags ? 1.0 : -3.0
-        infoStackView.spacing = roundFlags ? 4.0 : 8.0
-        infoStackViewLeadingConstraint.constant = roundFlags ? 4.0 : 10.0
+        self.separatorInset.left = UserDefaultsManager.roundCountryFlags ? 50.0 : 62.0
+        flagHeight.constant = UserDefaultsManager.roundCountryFlags ? 35.0 : 45.0
+        flagWidth.constant = UserDefaultsManager.roundCountryFlags ? 35.0 : 45.0
+        flag.layer.cornerRadius = UserDefaultsManager.roundCountryFlags ? flagHeight.constant/2 : 0
+        activityIndicatorBottom.constant = UserDefaultsManager.roundCountryFlags ? -1.5 : 5.0
+        activityIndicatorTrailing.constant = UserDefaultsManager.roundCountryFlags ? 1.0 : -3.0
+        infoStackView.spacing = UserDefaultsManager.roundCountryFlags ? 4.0 : 8.0
+        infoStackViewLeadingConstraint.constant = UserDefaultsManager.roundCountryFlags ? 4.0 : 10.0
     }
     
     private func setupActivityIndicator() {

@@ -9,6 +9,8 @@ struct K {
     static let permissionScreenWasShownKey = "permissionScreenWasShown"
     static let pickedStartViewKey = "startView"
     static let appColorKey = "appColor"
+    static let pickedThemeKey = "pickedTheme"
+    static let roundFlagsKey = "roundFlags"
     
     struct Notifications {
         static let networkNotification = "ru.igorcodes.makeNetworkRequest" as CFString
@@ -30,6 +32,7 @@ struct K {
         static let showCustomSortForBankOfRussiaKey = "showCustomSortForBankOfRussia"
         static let showCustomSortForForexKey = "showCustomSortForForex"
         static let currencyScreenDecimalsKey = "currencyScreenDecimals"
+        static let currencyScreenPercentageDecimalsKey = "currencyScreenPercentageDecimals"
     }
     struct ConverterVC {
         static let converterScreenDecimalsKey = "converterScreenDecimals"
@@ -40,5 +43,9 @@ struct K {
         static let canSaveConverterValuesKey = "canSaveConverterValues"
         static let bankOfRussiaPickedCurrencyKey = "bankOfRussiaPickedCurrency"
         static let forexPickedCurrencyKey = "forexPickedCurrency"
+    }
+    
+    struct SettingsVC {
+        static let keyboardWithSoundKey = "keyboardWithSound"
     }
 }

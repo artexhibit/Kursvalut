@@ -7,6 +7,10 @@ struct UserDefaultsManager {
         get { ud.string(forKey: K.appColorKey) ?? "" }
         set { ud.setValue(newValue, forKey: K.appColorKey) }
     }
+    static var pickedTheme: String {
+        get { ud.string(forKey: K.pickedThemeKey) ?? "" }
+        set { ud.setValue(newValue, forKey: K.pickedThemeKey) }
+    }
     static var proPurchased: Bool {
         get { ud.bool(forKey: K.proPurchasedKey) }
         set { ud.setValue(newValue, forKey: K.proPurchasedKey) }
@@ -14,6 +18,10 @@ struct UserDefaultsManager {
     static var pickedDataSource: String {
         get { ud.string(forKey: K.baseSourceKey) ?? "" }
         set { ud.setValue(newValue, forKey: K.baseSourceKey) }
+    }
+    static var roundCountryFlags: Bool {
+        get { ud.bool(forKey: K.roundFlagsKey) }
+        set { ud.setValue(newValue, forKey: K.roundFlagsKey) }
     }
     static var userHasOnboarded: Bool {
         get { ud.bool(forKey: K.userHasOnboardedKey) }
@@ -68,6 +76,10 @@ struct UserDefaultsManager {
         static var currencyScreenDecimalsAmount: Int {
             get { ud.integer(forKey: K.CurrencyVC.currencyScreenDecimalsKey) }
             set { ud.setValue(newValue, forKey: K.CurrencyVC.currencyScreenDecimalsKey) }
+        }
+        static var currencyScreenPercentageAmount: Int {
+            get { ud.integer(forKey: K.CurrencyVC.currencyScreenPercentageDecimalsKey) }
+            set { ud.setValue(newValue, forKey: K.CurrencyVC.currencyScreenPercentageDecimalsKey) }
         }
         
         struct PickedOrder {
@@ -171,6 +183,13 @@ struct UserDefaultsManager {
                     ud.setValue(forexPickedCurrency, forKey: K.ConverterVC.forexPickedCurrencyKey)
                 }
             }
+        }
+    }
+    
+    struct SettingsVC {
+        static var keyboardWithSound: Bool {
+            get { ud.bool(forKey: K.SettingsVC.keyboardWithSoundKey) }
+            set { ud.setValue(newValue, forKey: K.SettingsVC.keyboardWithSoundKey) }
         }
     }
 }

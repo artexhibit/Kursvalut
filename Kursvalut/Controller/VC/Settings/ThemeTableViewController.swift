@@ -6,9 +6,6 @@ class ThemeTableViewController: UITableViewController {
     private var currencyManager = CurrencyManager()
     private let optionsArray = ["Светлая", "Тёмная", "Как в системе"]
     private let sectionArray = [(header: "", footer: "Принудительно установить один из вариантов оформления или переключать согласно системной настройке оформления")]
-    private var pickedTheme: String {
-        return UserDefaults.sharedContainer.string(forKey: "pickedTheme") ?? ""
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +29,7 @@ class ThemeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "themeCell", for: indexPath) as! ThemeTableViewCell
         cell.themeNameLabel.text = optionsArray[indexPath.row]
-        cell.accessoryType = cell.themeNameLabel.text == pickedTheme ? .checkmark : .none
+        cell.accessoryType = cell.themeNameLabel.text == UserDefaultsManager.pickedTheme ? .checkmark : .none
         return cell
     }
     
@@ -54,7 +51,7 @@ class ThemeTableViewController: UITableViewController {
             }
             cell.accessoryType = .checkmark
         }
-        UserDefaults.sharedContainer.set(pickedOption, forKey: "pickedTheme")
+        UserDefaultsManager.pickedTheme = pickedOption
         
         UIView.transition(with: firstWindow, duration: 0.3, options: .transitionCrossDissolve, animations: {firstWindow.overrideUserInterfaceStyle = self.currencyManager.switchTheme()}, completion: nil)
     }

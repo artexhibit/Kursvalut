@@ -11,10 +11,6 @@ class BaseCurrencyTableViewCell: UITableViewCell {
     @IBOutlet weak var flagWidth: NSLayoutConstraint!
     @IBOutlet weak var baseCurrencyFlagStackView: UIStackView!
     
-    private var roundFlags: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "roundFlags")
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
@@ -30,9 +26,9 @@ class BaseCurrencyTableViewCell: UITableViewCell {
     }
     
     private func setupDesignForRoundFlag() {
-        flagHeight.constant = roundFlags ? 40.0 : 50.0
-        flagWidth.constant = roundFlags ? 40.0 : 50.0
-        flag.layer.cornerRadius = roundFlags ? flagHeight.constant/2 : 0
-        baseCurrencyFlagStackView.spacing = roundFlags ? 0.0 : 5.0
+        flagHeight.constant = UserDefaultsManager.roundCountryFlags ? 40.0 : 50.0
+        flagWidth.constant = UserDefaultsManager.roundCountryFlags ? 40.0 : 50.0
+        flag.layer.cornerRadius = UserDefaultsManager.roundCountryFlags ? flagHeight.constant/2 : 0
+        baseCurrencyFlagStackView.spacing = UserDefaultsManager.roundCountryFlags ? 0.0 : 5.0
     }
 }
