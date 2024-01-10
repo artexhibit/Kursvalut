@@ -8,9 +8,6 @@ class BaseCurrencyTableViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private var currencyManager = CurrencyManager()
     private var coreDataManager = CurrencyCoreDataManager()
-    private var pickedBaseCurrency: String {
-        return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +54,7 @@ class BaseCurrencyTableViewController: UITableViewController {
         cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
-        cell.picker.image = currency.shortName == pickedBaseCurrency ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+        cell.picker.image = currency.shortName == UserDefaultsManager.baseCurrency ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
         
         return cell
     }
@@ -69,8 +66,8 @@ class BaseCurrencyTableViewController: UITableViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.searchController.isActive = false
         }
-        UserDefaults.sharedContainer.set(forexCurrency.shortName, forKey: "baseCurrency")
-        cell.picker.image = forexCurrency.shortName == pickedBaseCurrency ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+        UserDefaultsManager.baseCurrency = forexCurrency.shortName ?? ""
+        cell.picker.image = forexCurrency.shortName == UserDefaultsManager.baseCurrency ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshDataFromDataSourceVC"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
         

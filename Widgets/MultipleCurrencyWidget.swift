@@ -12,15 +12,14 @@ struct MultipleCurrencyProvider: IntentTimelineProvider {
     }
     
     func getTimeline(for configuration: SetMultipleCurrencyIntent, in context: Context, completion: @escaping (Timeline<MultipleCurrencyEntry>) -> Void) {
-        var baseCurrency: String { UserDefaults.sharedContainer.string(forKey: "baseCurrency")!}
         var baseSource: String { UserDefaultsManager.pickedDataSource }
         guard let decimals = configuration.decimals as? Int else { return }
-        let mainCurrencies = WidgetsCoreDataManager.getFirstTenCurrencies(for: baseSource, and: String(baseCurrency))
+        let mainCurrencies = WidgetsCoreDataManager.getFirstTenCurrencies(for: baseSource, and: UserDefaultsManager.baseCurrency)
         let shortNames = WidgetsData.getShortNames(with: mainCurrencies)
-        let values = WidgetsCoreDataManager.calculateValue(for: baseSource, with: mainCurrencies, and: String(baseCurrency), decimals: decimals, includePreviousValues: true)
+        let values = WidgetsCoreDataManager.calculateValue(for: baseSource, with: mainCurrencies, and: UserDefaultsManager.baseCurrency, decimals: decimals, includePreviousValues: true)
         let dates = WidgetsCoreDataManager.getDates(baseSource: baseSource, mainCurrencies: mainCurrencies)
         
-        let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: mainCurrencies, shortNames: shortNames, currentValues: values.currentValues, previousValues: nil, currentValuesDate: dates.current, previousValuesDate: nil)
+        let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: UserDefaultsManager.baseCurrency, mainCurrencies: mainCurrencies, shortNames: shortNames, currentValues: values.currentValues, previousValues: nil, currentValuesDate: dates.current, previousValuesDate: nil)
         
         let entry = MultipleCurrencyEntry(date: Date(), currency: currency)
         

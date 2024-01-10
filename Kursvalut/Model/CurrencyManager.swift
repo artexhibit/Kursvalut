@@ -14,9 +14,6 @@ struct CurrencyManager {
             return (Sign: "", Color: .systemGray, Symbol: "＝")
         }
     }
-    private var pickedBaseCurrency: String {
-        return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
-    }
     private var todaysDate: String {
         return createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
     }
@@ -32,7 +29,7 @@ struct CurrencyManager {
     }
     
     func showRate(with value: Double, forConverter: Bool = false) -> String {
-        return forConverter ? String.roundDouble(value, maxDecimals: UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount) + " \(pickedBaseCurrency)" : String.roundDouble(value, maxDecimals: UserDefaultsManager.CurrencyVC.currencyScreenDecimalsAmount) + " \(pickedBaseCurrency)"
+        return forConverter ? String.roundDouble(value, maxDecimals: UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount) + " \(UserDefaultsManager.baseCurrency)" : String.roundDouble(value, maxDecimals: UserDefaultsManager.CurrencyVC.currencyScreenDecimalsAmount) + " \(UserDefaultsManager.baseCurrency)"
     }
     
     func showColor() -> UIColor {
@@ -116,8 +113,6 @@ struct CurrencyManager {
     }
     
     func createNotificationText(with baseSource: String, newStoredDate: Date) -> String {
-        let baseCurrency = UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
-        
         let date = Date.createStringDate(from: newStoredDate)
         let cbrfCurrencies = coreDataManager.fetchCurrencies(entityName: Currency.self).filter { $0.shortName == "USD" || $0.shortName == "EUR" }.sorted { $0.shortName ?? "" > $1.shortName ?? "" }
         let forexCurrencies = coreDataManager.fetchCurrencies(entityName: ForexCurrency.self).filter { $0.shortName == "USD" || $0.shortName == "EUR" }.sorted { $0.shortName ?? "" > $1.shortName ?? "" }
@@ -127,7 +122,7 @@ struct CurrencyManager {
         let eur = baseSource == "ЦБ РФ" ? cbrfCurrencies.last?.shortName ?? "EUR" : forexCurrencies.last?.shortName ?? "EUR"
         let eurValue = baseSource == "ЦБ РФ" ? String.roundDouble(cbrfCurrencies.last?.absoluteValue ?? 0, maxDecimals: 4) : String.roundDouble(forexCurrencies.last?.absoluteValue ?? 0, maxDecimals: 4)
         
-        return "Курс \(baseSource) на \(date): \(usd) - \(usdValue) \(baseCurrency), \(eur) - \(eurValue) \(baseCurrency)"
+        return "Курс \(baseSource) на \(date): \(usd) - \(usdValue) \(UserDefaultsManager.baseCurrency), \(eur) - \(eurValue) \(UserDefaultsManager.baseCurrency)"
     }
     
     func updateAllCurrencyTypesOnEachDayFirstLaunch() {

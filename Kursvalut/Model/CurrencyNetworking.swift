@@ -7,9 +7,6 @@ struct CurrencyNetworking {
     private let coreDataManager = CurrencyCoreDataManager()
     private let currencyManager = CurrencyManager()
     private let dataToFilterOut = Set(["BTC", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPD", "XPF", "XPT"])
-    private var pickedBaseCurrency: String {
-        return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
-    }
     private var yesterdaysDate: String {
         let confirmedDate = currencyManager.createDate(from: UserDefaultsManager.confirmedDate)
         let confirmedStringDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: confirmedDate, dateStyle: nil)
@@ -40,13 +37,13 @@ struct CurrencyNetworking {
         let todaysDate = currencyManager.createStringDate(with: "yyyy-MM-dd")
         
         if confirmedDate != todaysDate {
-            return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(confirmedDate)/currencies/\(pickedBaseCurrency.lowercased()).json")!
+            return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(confirmedDate)/currencies/\(UserDefaultsManager.baseCurrency.lowercased()).json")!
         } else {
-            return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(todaysDate)/currencies/\(pickedBaseCurrency.lowercased()).json")!
+            return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(todaysDate)/currencies/\(UserDefaultsManager.baseCurrency.lowercased()).json")!
         }
     }
     private var historicalForexURL: URL {
-        return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(yesterdaysDate)/currencies/\(pickedBaseCurrency.lowercased()).json")!
+        return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(yesterdaysDate)/currencies/\(UserDefaultsManager.baseCurrency.lowercased()).json")!
     }
     
     //MARK: - Networking Methods

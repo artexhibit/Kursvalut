@@ -29,13 +29,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaultsManager.pickedTheme = UserDefaults.standard.string(forKey: "pickedTheme")!
             UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = UserDefaults.standard.string(forKey: "bankOfRussiaPickedSection")!
             UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = UserDefaults.standard.string(forKey: "bankOfRussiaPickedOrder")!
-            UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "bankOfRussiaPickedSectionNumber"), forKey: "bankOfRussiaPickedSectionNumber")
+            UserDefaultsManager.SortingVC.PickedSectionNumber.bankOfRussiaPickedSectionNumber = UserDefaults.standard.integer(forKey: "bankOfRussiaPickedSectionNumber")
             UserDefaultsManager.CurrencyVC.PickedSection.forexSection = UserDefaults.standard.string(forKey: "forexPickedSection")!
             UserDefaultsManager.CurrencyVC.PickedOrder.forexOrder = UserDefaults.standard.string(forKey: "forexPickedOrder")!
-            UserDefaults.sharedContainer.set(UserDefaults.standard.integer(forKey: "forexPickedSectionNumber"), forKey: "forexPickedSectionNumber")
+            UserDefaultsManager.SortingVC.PickedSectionNumber.forexPickedSectionNumber = UserDefaults.standard.integer(forKey: "forexPickedSectionNumber")
             UserDefaultsManager.userHasOnboarded = UserDefaults.standard.bool(forKey: "userHasOnboarded")
             UserDefaultsManager.pickedDataSource = UserDefaults.standard.string(forKey: "baseSource")!
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "baseCurrency")!, forKey: "baseCurrency")
+            UserDefaultsManager.baseCurrency = UserDefaults.standard.string(forKey: "baseCurrency")!
             UserDefaultsManager.SettingsVC.keyboardWithSound = UserDefaults.standard.bool(forKey: "keyboardWithSound")
             UserDefaultsManager.roundCountryFlags = UserDefaults.standard.bool(forKey: "roundFlags")
             UserDefaults.sharedContainer.set(currencyManager.createStringDate(with: "", from: Date(), dateStyle: .medium), forKey: "confirmedDate")
@@ -43,10 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource")
             UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForBankOfRussia = UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForBankOfRussia")
             UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForForex = UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForForex")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousBankOfRussiaPickedOrder")!, forKey: "previousBankOfRussiaPickedOrder")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousForexPickedOrder")!, forKey: "previousForexPickedOrder")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousLastBankOfRussiaPickedSection")!, forKey: "previousLastBankOfRussiaPickedSection")
-            UserDefaults.sharedContainer.set(UserDefaults.standard.string(forKey: "previousForexPickedSection")!, forKey: "previousForexPickedSection")
+            UserDefaultsManager.SortingVC.PreviousPickedOrder.previousBankOfRussiaPickedOrder = UserDefaults.standard.string(forKey: "previousBankOfRussiaPickedOrder")!
+            UserDefaultsManager.SortingVC.PreviousPickedOrder.previousForexPickedOrder = UserDefaults.standard.string(forKey: "previousForexPickedOrder")!
+            UserDefaultsManager.SortingVC.PreviousPickedSection.previousLastBankOfRussiaPickedSection = UserDefaults.standard.string(forKey: "previousLastBankOfRussiaPickedSection")!
+            UserDefaultsManager.SortingVC.PreviousPickedSection.previousForexPickedSection = UserDefaults.standard.string(forKey: "previousForexPickedSection")!
             UserDefaultsManager.CurrencyVC.ShowCustomSort.showCustomSortForBankOfRussia = UserDefaults.standard.bool(forKey: "showCustomSortForBankOfRussia")
             UserDefaultsManager.CurrencyVC.ShowCustomSort.showCustomSortForForex = UserDefaults.standard.bool(forKey: "showCustomSortForForex")
             UserDefaultsManager.CurrencyVC.needToRefreshFRCForCustomSort = UserDefaults.standard.bool(forKey: "needToRefreshFRCForCustomSort")

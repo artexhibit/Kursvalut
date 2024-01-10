@@ -11,6 +11,7 @@ struct K {
     static let appColorKey = "appColor"
     static let pickedThemeKey = "pickedTheme"
     static let roundFlagsKey = "roundFlags"
+    static let baseCurrencyKey = "baseCurrency"
     
     struct Notifications {
         static let networkNotification = "ru.igorcodes.makeNetworkRequest" as CFString
@@ -44,8 +45,15 @@ struct K {
         static let bankOfRussiaPickedCurrencyKey = "bankOfRussiaPickedCurrency"
         static let forexPickedCurrencyKey = "forexPickedCurrency"
     }
-    
     struct SettingsVC {
         static let keyboardWithSoundKey = "keyboardWithSound"
+    }
+    struct SortingVC {
+        static let bankOfRussiaPickedSectionNumberKey = "bankOfRussiaPickedSectionNumber"
+        static let forexPickedSectionNumberKey = "forexPickedSectionNumber"
+        static let previousBankOfRussiaPickedOrderKey = "previousBankOfRussiaPickedOrder"
+        static let previousForexPickedOrderKey = "previousForexPickedOrder"
+        static let previousLastBankOfRussiaPickedSectionKey = "previousLastBankOfRussiaPickedSection"
+        static let previousForexPickedSectionKey = "previousForexPickedSection"
     }
 }

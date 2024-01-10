@@ -7,9 +7,6 @@ struct CurrencyCoreDataManager {
     private var pickCurrencyRequest: Bool {
         return UserDefaults.sharedContainer.bool(forKey: "pickCurrencyRequest")
     }
-    var pickedBaseCurrency: String {
-        return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
-    }
     private var todaysDate: String {
         let currencyManager = CurrencyManager()
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
@@ -270,7 +267,7 @@ struct CurrencyCoreDataManager {
         do {
             let fetchCurrencies = try context.fetch(request)
             fetchCurrencies.forEach { currency in
-                currency.isBaseCurrency = currency.shortName == pickedBaseCurrency ? true : false
+                currency.isBaseCurrency = currency.shortName == UserDefaultsManager.baseCurrency ? true : false
             }
         } catch {
             print(error)

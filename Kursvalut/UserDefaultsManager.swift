@@ -43,6 +43,10 @@ struct UserDefaultsManager {
         get { ud.string(forKey: K.pickedStartViewKey) ?? "" }
         set { ud.setValue(newValue, forKey: K.pickedStartViewKey) }
     }
+    static var baseCurrency: String {
+        get { ud.string(forKey: K.baseCurrencyKey) ?? "" }
+        set { ud.setValue(newValue, forKey: K.baseCurrencyKey) }
+    }
     
     struct CurrencyVC {
         static var needToRefreshFRCForCustomSort: Bool {
@@ -185,11 +189,57 @@ struct UserDefaultsManager {
             }
         }
     }
-    
     struct SettingsVC {
         static var keyboardWithSound: Bool {
             get { ud.bool(forKey: K.SettingsVC.keyboardWithSoundKey) }
             set { ud.setValue(newValue, forKey: K.SettingsVC.keyboardWithSoundKey) }
+        }
+    }
+    struct SortingVC {
+        struct PickedSectionNumber {
+            static var value: Int {
+                get { UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? ud.integer(forKey: K.SortingVC.bankOfRussiaPickedSectionNumberKey) : ud.integer(forKey: K.SortingVC.forexPickedSectionNumberKey) }
+            }
+            static var bankOfRussiaPickedSectionNumber: Int = 1 {
+                didSet {
+                    ud.setValue(bankOfRussiaPickedSectionNumber, forKey: K.SortingVC.bankOfRussiaPickedSectionNumberKey)
+                }
+            }
+            static var forexPickedSectionNumber: Int = 1 {
+                didSet {
+                    ud.setValue(forexPickedSectionNumber, forKey: K.SortingVC.forexPickedSectionNumberKey)
+                }
+            }
+        }
+        struct PreviousPickedOrder {
+            static var value: String {
+                get { UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? ud.string(forKey: K.SortingVC.previousBankOfRussiaPickedOrderKey) ?? "" : ud.string(forKey: K.SortingVC.previousForexPickedOrderKey) ?? "" }
+            }
+            static var previousBankOfRussiaPickedOrder: String = "По возрастанию (А→Я)" {
+                didSet {
+                    ud.setValue(previousBankOfRussiaPickedOrder, forKey: K.SortingVC.previousBankOfRussiaPickedOrderKey)
+                }
+            }
+            static var previousForexPickedOrder: String = "По возрастанию (А→Я)" {
+                didSet {
+                    ud.setValue(previousForexPickedOrder, forKey: K.SortingVC.previousForexPickedOrderKey)
+                }
+            }
+        }
+        struct PreviousPickedSection {
+            static var value: String {
+                get { UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? ud.string(forKey: K.SortingVC.previousLastBankOfRussiaPickedSectionKey) ?? "" : ud.string(forKey: K.SortingVC.previousForexPickedSectionKey) ?? "" }
+            }
+            static var previousLastBankOfRussiaPickedSection: String = "По короткому имени" {
+                didSet {
+                    ud.setValue(previousLastBankOfRussiaPickedSection, forKey: K.SortingVC.previousLastBankOfRussiaPickedSectionKey)
+                }
+            }
+            static var previousForexPickedSection: String = "По короткому имени" {
+                didSet {
+                    ud.setValue(previousForexPickedSection, forKey: K.SortingVC.previousForexPickedSectionKey)
+                }
+            }
         }
     }
 }

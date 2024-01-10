@@ -13,9 +13,6 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         (header: "Курс на конкретную дату", footer: [""])
     ]
     private let sections = (dataSource: 0, baseCurrency: 1, concreteDate: 2)
-    private var pickedBaseCurrency: String {
-        return UserDefaults.sharedContainer.string(forKey: "baseCurrency") ?? ""
-    }
     private var todaysDate: String {
         return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
     }
@@ -172,7 +169,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             return cell
         } else if indexPath.section == sections.baseCurrency {
             let cell = tableView.dequeueReusableCell(withIdentifier: "pickedBaseCurrencyCell", for: indexPath) as! PickedBaseCurrencyTableViewCell
-            cell.pickedBaseCurrencyLabel.text = pickedBaseCurrency
+            cell.pickedBaseCurrencyLabel.text = UserDefaultsManager.baseCurrency
             
             if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
                 cell.backgroundColor = .systemGray5
@@ -225,7 +222,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             cell.dataUpdateSpinner.startAnimating()
             UserDefaultsManager.pickedDataSource = pickedOption
             
-            if pickedOption == "ЦБ РФ" { UserDefaults.sharedContainer.set("RUB", forKey: "baseCurrency") }
+            if pickedOption == "ЦБ РФ" { UserDefaultsManager.baseCurrency = "RUB" }
             UserDefaultsManager.ConverterVC.setTextFieldToZero = true
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
             activatedCurrencyVC()
