@@ -4,13 +4,6 @@ import UIKit
 import CoreData
 
 struct CurrencyCoreDataManager {
-    private var pickCurrencyRequest: Bool {
-        return UserDefaults.sharedContainer.bool(forKey: "pickCurrencyRequest")
-    }
-    private var todaysDate: String {
-        let currencyManager = CurrencyManager()
-        return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
-    }
     private let context = PersistenceController.shared.container.viewContext
     
   //MARK: - CRUD for Bank Of Russia Currency
@@ -141,7 +134,7 @@ struct CurrencyCoreDataManager {
     
     func assignRowNumbers(to bankOfRussiaCurrencies: [Currency]) {
         for (index, bankOfRussiaCurrency) in bankOfRussiaCurrencies.enumerated() {
-            if UserDefaultsManager.confirmedDate == todaysDate {
+            if UserDefaultsManager.confirmedDate == Date.todaysLongDate {
                 bankOfRussiaCurrency.rowForCurrency = Int32(index)
             } else {
                 bankOfRussiaCurrency.rowForHistoricalCurrency = Int32(index)
@@ -325,7 +318,7 @@ struct CurrencyCoreDataManager {
     
     func assignRowNumbers(to forexCurrencies: [ForexCurrency]) {
         for (index, forexCurrency) in forexCurrencies.enumerated() {
-            if UserDefaultsManager.confirmedDate == todaysDate {
+            if UserDefaultsManager.confirmedDate == Date.todaysLongDate {
                 forexCurrency.rowForCurrency = Int32(index)
             } else {
                 forexCurrency.rowForHistoricalCurrency = Int32(index)
@@ -393,8 +386,8 @@ struct CurrencyCoreDataManager {
         
         if let additionalSortDescriptor = sortDescriptor {
             request.sortDescriptors = [additionalSortDescriptor, baseSortDescriptor]
-            sectionName = pickCurrencyRequest ? "fullName.firstStringCharacter" : nil
-            UserDefaults.sharedContainer.set(false, forKey: "pickCurrencyRequest")
+            sectionName = UserDefaultsManager.pickCurrencyRequest ? "fullName.firstStringCharacter" : nil
+            UserDefaultsManager.pickCurrencyRequest = false
         } else {
             request.sortDescriptors = [baseSortDescriptor]
             sectionName = nil
@@ -410,8 +403,8 @@ struct CurrencyCoreDataManager {
         
         if let additionalSortDescriptor = sortDescriptor {
             request.sortDescriptors = [additionalSortDescriptor, baseSortDescriptor]
-            sectionName = pickCurrencyRequest ? "fullName.firstStringCharacter" : nil
-            UserDefaults.sharedContainer.set(false, forKey: "pickCurrencyRequest")
+            sectionName = UserDefaultsManager.pickCurrencyRequest ? "fullName.firstStringCharacter" : nil
+            UserDefaultsManager.pickCurrencyRequest = false
         } else {
             request.sortDescriptors = [baseSortDescriptor]
             sectionName = nil

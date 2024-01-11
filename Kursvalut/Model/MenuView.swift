@@ -18,7 +18,7 @@ class MenuView: UIView {
     private var itemWithCheckmark = ""
     private var heightConstraint: NSLayoutConstraint?
     private var viewWidth: CGFloat {
-        return UIScreen().sizeType == .iPhoneSE ? 170 : 245
+        UIScreen().sizeType == .iPhoneSE ? 170 : 245
     }
     var delegate: MenuViewDelegate?
     

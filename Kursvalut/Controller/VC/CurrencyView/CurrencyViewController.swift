@@ -557,7 +557,7 @@ extension CurrencyViewController: UITabBarControllerDelegate {
         if UIDevice.current.orientation == .portrait {
             assignYValue(for: .portrait)
         } else {
-            UserDefaults.sharedContainer.set(0.0, forKey: "yLandscape")
+            UserDefaultsManager.CurrencyVC.yLandscape = 0.0
             assignYValue(for: .landscapeLeft)
         }
     }

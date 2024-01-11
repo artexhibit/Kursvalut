@@ -87,7 +87,7 @@ class BaseCurrencyTableViewController: UITableViewController {
 
 extension BaseCurrencyTableViewController: NSFetchedResultsControllerDelegate {
     func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
-        UserDefaults.sharedContainer.set(true, forKey: "pickCurrencyRequest")
+        UserDefaultsManager.pickCurrencyRequest = true
         let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
         var searchCompoundPredicate: NSCompoundPredicate {
             let additionalPredicate = NSPredicate(format: "isForCurrencyScreen == YES")

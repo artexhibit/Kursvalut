@@ -14,9 +14,6 @@ struct CurrencyManager {
             return (Sign: "", Color: .systemGray, Symbol: "＝")
         }
     }
-    private var todaysDate: String {
-        return createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
-    }
     
     func showCurrencyFlag(_ shortName: String) -> UIImage? {
         if UserDefaultsManager.roundCountryFlags {
@@ -126,11 +123,9 @@ struct CurrencyManager {
     }
     
     func updateAllCurrencyTypesOnEachDayFirstLaunch() {
-        let wasLaunched = UserDefaults.sharedContainer.string(forKey: "isFirstLaunchToday") ?? ""
-
-        if wasLaunched != todaysDate {
-            UserDefaults.sharedContainer.set(todaysDate, forKey:"isFirstLaunchToday")
-            UserDefaults.sharedContainer.set(todaysDate, forKey: "confirmedDate")
+        if UserDefaultsManager.isFirstLaunchToday != Date.todaysLongDate {
+            UserDefaultsManager.isFirstLaunchToday = Date.todaysLongDate
+            UserDefaultsManager.confirmedDate = Date.todaysLongDate
             updateAllCurrencyTypesData { }
         }
     }

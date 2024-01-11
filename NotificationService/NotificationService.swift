@@ -14,16 +14,16 @@ class NotificationService: UNNotificationServiceExtension {
                let cbrfNew = Bool(cbrfNewString), let forexNewString = bestAttemptContent.userInfo["forexNew"] as? String,
                let forexNew = Bool(forexNewString), (cbrfNew || forexNew) {
                 
-                let currentDate = Date.createStringDate(from: Date(), dateStyle: .medium)
-                UserDefaults.sharedContainer.set(currentDate, forKey: "confirmedDate")
-                UserDefaultsManager.pickDateSwitchIsOn = false
-                
                 let currencyManager = CurrencyManager()
                 let coreDataManager = CurrencyCoreDataManager()
                 
                 currencyManager.updateAllCurrencyTypesData {
-                    let cbrfPushText = currencyManager.createNotificationText(with: "ЦБ РФ", newStoredDate: coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate())
-                    let forexPushText = currencyManager.createNotificationText(with: "Forex", newStoredDate: coreDataManager.fetchForexCurrenciesCurrentDate())
+                    let newDataDate = coreDataManager.fetchForexCurrenciesCurrentDate()
+                    let cbrfPushText = currencyManager.createNotificationText(with: "ЦБ РФ", newStoredDate: newDataDate)
+                    let forexPushText = currencyManager.createNotificationText(with: "Forex", newStoredDate: newDataDate)
+                    
+                    UserDefaultsManager.confirmedDate = Date.createStringDate(from: newDataDate, dateStyle: .medium)
+                    UserDefaultsManager.pickDateSwitchIsOn = false
                     let notificationName = "ru.igorcodes.makeNetworkRequest" as CFString
                     DarwinNotificationService.postNotification(name: notificationName)
                     
@@ -38,7 +38,6 @@ class NotificationService: UNNotificationServiceExtension {
     
     override func serviceExtensionTimeWillExpire() {
         if let contentHandler = contentHandler, let bestAttemptContent =  bestAttemptContent {
-            
             bestAttemptContent.title = "Новые курсы доступны"
             bestAttemptContent.body = "Обновите в приложении"
             bestAttemptContent.sound = .default

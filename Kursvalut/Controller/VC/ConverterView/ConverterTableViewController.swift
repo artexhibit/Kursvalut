@@ -198,7 +198,7 @@ class ConverterTableViewController: UITableViewController {
                     UserDefaultsManager.ConverterVC.amountOfPickedBankOfRussiaCurrencies = currentAmount
                 }
                 if UserDefaultsManager.ConverterVC.PickedConverterCurrency.value == currency.shortName {
-                    UserDefaults.sharedContainer.set("", forKey: "bankOfRussiaPickedCurrency")
+                    UserDefaultsManager.ConverterVC.PickedConverterCurrency.bankOfRussiaPickedCurrency = ""
                     numberFromTextField = 0
     
                     currencies.forEach { currency in
@@ -218,7 +218,7 @@ class ConverterTableViewController: UITableViewController {
                     UserDefaultsManager.ConverterVC.amountOfPickedForexCurrencies = currentAmount
                 }
                 if UserDefaultsManager.ConverterVC.PickedConverterCurrency.value == currency.shortName {
-                    UserDefaults.sharedContainer.set("", forKey: "forexPickedCurrency")
+                    UserDefaultsManager.ConverterVC.PickedConverterCurrency.forexPickedCurrency = ""
                     numberFromTextField = 0
                     
                     currencies.forEach { currency in

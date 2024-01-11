@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.register(defaults: ["currencyScreenDecimals" : 2, "converterScreenDecimals" : 2, "currencyScreenPercentageDecimals" : 2, "startView": "Валюты", "pickedTheme": "Как в системе", "bankOfRussiaPickedSection": "По значению", "bankOfRussiaPickedOrder": "По убыванию (2→1)", "bankOfRussiaPickedSectionNumber": 1, "forexPickedSection": "По значению", "forexPickedOrder": "По убыванию (2→1)", "forexPickedSectionNumber": 1, "userHasOnboarded": false, "baseSource": "ЦБ РФ", "baseCurrency" : "RUB", "keyboardWithSound": true, "roundFlags": false, "confirmedDate": currencyManager.createStringDate(with: "", from: Date(), dateStyle: .medium), "pickDateSwitchIsOn": false, "updateRequestFromCurrencyDataSource": false, "customSortSwitchIsOnForBankOfRussia": false, "customSortSwitchIsOnForForex": false, "previousBankOfRussiaPickedOrder": "По возрастанию (А→Я)", "previousForexPickedOrder": "По возрастанию (А→Я)", "previousLastBankOfRussiaPickedSection": "По короткому имени", "previousForexPickedSection": "По короткому имени", "showCustomSortForBankOfRussia": true, "showCustomSortForForex": true, "needToRefreshFRCForCustomSort": true, "canResetValuesInActiveTextField": false, "bankOfRussiaPickedCurrency": "", "forexPickedCurrency": "", "canSaveConverterValues": false, "kursvalutPro": false, "migrationCompleted": false, "permissionScreenWasShown": false])
         
         if !UserDefaults.standard.bool(forKey: "migrationCompleted") {
-            
             UserDefaultsManager.CurrencyVC.currencyScreenDecimalsAmount = UserDefaults.standard.integer(forKey: "currencyScreenDecimals")
             UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount = UserDefaults.standard.integer(forKey: "converterScreenDecimals")
             UserDefaultsManager.CurrencyVC.currencyScreenPercentageAmount = UserDefaults.standard.integer(forKey: "currencyScreenPercentageDecimals")
@@ -38,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaultsManager.baseCurrency = UserDefaults.standard.string(forKey: "baseCurrency")!
             UserDefaultsManager.SettingsVC.keyboardWithSound = UserDefaults.standard.bool(forKey: "keyboardWithSound")
             UserDefaultsManager.roundCountryFlags = UserDefaults.standard.bool(forKey: "roundFlags")
-            UserDefaults.sharedContainer.set(currencyManager.createStringDate(with: "", from: Date(), dateStyle: .medium), forKey: "confirmedDate")
+            UserDefaultsManager.confirmedDate = Date.todaysLongDate
             UserDefaultsManager.pickDateSwitchIsOn = UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn")
             UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource")
             UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForBankOfRussia = UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForBankOfRussia")

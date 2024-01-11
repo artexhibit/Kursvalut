@@ -47,6 +47,14 @@ struct UserDefaultsManager {
         get { ud.string(forKey: K.baseCurrencyKey) ?? "" }
         set { ud.setValue(newValue, forKey: K.baseCurrencyKey) }
     }
+    static var pickCurrencyRequest: Bool {
+        get { ud.bool(forKey: K.pickCurrencyRequestKey) }
+        set { ud.setValue(newValue, forKey: K.pickCurrencyRequestKey) }
+    }
+    static var isFirstLaunchToday: String {
+        get { ud.string(forKey: K.isFirstLaunchTodayKey) ?? "" }
+        set { ud.setValue(newValue, forKey: K.isFirstLaunchTodayKey) }
+    }
     
     struct CurrencyVC {
         static var needToRefreshFRCForCustomSort: Bool {

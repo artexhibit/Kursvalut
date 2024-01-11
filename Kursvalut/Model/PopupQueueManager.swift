@@ -1,6 +1,6 @@
 import UIKit
 
-class PopupQueueManager {
+final class PopupQueueManager {
     static let shared = PopupQueueManager()
     init() {}
     

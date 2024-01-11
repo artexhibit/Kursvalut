@@ -26,9 +26,6 @@ class DatePickerView: UIView {
             return Date.currentDate
         }
     }
-    private var todaysDate: String {
-        return currencyManager.createStringDate(with: "dd.MM.yyyy", from: Date(), dateStyle: .medium)
-    }
     private var interfaceOrientation: UIInterfaceOrientation {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return .unknown }
         let interfaceOrientation = windowScene.interfaceOrientation
@@ -49,7 +46,7 @@ class DatePickerView: UIView {
     }
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {
-        UserDefaults.sharedContainer.set(pickedDate, forKey: "confirmedDate")
+        UserDefaultsManager.confirmedDate = pickedDate ?? ""
         delegate?.didPickedDateFromPicker(self, pickedDate: pickedDate ?? "", lastConfirmedDate: lastConfirmedDate ?? "")
         hideView()
     }

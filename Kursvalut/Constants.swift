@@ -12,6 +12,8 @@ struct K {
     static let pickedThemeKey = "pickedTheme"
     static let roundFlagsKey = "roundFlags"
     static let baseCurrencyKey = "baseCurrency"
+    static let pickCurrencyRequestKey = "pickCurrencyRequest"
+    static let isFirstLaunchTodayKey = "isFirstLaunchToday"
     
     struct Notifications {
         static let networkNotification = "ru.igorcodes.makeNetworkRequest" as CFString
