@@ -59,7 +59,7 @@ extension ProViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "proCell", for: indexPath) as! ProTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.proCellKey, for: indexPath) as! ProTableViewCell
         
         cell.circleView.backgroundColor = dataArray[indexPath.row].backColor
         cell.iconView.image = dataArray[indexPath.row].icon

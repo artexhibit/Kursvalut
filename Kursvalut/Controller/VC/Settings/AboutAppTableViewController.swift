@@ -42,11 +42,11 @@ class AboutAppTableViewController: UITableViewController {
         let pickedSection = indexPath.section
         
         if pickedSection == sectionNumber.aboutAppCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "aboutAppDeveloperCell", for: indexPath) as! AboutAppDeveloperTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.aboutAppDeveloperCellKey, for: indexPath) as! AboutAppDeveloperTableViewCell
             cell.descriptionLabel.text = dataArray[pickedSection].data[indexPath.row].description
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "aboutAppDataProvidersCell", for: indexPath) as! AboutAppDataProvidersTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.aboutAppDataProvidersCellKey, for: indexPath) as! AboutAppDataProvidersTableViewCell
             cell.providerNameLabel.text = dataArray[pickedSection].data[indexPath.row].name
             cell.descriptionLabel.text = dataArray[pickedSection].data[indexPath.row].description
             cell.globeImageView.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")

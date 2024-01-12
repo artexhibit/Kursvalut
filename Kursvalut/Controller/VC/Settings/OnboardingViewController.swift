@@ -53,7 +53,7 @@ class OnboardingViewController: UIViewController {
     
     @IBAction func closeButtonClicked(_ sender: UIButton) {
         if !UserDefaultsManager.userHasOnboarded {
-            performSegue(withIdentifier: "goToNotificationPermisson", sender: self)
+            performSegue(withIdentifier: K.Segues.goToNotificationPermissonKey, sender: self)
         } else {
             self.dismiss(animated: true)
         }
@@ -77,7 +77,7 @@ class OnboardingViewController: UIViewController {
     
     @IBAction func closeNavigationButtonClicked(_ sender: UIButton) {
         if !UserDefaultsManager.userHasOnboarded {
-            performSegue(withIdentifier: "goToNotificationPermisson", sender: self)
+            performSegue(withIdentifier: K.Segues.goToNotificationPermissonKey, sender: self)
         } else {
             self.dismiss(animated: true)
         }
@@ -124,7 +124,7 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
             cell.subtitleLabel = slides[indexPath.row].subtitle
             
             cell.notifyControllerAction = { [weak self] in
-                self?.performSegue(withIdentifier: "goToTutorial", sender: self)
+                self?.performSegue(withIdentifier: K.Segues.goToTutorialKey, sender: self)
             }
             
             if cell.tableView.window != nil {
@@ -137,7 +137,7 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToTutorial" {
+        if segue.identifier == K.Segues.goToTutorialKey {
             let destinationVC = segue.destination as! TutorialViewController
             destinationVC.gifName = slides[currentPage].imageName
             destinationVC.tutorialData = slides[currentPage].tutorialData ?? [(icon: "", text: "")]

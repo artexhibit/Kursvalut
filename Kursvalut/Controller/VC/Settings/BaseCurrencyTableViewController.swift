@@ -48,7 +48,7 @@ class BaseCurrencyTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "baseCurrencyCell", for: indexPath) as! BaseCurrencyTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.baseCurrencyCellKey, for: indexPath) as! BaseCurrencyTableViewCell
         
         let currency = forexFRC.object(at: indexPath)
         cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")

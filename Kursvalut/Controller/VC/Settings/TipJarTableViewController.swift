@@ -27,7 +27,7 @@ class TipJarTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tip = tipsArray[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tipJarCell", for: indexPath) as! TipJarTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.tipJarCellKey, for: indexPath) as! TipJarTableViewCell
         cell.tipNameLabel.text = tip.localizedTitle
         cell.tipPriceLabel.text = "\(tip.price) \(tip.priceLocale.currencySymbol ?? "$")"
         

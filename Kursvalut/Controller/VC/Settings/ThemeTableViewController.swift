@@ -27,7 +27,7 @@ class ThemeTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "themeCell", for: indexPath) as! ThemeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.themeCellKey, for: indexPath) as! ThemeTableViewCell
         cell.themeNameLabel.text = optionsArray[indexPath.row]
         cell.accessoryType = cell.themeNameLabel.text == UserDefaultsManager.pickedTheme ? .checkmark : .none
         return cell

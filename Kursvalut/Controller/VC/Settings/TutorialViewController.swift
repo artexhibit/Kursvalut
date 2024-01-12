@@ -29,11 +29,11 @@ extension TutorialViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "tutorialImageCell", for: indexPath) as! TutorialImageTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.tutorialImageCellKey, for: indexPath) as! TutorialImageTableViewCell
             cell.gifImage.setGifImage(name: "\(gifName ?? "")")
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "tutorialDescriptionCell", for: indexPath) as! TutorialDescriptionTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.tutorialDescriptionCellKey, for: indexPath) as! TutorialDescriptionTableViewCell
             cell.descriptionIcon.image = UIImage(systemName: "\(tutorialData?[indexPath.row - 1].icon ?? "")")
             cell.descriptionLabel.text = tutorialData?[indexPath.row - 1].text
             return cell

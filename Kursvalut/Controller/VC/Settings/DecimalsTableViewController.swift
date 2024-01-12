@@ -50,19 +50,19 @@ class DecimalsTableViewController: UITableViewController {
         }
         
         if pickedSection == sectionNumber.decimalCell.firstCell || pickedSection == sectionNumber.decimalCell.secondCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "decimalsCell", for: indexPath) as! DecimalsTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.decimalsCellKey, for: indexPath) as! DecimalsTableViewCell
             cell.delegate = self
             cell.numberLabel.text = String(loadDecimalsAmount)
             cell.stepper.value = Double(loadDecimalsAmount)
             cell.titleLabel.text = optionsArray[indexPath.row]
             return cell
         } else if pickedSection == sectionNumber.currencyCell.section {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "currencyPreviewCell", for: indexPath) as! CurrencyPreviewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.currencyPreviewCellKey, for: indexPath) as! CurrencyPreviewTableViewCell
             cell.rateLabel.text = currencyManager.showRate(with: previewNumber.forCurrencyScreen)
             cell.percentageLabel.text = currencyManager.showDifference(with: previewNumber.forCurrencyPercentageOne, and: previewNumber.forCurrencyPercentageTwo)
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "converterPreviewCell", for: indexPath) as! ConverterPreviewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.converterPreviewCellKey, for: indexPath) as! ConverterPreviewTableViewCell
             cell.numberLabel.text = currencyManager.showRate(with: previewNumber.forConverterScreen, forConverter: true)
             return cell
         }

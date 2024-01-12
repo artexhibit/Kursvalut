@@ -62,7 +62,7 @@ class PickCurrencyTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "pickCurrencyCell", for: indexPath) as! PickCurrencyTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.pickCurrencyCellKey, for: indexPath) as! PickCurrencyTableViewCell
         
         if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             let currency = bankOfRussiaFRC.object(at: indexPath)

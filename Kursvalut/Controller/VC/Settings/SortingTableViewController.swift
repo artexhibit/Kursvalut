@@ -38,7 +38,7 @@ class SortingTableViewController: UITableViewController {
      }
     
     @objc func customSortSwitchIsTurnedOn() {
-        let customSortCell = tableView.dequeueReusableCell(withIdentifier: "customSortCell") as! CustomSortTableViewCell
+        let customSortCell = tableView.dequeueReusableCell(withIdentifier: K.Cells.customSortCellKey) as! CustomSortTableViewCell
         var indexPaths = [IndexPath]()
         var mainCells = [MainSortTableViewCell]()
         
@@ -159,14 +159,14 @@ class SortingTableViewController: UITableViewController {
         let section = indexPath.section
         
         if indexPath.row == 0 && section != customSortCellSection {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "mainSortCell", for: indexPath) as! MainSortTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.mainSortCellKey, for: indexPath) as! MainSortTableViewCell
             cell.titleLabel.text = sections[section].title
             cell.subtitleLabel.text = sections[section].subtitle
             cell.selectionStyle = .none
             cell.rotateChevron(sections[section].isOpened)
             return cell
         } else if section == customSortCellSection {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "customSortCell", for: indexPath) as! CustomSortTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.customSortCellKey, for: indexPath) as! CustomSortTableViewCell
             cell.titleLabel.text = sections[customSortCellSection].title
             cell.subtitleLabel.text = sections[customSortCellSection].subtitle
             cell.selectionStyle = .none
@@ -182,7 +182,7 @@ class SortingTableViewController: UITableViewController {
             }
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "subSortCell", for: indexPath) as! SubSortTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.subSortCellKey, for: indexPath) as! SubSortTableViewCell
             cell.titleLabel.text = sections[section].options[indexPath.row - 1]
             
             if UserDefaultsManager.SortingVC.PickedSectionNumber.value == section {

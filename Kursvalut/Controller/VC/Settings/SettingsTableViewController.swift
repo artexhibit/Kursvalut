@@ -161,11 +161,11 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
     func unlockPro(for cell: Int) {
         switch cell {
         case 1:
-            performSegue(withIdentifier: "decimalsSegue", sender: self)
+            performSegue(withIdentifier: K.Segues.decimalsSegueKey, sender: self)
         case 2:
-            performSegue(withIdentifier: "startViewSegue", sender: self)
+            performSegue(withIdentifier: K.Segues.startViewSegueKey, sender: self)
         case 3:
-            performSegue(withIdentifier: "themeSegue", sender: self)
+            performSegue(withIdentifier: K.Segues.themeSegueKey, sender: self)
         default:
             return
         }

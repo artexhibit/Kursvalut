@@ -16,7 +16,7 @@ class NotificationPermissionTableViewController: UITableViewController {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in
             DispatchQueue.main.async {
                 if !UserDefaultsManager.userHasOnboarded {
-                    self.performSegue(withIdentifier: "unwindToApp", sender: self)
+                    self.performSegue(withIdentifier: K.Segues.unwindToAppKey, sender: self)
                 }
                 self.dismiss(animated: true)
             }
@@ -26,7 +26,7 @@ class NotificationPermissionTableViewController: UITableViewController {
     @IBAction func closeButtonPressed(_ sender: UIBarButtonItem) {
         DispatchQueue.main.async {
             if !UserDefaultsManager.userHasOnboarded {
-                self.performSegue(withIdentifier: "unwindToApp", sender: self)
+                self.performSegue(withIdentifier: K.Segues.unwindToAppKey, sender: self)
             }
             self.dismiss(animated: true)
         }
@@ -42,7 +42,7 @@ class NotificationPermissionTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "notificationPermissionCell", for: indexPath) as! NotificationPermissionTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.notificationPermissionCellKey, for: indexPath) as! NotificationPermissionTableViewCell
         return cell
     }
 }

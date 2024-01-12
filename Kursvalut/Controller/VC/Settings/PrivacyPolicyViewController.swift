@@ -46,7 +46,7 @@ extension PrivacyPolicyViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "privacyPolicyCell", for: indexPath) as! PrivacyPolicyTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.privacyPolicyCellKey, for: indexPath) as! PrivacyPolicyTableViewCell
         cell.headerLabel.text = dataArray[indexPath.row].header
         cell.mainTextLabel.text = dataArray[indexPath.row].text
         return cell

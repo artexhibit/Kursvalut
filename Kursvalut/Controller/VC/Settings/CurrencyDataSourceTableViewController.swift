@@ -35,7 +35,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         if UserDefaultsManager.confirmedDate == Date.todaysLongDate {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "concreteDateCell") as! ConcreteDateTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.concreteDateCellKey) as! ConcreteDateTableViewCell
             setDateSwitchStateToOff(with: cell)
         }
         tableView.reloadRows(at: [dateIndexPath], with: .none)
@@ -78,7 +78,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     @IBAction func dateSwitchPressed(_ sender: UISwitch) {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "concreteDateCell") as! ConcreteDateTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.concreteDateCellKey) as! ConcreteDateTableViewCell
         
         if sender.isOn {
             UserDefaultsManager.pickDateSwitchIsOn = true
@@ -110,7 +110,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         pickedDate = senderDate
         turnOffDateSwitch = pickedDate != Date.todaysLongDate ? true : false
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "datePickerCell") as! DatePickerTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.datePickerCellKey) as! DatePickerTableViewCell
         configureDatePicker(cell: cell)
         tableView.reloadRows(at: [datePickerIndexPath], with: .none)
     }
@@ -160,12 +160,12 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == sections.dataSource {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "dataSourceCell", for: indexPath) as! DataSourceTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.dataSourceCellKey, for: indexPath) as! DataSourceTableViewCell
             cell.sourceNameLabel.text = dataSourceOptions[indexPath.row]
             cell.accessoryType = cell.sourceNameLabel.text == UserDefaultsManager.pickedDataSource ? .checkmark : .none
             return cell
         } else if indexPath.section == sections.baseCurrency {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "pickedBaseCurrencyCell", for: indexPath) as! PickedBaseCurrencyTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.pickedBaseCurrencyCellKey, for: indexPath) as! PickedBaseCurrencyTableViewCell
             cell.pickedBaseCurrencyLabel.text = UserDefaultsManager.baseCurrency
             
             if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
@@ -178,7 +178,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             return cell
         } else {
             if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "concreteDateCell", for: indexPath) as! ConcreteDateTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.concreteDateCellKey, for: indexPath) as! ConcreteDateTableViewCell
                 cell.dateLabel.text = UserDefaultsManager.confirmedDate
                 cell.proLabel.isHidden = !UserDefaultsManager.proPurchased ? false : true
                 cell.backgroundColor = !UserDefaultsManager.proPurchased ? .systemGray5 : .none
@@ -200,7 +200,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 }
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "datePickerCell", for: indexPath) as! DatePickerTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.datePickerCellKey, for: indexPath) as! DatePickerTableViewCell
                 configureDatePicker(cell: cell)
                 return cell
             }
@@ -291,7 +291,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     @objc private func stopActivityIndicatorInDataSourceCell() {
-        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "dataSourceCell") as? DataSourceTableViewCell else { return }
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: K.Cells.dataSourceCellKey) as? DataSourceTableViewCell else { return }
         
         cell.dataUpdateSpinner.stopAnimating()
         cell.accessoryType = .checkmark

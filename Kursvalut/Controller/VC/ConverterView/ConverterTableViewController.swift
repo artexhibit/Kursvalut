@@ -86,11 +86,11 @@ class ConverterTableViewController: UITableViewController {
     }
     
     @IBAction func addNewCurrencyButtonPressed(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "goToCurrencyList", sender: self)
+        performSegue(withIdentifier: K.Segues.goToCurrencyListKey, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToCurrencyList" { saveTextFieldNumbers() }
+        if segue.identifier == K.Segues.goToCurrencyListKey { saveTextFieldNumbers() }
     }
     
     // MARK: - TableView DataSource Methods
@@ -100,7 +100,7 @@ class ConverterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "converterCell", for: indexPath) as! ConverterTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.converterCellKey, for: indexPath) as! ConverterTableViewCell
         
         let numpadView = NumpadView(target: cell.numberTextField, view: view)
         let longTapGestureRecogniser = UILongPressGestureRecognizer(target: self, action: #selector(deleteButtonLongPressed(_:)))

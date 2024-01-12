@@ -23,7 +23,7 @@ extension OnboardingCollectionViewCell: UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "onboardingTableCell", for: indexPath) as! OnboardingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.onboardingTableCellKey, for: indexPath) as! OnboardingTableViewCell
         cell.tableImage.image = UIImage(named: "\(imageName)")
         cell.iconView.image = UIImage(systemName: "\(iconName)")
         cell.titleLabel.text = titleLabel

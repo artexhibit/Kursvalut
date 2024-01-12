@@ -27,7 +27,7 @@ class StartViewTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "startViewCell", for: indexPath) as! StartViewTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.startViewCellKey, for: indexPath) as! StartViewTableViewCell
         cell.viewNameLabel.text = optionsArray[indexPath.row]
         cell.accessoryType = cell.viewNameLabel.text == UserDefaultsManager.pickedStartView ? .checkmark : .none
         return cell

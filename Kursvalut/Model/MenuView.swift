@@ -51,7 +51,7 @@ class MenuView: UIView {
             ])
         }
         let nib = UINib(nibName: "MenuTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "MenuTableViewCell")
+        tableView.register(nib, forCellReuseIdentifier: K.Cells.menuTableViewCellKey)
     }
     
     private func configureView(under button: UIButton, in view: UIView) {
@@ -115,7 +115,7 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuTableViewCell", for: indexPath) as! MenuTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.menuTableViewCellKey, for: indexPath) as! MenuTableViewCell
         cell.itemLabel.text = itemsToShow[indexPath.row]
         cell.iconImage.isHidden = cell.itemLabel.text == itemWithCheckmark ? false : true
         cell.separatorView.isHidden = indexPath.row == itemsToShow.count - 1 ? true : false

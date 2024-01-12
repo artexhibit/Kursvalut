@@ -21,7 +21,7 @@ class PermissionsViewController: UIViewController {
             UNUserNotificationCenter.current().getNotificationSettings { settings in
                 DispatchQueue.main.async {
                     if settings.authorizationStatus == .notDetermined {
-                        self.performSegue(withIdentifier: "goToNotificationPermisson", sender: self)
+                        self.performSegue(withIdentifier: K.Segues.goToNotificationPermissonKey, sender: self)
                     } else {
                         if let appSettings = URL(string: UIApplication.openSettingsURLString) {
                             UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
@@ -54,7 +54,7 @@ class PermissionsViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToNotificationPermisson" {
+        if segue.identifier == K.Segues.goToNotificationPermissonKey {
             loadNotificationsSwitchState()
         }
     }
@@ -68,7 +68,7 @@ extension PermissionsViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "permissionsCell", for: indexPath) as! PermissionsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.permissionsCellKey, for: indexPath) as! PermissionsTableViewCell
         return cell
     }
 }

@@ -76,7 +76,7 @@ class CurrencyViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if !UserDefaultsManager.userHasOnboarded {
-            performSegue(withIdentifier: "showOnboarding", sender: self)
+            performSegue(withIdentifier: K.Segues.showOnboardingKey, sender: self)
             currencyManager.updateAllCurrencyTypesData {
                 self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
             }
@@ -133,7 +133,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell", for: indexPath) as! CurrencyTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.currencyCellKey, for: indexPath) as! CurrencyTableViewCell
         
         let lastCellRow = tableView.numberOfRows(inSection: 0) - 1
         cell.separatorInset.right = indexPath.row == lastCellRow ? .greatestFiniteMagnitude : 19
@@ -417,7 +417,7 @@ extension CurrencyViewController {
             if settings.authorizationStatus == .notDetermined {
                 if UserDefaultsManager.userHasOnboarded && !UserDefaultsManager.permissionScreenWasShown {
                     DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "goToNotificationPermisson", sender: self)
+                        self.performSegue(withIdentifier: K.Segues.goToNotificationPermissonKey, sender: self)
                         UserDefaultsManager.permissionScreenWasShown = true
                     }
                 }
@@ -518,7 +518,7 @@ extension CurrencyViewController: MenuViewDelegate {
         UserDefaultsManager.pickedDataSource = dataSource
         
         DispatchQueue.main.async {
-            PopupQueueManager.shared.addPopupToQueue(title: "Загружаем", message: "Секунду", style: .load, type: .manual)
+            PopupQueueManager.shared.addPopupToQueue(title: "Секунду", message: "Загружаем", style: .load, type: .manual)
         }
         
         self.currencyNetworking.performRequest { networkingError, parsingError in

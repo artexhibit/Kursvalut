@@ -18,7 +18,7 @@ class NotificationService: UNNotificationServiceExtension {
                 let coreDataManager = CurrencyCoreDataManager()
                 
                 currencyManager.updateAllCurrencyTypesData {
-                    let newDataDate = coreDataManager.fetchForexCurrenciesCurrentDate()
+                    let newDataDate = UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate() : coreDataManager.fetchForexCurrenciesCurrentDate()
                     let cbrfPushText = currencyManager.createNotificationText(with: "ЦБ РФ", newStoredDate: newDataDate)
                     let forexPushText = currencyManager.createNotificationText(with: "Forex", newStoredDate: newDataDate)
                     
