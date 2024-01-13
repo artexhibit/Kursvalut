@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B0539DA2B52D70A00FB7ECA /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B29C8E22B41C66800C4EBEF /* NotificationsManager.swift */; };
 		0B158C682B1E43BA004EA97A /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
-		0B29C8E32B41C66800C4EBEF /* DarwinNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B29C8E22B41C66800C4EBEF /* DarwinNotificationService.swift */; };
-		0B29C8E42B41C66800C4EBEF /* DarwinNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B29C8E22B41C66800C4EBEF /* DarwinNotificationService.swift */; };
+		0B29C8E32B41C66800C4EBEF /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B29C8E22B41C66800C4EBEF /* NotificationsManager.swift */; };
 		0B2D6AE92B25F0CE0074AB48 /* SingleCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AE82B25F0CE0074AB48 /* SingleCurrencyView.swift */; };
 		0B2D6AEC2B25F19E0074AB48 /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
 		0B30769A2B2A41EE00690727 /* MultipleCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3076992B2A41EE00690727 /* MultipleCurrencyView.swift */; };
@@ -208,7 +208,7 @@
 /* Begin PBXFileReference section */
 		0B158C672B1E43BA004EA97A /* Date+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ext.swift"; sourceTree = "<group>"; };
 		0B158C692B1E4B68004EA97A /* Kursvalut_v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Kursvalut_v3.xcdatamodel; sourceTree = "<group>"; };
-		0B29C8E22B41C66800C4EBEF /* DarwinNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarwinNotificationService.swift; sourceTree = "<group>"; };
+		0B29C8E22B41C66800C4EBEF /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		0B2D6AE82B25F0CE0074AB48 /* SingleCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleCurrencyView.swift; sourceTree = "<group>"; };
 		0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCurrency.swift; sourceTree = "<group>"; };
 		0B3076992B2A41EE00690727 /* MultipleCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleCurrencyView.swift; sourceTree = "<group>"; };
@@ -412,7 +412,6 @@
 			children = (
 				0BC0086E2B404EDE00775BC2 /* NotificationService.entitlements */,
 				0BC008652B404EA700775BC2 /* NotificationService.swift */,
-				0B29C8E22B41C66800C4EBEF /* DarwinNotificationService.swift */,
 				0BC008672B404EA700775BC2 /* Info.plist */,
 			);
 			path = NotificationService;
@@ -497,6 +496,7 @@
 				78D3DA0D2787687400A91511 /* CurrencyManager.swift */,
 				787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */,
 				7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */,
+				0B29C8E22B41C66800C4EBEF /* NotificationsManager.swift */,
 				78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */,
 				7813102727D75FE000065410 /* SMailComposeViewController.swift */,
 				78BD46DE27F07460002AFDA1 /* PopupView.swift */,
@@ -941,7 +941,6 @@
 				0B3111C72B49B73000CBCCFC /* Constants.swift in Sources */,
 				0BC0087C2B40705600775BC2 /* BankOfRussiaCurrencyData.swift in Sources */,
 				0BC008932B4087AF00775BC2 /* String+ext.swift in Sources */,
-				0B29C8E42B41C66800C4EBEF /* DarwinNotificationService.swift in Sources */,
 				0BC0088D2B40876A00775BC2 /* CurrencyManager.swift in Sources */,
 				0BC0087E2B40706D00775BC2 /* WidgetCurrency.swift in Sources */,
 				0B3111C42B49AB0100CBCCFC /* UserDefaultsManager.swift in Sources */,
@@ -951,6 +950,7 @@
 				0BC008742B406F7500775BC2 /* UserDefaults+Ext.swift in Sources */,
 				0BC008942B4087BD00775BC2 /* WidgetsData.swift in Sources */,
 				0BC008872B407DC400775BC2 /* NotificationService.swift in Sources */,
+				0B0539DA2B52D70A00FB7ECA /* NotificationsManager.swift in Sources */,
 				0BC0088E2B40877000775BC2 /* CurrencyNetworking.swift in Sources */,
 				0BC008862B4075EE00775BC2 /* Date+ext.swift in Sources */,
 				0BC008902B40878200775BC2 /* Persistence.swift in Sources */,
@@ -1004,7 +1004,7 @@
 				78041C192786F9FA00C4D861 /* AppDelegate.swift in Sources */,
 				0B4B4C1B2B238E42003B55A5 /* CurrencyData.swift in Sources */,
 				78041C1B2786F9FA00C4D861 /* SceneDelegate.swift in Sources */,
-				0B29C8E32B41C66800C4EBEF /* DarwinNotificationService.swift in Sources */,
+				0B29C8E32B41C66800C4EBEF /* NotificationsManager.swift in Sources */,
 				78E00279283EA57100EE9B4C /* ForexCurrencyData.swift in Sources */,
 				78F73AC229A8F400003BFD47 /* DatePickerView.swift in Sources */,
 				789FD820288F06E70084468F /* NumpadButton.swift in Sources */,

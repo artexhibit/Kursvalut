@@ -17,15 +17,18 @@ class NotificationService: UNNotificationServiceExtension {
                 let currencyManager = CurrencyManager()
                 let coreDataManager = CurrencyCoreDataManager()
                 
+                UserDefaultsManager.confirmedDate = Date.createStringDate(from: Date(), dateStyle: .medium)
+                UserDefaultsManager.pickDateSwitchIsOn = false
+                
                 currencyManager.updateAllCurrencyTypesData {
-                    let newDataDate = UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate() : coreDataManager.fetchForexCurrenciesCurrentDate()
+                    let newDataDate = cbrfNew ? coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate() : coreDataManager.fetchForexCurrenciesCurrentDate()
                     let cbrfPushText = currencyManager.createNotificationText(with: "ЦБ РФ", newStoredDate: newDataDate)
                     let forexPushText = currencyManager.createNotificationText(with: "Forex", newStoredDate: newDataDate)
                     
                     UserDefaultsManager.confirmedDate = Date.createStringDate(from: newDataDate, dateStyle: .medium)
-                    UserDefaultsManager.pickDateSwitchIsOn = false
+
                     let notificationName = "ru.igorcodes.makeNetworkRequest" as CFString
-                    DarwinNotificationService.postNotification(name: notificationName)
+                    NotificationsManager.Darwin.postNotification(name: notificationName)
                     
                     bestAttemptContent.title = "Данные обновлены"
                     bestAttemptContent.body = cbrfNew ? cbrfPushText : forexPushText

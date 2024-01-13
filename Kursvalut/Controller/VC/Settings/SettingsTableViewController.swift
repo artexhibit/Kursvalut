@@ -19,8 +19,7 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         roundViewCorners()
         if UserDefaultsManager.proPurchased { unlockPro(for: proLabel) }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: "pro"), object: nil)
+        NotificationsManager.add(self, selector: #selector(reloadData), name: K.Notifications.pro)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,12 +109,12 @@ class SettingsTableViewController: UITableViewController {
         } else if pickedSection == 5 && pickedCell == 4 {
             sendUserToLeaveReview()
         } else if pickedSection == 3 && pickedCell == 1 {
-            UserDefaultsManager.proPurchased ? PopupQueueManager.shared.addPopupToQueue(title: "Всё в порядке", message: "Pro уже восстановлен", style: .success) : startProVersionRestore()
+            UserDefaultsManager.proPurchased ? PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.allGood, message: K.PopupTexts.Messages.proAlreadyRecovered, style: .success) : startProVersionRestore()
         } else if pickedSection == 1 && (pickedCell == 1 || pickedCell == 2 || pickedCell == 3) {
             if UserDefaultsManager.proPurchased {
                unlockPro(for: pickedCell)
             } else {
-                PopupQueueManager.shared.addPopupToQueue(title: "Закрыто", message: "Доступно только в Pro", style: .lock)
+                PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.closed, message: K.PopupTexts.Messages.onlyInPro, style: .lock)
             }
         }
     }
@@ -141,7 +140,7 @@ class SettingsTableViewController: UITableViewController {
         if UIApplication.shared.canOpenURL(appStoreReviewURL) {
             UIApplication.shared.open(appStoreReviewURL, options: [:], completionHandler: nil)
         } else {
-            PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Не получается открыть App Store", style: .failure)
+            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.failureToOpenAppStore, style: .failure)
         }
     }
 }
@@ -191,15 +190,15 @@ extension SettingsTableViewController: SKPaymentTransactionObserver {
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         if queue.transactions.isEmpty {
-            PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Pro ранее не покупался", style: .failure)
+            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.proNotPurchased, style: .failure)
         } else {
-            PopupQueueManager.shared.addPopupToQueue(title: "Успешно", message: "Покупка восстановлена", style: .success)
+            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.proRecovered, style: .success)
         }
         restoreSpinner.stopAnimating()
     }
     
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-        PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
+        PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
         restoreSpinner.stopAnimating()
     }
 }
@@ -214,11 +213,11 @@ extension SettingsTableViewController:  MFMailComposeViewControllerDelegate {
         case .saved:
             dismiss(animated: true, completion: nil)
         case .sent:
-            PopupQueueManager.shared.addPopupToQueue(title: "Письмо отправлено", message: "Скоро вам отвечу!", style: .success)
+            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.mailSent, message: K.PopupTexts.Messages.willReply, style: .success)
             dismiss(animated: true, completion: nil)
         case .failed:
             guard let error = error else { return }
-            PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Не удалось отправить: \(error.localizedDescription)", style: .failure)
+            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(K.PopupTexts.Messages.couldntSend) \(error.localizedDescription)", style: .failure)
             dismiss(animated: true, completion: nil)
         @unknown default:
             dismiss(animated: true, completion: nil)

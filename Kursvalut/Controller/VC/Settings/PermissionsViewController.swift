@@ -11,9 +11,9 @@ class PermissionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         currencyManager.configureContentInset(for: tableView, top: 20)
-        NotificationCenter.default.addObserver(self, selector: #selector(loadNotificationsSwitchState), name: UIApplication.willEnterForegroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(loadNotificationsSwitchState), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(loadNotificationsSwitchState), name: NSNotification.Name(rawValue: "loadNotificationsSwitchState"), object: nil)
+        NotificationsManager.addEvent(self, selector: #selector(loadNotificationsSwitchState), event: UIApplication.willEnterForegroundNotification)
+        NotificationsManager.addEvent(self, selector: #selector(loadNotificationsSwitchState), event: UIApplication.didEnterBackgroundNotification)
+        NotificationsManager.add(self, selector: #selector(loadNotificationsSwitchState), name: K.Notifications.loadNotificationsSwitchState)
     }
     
     @IBAction func notificationSwitchPressed(_ sender: UISwitch) {

@@ -24,9 +24,9 @@ class SortingTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(customSortSwitchIsTurnedOn), name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOn"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(customSortSwitchIsTurnedOff), name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOff"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadSortingVCTableView), name: NSNotification.Name(rawValue: "reloadSortingVCTableView"), object: nil)
+        NotificationsManager.add(self, selector: #selector(customSortSwitchIsTurnedOn), name: K.Notifications.customSortSwitchIsTurnedOn)
+        NotificationsManager.add(self, selector: #selector(customSortSwitchIsTurnedOff), name: K.Notifications.customSortSwitchIsTurnedOff)
+        NotificationsManager.add(self, selector: #selector(reloadSortingVCTableView), name: K.Notifications.reloadSortingVCTableView)
     }
     
     @IBAction func customSortSwitchPressed(_ sender: UISwitch) {

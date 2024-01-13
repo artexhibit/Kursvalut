@@ -38,12 +38,11 @@ class ConverterTableViewController: UITableViewController {
         setupKeyboardBehaviour()
         currencyManager.configureContentInset(for: tableView, top: 10)
         if UserDefaultsManager.pickedStartView == "Конвертер" { currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch() }
-        DarwinNotificationService.addNetworkRequestObserver(name: K.Notifications.networkNotification)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshConverterFRC), name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateCells), name: NSNotification.Name(rawValue: "updateCells"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboardButtonPressed), name: NSNotification.Name(rawValue: "hideKeyboardButtonPressed"), object: nil)
-        
+        NotificationsManager.Darwin.addNetworkRequestObserver(name: K.Notifications.makeDarwinNetworkRequest)
+        NotificationsManager.add(self, selector: #selector(refreshConverterFRC), name: K.Notifications.refreshConverterFRC)
+        NotificationsManager.add(self, selector: #selector(updateCells), name: K.Notifications.updateCells)
+        NotificationsManager.addEvent(self, selector: #selector(appMovedToBackground), event: UIApplication.willResignActiveNotification)
+        NotificationsManager.add(self, selector: #selector(hideKeyboardButtonPressed), name: K.Notifications.hideKeyboardButtonPressed)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { self.tableView.reloadData() }
     }
     
@@ -361,7 +360,7 @@ class ConverterTableViewController: UITableViewController {
     }
     
     @objc func updateCells(_ notification: Notification) {
-        guard let currencyWasAdded = notification.userInfo?["currencyWasAdded"] as? Bool else { return }
+        guard let currencyWasAdded = notification.userInfo?[K.Notifications.UserInfoKeys.currencyWasAdded] as? Bool else { return }
         for cell in self.activeConverterCells { cell.changeShortNameOnFullName() }
         shouldAnimateCellAppear = tableViewIsInEditingMode ? true : false
         

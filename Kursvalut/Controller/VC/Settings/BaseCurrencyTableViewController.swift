@@ -68,8 +68,8 @@ class BaseCurrencyTableViewController: UITableViewController {
         }
         UserDefaultsManager.baseCurrency = forexCurrency.shortName ?? ""
         cell.picker.image = forexCurrency.shortName == UserDefaultsManager.baseCurrency ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshDataFromDataSourceVC"), object: nil)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
+        NotificationsManager.post(name: K.Notifications.refreshDataFromDataSourceVC)
+        NotificationsManager.post(name: K.Notifications.refreshBaseCurrency)
         
         if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
             coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)

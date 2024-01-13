@@ -64,11 +64,11 @@ extension PrivacyPolicyViewController: MFMailComposeViewControllerDelegate {
         case .saved:
             dismiss(animated: true, completion: nil)
         case .sent:
-            PopupQueueManager.shared.addPopupToQueue(title: "Письмо отправлено", message: "Скоро вам отвечу!", style: .success)
+            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.mailSent, message: K.PopupTexts.Messages.willReply, style: .success)
             dismiss(animated: true, completion: nil)
         case .failed:
             guard let error = error else { return }
-            PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Не удалось отправить: \(error.localizedDescription)", style: .failure)
+            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(K.PopupTexts.Messages.couldntSend) \(error.localizedDescription)", style: .failure)
             dismiss(animated: true, completion: nil)
         @unknown default:
             dismiss(animated: true, completion: nil)

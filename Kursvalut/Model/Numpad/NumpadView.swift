@@ -78,7 +78,7 @@ class NumpadView: UIView, UIInputViewAudioFeedback {
     
     @IBAction func hideKeyboardButtonPressed(_ sender: NumpadButton) {
         view?.endEditing(true)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "hideKeyboardButtonPressed"), object: nil)
+        NotificationsManager.post(name: K.Notifications.hideKeyboardButtonPressed)
     }
     
     @IBAction func resetButtonPressed(_ sender: NumpadButton) {

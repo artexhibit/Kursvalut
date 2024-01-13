@@ -81,7 +81,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
             request.start()
             priceSpinner.startAnimating()
         } else {
-            PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "У вас нет разрешения на покупки в App Store", style: .failure)
+            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noAppStorePurchasePermission, style: .failure)
         }
     }
     
@@ -101,7 +101,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
                 DispatchQueue.main.async {
                     self.purchaseButton.isHidden = false
                     self.setPurchasedButton()
-                    PopupQueueManager.shared.addPopupToQueue(title: "Спасибо", message: "Теперь у тебя есть Pro!", style: .purchase)
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.thankYou, message: K.PopupTexts.Messages.haveProNow, style: .purchase)
                 }
                 SKPaymentQueue.default().finishTransaction(transaction)
             } else if transaction.transactionState == .failed {
@@ -110,7 +110,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
                 DispatchQueue.main.async {
                     self.purchaseButton.isHidden = false
                     self.purchaseSpinner.stopAnimating()
-                    PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Не удалось оплатить: \(error.localizedDescription)", style: .failure)
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(K.PopupTexts.Messages.couldntPay) \(error.localizedDescription)", style: .failure)
                 }
                 SKPaymentQueue.default().finishTransaction(transaction)
             }
@@ -121,7 +121,7 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
     
     func setPurchasedButton() {
         UserDefaultsManager.proPurchased = true
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pro"), object: nil)
+        NotificationsManager.post(name: K.Notifications.pro)
         purchaseButton.backgroundColor = UIColor.systemGreen
         purchaseButton.setTitle("КУПЛЕНО", for: .normal)
         purchaseButton.isUserInteractionEnabled = false

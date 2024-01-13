@@ -52,9 +52,9 @@ class CurrencyViewController: UIViewController {
         self.navigationController?.navigationBar.addGestureRecognizer(navigationBarGestureRecogniser)
         currencyManager.configureContentInset(for: tableView, top: -updateButtonTopInset)
         currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch()
-        DarwinNotificationService.addNetworkRequestObserver(name: K.Notifications.networkNotification)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(makeNetworkRequest), name: NSNotification.Name(rawValue: "makeNetworkRequest"), object: nil)
+        NotificationsManager.Darwin.addNetworkRequestObserver(name: K.Notifications.makeDarwinNetworkRequest)
+        NotificationsManager.add(self, selector: #selector(refreshData), name: K.Notifications.refreshData)
+        NotificationsManager.add(self, selector: #selector(makeNetworkRequest), name: K.Notifications.makeNetworkRequest)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,7 +92,7 @@ class CurrencyViewController: UIViewController {
     
     @IBAction func updateTimeButtonPressed(_ sender: UIButton) {
         if !UserDefaultsManager.proPurchased {
-           return PopupQueueManager.shared.addPopupToQueue(title: "Только для Pro", message: "Переключение с этого экрана доступно в Pro-версии", style: .lock)
+            return PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.onlyPro, message: K.PopupTexts.Messages.onlyProSwitch, style: .lock)
         }
         
         if datePickerView.superview == nil {
@@ -105,7 +105,7 @@ class CurrencyViewController: UIViewController {
     
     @IBAction func dataSourceButtonPressed(_ sender: UIButton) {
         guard UserDefaultsManager.proPurchased else {
-            return PopupQueueManager.shared.addPopupToQueue(title: "Только для Pro", message: "Выбор даты с этого экрана доступен в Pro-версии", style: .lock)
+            return PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.onlyPro, message: K.PopupTexts.Messages.onlyProDate, style: .lock)
         }
         
         if menuView.superview == nil {
@@ -235,17 +235,17 @@ extension CurrencyViewController: UITableViewDragDelegate, UITableViewDropDelega
                 UserDefaultsManager.CurrencyVC.PickedSection.forexSection = "Своя"
                 UserDefaultsManager.CurrencyVC.ShowCustomSort.showCustomSortForForex = false
             }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOn"), object: nil)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadSortingVCTableView"), object: nil)
+            NotificationsManager.post(name: K.Notifications.customSortSwitchIsTurnedOn)
+            NotificationsManager.post(name: K.Notifications.reloadSortingVCTableView)
         }
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidEnd session: UIDropSession) {
         if !UserDefaultsManager.proPurchased && !searchController.isActive {
-            PopupQueueManager.shared.addPopupToQueue(title: "Только для Pro", message: "Своя сортировка доступна в Pro-версии", style: .lock)
+            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.onlyPro, message: K.PopupTexts.Messages.ownSearchInPro, style: .lock)
         }
         if searchController.isActive {
-            PopupQueueManager.shared.addPopupToQueue(title: "Пока нельзя", message: "Сначала завершите поиск", style: .lock)
+            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.forbidden, message: K.PopupTexts.Messages.endSearchFirst, style: .lock)
         }
     }
     
@@ -456,15 +456,15 @@ extension CurrencyViewController {
             if networkingError != nil {
                 guard let error = networkingError else { return }
                 self.tableView.refreshControl?.endRefreshing()
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
+                NotificationsManager.post(name: K.Notifications.stopActivityIndicatorInDataSourceVC)
                 
                 DispatchQueue.main.async {
-                    PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
                 }
             } else {
                 self.tableView.refreshControl?.endRefreshing()
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
-                PopupQueueManager.shared.addPopupToQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
+                NotificationsManager.post(name: K.Notifications.stopActivityIndicatorInDataSourceVC)
+                PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
                 }
@@ -482,25 +482,25 @@ extension CurrencyViewController: DatePickerViewDelegate {
     }
     
     func didPickedDateFromPicker(_ datePickerView: DatePickerView, pickedDate: String, lastConfirmedDate: String) {
-        PopupQueueManager.shared.addPopupToQueue(title: "Секунду", message: "Загружаем", style: .load, type: .manual)
+        PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.oneSecond, message: K.PopupTexts.Messages.download, style: .load, type: .manual)
         
         currencyNetworking.performRequest { networkingError, parsingError in
             if networkingError != nil {
                 guard let error = networkingError else { return }
-                PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
+                PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
                 UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else if parsingError != nil {
                 guard let parsingError = parsingError else { return }
                 if parsingError.code == 4865 {
-                    PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "Нет данных на выбранную дату. Попробуйте другую", style: .failure)
+                    PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noData, style: .failure)
                 } else {
-                    PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(parsingError.localizedDescription)", style: .failure)
+                    PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
                 }
                 UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else {
                 UserDefaultsManager.pickDateSwitchIsOn = pickedDate != Date.todaysLongDate ? true : false
                 self.setupFetchedResultsController()
-                PopupQueueManager.shared.changePopupDataInQueue(title: "Успешно", message: "Курсы загружены", style: .success)
+                PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.dataDownloaded, style: .success)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
                 }
@@ -518,7 +518,7 @@ extension CurrencyViewController: MenuViewDelegate {
         UserDefaultsManager.pickedDataSource = dataSource
         
         DispatchQueue.main.async {
-            PopupQueueManager.shared.addPopupToQueue(title: "Секунду", message: "Загружаем", style: .load, type: .manual)
+            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.oneSecond, message: K.PopupTexts.Messages.download, style: .load, type: .manual)
         }
         
         self.currencyNetworking.performRequest { networkingError, parsingError in
@@ -526,18 +526,18 @@ extension CurrencyViewController: MenuViewDelegate {
                 guard let error = networkingError else { return }
                 
                 DispatchQueue.main.async {
-                    PopupQueueManager.shared.changePopupDataInQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
+                    PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
                 }
                 UserDefaultsManager.pickedDataSource = lastPickedSource
             } else {
                 self.setupFetchedResultsController()
                 DispatchQueue.main.async {
-                    PopupQueueManager.shared.changePopupDataInQueue(title: "Обновлено", message: "Курсы актуальны", style: .success)
+                    PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
                     self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
                     self.dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
                 }
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
+                NotificationsManager.post(name: K.Notifications.refreshConverterFRC)
+                NotificationsManager.post(name: K.Notifications.refreshBaseCurrency)
             }
         }
     }

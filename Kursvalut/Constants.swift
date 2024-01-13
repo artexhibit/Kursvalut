@@ -16,7 +16,24 @@ struct K {
     static let isFirstLaunchTodayKey = "isFirstLaunchToday"
     
     struct Notifications {
-        static let networkNotification = "ru.igorcodes.makeNetworkRequest" as CFString
+        static let makeDarwinNetworkRequest = "ru.igorcodes.makeNetworkRequest" as CFString
+        static let hideKeyboardButtonPressed = "hideKeyboardButtonPressed"
+        static let refreshData = "refreshData"
+        static let makeNetworkRequest = "makeNetworkRequest"
+        static let customSortSwitchIsTurnedOn = "customSortSwitchIsTurnedOn"
+        static let customSortSwitchIsTurnedOff = "customSortSwitchIsTurnedOff"
+        static let reloadSortingVCTableView = "reloadSortingVCTableView"
+        static let stopActivityIndicatorInDataSourceVC = "stopActivityIndicatorInDataSourceVC"
+        static let refreshConverterFRC = "refreshConverterFRC"
+        static let refreshBaseCurrency = "refreshBaseCurrency"
+        static let updateCells = "updateCells"
+        static let pro = "pro"
+        static let loadNotificationsSwitchState = "loadNotificationsSwitchState"
+        static let refreshDataFromDataSourceVC = "refreshDataFromDataSourceVC"
+        
+        struct UserInfoKeys {
+            static let currencyWasAdded = "currencyWasAdded"
+        }
     }
     struct CurrencyVC {
         static let needToRefreshFRCForCustomSortKey = "needToRefreshFRCForCustomSort"
@@ -105,7 +122,7 @@ struct K {
             static let updated = "Обновлено"
             static let oneSecond = "Секунду"
             static let maxThreeCurrenciesFree = "Максимум 3 валюты"
-            static let allIsGood = "Всё в порядке"
+            static let allGood = "Всё в порядке"
             static let closed = "Закрыто"
             static let success = "Успешно"
             static let mailSent = "Письмо отправлено"
@@ -127,7 +144,7 @@ struct K {
             static let proRecovered = "Покупка восстановлена"
             static let willReply = "Скоро вам отвечу!"
             static let couldntSend = "Не удалось отправить:"
-        static let noAppStorePurchasePermission = "У вас нет разрешения на покупки в App Store"
+            static let noAppStorePurchasePermission = "У вас нет разрешения на покупки в App Store"
             static let thankYou = "Спасибо! Ты - супер!"
             static let couldntPay = "Не удалось оплатить:"
             static let haveProNow = "Теперь у тебя есть Pro!"

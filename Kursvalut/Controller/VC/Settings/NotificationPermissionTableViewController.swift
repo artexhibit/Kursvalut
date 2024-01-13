@@ -9,7 +9,7 @@ class NotificationPermissionTableViewController: UITableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadNotificationsSwitchState"), object: nil)
+        NotificationsManager.post(name: K.Notifications.loadNotificationsSwitchState)
     }
     
     @IBAction func permissionButtonPressed(_ sender: UIButton) {

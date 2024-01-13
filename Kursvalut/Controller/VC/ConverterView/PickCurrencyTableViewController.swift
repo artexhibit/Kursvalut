@@ -99,14 +99,14 @@ class PickCurrencyTableViewController: UITableViewController {
                 } else {
                     bankOfRussiaCurrency.isForConverter = false
                     currentAmount = 3
-                    PopupQueueManager.shared.addPopupToQueue(title: "Максимум 3 валюты", message: "Безлимит доступен в Pro", style: .lock)
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.maxThreeCurrenciesFree, message: K.PopupTexts.Messages.unlimitedInPro, style: .lock)
                 }
             } else {
                 bankOfRussiaCurrency.isForConverter = false
                 bankOfRussiaCurrency.rowForConverter = 0
             }
             UserDefaultsManager.ConverterVC.amountOfPickedBankOfRussiaCurrencies = currentAmount
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCells"), object: nil, userInfo: ["currencyWasAdded": bankOfRussiaCurrency.isForConverter])
+            NotificationsManager.post(name: K.Notifications.updateCells, userInfo: [K.Notifications.UserInfoKeys.currencyWasAdded: bankOfRussiaCurrency.isForConverter])
         } else if UserDefaultsManager.pickedDataSource == "Forex" {
             var currentAmount = UserDefaultsManager.ConverterVC.amountOfPickedForexCurrencies
             let forexCurrencies = coreDataManager.fetchCurrencies(entityName: ForexCurrency.self)
@@ -123,14 +123,14 @@ class PickCurrencyTableViewController: UITableViewController {
                 } else {
                     forexCurrency.isForConverter = false
                     currentAmount = 3
-                    PopupQueueManager.shared.addPopupToQueue(title: "Максимум 3 валюты", message: "Безлимит доступен в Pro", style: .lock)
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.maxThreeCurrenciesFree, message: K.PopupTexts.Messages.unlimitedInPro, style: .lock)
                 }
             } else {
                 forexCurrency.isForConverter = false
                 forexCurrency.rowForConverter = 0
             }
             UserDefaultsManager.ConverterVC.amountOfPickedForexCurrencies = currentAmount
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCells"), object: nil, userInfo: ["currencyWasAdded": forexCurrency.isForConverter])
+            NotificationsManager.post(name: K.Notifications.updateCells, userInfo: [K.Notifications.UserInfoKeys.currencyWasAdded: forexCurrency.isForConverter])
         }
         PersistenceController.shared.saveContext()
     }

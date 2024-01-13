@@ -26,9 +26,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         currencyManager.configureContentInset(for: tableView, top: 30)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshBaseCurrency), name: NSNotification.Name(rawValue: "refreshBaseCurrency"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(activatedCurrencyVC), name: NSNotification.Name(rawValue: "refreshDataFromDataSourceVC"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopActivityIndicatorInDataSourceCell), name: NSNotification.Name(rawValue: "stopActivityIndicatorInDataSourceVC"), object: nil)
+        NotificationsManager.add(self, selector: #selector(refreshBaseCurrency), name: K.Notifications.refreshBaseCurrency)
+        NotificationsManager.add(self, selector: #selector(activatedCurrencyVC), name: K.Notifications.refreshDataFromDataSourceVC)
+        NotificationsManager.add(self, selector: #selector(stopActivityIndicatorInDataSourceCell), name: K.Notifications.stopActivityIndicatorInDataSourceVC)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -221,9 +221,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             
             if pickedOption == "ЦБ РФ" { UserDefaultsManager.baseCurrency = "RUB" }
             UserDefaultsManager.ConverterVC.setTextFieldToZero = true
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshConverterFRC"), object: nil)
+            NotificationsManager.post(name: K.Notifications.refreshConverterFRC)
             activatedCurrencyVC()
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customSortSwitchIsTurnedOff"), object: nil)
+            NotificationsManager.post(name: K.Notifications.customSortSwitchIsTurnedOff)
             tableView.reloadSections(IndexSet(integer: sections.baseCurrency), with: .fade)
             
             if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
@@ -278,7 +278,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     @objc private func activatedCurrencyVC() {
         if UserDefaultsManager.CurrencyVC.isActiveCurrencyVC {
             UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = true
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
+            NotificationsManager.post(name: K.Notifications.refreshData)
             UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true
             tableView.reloadRows(at: [dateIndexPath], with: .none)
         } else {
@@ -331,13 +331,13 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 if networkingError != nil {
                     guard let error = networkingError else { return }
                     self.resetStateToTheLastConfirmedDate()
-                    PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(error.localizedDescription)", style: .failure)
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
                 } else if parsingError != nil {
                     guard let parsingError = parsingError else { return }
                     if parsingError.code == 4865 {
-                        PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "Нет данных на выбранную дату. Попробуйте другую", style: .failure)
+                        PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noData, style: .failure)
                     } else {
-                        PopupQueueManager.shared.addPopupToQueue(title: "Ошибка", message: "\(parsingError.localizedDescription)", style: .failure)
+                        PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
                     }
                     self.resetStateToTheLastConfirmedDate()
                 } else {
@@ -350,7 +350,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                         self.resetCurrencyHistoricalRow()
                     }
                     UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true
-                    PopupQueueManager.shared.addPopupToQueue(title: "Успешно", message: "Курсы загружены", style: .success)
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.dataDownloaded, style: .success)
                 }
                 self.dataSourceCellWasPressed = false
                 self.startDateSpinner = false
