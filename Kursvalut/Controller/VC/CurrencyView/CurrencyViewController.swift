@@ -109,7 +109,7 @@ class CurrencyViewController: UIViewController {
         }
         
         if menuView.superview == nil {
-            menuView.showView(under: dataSourceButton, in: self.view, items: (toShow: ["Forex", "ЦБ РФ"], checked: UserDefaultsManager.pickedDataSource))
+            menuView.showView(under: dataSourceButton, in: self.view, items: (toShow: CurrencyData.currencySources, checked: UserDefaultsManager.pickedDataSource))
             datePickerView.hideView()
         } else {
             menuView.hideView()
@@ -129,7 +129,7 @@ extension CurrencyViewController: UIScrollViewDelegate {
 
 extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? bankOfRussiaFRC.sections![section].numberOfObjects : forexFRC.sections![section].numberOfObjects
+        return UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? bankOfRussiaFRC.sections![section].numberOfObjects : forexFRC.sections![section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -138,7 +138,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         let lastCellRow = tableView.numberOfRows(inSection: 0) - 1
         cell.separatorInset.right = indexPath.row == lastCellRow ? .greatestFiniteMagnitude : 19
         
-        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
             let currency = bankOfRussiaFRC.object(at: indexPath)
             
             cell.selectionStyle = .none
@@ -183,7 +183,7 @@ extension CurrencyViewController {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
             var bankOfRussiaCurrencies = bankOfRussiaFRC.fetchedObjects!
             let bankOFRussiaCurrency = bankOfRussiaFRC.object(at: sourceIndexPath)
             
@@ -226,7 +226,7 @@ extension CurrencyViewController: UITableViewDragDelegate, UITableViewDropDelega
     
     func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
         if UserDefaultsManager.proPurchased && !searchController.isActive {
-            if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+            if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
                 UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForBankOfRussia = true
                 UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = "Своя"
                 UserDefaultsManager.CurrencyVC.ShowCustomSort.showCustomSortForBankOfRussia = false
@@ -317,11 +317,11 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
     }
     
     func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
-        if searchPredicate != nil && UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+        if searchPredicate != nil && UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
             bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: searchPredicate)
             bankOfRussiaFRC.delegate = self
             try? bankOfRussiaFRC.performFetch()
-        } else if searchPredicate != nil && UserDefaultsManager.pickedDataSource != "ЦБ РФ" {
+        } else if searchPredicate != nil && UserDefaultsManager.pickedDataSource != CurrencyData.cbrf {
             forexFRC = coreDataManager.createForexCurrencyFRC(with: searchPredicate)
             forexFRC.delegate = self
             try? forexFRC.performFetch()
@@ -347,7 +347,7 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
                     }
                 }
             }
-            if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+            if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
                 bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: currencyScreenViewPredicate, and: sortDescriptor)
                 bankOfRussiaFRC.delegate = self
                 try? bankOfRussiaFRC.performFetch()
@@ -445,7 +445,7 @@ extension CurrencyViewController {
             UserDefaultsManager.confirmedDate = Date.todaysLongDate
             UserDefaultsManager.pickDateSwitchIsOn = false
         }
-        if UserDefaultsManager.pickedDataSource != "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource != CurrencyData.cbrf {
             DispatchQueue.main.async {
                 self.coreDataManager.filterOutForexBaseCurrency()
             }
@@ -550,7 +550,6 @@ extension CurrencyViewController: MenuViewDelegate {
 //MARK: - UITabBarControllerDelegate Methods To Scroll VC Up
 
 extension CurrencyViewController: UITabBarControllerDelegate {
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
                 

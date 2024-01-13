@@ -26,7 +26,7 @@ struct WidgetsCoreDataManager {
         var CBRFCurrencyArray = [Currency]()
         var ForexCurrencyArray = [ForexCurrency]()
         
-        if baseSource == WidgetsData.cbrf {
+        if baseSource == CurrencyData.cbrf {
             CBRFCurrencyArray = fetchPickedCurrencies(for: Currency.self, with: currencies, fetchAll: fetchAll)
         } else {
             ForexCurrencyArray = fetchPickedCurrencies(for: ForexCurrency.self, with: currencies, fetchAll: fetchAll)
@@ -41,7 +41,7 @@ struct WidgetsCoreDataManager {
         mainCurrencies.forEach { mainCurrency in
             var value = ""
             
-            if baseSource == WidgetsData.cbrf {
+            if baseSource == CurrencyData.cbrf {
                 let mainValue = get(currencies: [mainCurrency], for: baseSource).cbrf.first?.absoluteValue ?? 0
                 let baseValue = get(currencies: [baseCurrency], for: baseSource).cbrf.first?.absoluteValue ?? 0
                 
@@ -68,7 +68,7 @@ struct WidgetsCoreDataManager {
         var mainValue: Double = 0
         var baseValue: Double = 0
         
-        if baseSource == WidgetsData.cbrf {
+        if baseSource == CurrencyData.cbrf {
             let mainPrevValue = get(currencies: [mainCurrency], for: baseSource).cbrf.first?.previousValue ?? 0
             let mainNominal = get(currencies: [mainCurrency], for: baseSource).cbrf.first?.nominal ?? 0
             
@@ -96,7 +96,7 @@ struct WidgetsCoreDataManager {
         var current = Date()
         var previous = Date()
         
-        if baseSource == WidgetsData.cbrf {
+        if baseSource == CurrencyData.cbrf {
             current = get(currencies: [mainCurrencies.first ?? ""], for: baseSource).cbrf.first?.currentDataDate ?? Date()
             previous = get(currencies: [mainCurrencies.first ?? ""], for: baseSource).cbrf.first?.previousDataDate ?? Date()
         } else {
@@ -109,7 +109,7 @@ struct WidgetsCoreDataManager {
     static func getFirstTenCurrencies(for baseSource: String, and baseCurrency: String) -> [String] {
         let confirmedDate = Date.formatDate(from: UserDefaultsManager.confirmedDate)
         
-        if baseSource == WidgetsData.cbrf {
+        if baseSource == CurrencyData.cbrf {
             if Calendar.current.isDate(confirmedDate, inSameDayAs: Date.currentDate) {
                 return get(for: baseSource, fetchAll: true).cbrf.filter { $0.rowForCurrency <= 9 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }.filter { $0 != baseCurrency }
             } else {

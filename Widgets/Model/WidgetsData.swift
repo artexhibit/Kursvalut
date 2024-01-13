@@ -2,10 +2,7 @@ import Foundation
 import WidgetKit
 
 struct WidgetsData {
-    static let cbrf = "ЦБ РФ"
-    static let forex = "Forex"
-    
-    static let currencyExample = WidgetCurrency(baseSource: "Forex",
+    static let currencyExample = WidgetCurrency(baseSource: CurrencyData.forex,
                                                     baseCurrency: "RUB",
                                                     mainCurrencies: ["USD", "EUR", "CNY"],
                                                     shortNames: ["Доллар", "Евро", "Рубль"],
@@ -16,7 +13,7 @@ struct WidgetsData {
                                                     
         )
     
-    static let multipleCurrencyExample = WidgetCurrency(baseSource: "Forex",
+    static let multipleCurrencyExample = WidgetCurrency(baseSource: CurrencyData.forex,
                                                 baseCurrency: "RUB",
                                                 mainCurrencies: ["USD", "EUR", "CNY", "GBP", "CHF", "SGD", "CAD", "AZN", "BGN", "BYN"],
                                                 shortNames: ["Доллар", "Евро", "Юань", "Фунт", "Франк", "Доллар", "Доллар", "Манат", "Лев", "Рубль"],

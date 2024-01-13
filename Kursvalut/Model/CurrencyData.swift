@@ -1,6 +1,9 @@
 import Foundation
 
 struct CurrencyData {
+    static let cbrf = "ЦБ РФ"
+    static let forex = "Forex"
+    static let currencySources = [cbrf, forex]
     static let currencyFullNameDict: [String : (currencyName: String, searchName: String, shortName: String)] = [
         "RUB": (currencyName: "Российский рубль", searchName: "Российская Федерация", shortName: "Рубль"),
         "ZAR": (currencyName: "Южноафриканский рэнд", searchName: "ЮАР", shortName: "Рэнд"),

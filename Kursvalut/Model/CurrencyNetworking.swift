@@ -56,7 +56,7 @@ struct CurrencyNetworking {
         var errorToShow: Error!
         var parsingError: NSError?
         
-        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
             urlArray.append(currentBankOfRussiaURL)
         } else {
             urlArray.append(currentForexURL)
@@ -129,7 +129,7 @@ struct CurrencyNetworking {
                 coreDataManager.resetCurrencyScreenPropertyForForexCurrencies()
                 url == currentForexURL ? coreDataManager.createOrUpdateLatestForexCurrency(from: filteredData, currentDate: currenciesCurrentDate, previousDate: currenciesPreviousDate) : coreDataManager.createOrUpdateYesterdayForexCurrency(from: filteredData, currentDate: historicalDates.current, previousDate: historicalDates.prev)
                 
-                if UserDefaultsManager.pickedDataSource != "ЦБ РФ" {
+                if UserDefaultsManager.pickedDataSource != CurrencyData.cbrf {
                     coreDataManager.filterOutForexBaseCurrency()
                 }
                 coreDataManager.removeResetForexCurrenciesFromConverter()

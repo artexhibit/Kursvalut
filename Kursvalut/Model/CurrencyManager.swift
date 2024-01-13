@@ -75,7 +75,7 @@ struct CurrencyManager {
     func setupSymbolAndText(for button: UIButton, with pickedDataSource: String) {
         button.setTitle(pickedDataSource, for: .normal)
         
-        if pickedDataSource == "ЦБ РФ" {
+        if pickedDataSource == CurrencyData.cbrf {
             button.setImage(UIImage(systemName: "rublesign.square"), for: .normal)
         } else {
             button.setImage(UIImage(systemName: "eurosign.square"), for: .normal)
@@ -91,16 +91,15 @@ struct CurrencyManager {
     
     func updateAllCurrencyTypesData(completion: @escaping () -> Void) {
         let currencyNetworking = CurrencyNetworking()
-        let baseSources = ["ЦБ РФ", "Forex"]
         let lastPickedBaseSource = UserDefaultsManager.pickedDataSource
         var completedRequests = 0
         
-        for baseSource in baseSources {
-            UserDefaultsManager.pickedDataSource = baseSource
+        for source in CurrencyData.currencySources {
+            UserDefaultsManager.pickedDataSource = source
             currencyNetworking.performRequest { _, _ in
                 completedRequests += 1
                 
-                if completedRequests == baseSources.count {
+                if completedRequests == CurrencyData.currencySources.count {
                     completion()
                 }
             }
@@ -114,10 +113,10 @@ struct CurrencyManager {
         let cbrfCurrencies = coreDataManager.fetchCurrencies(entityName: Currency.self).filter { $0.shortName == "USD" || $0.shortName == "EUR" }.sorted { $0.shortName ?? "" > $1.shortName ?? "" }
         let forexCurrencies = coreDataManager.fetchCurrencies(entityName: ForexCurrency.self).filter { $0.shortName == "USD" || $0.shortName == "EUR" }.sorted { $0.shortName ?? "" > $1.shortName ?? "" }
         
-        let usd = baseSource == "ЦБ РФ" ? cbrfCurrencies.first?.shortName ?? "USD" : forexCurrencies.first?.shortName ?? "USD"
-        let usdValue = baseSource == "ЦБ РФ" ? String.roundDouble(cbrfCurrencies.first?.absoluteValue ?? 0, maxDecimals: 4) : String.roundDouble(forexCurrencies.first?.absoluteValue ?? 0, maxDecimals: 4)
-        let eur = baseSource == "ЦБ РФ" ? cbrfCurrencies.last?.shortName ?? "EUR" : forexCurrencies.last?.shortName ?? "EUR"
-        let eurValue = baseSource == "ЦБ РФ" ? String.roundDouble(cbrfCurrencies.last?.absoluteValue ?? 0, maxDecimals: 4) : String.roundDouble(forexCurrencies.last?.absoluteValue ?? 0, maxDecimals: 4)
+        let usd = baseSource == CurrencyData.cbrf ? cbrfCurrencies.first?.shortName ?? "USD" : forexCurrencies.first?.shortName ?? "USD"
+        let usdValue = baseSource == CurrencyData.cbrf ? String.roundDouble(cbrfCurrencies.first?.absoluteValue ?? 0, maxDecimals: 4) : String.roundDouble(forexCurrencies.first?.absoluteValue ?? 0, maxDecimals: 4)
+        let eur = baseSource == CurrencyData.cbrf ? cbrfCurrencies.last?.shortName ?? "EUR" : forexCurrencies.last?.shortName ?? "EUR"
+        let eurValue = baseSource == CurrencyData.cbrf ? String.roundDouble(cbrfCurrencies.last?.absoluteValue ?? 0, maxDecimals: 4) : String.roundDouble(forexCurrencies.last?.absoluteValue ?? 0, maxDecimals: 4)
         
         return "Курс \(baseSource) на \(date): \(usd) - \(usdValue) \(UserDefaultsManager.baseCurrency), \(eur) - \(eurValue) \(UserDefaultsManager.baseCurrency)"
     }

@@ -96,7 +96,7 @@ struct UserDefaultsManager {
         
         struct PickedOrder {
             static var value: String {
-                get { UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? ud.string(forKey: K.CurrencyVC.bankOfRussiaPickedOrderKey) ?? "" : ud.string(forKey: K.CurrencyVC.forexPickedOrderKey) ?? "" }
+                get { UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? ud.string(forKey: K.CurrencyVC.bankOfRussiaPickedOrderKey) ?? "" : ud.string(forKey: K.CurrencyVC.forexPickedOrderKey) ?? "" }
             }
             static var bankOfRussiaOrder: String = "По убыванию (2→1)" {
                 didSet {
@@ -111,7 +111,7 @@ struct UserDefaultsManager {
         }
         struct PickedSection {
             static var value: String {
-                get { UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? ud.string(forKey: K.CurrencyVC.bankOfRussiaPickedSectionKey) ?? "" : ud.string(forKey: K.CurrencyVC.forexPickedSectionKey) ?? "" }
+                get { UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? ud.string(forKey: K.CurrencyVC.bankOfRussiaPickedSectionKey) ?? "" : ud.string(forKey: K.CurrencyVC.forexPickedSectionKey) ?? "" }
             }
             static var bankOfRussiaSection: String = "По значению" {
                 didSet {
@@ -126,7 +126,7 @@ struct UserDefaultsManager {
         }
         struct CustomSortSwitchIsOn {
             static var value: Bool {
-                get { UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? ud.bool(forKey: K.CurrencyVC.customSortSwitchIsOnForBankOfRussiaKey) : ud.bool(forKey: K.CurrencyVC.customSortSwitchIsOnForForexKey) }
+                get { UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? ud.bool(forKey: K.CurrencyVC.customSortSwitchIsOnForBankOfRussiaKey) : ud.bool(forKey: K.CurrencyVC.customSortSwitchIsOnForForexKey) }
             }
             static var customSortSwitchIsOnForBankOfRussia: Bool = false {
                 didSet {
@@ -141,7 +141,7 @@ struct UserDefaultsManager {
         }
         struct ShowCustomSort {
             static var value: Bool {
-                get { UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? ud.bool(forKey: K.CurrencyVC.showCustomSortForBankOfRussiaKey) : ud.bool(forKey: K.CurrencyVC.showCustomSortForForexKey) }
+                get { UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? ud.bool(forKey: K.CurrencyVC.showCustomSortForBankOfRussiaKey) : ud.bool(forKey: K.CurrencyVC.showCustomSortForForexKey) }
             }
             static var showCustomSortForBankOfRussia: Bool = true {
                 didSet {
@@ -183,7 +183,7 @@ struct UserDefaultsManager {
         
         struct PickedConverterCurrency {
             static var value: String {
-                get { UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? ud.string(forKey: K.ConverterVC.bankOfRussiaPickedCurrencyKey) ?? "" : ud.string(forKey: K.ConverterVC.forexPickedCurrencyKey) ?? "" }
+                get { UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? ud.string(forKey: K.ConverterVC.bankOfRussiaPickedCurrencyKey) ?? "" : ud.string(forKey: K.ConverterVC.forexPickedCurrencyKey) ?? "" }
             }
             static var bankOfRussiaPickedCurrency: String = "" {
                 didSet {
@@ -206,7 +206,7 @@ struct UserDefaultsManager {
     struct SortingVC {
         struct PickedSectionNumber {
             static var value: Int {
-                get { UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? ud.integer(forKey: K.SortingVC.bankOfRussiaPickedSectionNumberKey) : ud.integer(forKey: K.SortingVC.forexPickedSectionNumberKey) }
+                get { UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? ud.integer(forKey: K.SortingVC.bankOfRussiaPickedSectionNumberKey) : ud.integer(forKey: K.SortingVC.forexPickedSectionNumberKey) }
             }
             static var bankOfRussiaPickedSectionNumber: Int = 1 {
                 didSet {
@@ -221,7 +221,7 @@ struct UserDefaultsManager {
         }
         struct PreviousPickedOrder {
             static var value: String {
-                get { UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? ud.string(forKey: K.SortingVC.previousBankOfRussiaPickedOrderKey) ?? "" : ud.string(forKey: K.SortingVC.previousForexPickedOrderKey) ?? "" }
+                get { UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? ud.string(forKey: K.SortingVC.previousBankOfRussiaPickedOrderKey) ?? "" : ud.string(forKey: K.SortingVC.previousForexPickedOrderKey) ?? "" }
             }
             static var previousBankOfRussiaPickedOrder: String = "По возрастанию (А→Я)" {
                 didSet {
@@ -236,7 +236,7 @@ struct UserDefaultsManager {
         }
         struct PreviousPickedSection {
             static var value: String {
-                get { UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? ud.string(forKey: K.SortingVC.previousLastBankOfRussiaPickedSectionKey) ?? "" : ud.string(forKey: K.SortingVC.previousForexPickedSectionKey) ?? "" }
+                get { UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? ud.string(forKey: K.SortingVC.previousLastBankOfRussiaPickedSectionKey) ?? "" : ud.string(forKey: K.SortingVC.previousForexPickedSectionKey) ?? "" }
             }
             static var previousLastBankOfRussiaPickedSection: String = "По короткому имени" {
                 didSet {

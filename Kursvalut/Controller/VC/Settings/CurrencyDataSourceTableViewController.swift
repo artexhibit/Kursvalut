@@ -6,7 +6,6 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     private let currencyManager = CurrencyManager()
     private let currencyNetworking = CurrencyNetworking()
     private let coreDataManager = CurrencyCoreDataManager()
-    private let dataSourceOptions = ["Forex", "ЦБ РФ"]
     private let sectionsData = [
         (header: "", footer: ["Данные по курсам будут сразу загружены при выборе источника"]),
         (header: "", footer: ["В зависимости от выбранной базовой валюты будут отображаться соответствующие данные", "Для источника курсов по ЦБ РФ базовая валюта - только RUB"]),
@@ -138,7 +137,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == sections.dataSource {
-            return dataSourceOptions.count
+            return CurrencyData.currencySources.count
         } else if section == sections.baseCurrency {
             return 1
         } else {
@@ -152,7 +151,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == sections.baseCurrency {
-            return UserDefaultsManager.pickedDataSource == "ЦБ РФ" ? sectionsData[section].footer[1] : sectionsData[section].footer[0]
+            return UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? sectionsData[section].footer[1] : sectionsData[section].footer[0]
         } else {
             return sectionsData[section].footer[0]
         }
@@ -161,14 +160,14 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == sections.dataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.dataSourceCellKey, for: indexPath) as! DataSourceTableViewCell
-            cell.sourceNameLabel.text = dataSourceOptions[indexPath.row]
+            cell.sourceNameLabel.text = CurrencyData.currencySources[indexPath.row]
             cell.accessoryType = cell.sourceNameLabel.text == UserDefaultsManager.pickedDataSource ? .checkmark : .none
             return cell
         } else if indexPath.section == sections.baseCurrency {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.pickedBaseCurrencyCellKey, for: indexPath) as! PickedBaseCurrencyTableViewCell
             cell.pickedBaseCurrencyLabel.text = UserDefaultsManager.baseCurrency
             
-            if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+            if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
                 cell.backgroundColor = .systemGray5
                 cell.isUserInteractionEnabled = false
             } else {
@@ -219,14 +218,14 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             cell.dataUpdateSpinner.startAnimating()
             UserDefaultsManager.pickedDataSource = pickedOption
             
-            if pickedOption == "ЦБ РФ" { UserDefaultsManager.baseCurrency = "RUB" }
+            if pickedOption == CurrencyData.cbrf { UserDefaultsManager.baseCurrency = "RUB" }
             UserDefaultsManager.ConverterVC.setTextFieldToZero = true
             NotificationsManager.post(name: K.Notifications.refreshConverterFRC)
             activatedCurrencyVC()
             NotificationsManager.post(name: K.Notifications.customSortSwitchIsTurnedOff)
             tableView.reloadSections(IndexSet(integer: sections.baseCurrency), with: .fade)
             
-            if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+            if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
                 coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)
             } else {
                 coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)
@@ -317,7 +316,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
    private func resetCurrencyHistoricalRow() {
-        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
             coreDataManager.resetRowForHistoricalCurrencyPropertyForBankOfRussiaCurrencies()
         } else {
             coreDataManager.resetRowForHistoricalCurrencyPropertyForForexCurrencies()

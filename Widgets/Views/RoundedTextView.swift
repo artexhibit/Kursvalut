@@ -19,5 +19,5 @@ struct RoundedTextView: View {
 }
 
 #Preview {
-    RoundedTextView(text: "Forex")
+    RoundedTextView(text: CurrencyData.forex)
 }

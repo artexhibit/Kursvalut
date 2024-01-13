@@ -42,7 +42,7 @@ class SortingTableViewController: UITableViewController {
         var indexPaths = [IndexPath]()
         var mainCells = [MainSortTableViewCell]()
         
-        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
             UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForBankOfRussia = true
             
             if !UserDefaultsManager.CurrencyVC.ShowCustomSort.value {
@@ -91,7 +91,7 @@ class SortingTableViewController: UITableViewController {
         var indexPathsToInsert = [IndexPath]()
         var rowIndexPathToReload = [IndexPath]()
         
-        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
             UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForBankOfRussia = false
             UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = UserDefaultsManager.SortingVC.PreviousPickedSection.value
             UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = UserDefaultsManager.SortingVC.PreviousPickedOrder.value
@@ -238,7 +238,7 @@ class SortingTableViewController: UITableViewController {
                 guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: customSortCellSection)) as? CustomSortTableViewCell else { return }
                 cell.customSortSwitch.setOn(false, animated: true)
             }
-            if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+            if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
                 UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForBankOfRussia = false
                 UserDefaultsManager.CurrencyVC.PickedOrder.bankOfRussiaOrder = pickedOrder
                 UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = pickedSection
@@ -279,7 +279,7 @@ class SortingTableViewController: UITableViewController {
             tableView.endUpdates()
         }
         
-        if UserDefaultsManager.pickedDataSource == "ЦБ РФ" {
+        if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
             coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().cbrf)
         } else {
             coreDataManager.assignRowNumbers(to: coreDataManager.fetchSortedCurrencies().forex)

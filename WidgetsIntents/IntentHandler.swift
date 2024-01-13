@@ -1,7 +1,6 @@
 import Intents
 
 class IntentHandler: INExtension {
-    let sourceStrings = [WidgetsData.cbrf, WidgetsData.forex]
     
     override func handler(for intent: INIntent) -> Any {
         return self
@@ -10,7 +9,7 @@ class IntentHandler: INExtension {
 
 extension IntentHandler: SetSingleCurrencyIntentHandling {
     func provideBaseSourceOptionsCollection(for intent: SetSingleCurrencyIntent) async throws -> INObjectCollection<NSString> {
-        return INObjectCollection(items: sourceStrings as [NSString])
+        return INObjectCollection(items: CurrencyData.currencySources as [NSString])
     }
     
     func provideMainCurrencyOptionsCollection(for intent: SetSingleCurrencyIntent) async throws -> INObjectCollection<NSString> {
@@ -24,7 +23,7 @@ extension IntentHandler: SetSingleCurrencyIntentHandling {
     }
     
     func defaultBaseSource(for intent: SetSingleCurrencyIntent) -> String? {
-        return WidgetsData.forex
+        return CurrencyData.forex
     }
     
     func defaultBaseCurrency(for intent: SetSingleCurrencyIntent) -> String? {
@@ -62,7 +61,7 @@ extension IntentHandler: SetTripleCurrencyIntentHandling {
     }
     
     func provideBaseSourceOptionsCollection(for intent: SetTripleCurrencyIntent) async throws -> INObjectCollection<NSString> {
-        return INObjectCollection(items: sourceStrings as [NSString])
+        return INObjectCollection(items: CurrencyData.currencySources as [NSString])
     }
     
     func provideBaseCurrencyOptionsCollection(for intent: SetTripleCurrencyIntent) async throws -> INObjectCollection<NSString> {
@@ -83,7 +82,7 @@ extension IntentHandler: SetTripleCurrencyIntentHandling {
     }
     
     func defaultBaseSource(for intent: SetTripleCurrencyIntent) -> String? {
-        return WidgetsData.forex
+        return CurrencyData.forex
     }
     
     func defaultBaseCurrency(for intent: SetTripleCurrencyIntent) -> String? {
