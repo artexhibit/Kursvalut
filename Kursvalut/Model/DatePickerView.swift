@@ -79,7 +79,7 @@ class DatePickerView: UIView {
     
     func showView(under button: UIButton, in view: UIView) {
         configureView(under: button, in: view)
-        datePicker.date = currencyManager.createDate(from: UserDefaultsManager.confirmedDate)
+        datePicker.date = Date.formatDate(from: UserDefaultsManager.confirmedDate)
         lastConfirmedDate = UserDefaultsManager.confirmedDate
         configureButtons()
         configureDatePicker()

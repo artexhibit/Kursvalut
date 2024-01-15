@@ -52,6 +52,7 @@ class CurrencyViewController: UIViewController {
         self.navigationController?.navigationBar.addGestureRecognizer(navigationBarGestureRecogniser)
         currencyManager.configureContentInset(for: tableView, top: -updateButtonTopInset)
         currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch()
+        updateTimeButton.setTitle(confirmedDate, for: .normal)
         NotificationsManager.Darwin.addNetworkRequestObserver(name: K.Notifications.makeDarwinNetworkRequest)
         NotificationsManager.add(self, selector: #selector(refreshData), name: K.Notifications.refreshData)
         NotificationsManager.add(self, selector: #selector(makeNetworkRequest), name: K.Notifications.makeNetworkRequest)
@@ -515,7 +516,14 @@ extension CurrencyViewController: DatePickerViewDelegate {
 extension CurrencyViewController: MenuViewDelegate {
     func didPickDataSource(_ menuView: MenuView, dataSource: String) {
         let lastPickedSource = UserDefaultsManager.pickedDataSource
+        let lastPickedDate = UserDefaultsManager.confirmedDate
         UserDefaultsManager.pickedDataSource = dataSource
+        
+        if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
+            UserDefaultsManager.confirmedDate = Date.createStringDate(from: coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate())
+        } else {
+            UserDefaultsManager.confirmedDate = Date.createStringDate(from: coreDataManager.fetchForexCurrenciesCurrentDate())
+        }
         
         DispatchQueue.main.async {
             PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.oneSecond, message: K.PopupTexts.Messages.download, style: .load, type: .manual)
@@ -529,6 +537,7 @@ extension CurrencyViewController: MenuViewDelegate {
                     PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
                 }
                 UserDefaultsManager.pickedDataSource = lastPickedSource
+                UserDefaultsManager.confirmedDate = lastPickedDate
             } else {
                 self.setupFetchedResultsController()
                 DispatchQueue.main.async {

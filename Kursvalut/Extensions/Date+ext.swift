@@ -28,6 +28,8 @@ extension Date {
     static func formatDate(from string: String, dateStyle: DateFormatter.Style = .medium) -> Date {
         let formatter = DateFormatter()
         formatter.dateStyle = dateStyle
+        formatter.dateFormat = "dd.MM.yyyy"
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
         return formatter.date(from: string) ?? Date()
     }
     
