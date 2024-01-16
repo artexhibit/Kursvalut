@@ -31,6 +31,9 @@ class DatePickerView: UIView {
         let interfaceOrientation = windowScene.interfaceOrientation
         return interfaceOrientation
     }
+    private var datePickerCurrentDate: Date {
+        UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? currencyCoreDataManager.fetchBankOfRussiaCurrenciesCurrentDate() : currencyCoreDataManager.fetchForexCurrenciesCurrentDate()
+    }
     private var lastConfirmedDate: String?
     private var widthConstraint: NSLayoutConstraint?
     private var viewSize: (width: CGFloat, height: CGFloat) = (0,0)
@@ -79,7 +82,7 @@ class DatePickerView: UIView {
     
     func showView(under button: UIButton, in view: UIView) {
         configureView(under: button, in: view)
-        datePicker.date = Date.formatDate(from: UserDefaultsManager.confirmedDate)
+        datePicker.date = datePickerCurrentDate
         lastConfirmedDate = UserDefaultsManager.confirmedDate
         configureButtons()
         configureDatePicker()

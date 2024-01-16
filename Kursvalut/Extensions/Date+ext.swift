@@ -25,7 +25,7 @@ extension Date {
         return Date()
     }
     
-    static func formatDate(from string: String, dateStyle: DateFormatter.Style = .medium) -> Date {
+    static func formatDate(from string: String, dateStyle: DateFormatter.Style = .long) -> Date {
         let formatter = DateFormatter()
         formatter.dateStyle = dateStyle
         formatter.dateFormat = "dd.MM.yyyy"

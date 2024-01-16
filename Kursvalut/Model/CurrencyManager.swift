@@ -125,7 +125,17 @@ struct CurrencyManager {
         if UserDefaultsManager.isFirstLaunchToday != Date.todaysLongDate {
             UserDefaultsManager.isFirstLaunchToday = Date.todaysLongDate
             UserDefaultsManager.confirmedDate = Date.todaysLongDate
-            updateAllCurrencyTypesData { }
+            updateAllCurrencyTypesData {
+                if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
+                    UserDefaultsManager.confirmedDate = Date.createStringDate(from: coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate())
+                } else {
+                    UserDefaultsManager.confirmedDate = Date.createStringDate(from: coreDataManager.fetchForexCurrenciesCurrentDate())
+                }
+            }
         }
+    }
+    
+    func getCurrencyDate() -> String {
+        return UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? Date.createStringDate(from: coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate(), dateStyle: .long) : Date.createStringDate(from: coreDataManager.fetchForexCurrenciesCurrentDate(), dateStyle: .long)
     }
 }

@@ -21,10 +21,6 @@ class CurrencyViewController: UIViewController {
     private let updateButtonTopInset: CGFloat = 8.0
     private var tabBarIndex: Int = 0
     private var canHideOpenedView = true
-    private var confirmedDate: String {
-        let date = Date.formatDate(from: UserDefaultsManager.confirmedDate)
-        return Date.createStringDate(from: date, dateStyle: .long)
-    }
     private var tapGestureRecognizer: UITapGestureRecognizer {
         let recogniser = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         recogniser.cancelsTouchesInView = false
@@ -52,7 +48,6 @@ class CurrencyViewController: UIViewController {
         self.navigationController?.navigationBar.addGestureRecognizer(navigationBarGestureRecogniser)
         currencyManager.configureContentInset(for: tableView, top: -updateButtonTopInset)
         currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch()
-        updateTimeButton.setTitle(confirmedDate, for: .normal)
         NotificationsManager.Darwin.addNetworkRequestObserver(name: K.Notifications.makeDarwinNetworkRequest)
         NotificationsManager.add(self, selector: #selector(refreshData), name: K.Notifications.refreshData)
         NotificationsManager.add(self, selector: #selector(makeNetworkRequest), name: K.Notifications.makeNetworkRequest)
@@ -65,7 +60,7 @@ class CurrencyViewController: UIViewController {
         setupFetchedResultsController()
         updateDecimalsNumber()
         dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
-        updateTimeButton.setTitle(confirmedDate, for: .normal)
+        updateTimeButton.setTitle(currencyManager.getCurrencyDate(), for: .normal)
         
         if UserDefaultsManager.CurrencyVC.needToScrollUpViewController {
             scrollViewToTop()
@@ -79,7 +74,7 @@ class CurrencyViewController: UIViewController {
         if !UserDefaultsManager.userHasOnboarded {
             performSegue(withIdentifier: K.Segues.showOnboardingKey, sender: self)
             currencyManager.updateAllCurrencyTypesData {
-                self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
+                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(), for: .normal)
             }
         }
         showNotificationPermissionScreen()
@@ -466,9 +461,7 @@ extension CurrencyViewController {
                 self.tableView.refreshControl?.endRefreshing()
                 NotificationsManager.post(name: K.Notifications.stopActivityIndicatorInDataSourceVC)
                 PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
-                }
+                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(), for: .normal)
                 UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = false
             }
         }
@@ -502,9 +495,8 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 UserDefaultsManager.pickDateSwitchIsOn = pickedDate != Date.todaysLongDate ? true : false
                 self.setupFetchedResultsController()
                 PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.dataDownloaded, style: .success)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
-                }
+                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(), for: .normal)
+                
                 WidgetsData.updateWidgets()
             }
         }
@@ -516,14 +508,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
 extension CurrencyViewController: MenuViewDelegate {
     func didPickDataSource(_ menuView: MenuView, dataSource: String) {
         let lastPickedSource = UserDefaultsManager.pickedDataSource
-        let lastPickedDate = UserDefaultsManager.confirmedDate
         UserDefaultsManager.pickedDataSource = dataSource
-        
-        if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
-            UserDefaultsManager.confirmedDate = Date.createStringDate(from: coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate())
-        } else {
-            UserDefaultsManager.confirmedDate = Date.createStringDate(from: coreDataManager.fetchForexCurrenciesCurrentDate())
-        }
         
         DispatchQueue.main.async {
             PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.oneSecond, message: K.PopupTexts.Messages.download, style: .load, type: .manual)
@@ -537,12 +522,11 @@ extension CurrencyViewController: MenuViewDelegate {
                     PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
                 }
                 UserDefaultsManager.pickedDataSource = lastPickedSource
-                UserDefaultsManager.confirmedDate = lastPickedDate
             } else {
                 self.setupFetchedResultsController()
                 DispatchQueue.main.async {
                     PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
-                    self.updateTimeButton.setTitle(self.confirmedDate, for: .normal)
+                    self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(), for: .normal)
                     self.dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
                 }
                 NotificationsManager.post(name: K.Notifications.refreshConverterFRC)
