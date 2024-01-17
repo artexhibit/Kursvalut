@@ -20,8 +20,10 @@ class DatePickerView: UIView {
     private var maximumDate: Date {
         if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
             let currentStoredDate = currencyCoreDataManager.fetchBankOfRussiaCurrenciesCurrentDate()
-            if Date.isTomorrow(date: currentStoredDate) { return currentStoredDate }
-            return Date.currentDate
+            if  currentStoredDate > UserDefaultsManager.maxCalendarDate {
+                UserDefaultsManager.maxCalendarDate = currentStoredDate
+            }
+            return UserDefaultsManager.maxCalendarDate
         } else {
             return Date.currentDate
         }

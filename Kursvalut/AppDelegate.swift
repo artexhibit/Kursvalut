@@ -64,6 +64,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UserDefaults.sharedContainer.object(forKey: "yLandscape") == nil {
             UserDefaultsManager.CurrencyVC.yLandscape = 0.0
         }
+        if UserDefaults.sharedContainer.object(forKey: "maxCalendarDate") == nil {
+            UserDefaultsManager.maxCalendarDate = Date()
+        }
         
         UserDefaultsManager.CurrencyVC.isActiveCurrencyVC = false
         FirebaseApp.configure()

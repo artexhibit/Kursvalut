@@ -55,6 +55,10 @@ struct UserDefaultsManager {
         get { ud.string(forKey: K.isFirstLaunchTodayKey) ?? "" }
         set { ud.setValue(newValue, forKey: K.isFirstLaunchTodayKey) }
     }
+    static var maxCalendarDate: Date {
+        get { ud.object(forKey: K.maxCalendarDateKey) as! Date }
+        set { ud.setValue(newValue, forKey: K.maxCalendarDateKey) }
+    }
     
     struct CurrencyVC {
         static var needToRefreshFRCForCustomSort: Bool {

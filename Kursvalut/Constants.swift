@@ -14,6 +14,7 @@ struct K {
     static let baseCurrencyKey = "baseCurrency"
     static let pickCurrencyRequestKey = "pickCurrencyRequest"
     static let isFirstLaunchTodayKey = "isFirstLaunchToday"
+    static let maxCalendarDateKey = "maxCalendarDate"
     
     struct Notifications {
         static let makeDarwinNetworkRequest = "ru.igorcodes.makeNetworkRequest" as CFString
