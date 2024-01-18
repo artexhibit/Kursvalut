@@ -62,7 +62,7 @@ class DatePickerView: UIView {
     }
     
     @IBAction func datePickerPressed(_ sender: UIDatePicker) {
-        let senderDate = currencyManager.createStringDate(with: "dd.MM.yyyy", from: sender.date, dateStyle: .medium)
+        let senderDate = Date.createStringDate(from: sender.date)
         pickedDate = senderDate
         animateDoneButton()
     }

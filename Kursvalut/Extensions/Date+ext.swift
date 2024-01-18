@@ -9,6 +9,10 @@ extension Date {
         createStringDate(from: Date(), dateStyle: .long, format: "dd.MM.yyyy")
     }
     
+    static var todaysShortDate: String {
+        createStringDate(from: Date(), format: "dd.MM.yyyy")
+    }
+    
     static func createDate(from string: String) -> Date {
         let isoFormatter = ISO8601DateFormatter()
         if let date = isoFormatter.date(from: string) {
@@ -25,10 +29,10 @@ extension Date {
         return Date()
     }
     
-    static func formatDate(from string: String, dateStyle: DateFormatter.Style = .long) -> Date {
+    static func formatDate(from string: String, dateStyle: DateFormatter.Style = .long, format: String = "dd.MM.yyyy") -> Date {
         let formatter = DateFormatter()
         formatter.dateStyle = dateStyle
-        formatter.dateFormat = "dd.MM.yyyy"
+        formatter.dateFormat = format
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         return formatter.date(from: string) ?? Date()
     }

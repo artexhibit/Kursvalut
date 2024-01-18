@@ -60,7 +60,7 @@ class CurrencyViewController: UIViewController {
         setupFetchedResultsController()
         updateDecimalsNumber()
         dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
-        updateTimeButton.setTitle(currencyManager.getCurrencyDate(), for: .normal)
+        updateTimeButton.setTitle(currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
         
         if UserDefaultsManager.CurrencyVC.needToScrollUpViewController {
             scrollViewToTop()
@@ -74,7 +74,7 @@ class CurrencyViewController: UIViewController {
         if !UserDefaultsManager.userHasOnboarded {
             performSegue(withIdentifier: K.Segues.showOnboardingKey, sender: self)
             currencyManager.updateAllCurrencyTypesData {
-                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(), for: .normal)
+                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
             }
         }
         showNotificationPermissionScreen()
@@ -438,7 +438,7 @@ extension CurrencyViewController {
     
     @objc func refreshData() {
         if !UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource {
-            UserDefaultsManager.confirmedDate = Date.todaysLongDate
+            UserDefaultsManager.confirmedDate = Date.todaysShortDate
             UserDefaultsManager.pickDateSwitchIsOn = false
         }
         if UserDefaultsManager.pickedDataSource != CurrencyData.cbrf {
@@ -461,7 +461,7 @@ extension CurrencyViewController {
                 self.tableView.refreshControl?.endRefreshing()
                 NotificationsManager.post(name: K.Notifications.stopActivityIndicatorInDataSourceVC)
                 PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
-                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(), for: .normal)
+                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
                 UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = false
             }
         }
@@ -495,7 +495,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 UserDefaultsManager.pickDateSwitchIsOn = pickedDate != Date.todaysLongDate ? true : false
                 self.setupFetchedResultsController()
                 PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.dataDownloaded, style: .success)
-                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(), for: .normal)
+                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
                 
                 WidgetsData.updateWidgets()
             }
@@ -508,7 +508,9 @@ extension CurrencyViewController: DatePickerViewDelegate {
 extension CurrencyViewController: MenuViewDelegate {
     func didPickDataSource(_ menuView: MenuView, dataSource: String) {
         let lastPickedSource = UserDefaultsManager.pickedDataSource
+        let lastConfirmedDate = UserDefaultsManager.confirmedDate
         UserDefaultsManager.pickedDataSource = dataSource
+        UserDefaultsManager.confirmedDate = currencyManager.getCurrencyDate()
         
         DispatchQueue.main.async {
             PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.oneSecond, message: K.PopupTexts.Messages.download, style: .load, type: .manual)
@@ -522,11 +524,12 @@ extension CurrencyViewController: MenuViewDelegate {
                     PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
                 }
                 UserDefaultsManager.pickedDataSource = lastPickedSource
+                UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else {
                 self.setupFetchedResultsController()
                 DispatchQueue.main.async {
                     PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
-                    self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(), for: .normal)
+                    self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
                     self.dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
                 }
                 NotificationsManager.post(name: K.Notifications.refreshConverterFRC)

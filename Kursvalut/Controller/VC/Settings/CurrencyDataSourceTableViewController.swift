@@ -33,7 +33,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if UserDefaultsManager.confirmedDate == Date.todaysLongDate {
+        if UserDefaultsManager.confirmedDate == Date.todaysShortDate {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.concreteDateCellKey) as! ConcreteDateTableViewCell
             setDateSwitchStateToOff(with: cell)
         }
@@ -65,7 +65,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             tableView.deleteRows(at: [datePickerIndexPath], with: .fade)
             targetIndexPath = nil
             
-            if UserDefaultsManager.confirmedDate == Date.todaysLongDate {
+            if UserDefaultsManager.confirmedDate == Date.todaysShortDate {
                setDateSwitchStateToOff(with: cell)
             }
         }
@@ -85,7 +85,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             cell.selectionStyle = .default
         } else {
             UserDefaultsManager.pickDateSwitchIsOn = false
-            pickedDate = Date.todaysLongDate
+            pickedDate = Date.todaysShortDate
             lastConfirmedDate = UserDefaultsManager.confirmedDate
             turnOffDateSwitch = true
             cell.selectionStyle = .none
@@ -105,7 +105,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     @IBAction func datePickerPressed(_ sender: UIDatePicker) {
-        let senderDate = currencyManager.createStringDate(with: "dd.MM.yyyy", from: sender.date, dateStyle: .medium)
+        let senderDate = Date.createStringDate(from: sender.date)
         pickedDate = senderDate
         turnOffDateSwitch = pickedDate != Date.todaysLongDate ? true : false
         

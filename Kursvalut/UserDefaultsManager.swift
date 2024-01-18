@@ -12,7 +12,7 @@ struct UserDefaultsManager {
         set { ud.setValue(newValue, forKey: K.pickedThemeKey) }
     }
     static var proPurchased: Bool {
-        get { ud.bool(forKey: K.proPurchasedKey) }
+        get { true }
         set { ud.setValue(newValue, forKey: K.proPurchasedKey) }
     }
     static var pickedDataSource: String {
@@ -58,6 +58,10 @@ struct UserDefaultsManager {
     static var maxCalendarDate: Date {
         get { ud.object(forKey: K.maxCalendarDateKey) as! Date }
         set { ud.setValue(newValue, forKey: K.maxCalendarDateKey) }
+    }
+    static var newCurrencyDataReady: Bool {
+        get { ud.bool(forKey: K.newCurrencyDataReadyKey) }
+        set { ud.setValue(newValue, forKey: K.newCurrencyDataReadyKey) }
     }
     
     struct CurrencyVC {

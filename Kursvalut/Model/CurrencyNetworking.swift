@@ -8,9 +8,9 @@ struct CurrencyNetworking {
     private let currencyManager = CurrencyManager()
     private let dataToFilterOut = Set(["BTC", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPD", "XPF", "XPT"])
     private var yesterdaysDate: String {
-        let confirmedDate = currencyManager.createDate(from: UserDefaultsManager.confirmedDate)
-        let confirmedStringDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: confirmedDate, dateStyle: nil)
-        let todaysDate = currencyManager.createStringDate(with: "yyyy-MM-dd")
+        let confirmedDate = Date.formatDate(from: UserDefaultsManager.confirmedDate)
+        let confirmedStringDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: confirmedDate)
+        let todaysDate = Date.createStringDate(format: "yyyy/MM/dd")
         
         if confirmedStringDate != todaysDate {
             let date = Calendar.current.date(byAdding: .day, value: -1, to: confirmedDate) ?? Date()
@@ -21,14 +21,15 @@ struct CurrencyNetworking {
         }
     }
     private var currentBankOfRussiaURL: URL {
-        let date = currencyManager.createDate(from: UserDefaultsManager.confirmedDate)
+        let date = Date.formatDate(from: UserDefaultsManager.confirmedDate)
         let confirmedDate = currencyManager.createStringDate(with: "yyyy/MM/dd", from: date)
-        let todaysDate = currencyManager.createStringDate(with: "yyyy/MM/dd")
-        
-        if confirmedDate != todaysDate {
-            return URL(string: "https://www.cbr-xml-daily.ru/archive/\(confirmedDate)/daily_json.js") ?? URL(fileURLWithPath: "")
-        } else {
+        let todaysDate = Date.createStringDate(format: "yyyy/MM/dd")
+                
+        if (confirmedDate == todaysDate && Date.isTomorrow(date: date)) || Date.isTomorrow(date: date) || UserDefaultsManager.newCurrencyDataReady {
+            UserDefaultsManager.newCurrencyDataReady = false
             return URL(string: "https://www.cbr-xml-daily.ru/daily_json.js") ?? URL(fileURLWithPath: "")
+        } else {
+            return URL(string: "https://www.cbr-xml-daily.ru/archive/\(confirmedDate)/daily_json.js") ?? URL(fileURLWithPath: "")
         }
     }
     private var currentForexURL: URL {

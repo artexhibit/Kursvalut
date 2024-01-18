@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaultsManager.baseCurrency = UserDefaults.standard.string(forKey: "baseCurrency")!
             UserDefaultsManager.SettingsVC.keyboardWithSound = UserDefaults.standard.bool(forKey: "keyboardWithSound")
             UserDefaultsManager.roundCountryFlags = UserDefaults.standard.bool(forKey: "roundFlags")
-            UserDefaultsManager.confirmedDate = Date.todaysLongDate
+            UserDefaultsManager.confirmedDate = Date.todaysShortDate
             UserDefaultsManager.pickDateSwitchIsOn = UserDefaults.standard.bool(forKey: "pickDateSwitchIsOn")
             UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = UserDefaults.standard.bool(forKey: "updateRequestFromCurrencyDataSource")
             UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForBankOfRussia = UserDefaults.standard.bool(forKey: "customSortSwitchIsOnForBankOfRussia")

@@ -134,7 +134,7 @@ struct CurrencyCoreDataManager {
     
     func assignRowNumbers(to bankOfRussiaCurrencies: [Currency]) {
         for (index, bankOfRussiaCurrency) in bankOfRussiaCurrencies.enumerated() {
-            if UserDefaultsManager.confirmedDate == Date.todaysLongDate {
+            if UserDefaultsManager.confirmedDate == Date.todaysShortDate {
                 bankOfRussiaCurrency.rowForCurrency = Int32(index)
             } else {
                 bankOfRussiaCurrency.rowForHistoricalCurrency = Int32(index)
@@ -318,7 +318,7 @@ struct CurrencyCoreDataManager {
     
     func assignRowNumbers(to forexCurrencies: [ForexCurrency]) {
         for (index, forexCurrency) in forexCurrencies.enumerated() {
-            if UserDefaultsManager.confirmedDate == Date.todaysLongDate {
+            if UserDefaultsManager.confirmedDate == Date.todaysShortDate {
                 forexCurrency.rowForCurrency = Int32(index)
             } else {
                 forexCurrency.rowForHistoricalCurrency = Int32(index)
