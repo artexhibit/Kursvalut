@@ -26,6 +26,7 @@ class NotificationService: UNNotificationServiceExtension {
                     let cbrfPushText = currencyManager.createNotificationText(with: CurrencyData.cbrf, newStoredDate: newDataDate)
                     let forexPushText = currencyManager.createNotificationText(with: CurrencyData.forex, newStoredDate: newDataDate)
                     
+                    UserDefaultsManager.newCurrencyDataReady = false
                     UserDefaultsManager.confirmedDate = Date.createStringDate(from: newDataDate)
 
                     let notificationName = "ru.igorcodes.makeNetworkRequest" as CFString

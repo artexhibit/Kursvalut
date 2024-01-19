@@ -437,14 +437,12 @@ extension CurrencyViewController {
     }
     
     @objc func refreshData() {
-        if !UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource {
-            UserDefaultsManager.confirmedDate = Date.todaysShortDate
-            UserDefaultsManager.pickDateSwitchIsOn = false
-        }
+        UserDefaultsManager.confirmedDate = Date.todaysShortDate
+        UserDefaultsManager.newCurrencyDataReady = true
+        UserDefaultsManager.pickDateSwitchIsOn = false
+        
         if UserDefaultsManager.pickedDataSource != CurrencyData.cbrf {
-            DispatchQueue.main.async {
-                self.coreDataManager.filterOutForexBaseCurrency()
-            }
+            DispatchQueue.main.async { self.coreDataManager.filterOutForexBaseCurrency() }
         }
         setupFetchedResultsController()
         
@@ -461,8 +459,9 @@ extension CurrencyViewController {
                 self.tableView.refreshControl?.endRefreshing()
                 NotificationsManager.post(name: K.Notifications.stopActivityIndicatorInDataSourceVC)
                 PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
+                UserDefaultsManager.newCurrencyDataReady = false
+                UserDefaultsManager.confirmedDate = self.currencyManager.getCurrencyDate()
                 self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
-                UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = false
             }
         }
     }

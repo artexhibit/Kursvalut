@@ -89,10 +89,6 @@ struct UserDefaultsManager {
             get { ud.bool(forKey: K.CurrencyVC.isActiveCurrencyVCKey) }
             set { ud.setValue(newValue, forKey: K.CurrencyVC.isActiveCurrencyVCKey) }
         }
-        static var updateRequestFromCurrencyDataSource: Bool {
-            get { ud.bool(forKey: K.CurrencyVC.updateRequestFromCurrencyDataSourceKey) }
-            set { ud.setValue(newValue, forKey: K.CurrencyVC.updateRequestFromCurrencyDataSourceKey) }
-        }
         static var currencyScreenDecimalsAmount: Int {
             get { ud.integer(forKey: K.CurrencyVC.currencyScreenDecimalsKey) }
             set { ud.setValue(newValue, forKey: K.CurrencyVC.currencyScreenDecimalsKey) }

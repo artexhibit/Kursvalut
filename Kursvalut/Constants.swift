@@ -48,7 +48,6 @@ struct K {
         static let yPortraitKey = "yPortrait"
         static let yLandscapeKey = "yLandscape"
         static let isActiveCurrencyVCKey = "isActiveCurrencyVC"
-        static let updateRequestFromCurrencyDataSourceKey = "updateRequestFromCurrencyDataSource"
         static let customSortSwitchIsOnForBankOfRussiaKey = "customSortSwitchIsOnForBankOfRussia"
         static let customSortSwitchIsOnForForexKey = "customSortSwitchIsOnForForex"
         static let showCustomSortForBankOfRussiaKey = "showCustomSortForBankOfRussia"

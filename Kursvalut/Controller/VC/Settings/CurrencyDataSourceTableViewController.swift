@@ -276,7 +276,6 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     @objc private func activatedCurrencyVC() {
         if UserDefaultsManager.CurrencyVC.isActiveCurrencyVC {
-            UserDefaultsManager.CurrencyVC.updateRequestFromCurrencyDataSource = true
             NotificationsManager.post(name: K.Notifications.refreshData)
             UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true
             tableView.reloadRows(at: [dateIndexPath], with: .none)

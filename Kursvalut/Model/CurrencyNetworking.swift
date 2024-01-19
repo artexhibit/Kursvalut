@@ -24,9 +24,8 @@ struct CurrencyNetworking {
         let date = Date.formatDate(from: UserDefaultsManager.confirmedDate)
         let confirmedDate = currencyManager.createStringDate(with: "yyyy/MM/dd", from: date)
         let todaysDate = Date.createStringDate(format: "yyyy/MM/dd")
-                
+    
         if (confirmedDate == todaysDate && Date.isTomorrow(date: date)) || Date.isTomorrow(date: date) || UserDefaultsManager.newCurrencyDataReady {
-            UserDefaultsManager.newCurrencyDataReady = false
             return URL(string: "https://www.cbr-xml-daily.ru/daily_json.js") ?? URL(fileURLWithPath: "")
         } else {
             return URL(string: "https://www.cbr-xml-daily.ru/archive/\(confirmedDate)/daily_json.js") ?? URL(fileURLWithPath: "")
