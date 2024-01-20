@@ -349,7 +349,7 @@ struct CurrencyCoreDataManager {
     
     func fetchSortedCurrencies() -> (cbrf: [Currency], forex: [ForexCurrency]) {
         var sortingOrder: Bool {
-            return (UserDefaultsManager.CurrencyVC.PickedOrder.value == "По возрастанию (А→Я)" || UserDefaultsManager.CurrencyVC.PickedOrder.value == "По возрастанию (1→2)") ? true : false
+            return (UserDefaultsManager.CurrencyVC.PickedOrder.value == K.Sections.ascendingOrderByWord || UserDefaultsManager.CurrencyVC.PickedOrder.value == K.Sections.ascendingOrderByNum) ? true : false
         }
         
         var predicate: NSCompoundPredicate {
@@ -359,11 +359,11 @@ struct CurrencyCoreDataManager {
         }
         
         var sortDescriptor: NSSortDescriptor {
-            if UserDefaultsManager.CurrencyVC.PickedSection.value == "По имени" {
+            if UserDefaultsManager.CurrencyVC.PickedSection.value == K.Sections.byName {
                 return NSSortDescriptor(key: "fullName", ascending: sortingOrder)
-            } else if UserDefaultsManager.CurrencyVC.PickedSection.value == "По короткому имени" {
+            } else if UserDefaultsManager.CurrencyVC.PickedSection.value == K.Sections.byShortName {
                 return NSSortDescriptor(key: "shortName", ascending: sortingOrder)
-            } else if UserDefaultsManager.CurrencyVC.PickedSection.value == "По значению" {
+            } else if UserDefaultsManager.CurrencyVC.PickedSection.value == K.Sections.byValue {
                 return NSSortDescriptor(key: "absoluteValue", ascending: sortingOrder)
             } else {
                 if !UserDefaultsManager.pickDateSwitchIsOn {

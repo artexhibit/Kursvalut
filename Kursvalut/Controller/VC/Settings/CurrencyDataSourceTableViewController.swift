@@ -341,7 +341,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                     if UserDefaultsManager.pickDateSwitchIsOn && !self.dataSourceCellWasPressed {
                         self.displayInlineDatePickerAt(indexPath: self.dateIndexPath as NSIndexPath)
                     }
-                    if UserDefaultsManager.CurrencyVC.PickedSection.value == "Своя" && UserDefaultsManager.confirmedDate != Date.todaysLongDate {
+                    if UserDefaultsManager.CurrencyVC.PickedSection.value == K.Sections.custom && UserDefaultsManager.confirmedDate != Date.todaysLongDate {
                         self.resetCurrencyHistoricalRow()
                     }
                     UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true

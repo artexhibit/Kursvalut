@@ -51,10 +51,10 @@ class BaseCurrencyTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.baseCurrencyCellKey, for: indexPath) as! BaseCurrencyTableViewCell
         
         let currency = forexFRC.object(at: indexPath)
-        cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+        cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? K.Images.defaultImage)
         cell.shortName.text = currency.shortName
         cell.fullName.text = currency.fullName
-        cell.picker.image = currency.shortName == UserDefaultsManager.baseCurrency ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+        cell.picker.image = currency.shortName == UserDefaultsManager.baseCurrency ? UIImage(systemName: K.Images.checkmarkCircle) : UIImage(systemName: K.Images.circle)
         
         return cell
     }
@@ -67,7 +67,7 @@ class BaseCurrencyTableViewController: UITableViewController {
             self.searchController.isActive = false
         }
         UserDefaultsManager.baseCurrency = forexCurrency.shortName ?? ""
-        cell.picker.image = forexCurrency.shortName == UserDefaultsManager.baseCurrency ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+        cell.picker.image = forexCurrency.shortName == UserDefaultsManager.baseCurrency ? UIImage(systemName: K.Images.checkmarkCircle) : UIImage(systemName: K.Images.circle)
         NotificationsManager.post(name: K.Notifications.refreshDataFromDataSourceVC)
         NotificationsManager.post(name: K.Notifications.refreshBaseCurrency)
         

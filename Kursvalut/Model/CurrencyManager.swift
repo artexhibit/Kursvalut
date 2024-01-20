@@ -17,10 +17,10 @@ struct CurrencyManager {
     
     func showCurrencyFlag(_ shortName: String) -> UIImage? {
         if UserDefaultsManager.roundCountryFlags {
-            guard let image = UIImage(named: "\(shortName)Round") else { return UIImage(named: "notFoundRound") }
+            guard let image = UIImage(named: "\(shortName)Round") else { return UIImage(named: K.Images.defaultRoundImage) }
             return image
         } else {
-            guard let image = UIImage(named: "\(shortName)") else { return UIImage(named: "notFound") }
+            guard let image = UIImage(named: "\(shortName)") else { return UIImage(named: K.Images.defaultImage) }
             return image
         }
     }
@@ -76,9 +76,9 @@ struct CurrencyManager {
         button.setTitle(pickedDataSource, for: .normal)
         
         if pickedDataSource == CurrencyData.cbrf {
-            button.setImage(UIImage(systemName: "rublesign.square"), for: .normal)
+            button.setImage(UIImage(systemName: K.Images.rubleSignSquare), for: .normal)
         } else {
-            button.setImage(UIImage(systemName: "eurosign.square"), for: .normal)
+            button.setImage(UIImage(systemName: K.Images.euroSign), for: .normal)
         }
     }
     

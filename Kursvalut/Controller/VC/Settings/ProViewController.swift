@@ -14,14 +14,14 @@ class ProViewController: UIViewController {
     
     private var proPurchase: SKProduct?
     private let dataArray = [
-        (backColor: UIColor(red: 255/255, green: 235/255, blue: 100/255, alpha: 0.3), icon: UIImage(named: "apps.iphone"), iconColor: UIColor.systemYellow, title: "Стартовый экран", description: "Экономьте время - нужный экран будет открываться мгновенно."),
-        (backColor: UIColor(red: 0/255, green: 255/255, blue: 90/255, alpha: 0.3), icon: UIImage(systemName: "arrow.up.arrow.down"), iconColor: UIColor.systemGreen, title: "Сортировка списка валют", description: "Настройте расположение валют в удобном вам порядке."),
-        (backColor: UIColor(red: 0/255, green: 100/255, blue: 255/255, alpha: 0.3), icon: UIImage(named: "quote.closing"), iconColor: UIColor.systemBlue, title: "Десятичные знаки", description: "Установите нужное количество знаков после запятой."),
-        (backColor: UIColor(red: 255/255, green: 155/255, blue: 0/255, alpha: 0.3), icon: UIImage(systemName: "rublesign.circle"), iconColor: UIColor.systemOrange, title: "Безлимитное добавление валют в конвертере", description: "Добавьте столько валют, сколько требуется."),
-        (backColor: UIColor(red: 125/255, green: 0/255, blue: 255/255, alpha: 0.3), icon: UIImage(systemName: "circle.lefthalf.filled"), iconColor: UIColor.systemPurple, title: "Тема", description: "Нравится тёмное оформление? Установите его на постоянной основе."),
-        (backColor: UIColor(red: 200/255, green: 205/255, blue: 210/255, alpha: 0.3), icon: UIImage(systemName: "sparkles.square.filled.on.square"), iconColor: UIColor.gray, title: "Дизайн", description: "Круглые флаги стран вместо квадратных."),
-        (backColor: UIColor(red: 100/255, green: 70/255, blue: 0/255, alpha: 0.3), icon: UIImage(named: "infinity"), iconColor: UIColor.systemBrown, title: "Новые функции", description: "Купите один раз - будущие обновления для Вас бесплатны!"),
-        (backColor: UIColor(red: 255/255, green: 45/255, blue: 0/255, alpha: 0.3), icon: UIImage(systemName: "heart.fill"), iconColor: UIColor.systemRed, title: "Поддержите разработку", description: "Помогите приложению, которое делает один разработчик.")
+        (backColor: UIColor(red: 255/255, green: 235/255, blue: 100/255, alpha: 0.3), icon: UIImage(named: K.Images.iPhone), iconColor: UIColor.systemYellow, title: "Стартовый экран", description: "Экономьте время - нужный экран будет открываться мгновенно."),
+        (backColor: UIColor(red: 0/255, green: 255/255, blue: 90/255, alpha: 0.3), icon: UIImage(systemName: K.Images.arrowUpDown), iconColor: UIColor.systemGreen, title: "Сортировка списка валют", description: "Настройте расположение валют в удобном вам порядке."),
+        (backColor: UIColor(red: 0/255, green: 100/255, blue: 255/255, alpha: 0.3), icon: UIImage(named: K.Images.closingQuote), iconColor: UIColor.systemBlue, title: "Десятичные знаки", description: "Установите нужное количество знаков после запятой."),
+        (backColor: UIColor(red: 255/255, green: 155/255, blue: 0/255, alpha: 0.3), icon: UIImage(systemName: K.Images.rubleSignCircle), iconColor: UIColor.systemOrange, title: "Безлимитное добавление валют в конвертере", description: "Добавьте столько валют, сколько требуется."),
+        (backColor: UIColor(red: 125/255, green: 0/255, blue: 255/255, alpha: 0.3), icon: UIImage(systemName: K.Images.circleLeftHalfFilled), iconColor: UIColor.systemPurple, title: "Тема", description: "Нравится тёмное оформление? Установите его на постоянной основе."),
+        (backColor: UIColor(red: 200/255, green: 205/255, blue: 210/255, alpha: 0.3), icon: UIImage(systemName: K.Images.sparklesSquare), iconColor: UIColor.gray, title: "Дизайн", description: "Круглые флаги стран вместо квадратных."),
+        (backColor: UIColor(red: 100/255, green: 70/255, blue: 0/255, alpha: 0.3), icon: UIImage(named: K.Images.infinity), iconColor: UIColor.systemBrown, title: "Новые функции", description: "Купите один раз - будущие обновления для Вас бесплатны!"),
+        (backColor: UIColor(red: 255/255, green: 45/255, blue: 0/255, alpha: 0.3), icon: UIImage(systemName: K.Images.heart), iconColor: UIColor.systemRed, title: "Поддержите разработку", description: "Помогите приложению, которое делает один разработчик.")
     ]
     
     override func viewDidLoad() {

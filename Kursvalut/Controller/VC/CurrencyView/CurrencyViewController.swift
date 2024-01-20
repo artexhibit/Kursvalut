@@ -138,7 +138,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
             let currency = bankOfRussiaFRC.object(at: indexPath)
             
             cell.selectionStyle = .none
-            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? K.Images.defaultImage)
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
             cell.rate.text = currencyManager.showRate(with: currency.absoluteValue)
@@ -148,7 +148,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
             let currency = forexFRC.object(at: indexPath)
             
             cell.selectionStyle = .none
-            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? K.Images.defaultImage)
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
             cell.rate.text = currencyManager.showRate(with: currency.absoluteValue)
@@ -163,7 +163,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         let move = UIContextualAction(style: .normal, title: nil) { action, view, completionHandler in
             completionHandler(true)
         }
-        move.image = UIImage(systemName: "line.3.horizontal")
+        move.image = UIImage(systemName: K.Images.line)
         move.backgroundColor = UIColor(named: "ColorBlue")
         
         configuration = UserDefaultsManager.proPurchased ? UISwipeActionsConfiguration(actions: [move]) : UISwipeActionsConfiguration(actions: [])
@@ -196,7 +196,7 @@ extension CurrencyViewController {
         }
 
         if UserDefaultsManager.CurrencyVC.needToRefreshFRCForCustomSort {
-            UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = "Своя"
+            UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = K.Sections.custom
             setupFetchedResultsController()
             UserDefaultsManager.CurrencyVC.needToRefreshFRCForCustomSort = false
         }
@@ -224,11 +224,11 @@ extension CurrencyViewController: UITableViewDragDelegate, UITableViewDropDelega
         if UserDefaultsManager.proPurchased && !searchController.isActive {
             if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
                 UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForBankOfRussia = true
-                UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = "Своя"
+                UserDefaultsManager.CurrencyVC.PickedSection.bankOfRussiaSection = K.Sections.custom
                 UserDefaultsManager.CurrencyVC.ShowCustomSort.showCustomSortForBankOfRussia = false
             } else {
                 UserDefaultsManager.CurrencyVC.CustomSortSwitchIsOn.customSortSwitchIsOnForForex = true
-                UserDefaultsManager.CurrencyVC.PickedSection.forexSection = "Своя"
+                UserDefaultsManager.CurrencyVC.PickedSection.forexSection = K.Sections.custom
                 UserDefaultsManager.CurrencyVC.ShowCustomSort.showCustomSortForForex = false
             }
             NotificationsManager.post(name: K.Notifications.customSortSwitchIsTurnedOn)
@@ -309,7 +309,7 @@ extension CurrencyViewController {
 
 extension CurrencyViewController: NSFetchedResultsControllerDelegate {
     var sortingOrder: Bool {
-        return (UserDefaultsManager.CurrencyVC.PickedOrder.value == "По возрастанию (А→Я)" || UserDefaultsManager.CurrencyVC.PickedOrder.value == "По возрастанию (1→2)") ? true : false
+        return (UserDefaultsManager.CurrencyVC.PickedOrder.value == K.Sections.ascendingOrderByWord || UserDefaultsManager.CurrencyVC.PickedOrder.value == K.Sections.ascendingOrderByNum) ? true : false
     }
     
     func setupFetchedResultsController(with searchPredicate: NSPredicate? = nil) {
@@ -329,11 +329,11 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
             }
             
             var sortDescriptor: NSSortDescriptor {
-                if UserDefaultsManager.CurrencyVC.PickedSection.value == "По имени" {
+                if UserDefaultsManager.CurrencyVC.PickedSection.value == K.Sections.byName {
                     return NSSortDescriptor(key: "fullName", ascending: sortingOrder)
-                } else if UserDefaultsManager.CurrencyVC.PickedSection.value == "По короткому имени" {
+                } else if UserDefaultsManager.CurrencyVC.PickedSection.value == K.Sections.byShortName {
                     return NSSortDescriptor(key: "shortName", ascending: sortingOrder)
-                } else if UserDefaultsManager.CurrencyVC.PickedSection.value == "По значению" {
+                } else if UserDefaultsManager.CurrencyVC.PickedSection.value == K.Sections.byValue {
                     return NSSortDescriptor(key: "absoluteValue", ascending: sortingOrder)
                 } else {
                     if !UserDefaultsManager.pickDateSwitchIsOn {

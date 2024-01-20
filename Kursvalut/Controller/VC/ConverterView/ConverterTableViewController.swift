@@ -107,7 +107,7 @@ class ConverterTableViewController: UITableViewController {
         
         if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
             let currency = bankOfRussiaFRC.object(at: indexPath)
-            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? K.Images.defaultImage)
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
@@ -124,7 +124,7 @@ class ConverterTableViewController: UITableViewController {
             }
         } else {
             let currency = forexFRC.object(at: indexPath)
-            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? K.Images.defaultImage)
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
             cell.numberTextField.delegate = self
@@ -179,7 +179,7 @@ class ConverterTableViewController: UITableViewController {
             updateTableView()
             completionHandler(true)
         }
-        move.image = UIImage(systemName: "line.3.horizontal")
+        move.image = UIImage(systemName: K.Images.line)
         move.backgroundColor = UIColor(named: "ColorBlue")
         
         let delete = UIContextualAction(style: .destructive, title: nil) { [self] (action, view, completionHandler) in
@@ -236,7 +236,7 @@ class ConverterTableViewController: UITableViewController {
             }
             completionHandler(true)
         }
-        delete.image = UIImage(systemName: "trash")
+        delete.image = UIImage(systemName: K.Images.trash)
         delete.backgroundColor = UIColor(named: "ColorRed")
         
         if UserDefaultsManager.proPurchased {

@@ -25,7 +25,7 @@ class ConverterPreviewTableViewCell: UITableViewCell {
     private func setupDesignForRoundFlag() {
         flagHeight.constant = UserDefaultsManager.roundCountryFlags ? 35.0 : 45.0
         flagWidth.constant = UserDefaultsManager.roundCountryFlags ? 35.0 : 45.0
-        flag.image = UserDefaultsManager.roundCountryFlags ? UIImage(named: "USDRound") : UIImage(named: "USD")
+        flag.image = UserDefaultsManager.roundCountryFlags ? UIImage(named: "\(K.Images.usdImage)Round") : UIImage(named: K.Images.usdImage)
         flag.layer.cornerRadius = UserDefaultsManager.roundCountryFlags ? flagHeight.constant/2 : 0
         converterPreviewCellStackView.spacing = UserDefaultsManager.roundCountryFlags ? 1.0 : 6.0
     }

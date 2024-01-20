@@ -17,6 +17,39 @@ struct K {
     static let maxCalendarDateKey = "maxCalendarDate"
     static let newCurrencyDataReadyKey = "newCurrencyDataReady"
     
+    struct Images {
+        static let defaultImage = "notFound"
+        static let defaultRoundImage = "notFoundRound"
+        static let rubleSignSquare = "rublesign.square"
+        static let rubleSignCircle = "rublesign.circle"
+        static let euroSign = "eurosign.square"
+        static let circle = "circle"
+        static let checkmarkCircleFill = "checkmark.circle.fill"
+        static let checkmarkCircle = "checkmark.circle"
+        static let line = "line.3.horizontal"
+        static let trash = "trash"
+        static let xCircle = "x.circle"
+        static let thumbsUp = "hand.thumbsup.circle"
+        static let heart = "heart.fill"
+        static let envelope = "envelope.circle"
+        static let lock = "lock.circle"
+        static let questionMark = "questionmark.circle"
+        static let arrowUpDown = "arrow.up.arrow.down"
+        static let circleLeftHalfFilled = "circle.lefthalf.filled"
+        static let sparklesSquare = "sparkles.square.filled.on.square"
+        static let chevronBackward = "chevron.backward.circle.fill"
+        static let chevronLeftCircle = "chevron.left.circle"
+        static let iPhone = "apps.iphone"
+        static let closingQuote = "quote.closing"
+        static let infinity = "infinity"
+        static let euroImage = "EUR"
+        static let usdImage = "USD"
+        static let circleOne = "1.circle"
+        static let circleTwo = "2.circle"
+        static let circleThree = "3.circle"
+        static let circleFour = "4.circle"
+    }
+    
     struct Notifications {
         static let makeDarwinNetworkRequest = "ru.igorcodes.makeNetworkRequest" as CFString
         static let hideKeyboardButtonPressed = "hideKeyboardButtonPressed"
@@ -114,6 +147,8 @@ struct K {
         static let baseCurrencyCellKey = "baseCurrencyCell"
         static let notificationPermissionCellKey = "notificationPermissionCell"
         static let onboardingTableCellKey = "onboardingTableCell"
+        static let onboardingCellKey = "onboardingCell"
+        static let welcomeOnboardingCellKey = "welcomeOnboardingCell"
     }
     struct PopupTexts {
         struct Titles {
@@ -151,5 +186,15 @@ struct K {
             static let haveProNow = "Теперь у тебя есть Pro!"
             static let noData = "Нет данных на выбранную дату. Попробуйте другую"
         }
+    }
+    struct Sections {
+        static let byName = "По имени"
+        static let byShortName = "По короткому имени"
+        static let byValue = "По значению"
+        static let custom = "Своя"
+        static let ascendingOrderByWord = "По возрастанию (А→Я)"
+        static let descendingOrderByWord = "По убыванию (Я→А)"
+        static let ascendingOrderByNum = "По возрастанию (1→2)"
+        static let descendingOrderByNum = "По убыванию (2→1)"
     }
 }

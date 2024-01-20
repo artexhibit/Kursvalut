@@ -7,10 +7,10 @@ class SortingTableViewController: UITableViewController {
     private var currencyManager = CurrencyManager()
     private var coreDataManager = CurrencyCoreDataManager()
     private var sections = [
-        SortingSection(title: "По имени", subtitle: "Российский рубль", options: ["По возрастанию (А→Я)", "По убыванию (Я→А)"]),
-        SortingSection(title: "По короткому имени", subtitle: "RUB", options: ["По возрастанию (А→Я)", "По убыванию (Я→А)"]),
-        SortingSection(title: "По значению", subtitle: "86,22", options: ["По возрастанию (1→2)", "По убыванию (2→1)"]),
-        SortingSection(title: "Своя", subtitle: "в любом порядке", options: [""])
+        SortingSection(title: K.Sections.byName, subtitle: "Российский рубль", options: [K.Sections.ascendingOrderByWord, K.Sections.descendingOrderByWord]),
+        SortingSection(title: K.Sections.byShortName, subtitle: "RUB", options: [K.Sections.ascendingOrderByWord, K.Sections.descendingOrderByWord]),
+        SortingSection(title: K.Sections.byValue, subtitle: "86,22", options: [K.Sections.ascendingOrderByNum, K.Sections.descendingOrderByNum]),
+        SortingSection(title: K.Sections.custom, subtitle: "в любом порядке", options: [""])
     ]
     
     override func viewDidLoad() {

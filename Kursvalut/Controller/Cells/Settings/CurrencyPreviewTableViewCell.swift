@@ -26,7 +26,7 @@ class CurrencyPreviewTableViewCell: UITableViewCell {
     private func setupDesignForRoundFlag() {
         flagHeight.constant = UserDefaultsManager.roundCountryFlags ? 35.0 : 45.0
         flagWidth.constant = UserDefaultsManager.roundCountryFlags ? 35.0 : 45.0
-        flag.image = UserDefaultsManager.roundCountryFlags ? UIImage(named: "EURRound") : UIImage(named: "EUR")
+        flag.image = UserDefaultsManager.roundCountryFlags ? UIImage(named: "\(K.Images.euroImage)Round") : UIImage(named: K.Images.euroImage)
         flag.layer.cornerRadius = UserDefaultsManager.roundCountryFlags ? flagHeight.constant/2 : 0
         currencyPreviewCellStackView.spacing = UserDefaultsManager.roundCountryFlags ? 1.0 : 6.0
     }

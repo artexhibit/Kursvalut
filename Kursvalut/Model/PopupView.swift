@@ -137,22 +137,22 @@ class PopupView: UIView {
         
         switch style {
         case .success:
-            imageName = "checkmark.circle"
+            imageName = K.Images.checkmarkCircle
             color = UIColor(named: "ColorGreen") ?? .green
         case .failure:
-            imageName = "x.circle"
+            imageName = K.Images.xCircle
             color = .red
         case .purchase:
-            imageName = "hand.thumbsup.circle"
+            imageName = K.Images.thumbsUp
             color = UIColor(named: "ColorGreen") ?? .green
         case .emailContact:
-            imageName = "envelope.circle"
+            imageName = K.Images.envelope
             color = .blue
         case .lock:
-            imageName = "lock.circle"
+            imageName = K.Images.lock
             color = .red
         case .load:
-            imageName = "questionmark.circle"
+            imageName = K.Images.questionMark
             color = .gray
             self.symbol.isHidden = true
             self.loadSpinner.startAnimating()

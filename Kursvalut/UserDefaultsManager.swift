@@ -12,7 +12,7 @@ struct UserDefaultsManager {
         set { ud.setValue(newValue, forKey: K.pickedThemeKey) }
     }
     static var proPurchased: Bool {
-        get { true }
+        get { ud.bool(forKey: K.proPurchasedKey) }
         set { ud.setValue(newValue, forKey: K.proPurchasedKey) }
     }
     static var pickedDataSource: String {
@@ -102,12 +102,12 @@ struct UserDefaultsManager {
             static var value: String {
                 get { UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? ud.string(forKey: K.CurrencyVC.bankOfRussiaPickedOrderKey) ?? "" : ud.string(forKey: K.CurrencyVC.forexPickedOrderKey) ?? "" }
             }
-            static var bankOfRussiaOrder: String = "По убыванию (2→1)" {
+            static var bankOfRussiaOrder: String = K.Sections.descendingOrderByNum {
                 didSet {
                     ud.setValue(bankOfRussiaOrder, forKey: K.CurrencyVC.bankOfRussiaPickedOrderKey)
                 }
             }
-            static var forexOrder: String = "По убыванию (2→1)" {
+            static var forexOrder: String = K.Sections.descendingOrderByNum {
                 didSet {
                     ud.setValue(forexOrder, forKey: K.CurrencyVC.forexPickedOrderKey)
                 }
@@ -117,12 +117,12 @@ struct UserDefaultsManager {
             static var value: String {
                 get { UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? ud.string(forKey: K.CurrencyVC.bankOfRussiaPickedSectionKey) ?? "" : ud.string(forKey: K.CurrencyVC.forexPickedSectionKey) ?? "" }
             }
-            static var bankOfRussiaSection: String = "По значению" {
+            static var bankOfRussiaSection: String = K.Sections.byValue {
                 didSet {
                     ud.setValue(bankOfRussiaSection, forKey: K.CurrencyVC.bankOfRussiaPickedSectionKey)
                 }
             }
-            static var forexSection: String = "По значению" {
+            static var forexSection: String = K.Sections.byValue {
                 didSet {
                     ud.setValue(forexSection, forKey: K.CurrencyVC.forexPickedSectionKey)
                 }
@@ -227,12 +227,12 @@ struct UserDefaultsManager {
             static var value: String {
                 get { UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? ud.string(forKey: K.SortingVC.previousBankOfRussiaPickedOrderKey) ?? "" : ud.string(forKey: K.SortingVC.previousForexPickedOrderKey) ?? "" }
             }
-            static var previousBankOfRussiaPickedOrder: String = "По возрастанию (А→Я)" {
+            static var previousBankOfRussiaPickedOrder: String = K.Sections.ascendingOrderByWord {
                 didSet {
                     ud.setValue(previousBankOfRussiaPickedOrder, forKey: K.SortingVC.previousBankOfRussiaPickedOrderKey)
                 }
             }
-            static var previousForexPickedOrder: String = "По возрастанию (А→Я)" {
+            static var previousForexPickedOrder: String = K.Sections.ascendingOrderByWord {
                 didSet {
                     ud.setValue(previousForexPickedOrder, forKey: K.SortingVC.previousForexPickedOrderKey)
                 }
@@ -242,12 +242,12 @@ struct UserDefaultsManager {
             static var value: String {
                 get { UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? ud.string(forKey: K.SortingVC.previousLastBankOfRussiaPickedSectionKey) ?? "" : ud.string(forKey: K.SortingVC.previousForexPickedSectionKey) ?? "" }
             }
-            static var previousLastBankOfRussiaPickedSection: String = "По короткому имени" {
+            static var previousLastBankOfRussiaPickedSection: String = K.Sections.byShortName {
                 didSet {
                     ud.setValue(previousLastBankOfRussiaPickedSection, forKey: K.SortingVC.previousLastBankOfRussiaPickedSectionKey)
                 }
             }
-            static var previousForexPickedSection: String = "По короткому имени" {
+            static var previousForexPickedSection: String = K.Sections.byShortName {
                 didSet {
                     ud.setValue(previousForexPickedSection, forKey: K.SortingVC.previousForexPickedSectionKey)
                 }

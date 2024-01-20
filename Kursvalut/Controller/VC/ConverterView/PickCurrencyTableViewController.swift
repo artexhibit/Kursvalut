@@ -67,17 +67,17 @@ class PickCurrencyTableViewController: UITableViewController {
         if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
             let currency = bankOfRussiaFRC.object(at: indexPath)
             
-            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? K.Images.defaultImage)
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
-            cell.picker.image = currency.isForConverter ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+            cell.picker.image = currency.isForConverter ? UIImage(systemName: K.Images.checkmarkCircle) : UIImage(systemName: K.Images.circle)
         } else {
             let currency = forexFRC.object(at: indexPath)
             
-            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? "notFound")
+            cell.flag.image = currencyManager.showCurrencyFlag(currency.shortName ?? K.Images.defaultImage)
             cell.shortName.text = currency.shortName
             cell.fullName.text = currency.fullName
-            cell.picker.image = currency.isForConverter ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+            cell.picker.image = currency.isForConverter ? UIImage(systemName: K.Images.checkmarkCircle) : UIImage(systemName: K.Images.circle)
         }
         return cell
     }
