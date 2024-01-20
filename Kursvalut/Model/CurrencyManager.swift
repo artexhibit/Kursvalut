@@ -125,12 +125,11 @@ struct CurrencyManager {
         if UserDefaultsManager.isFirstLaunchToday != Date.todaysLongDate {
             UserDefaultsManager.isFirstLaunchToday = Date.todaysLongDate
             UserDefaultsManager.confirmedDate = Date.todaysShortDate
+            UserDefaultsManager.newCurrencyDataReady = true
+            
             updateAllCurrencyTypesData {
-                if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
-                    UserDefaultsManager.confirmedDate = Date.createStringDate(from: coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate())
-                } else {
-                    UserDefaultsManager.confirmedDate = Date.createStringDate(from: coreDataManager.fetchForexCurrenciesCurrentDate())
-                }
+                UserDefaultsManager.confirmedDate = getCurrencyDate()
+                UserDefaultsManager.newCurrencyDataReady = false
             }
         }
     }

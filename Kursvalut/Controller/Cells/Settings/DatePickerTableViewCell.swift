@@ -12,8 +12,10 @@ class DatePickerTableViewCell: UITableViewCell {
     private var maximumDate: Date {
         if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
             let currentStoredDate = currencyCoreDataManager.fetchBankOfRussiaCurrenciesCurrentDate()
-            if Date.isTomorrow(date: currentStoredDate) { return currentStoredDate }
-            return Date.currentDate
+            if  currentStoredDate > UserDefaultsManager.maxCalendarDate {
+                UserDefaultsManager.maxCalendarDate = currentStoredDate
+            }
+            return UserDefaultsManager.maxCalendarDate
         } else {
             return Date.currentDate
         }
@@ -32,7 +34,7 @@ class DatePickerTableViewCell: UITableViewCell {
     func setupDatePicker() {
         datePicker.tintColor = UIColor(named: UserDefaultsManager.appColor)
         datePicker.minimumDate = minimumDate
-        datePicker.maximumDate = Date()
+        datePicker.maximumDate = maximumDate
         
         if #available(iOS 14.0, *) {
             datePicker.preferredDatePickerStyle = .inline

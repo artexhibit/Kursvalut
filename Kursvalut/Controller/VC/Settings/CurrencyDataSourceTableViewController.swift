@@ -21,6 +21,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     private var startDateSpinner = false
     private var dataSourceCellWasPressed = false
     private var turnOffDateSwitch = false
+    private var datePickerCurrentDate: Date {
+        UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate() : coreDataManager.fetchForexCurrenciesCurrentDate()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,7 +110,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     @IBAction func datePickerPressed(_ sender: UIDatePicker) {
         let senderDate = Date.createStringDate(from: sender.date)
         pickedDate = senderDate
-        turnOffDateSwitch = pickedDate != Date.todaysLongDate ? true : false
+        turnOffDateSwitch = pickedDate != Date.todaysShortDate ? true : false
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.datePickerCellKey) as! DatePickerTableViewCell
         configureDatePicker(cell: cell)
@@ -178,7 +181,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         } else {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.concreteDateCellKey, for: indexPath) as! ConcreteDateTableViewCell
-                cell.dateLabel.text = UserDefaultsManager.confirmedDate
+                cell.dateLabel.text = currencyManager.getCurrencyDate()
                 cell.proLabel.isHidden = !UserDefaultsManager.proPurchased ? false : true
                 cell.backgroundColor = !UserDefaultsManager.proPurchased ? .systemGray5 : .none
                 cell.pickDateSwitch.isEnabled = !UserDefaultsManager.proPurchased ? false : true
@@ -255,13 +258,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     //MARK: - User Interface Handling Methods
     
     private func configureDatePicker(cell: DatePickerTableViewCell) {
-        if let dataForPickedDate = pickedDate {
-            cell.datePicker.date = currencyManager.createDate(from: dataForPickedDate)
-        } else {
-            cell.datePicker.date = currencyManager.createDate(from: UserDefaultsManager.confirmedDate)
-        }
+        cell.datePicker.date = pickedDate != nil ? Date.formatDate(from: pickedDate ?? "") : datePickerCurrentDate
         
-        if let dataForPickedDate = pickedDate, UserDefaultsManager.confirmedDate != dataForPickedDate {
+        if let pickedDate = pickedDate, UserDefaultsManager.confirmedDate != pickedDate {
             cell.confirmButton.isEnabled = true
             cell.confirmButton.isHidden = false
             cell.resetDateButton.isEnabled = true
@@ -280,9 +279,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true
             tableView.reloadRows(at: [dateIndexPath], with: .none)
         } else {
-            if targetIndexPath == nil {
-                dataSourceCellWasPressed = true
-            }
+            if targetIndexPath == nil { dataSourceCellWasPressed = true }
             pickedDate = UserDefaultsManager.confirmedDate
             requestDataForConfirmedDate()
         }
