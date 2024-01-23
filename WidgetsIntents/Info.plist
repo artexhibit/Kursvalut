@@ -12,8 +12,8 @@
 			<array/>
 			<key>IntentsSupported</key>
 			<array>
-				<string>SetSingleCurrencyIntent</string>
 				<string>SetMultipleCurrencyIntent</string>
+				<string>SetSingleCurrencyIntent</string>
 				<string>SetTripleCurrencyIntent</string>
 			</array>
 		</dict>

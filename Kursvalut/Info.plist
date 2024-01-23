@@ -4,6 +4,7 @@
 <dict>
 	<key>NSUserActivityTypes</key>
 	<array>
+		<string>SetMultipleCurrencyIntent</string>
 		<string>SetSingleCurrencyIntent</string>
 		<string>SetTripleCurrencyIntent</string>
 	</array>
@@ -30,8 +31,6 @@
 	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>fetch</string>
-		<string>processing</string>
 		<string>remote-notification</string>
 	</array>
 </dict>

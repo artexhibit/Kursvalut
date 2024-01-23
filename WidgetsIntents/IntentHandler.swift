@@ -13,12 +13,20 @@ extension IntentHandler: SetSingleCurrencyIntentHandling {
     }
     
     func provideMainCurrencyOptionsCollection(for intent: SetSingleCurrencyIntent) async throws -> INObjectCollection<NSString> {
-        let currencyStrings = setupCurrencyStrings()
+        var currencyStrings = setupCurrencyStrings()
+        
+        if intent.baseSource == CurrencyData.cbrf {
+            currencyStrings = filterCurrencyStringsForCBRF(from: currencyStrings)
+        }
         return INObjectCollection(items: currencyStrings as [NSString])
     }
     
     func provideBaseCurrencyOptionsCollection(for intent: SetSingleCurrencyIntent) async throws -> INObjectCollection<NSString> {
-        let currencyStrings = setupCurrencyStrings()
+        var currencyStrings = setupCurrencyStrings()
+        
+        if intent.baseSource == CurrencyData.cbrf {
+           currencyStrings = filterCurrencyStringsForCBRF(from: currencyStrings)
+        }
         return INObjectCollection(items: currencyStrings as [NSString])
     }
     
@@ -42,21 +50,43 @@ extension IntentHandler: SetSingleCurrencyIntentHandling {
         }
         return currencyStrings.sorted()
     }
+    
+    func filterCurrencyStringsForCBRF(from stringsArray: [String]) -> [String] {
+        let cbrfCurrencies = WidgetsCoreDataManager.get(for: CurrencyData.cbrf, fetchAll: true)
+        
+        return stringsArray.filter { string in
+            cbrfCurrencies.cbrf.contains { cbrfCurrency in
+                string.contains(cbrfCurrency.shortName ?? "")
+            }
+        }
+    }
 }
 
 extension IntentHandler: SetTripleCurrencyIntentHandling {
     func provideCurrencyOneOptionsCollection(for intent: SetTripleCurrencyIntent) async throws -> INObjectCollection<NSString> {
-        let currencyStrings = setupCurrencyStrings()
+        var currencyStrings = setupCurrencyStrings()
+        
+        if intent.baseSource == CurrencyData.cbrf {
+            currencyStrings = filterCurrencyStringsForCBRF(from: currencyStrings)
+        }
         return INObjectCollection(items: currencyStrings as [NSString])
     }
     
     func provideCurrencyTwoOptionsCollection(for intent: SetTripleCurrencyIntent) async throws -> INObjectCollection<NSString> {
-        let currencyStrings = setupCurrencyStrings()
+        var currencyStrings = setupCurrencyStrings()
+        
+        if intent.baseSource == CurrencyData.cbrf {
+            currencyStrings = filterCurrencyStringsForCBRF(from: currencyStrings)
+        }
         return INObjectCollection(items: currencyStrings as [NSString])
     }
     
     func provideCurrencyThreeOptionsCollection(for intent: SetTripleCurrencyIntent) async throws -> INObjectCollection<NSString> {
-        let currencyStrings = setupCurrencyStrings()
+        var currencyStrings = setupCurrencyStrings()
+        
+        if intent.baseSource == CurrencyData.cbrf {
+            currencyStrings = filterCurrencyStringsForCBRF(from: currencyStrings)
+        }
         return INObjectCollection(items: currencyStrings as [NSString])
     }
     
@@ -65,7 +95,11 @@ extension IntentHandler: SetTripleCurrencyIntentHandling {
     }
     
     func provideBaseCurrencyOptionsCollection(for intent: SetTripleCurrencyIntent) async throws -> INObjectCollection<NSString> {
-        let currencyStrings = setupCurrencyStrings()
+        var currencyStrings = setupCurrencyStrings()
+        
+        if intent.baseSource == CurrencyData.cbrf {
+            currencyStrings = filterCurrencyStringsForCBRF(from: currencyStrings)
+        }
         return INObjectCollection(items: currencyStrings as [NSString])
     }
     

@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 struct WidgetsCoreDataManager {
-    static private let viewContext =  PersistenceController.shared.container.viewContext
+    static private let viewContext = PersistenceController.shared.container.viewContext
     
     static private func fetchPickedCurrencies<T: NSFetchRequestResult>(for entityName: T.Type, with targetCurrencies: [String] = [], fetchAll: Bool = false) -> [T] {
         let request = NSFetchRequest<T>(entityName: String(describing: entityName))
