@@ -118,6 +118,7 @@ struct K {
         static let themeSegueKey = "themeSegue"
         static let goToTutorialKey = "goToTutorial"
         static let unwindToAppKey = "unwindToApp"
+        static let goToProScreenKey = "goToProScreen"
     }
     struct Cells {
         static let menuTableViewCellKey = "menuTableViewCell"

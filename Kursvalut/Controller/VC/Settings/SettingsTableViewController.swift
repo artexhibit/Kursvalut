@@ -31,6 +31,10 @@ class SettingsTableViewController: UITableViewController {
         loadFlagsSwitchState()
     }
     
+    @IBAction func purchaseButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: K.Segues.goToProScreenKey, sender: self)
+    }
+    
     @IBAction func roundFlagsSwitchPressed(_ sender: UISwitch) {
         UserDefaultsManager.roundCountryFlags = roundFlagsSwitch.isOn ? true : false
     }
