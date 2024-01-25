@@ -4,6 +4,7 @@ struct MediumCurrencyView: View {
     let mainCurrency: String
     let currentValue: String
     let previousValue: String
+    let decimals: Int
     
     var body: some View {
         HStack {
@@ -22,13 +23,13 @@ struct MediumCurrencyView: View {
                 Text("\(previousValue)")
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .foregroundStyle(.primary)
-                    .frame(width: 82, alignment: .center)
+                    .frame(width: decimals > 2 ? 88 : 105, alignment: decimals > 2 ? .leading : .center)
                     .contentTransition(.numericText())
                     .fixedSize(horizontal: false, vertical: true)
                 Text("\(currentValue)")
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .foregroundStyle(.primary)
-                    .frame(width: 90, alignment: .center)
+                    .frame(width: 81, alignment: decimals > 2 ? .leading : .center)
                     .contentTransition(.numericText())
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -37,5 +38,5 @@ struct MediumCurrencyView: View {
 }
 
 #Preview {
-    MediumCurrencyView(mainCurrency: "", currentValue: "", previousValue: "")
+    MediumCurrencyView(mainCurrency: "", currentValue: "", previousValue: "", decimals: 4)
 }

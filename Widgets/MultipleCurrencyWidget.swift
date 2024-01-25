@@ -19,7 +19,7 @@ struct MultipleCurrencyProvider: IntentTimelineProvider {
         let values = WidgetsCoreDataManager.calculateValue(for: baseSource, with: mainCurrencies, and: UserDefaultsManager.baseCurrency, decimals: decimals, includePreviousValues: true)
         let dates = WidgetsCoreDataManager.getDates(baseSource: baseSource, mainCurrencies: mainCurrencies)
         
-        let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: UserDefaultsManager.baseCurrency, mainCurrencies: mainCurrencies, shortNames: shortNames, currentValues: values.currentValues, previousValues: nil, currentValuesDate: dates.current, previousValuesDate: nil)
+        let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: UserDefaultsManager.baseCurrency, mainCurrencies: mainCurrencies, shortNames: shortNames, currentValues: values.currentValues, previousValues: nil, currentValuesDate: dates.current, previousValuesDate: nil, decimals: decimals)
         
         let entry = MultipleCurrencyEntry(date: Date(), currency: currency)
         

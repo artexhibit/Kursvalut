@@ -9,4 +9,5 @@ struct WidgetCurrency {
     let previousValues: [String]?
     let currentValuesDate: Date?
     let previousValuesDate: Date?
+    let decimals: Int
 }
