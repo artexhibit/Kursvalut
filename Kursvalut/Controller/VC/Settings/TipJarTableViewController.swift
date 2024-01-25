@@ -82,19 +82,15 @@ extension TipJarTableViewController: SKProductsRequestDelegate, SKPaymentTransac
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             if transaction.transactionState == .purchased {
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.thankYou, style: .purchase)
-                }
+                self.tableView.reloadData()
+                PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.thankYou, style: .purchase)
+                
                 transactionEnded = true
                 SKPaymentQueue.default().finishTransaction(transaction)
             } else if transaction.transactionState == .failed {
                 guard let error = transaction.error else { return }
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(K.PopupTexts.Messages.couldntPay) \(error.localizedDescription)", style: .failure)
-                }
+                self.tableView.reloadData()
+                PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(K.PopupTexts.Messages.couldntPay) \(error.localizedDescription)", style: .failure)
                 transactionEnded = true
                 SKPaymentQueue.default().finishTransaction(transaction)
             }

@@ -101,8 +101,9 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
                 DispatchQueue.main.async {
                     self.purchaseButton.isHidden = false
                     self.setPurchasedButton()
-                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.thankYou, message: K.PopupTexts.Messages.haveProNow, style: .purchase)
                 }
+                PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.thankYou, message: K.PopupTexts.Messages.haveProNow, style: .purchase)
+                
                 SKPaymentQueue.default().finishTransaction(transaction)
             } else if transaction.transactionState == .failed {
                 guard let error = transaction.error else { return }
@@ -110,8 +111,9 @@ extension ProViewController: SKProductsRequestDelegate, SKPaymentTransactionObse
                 DispatchQueue.main.async {
                     self.purchaseButton.isHidden = false
                     self.purchaseSpinner.stopAnimating()
-                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(K.PopupTexts.Messages.couldntPay) \(error.localizedDescription)", style: .failure)
                 }
+                PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(K.PopupTexts.Messages.couldntPay) \(error.localizedDescription)", style: .failure)
+                
                 SKPaymentQueue.default().finishTransaction(transaction)
             }
         }

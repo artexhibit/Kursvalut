@@ -32,9 +32,9 @@ struct CurrencyNetworking {
         }
     }
     private var currentForexURL: URL {
-        let date = currencyManager.createDate(from: UserDefaultsManager.confirmedDate)
+        let date = Date.formatDate(from: UserDefaultsManager.confirmedDate)
         let confirmedDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: date)
-        let todaysDate = currencyManager.createStringDate(with: "yyyy-MM-dd")
+        let todaysDate = Date.createStringDate(format: "yyyy-MM-dd")
         
         if confirmedDate != todaysDate {
             return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(confirmedDate)/currencies/\(UserDefaultsManager.baseCurrency.lowercased()).json")!

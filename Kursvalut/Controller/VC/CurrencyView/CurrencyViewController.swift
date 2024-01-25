@@ -437,6 +437,7 @@ extension CurrencyViewController {
     }
     
     @objc func refreshData() {
+        let lastConfirmedDate = UserDefaultsManager.confirmedDate
         UserDefaultsManager.confirmedDate = Date.todaysShortDate
         UserDefaultsManager.newCurrencyDataReady = true
         UserDefaultsManager.pickDateSwitchIsOn = false
@@ -452,9 +453,17 @@ extension CurrencyViewController {
                 self.tableView.refreshControl?.endRefreshing()
                 NotificationsManager.post(name: K.Notifications.stopActivityIndicatorInDataSourceVC)
                 
-                DispatchQueue.main.async {
-                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
+                PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
+            } else if parsingError != nil {
+                guard let parsingError = parsingError else { return }
+                
+                if parsingError.code == 4865 {
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noData, style: .failure)
+                } else {
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
                 }
+                self.tableView.refreshControl?.endRefreshing()
+                UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else {
                 self.tableView.refreshControl?.endRefreshing()
                 NotificationsManager.post(name: K.Notifications.stopActivityIndicatorInDataSourceVC)
@@ -484,10 +493,11 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else if parsingError != nil {
                 guard let parsingError = parsingError else { return }
+                
                 if parsingError.code == 4865 {
-                    PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noData, style: .failure)
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noData, style: .failure)
                 } else {
-                    PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
                 }
                 UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else {
@@ -511,23 +521,30 @@ extension CurrencyViewController: MenuViewDelegate {
         UserDefaultsManager.pickedDataSource = dataSource
         UserDefaultsManager.confirmedDate = currencyManager.getCurrencyDate()
         
-        DispatchQueue.main.async {
-            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.oneSecond, message: K.PopupTexts.Messages.download, style: .load, type: .manual)
-        }
+        PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.oneSecond, message: K.PopupTexts.Messages.download, style: .load, type: .manual)
         
         self.currencyNetworking.performRequest { networkingError, parsingError in
             if networkingError != nil {
                 guard let error = networkingError else { return }
                 
-                DispatchQueue.main.async {
-                    PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
+                PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
+                
+                UserDefaultsManager.pickedDataSource = lastPickedSource
+                UserDefaultsManager.confirmedDate = lastConfirmedDate
+            } else if parsingError != nil {
+                guard let parsingError = parsingError else { return }
+                
+                if parsingError.code == 4865 {
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noData, style: .failure)
+                } else {
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
                 }
                 UserDefaultsManager.pickedDataSource = lastPickedSource
                 UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else {
                 self.setupFetchedResultsController()
+                PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
                 DispatchQueue.main.async {
-                    PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
                     self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
                     self.dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
                 }

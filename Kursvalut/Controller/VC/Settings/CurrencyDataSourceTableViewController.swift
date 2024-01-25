@@ -99,7 +99,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             if pickedDate != UserDefaultsManager.confirmedDate {
                 startDateSpinner = true
                 UserDefaultsManager.confirmedDate = self.pickedDate ?? ""
-                requestDataForConfirmedDate()
+                refreshData()
             }
         }
         tableView.beginUpdates()
@@ -123,7 +123,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         turnOffDateSwitch = false
         tableView.reloadRows(at: [dateIndexPath], with: .none)
         UserDefaultsManager.confirmedDate = self.pickedDate ?? ""
-        requestDataForConfirmedDate()
+        refreshData()
     }
     
     @IBAction func resetDateButtonPressed(_ sender: UIButton) {
@@ -275,13 +275,14 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     @objc private func activatedCurrencyVC() {
         if UserDefaultsManager.CurrencyVC.isActiveCurrencyVC {
-            NotificationsManager.post(name: K.Notifications.refreshData)
+            //NotificationsManager.post(name: K.Notifications.refreshData)
+            refreshData()
             UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true
             tableView.reloadRows(at: [dateIndexPath], with: .none)
         } else {
             if targetIndexPath == nil { dataSourceCellWasPressed = true }
             pickedDate = UserDefaultsManager.confirmedDate
-            requestDataForConfirmedDate()
+            refreshData()
         }
     }
     
@@ -320,38 +321,36 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         PersistenceController.shared.saveContext()
     }
     
-   private func requestDataForConfirmedDate() {
+    private func refreshData() {
         currencyNetworking.performRequest { networkingError, parsingError in
-            DispatchQueue.main.async {
-                if networkingError != nil {
-                    guard let error = networkingError else { return }
-                    self.resetStateToTheLastConfirmedDate()
-                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
-                } else if parsingError != nil {
-                    guard let parsingError = parsingError else { return }
-                    if parsingError.code == 4865 {
-                        PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noData, style: .failure)
-                    } else {
-                        PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
-                    }
-                    self.resetStateToTheLastConfirmedDate()
+            if networkingError != nil {
+                guard let error = networkingError else { return }
+                self.resetStateToTheLastConfirmedDate()
+                PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
+            } else if parsingError != nil {
+                guard let parsingError = parsingError else { return }
+                if parsingError.code == 4865 {
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noData, style: .failure)
                 } else {
-                    UserDefaultsManager.confirmedDate = self.pickedDate ?? ""
-                    
-                    if UserDefaultsManager.pickDateSwitchIsOn && !self.dataSourceCellWasPressed {
-                        self.displayInlineDatePickerAt(indexPath: self.dateIndexPath as NSIndexPath)
-                    }
-                    if UserDefaultsManager.CurrencyVC.PickedSection.value == K.Sections.custom && UserDefaultsManager.confirmedDate != Date.todaysLongDate {
-                        self.resetCurrencyHistoricalRow()
-                    }
-                    UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true
-                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.dataDownloaded, style: .success)
+                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
                 }
-                self.dataSourceCellWasPressed = false
-                self.startDateSpinner = false
-                self.stopActivityIndicatorInDataSourceCell()
-                self.tableView.reloadRows(at: [self.dateIndexPath], with: .none)
+                self.resetStateToTheLastConfirmedDate()
+            } else {
+                UserDefaultsManager.confirmedDate = self.pickedDate ?? ""
+                
+                if UserDefaultsManager.pickDateSwitchIsOn && !self.dataSourceCellWasPressed {
+                    self.displayInlineDatePickerAt(indexPath: self.dateIndexPath as NSIndexPath)
+                }
+                if UserDefaultsManager.CurrencyVC.PickedSection.value == K.Sections.custom && UserDefaultsManager.confirmedDate != Date.todaysLongDate {
+                    self.resetCurrencyHistoricalRow()
+                }
+                UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true
+                PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.dataDownloaded, style: .success)
             }
+            self.dataSourceCellWasPressed = false
+            self.startDateSpinner = false
+            self.stopActivityIndicatorInDataSourceCell()
+            self.tableView.reloadRows(at: [self.dateIndexPath], with: .none)
         }
     }
 }
