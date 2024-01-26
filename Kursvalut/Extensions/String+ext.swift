@@ -15,4 +15,10 @@ extension String {
         }
         return resNumber
     }
+    
+    static func addZero(to number: String) -> String {
+        let decimals = number.components(separatedBy: Locale.current.decimalSeparator ?? ".")[1]
+        if decimals.count == 3 { return number + "0" }
+        return number
+    }
 }

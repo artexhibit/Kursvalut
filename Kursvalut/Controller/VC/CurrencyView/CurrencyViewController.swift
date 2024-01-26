@@ -48,6 +48,7 @@ class CurrencyViewController: UIViewController {
         self.navigationController?.navigationBar.addGestureRecognizer(navigationBarGestureRecogniser)
         currencyManager.configureContentInset(for: tableView, top: -updateButtonTopInset)
         currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch()
+        updateTimeButton.setTitle(currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
         NotificationsManager.Darwin.addNetworkRequestObserver(name: K.Notifications.makeDarwinNetworkRequest)
         NotificationsManager.add(self, selector: #selector(refreshData), name: K.Notifications.refreshData)
         NotificationsManager.add(self, selector: #selector(makeNetworkRequest), name: K.Notifications.makeNetworkRequest)

@@ -64,7 +64,6 @@
 		0BC008852B4070AD00775BC2 /* ForexCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E00278283EA57100EE9B4C /* ForexCurrencyData.swift */; };
 		0BC008862B4075EE00775BC2 /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
 		0BC008872B407DC400775BC2 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC008652B404EA700775BC2 /* NotificationService.swift */; };
-		0BC0088D2B40876A00775BC2 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0D2787687400A91511 /* CurrencyManager.swift */; };
 		0BC0088E2B40877000775BC2 /* CurrencyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FD278856CB007D34AA /* CurrencyNetworking.swift */; };
 		0BC0088F2B40877800775BC2 /* CurrencyCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */; };
 		0BC008902B40878200775BC2 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815D72B2101B100D75674 /* Persistence.swift */; };
@@ -86,6 +85,7 @@
 		0BEEC25A2B28F61E00450E0A /* TripleCurrencyRectangularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEEC2592B28F61E00450E0A /* TripleCurrencyRectangularView.swift */; };
 		0BEEC25E2B28FDDE00450E0A /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
 		0BEEC2642B2904F700450E0A /* MediumCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC8136A2B26345D00AE5AE9 /* MediumCurrencyView.swift */; };
+		0BF976552B63F4AC00F27AD3 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3DA0D2787687400A91511 /* CurrencyManager.swift */; };
 		0BFFA66A2B2E019C009EFA34 /* MultipleWidgetSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFFA6692B2E019C009EFA34 /* MultipleWidgetSmallView.swift */; };
 		0BFFA66C2B2E0E86009EFA34 /* MultipleWidgetBigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFFA66B2B2E0E86009EFA34 /* MultipleWidgetBigView.swift */; };
 		7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7802A17227D90C4400769693 /* AboutAppTableViewController.swift */; };
@@ -947,7 +947,6 @@
 				0B3111C72B49B73000CBCCFC /* Constants.swift in Sources */,
 				0BC0087C2B40705600775BC2 /* BankOfRussiaCurrencyData.swift in Sources */,
 				0BC008932B4087AF00775BC2 /* String+ext.swift in Sources */,
-				0BC0088D2B40876A00775BC2 /* CurrencyManager.swift in Sources */,
 				0BC0087E2B40706D00775BC2 /* WidgetCurrency.swift in Sources */,
 				0B3111C42B49AB0100CBCCFC /* UserDefaultsManager.swift in Sources */,
 				0BC0088F2B40877800775BC2 /* CurrencyCoreDataManager.swift in Sources */,
@@ -960,6 +959,7 @@
 				0BC0088E2B40877000775BC2 /* CurrencyNetworking.swift in Sources */,
 				0BC008862B4075EE00775BC2 /* Date+ext.swift in Sources */,
 				0BC008902B40878200775BC2 /* Persistence.swift in Sources */,
+				0BF976552B63F4AC00F27AD3 /* CurrencyManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1102,7 +1102,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = WidgetsIntents/WidgetsIntents.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1116,7 +1116,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut.WidgetsIntents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1133,7 +1133,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = WidgetsIntents/WidgetsIntents.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1147,7 +1147,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut.WidgetsIntents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1165,7 +1165,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = WidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1179,7 +1179,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1198,7 +1198,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = WidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1212,7 +1212,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1228,7 +1228,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1242,7 +1242,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1259,7 +1259,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1273,7 +1273,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1413,7 +1413,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Kursvalut/Kursvalut.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kursvalut/Info.plist;
@@ -1428,7 +1428,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1445,7 +1445,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Kursvalut/Kursvalut.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kursvalut/Info.plist;
@@ -1460,7 +1460,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.igorcodes.kursvalut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
