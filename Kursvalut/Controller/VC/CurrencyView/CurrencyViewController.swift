@@ -495,9 +495,9 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 guard let parsingError = parsingError else { return }
                 
                 if parsingError.code == 4865 {
-                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noData, style: .failure)
+                    PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noData, style: .failure)
                 } else {
-                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
+                    PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
                 }
                 UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else {
@@ -535,19 +535,17 @@ extension CurrencyViewController: MenuViewDelegate {
                 guard let parsingError = parsingError else { return }
                 
                 if parsingError.code == 4865 {
-                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noData, style: .failure)
+                    PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.noData, style: .failure)
                 } else {
-                    PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
+                    PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
                 }
                 UserDefaultsManager.pickedDataSource = lastPickedSource
                 UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else {
                 self.setupFetchedResultsController()
                 PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
-                DispatchQueue.main.async {
-                    self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
-                    self.dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
-                }
+                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
+                self.dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
                 NotificationsManager.post(name: K.Notifications.refreshConverterFRC)
                 NotificationsManager.post(name: K.Notifications.refreshBaseCurrency)
             }
