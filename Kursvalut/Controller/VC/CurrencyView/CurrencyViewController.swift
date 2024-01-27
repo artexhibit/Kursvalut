@@ -390,7 +390,7 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
         }
     }
 }
-//MARK: - CurrencyViewController UI Manage Methods
+//MARK: - CurrencyViewController UI Methods
 
 extension CurrencyViewController {
     func setupButtonsDesign() {

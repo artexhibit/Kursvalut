@@ -6,6 +6,7 @@ import AudioToolbox
 class ConverterTableViewController: UITableViewController {
     
     @IBOutlet weak var doneEditingButton: UIBarButtonItem!
+    private let navBarLabel = UILabel()
     
     private var bankOfRussiaFRC: NSFetchedResultsController<Currency>!
     private var forexFRC: NSFetchedResultsController<ForexCurrency>!
@@ -29,12 +30,14 @@ class ConverterTableViewController: UITableViewController {
     private var canSetCustomCellHeight = true
     private var avoidTriggerCellsHeightChange = false
     private var dataSourceWasChanged = false
+    private var isInitialScroll = true
     private var cellHeights: [IndexPath: CGFloat] = [:]
     private var cellHeightNames: [String: CGFloat] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         formatter = converterManager.setupNumberFormatter()
+        configureNavBarTitle()
         setupKeyboardBehaviour()
         currencyManager.configureContentInset(for: tableView, top: 10)
         if UserDefaultsManager.pickedStartView == "Конвертер" { currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch() }
@@ -50,6 +53,7 @@ class ConverterTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         setupFetchedResultsController()
         shouldAnimateCellAppear = tableViewIsInEditingMode ? true : false
+        navBarLabel.text = "\(K.updateTimeTextKey) \(UserDefaultsManager.dataUpdateTime)"
         
         if dataSourceWasChanged {
             cellHeightNames.removeAll()
@@ -488,6 +492,26 @@ class ConverterTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
+    }
+}
+//MARK: - ConverterTableViewController UI Methods
+
+extension ConverterTableViewController {
+    func configureNavBarTitle() {
+        guard let navigationBar = self.navigationController?.navigationBar else { return }
+        navigationBar.addSubview(navBarLabel)
+        
+        navBarLabel.translatesAutoresizingMaskIntoConstraints = false
+        navBarLabel.text = "\(K.updateTimeTextKey) \(UserDefaultsManager.dataUpdateTime)"
+        navBarLabel.textColor = .secondaryLabel
+        navBarLabel.font = .systemFont(ofSize: 13)
+        
+        NSLayoutConstraint.activate([
+            navBarLabel.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -50),
+            navBarLabel.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor, constant: 17),
+            navBarLabel.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -17),
+            navBarLabel.heightAnchor.constraint(equalToConstant: 15)
+        ])
     }
 }
 
@@ -932,6 +956,33 @@ extension ConverterTableViewController {
     func reloadCurrencyRows() {
         let pickedCurrencyIndexPath = converterManager.setupTapLocation(of: lastPickedData.textField, and: tableView)
         converterManager.reloadRows(in: tableView, with: pickedCurrencyIndexPath)
+    }
+}
+//MARK: - ScrollView Delegate Methods
+
+extension ConverterTableViewController {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let targetOffset: CGFloat = -145
+        let fadeRange: CGFloat = 14
+        let currentOffset: CGFloat = scrollView.contentOffset.y
+        var opacity: Float = 1.0
+        
+        if currentOffset < targetOffset {
+            opacity = 1.0
+        } else if currentOffset >= targetOffset && currentOffset <= targetOffset + fadeRange {
+            let percentage = 1 - ((currentOffset - targetOffset) / fadeRange)
+            opacity = Float(percentage)
+        } else {
+            opacity = 0.0
+        }
+        
+        UIView.animate(withDuration: isInitialScroll ? 0 : 0.3) {
+            self.navBarLabel.layer.opacity = opacity
+        }
+    }
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        isInitialScroll = false
     }
 }
 

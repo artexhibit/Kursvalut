@@ -13,6 +13,12 @@ extension Date {
         createStringDate(from: Date(), format: "dd.MM.yyyy")
     }
     
+    static func getCurrentTime() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: Date())
+    }
+    
     static func createDate(from string: String) -> Date {
         let isoFormatter = ISO8601DateFormatter()
         if let date = isoFormatter.date(from: string) {

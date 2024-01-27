@@ -63,6 +63,10 @@ struct UserDefaultsManager {
         get { ud.bool(forKey: K.newCurrencyDataReadyKey) }
         set { ud.setValue(newValue, forKey: K.newCurrencyDataReadyKey) }
     }
+    static var dataUpdateTime: String {
+        get { ud.string(forKey: K.dataUpdateTimeKey) ?? "" }
+        set { ud.setValue(newValue, forKey: K.dataUpdateTimeKey) }
+    }
     
     struct CurrencyVC {
         static var needToRefreshFRCForCustomSort: Bool {

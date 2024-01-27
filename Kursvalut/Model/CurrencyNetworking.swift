@@ -87,6 +87,7 @@ struct CurrencyNetworking {
                 }
                 completion(nil, parsingError)
             }
+            UserDefaultsManager.dataUpdateTime = Date.getCurrentTime()
             PersistenceController.shared.saveContext()
             WidgetsData.updateWidgets()
         }
