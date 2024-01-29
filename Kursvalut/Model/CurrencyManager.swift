@@ -120,9 +120,9 @@ struct CurrencyManager {
     }
     
     func updateAllCurrencyTypesOnEachDayFirstLaunch() {
-        if UserDefaultsManager.isFirstLaunchToday != Date.todaysLongDate {
-            UserDefaultsManager.isFirstLaunchToday = Date.todaysLongDate
-            UserDefaultsManager.confirmedDate = Date.todaysShortDate
+        if UserDefaultsManager.isFirstLaunchToday != Date.todayShort {
+            UserDefaultsManager.isFirstLaunchToday = Date.todayShort
+            UserDefaultsManager.confirmedDate = Date.todayShort
             UserDefaultsManager.newCurrencyDataReady = true
             
             updateAllCurrencyTypesData {

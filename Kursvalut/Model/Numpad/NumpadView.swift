@@ -63,6 +63,10 @@ class NumpadView: UIView, UIInputViewAudioFeedback {
         resetButton.setTitle(resetButtonTitle.inAction, for: .normal)
     }
     
+    @IBAction func buttonPressed(_ sender: Any) {
+        UIDevice.current.playInputClick()
+    }
+    
     @IBAction func decimalPressed(_ sender: NumpadButton) {
         insertText(decimalSeparator)
     }

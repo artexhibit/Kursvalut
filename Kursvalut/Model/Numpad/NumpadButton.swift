@@ -6,7 +6,6 @@ class NumpadButton: UIButton {
     override var isHighlighted: Bool {
         didSet {
             if isHighlighted {
-                UIDevice.current.playInputClick()
                 switch self.tag {
                 case 1...6: backgroundColor = UIColor(named: "FadeOrangeColor")
                 case 7 : backgroundColor = UIColor(named: "FadeBlueColor")

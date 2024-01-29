@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -37,6 +37,7 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchDown" id="OTQ-Vy-cOG"/>
                                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="Olp-Sv-L5S"/>
                                     </connections>
                                 </button>
@@ -50,6 +51,7 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="JNR-yu-NbG"/>
                                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="Bab-0z-AaE"/>
                                     </connections>
                                 </button>
@@ -63,6 +65,7 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="bIF-gB-bQD"/>
                                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="jyM-Uk-ELD"/>
                                     </connections>
                                 </button>
@@ -76,6 +79,7 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="8Sg-pI-i05"/>
                                         <action selector="resetButtonPressed:" destination="-1" eventType="touchUpInside" id="TEJ-n2-pZS"/>
                                     </connections>
                                 </button>
@@ -90,6 +94,7 @@
                                         </preferredSymbolConfiguration>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="T0V-N3-ptc"/>
                                         <action selector="hideKeyboardButtonPressed:" destination="-1" eventType="touchUpInside" id="Qek-5E-U9M"/>
                                     </connections>
                                 </button>
@@ -109,6 +114,7 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="ejG-ec-Lpm"/>
                                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="bTD-P5-yN2"/>
                                     </connections>
                                 </button>
@@ -122,6 +128,7 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="gsn-yB-1D0"/>
                                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="YAw-6y-5nQ"/>
                                     </connections>
                                 </button>
@@ -135,6 +142,7 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="9cf-ZI-pF9"/>
                                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="Wfm-Zl-CXm"/>
                                     </connections>
                                 </button>
@@ -151,6 +159,7 @@
                                         </preferredSymbolConfiguration>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="elD-DM-uzd"/>
                                         <action selector="minusButtonPressed:" destination="-1" eventType="touchUpInside" id="YnX-Hr-cgf"/>
                                     </connections>
                                 </button>
@@ -165,6 +174,7 @@
                                         </preferredSymbolConfiguration>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="FBN-cR-vVY"/>
                                         <action selector="devideButtonPressed:" destination="-1" eventType="touchUpInside" id="rtn-3I-QJI"/>
                                     </connections>
                                 </button>
@@ -184,6 +194,7 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="Da0-QZ-nRh"/>
                                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="S8H-tf-3fm"/>
                                     </connections>
                                 </button>
@@ -197,6 +208,7 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="sWM-wv-vRX"/>
                                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="VHL-SG-uWo"/>
                                     </connections>
                                 </button>
@@ -210,6 +222,7 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="dIF-gH-KDu"/>
                                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="zOS-Lm-LBI"/>
                                     </connections>
                                 </button>
@@ -224,6 +237,7 @@
                                         </preferredSymbolConfiguration>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="Nwp-aD-Zsp"/>
                                         <action selector="plusButtonPressed:" destination="-1" eventType="touchUpInside" id="dGl-Qy-yDl"/>
                                     </connections>
                                 </button>
@@ -238,6 +252,7 @@
                                         </preferredSymbolConfiguration>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="nKr-DH-iJX"/>
                                         <action selector="multiplyButtonPressed:" destination="-1" eventType="touchUpInside" id="yy0-qq-Iwv"/>
                                     </connections>
                                 </button>
@@ -257,6 +272,7 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="v3x-My-R8Z"/>
                                         <action selector="decimalPressed:" destination="-1" eventType="touchUpInside" id="cUz-8h-laA"/>
                                     </connections>
                                 </button>
@@ -270,6 +286,7 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="fAe-CA-LTY"/>
                                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="H6d-Vo-N5P"/>
                                     </connections>
                                 </button>
@@ -286,6 +303,7 @@
                                         </preferredSymbolConfiguration>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="1KW-2D-rmZ"/>
                                         <action selector="deleteButtonPressed:" destination="-1" eventType="touchUpInside" id="O2j-2S-19Z"/>
                                     </connections>
                                 </button>
@@ -301,6 +319,7 @@
                                         </preferredSymbolConfiguration>
                                     </state>
                                     <connections>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="WPT-y2-UzG"/>
                                         <action selector="equalButtonPressed:" destination="-1" eventType="touchUpInside" id="YcX-pk-EPA"/>
                                     </connections>
                                 </button>

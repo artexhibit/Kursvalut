@@ -36,7 +36,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if UserDefaultsManager.confirmedDate == Date.todaysShortDate {
+        if UserDefaultsManager.confirmedDate == Date.todayShort {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.concreteDateCellKey) as! ConcreteDateTableViewCell
             setDateSwitchStateToOff(with: cell)
         }
@@ -68,7 +68,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             tableView.deleteRows(at: [datePickerIndexPath], with: .fade)
             targetIndexPath = nil
             
-            if UserDefaultsManager.confirmedDate == Date.todaysShortDate {
+            if UserDefaultsManager.confirmedDate == Date.todayShort {
                setDateSwitchStateToOff(with: cell)
             }
         }
@@ -88,7 +88,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             cell.selectionStyle = .default
         } else {
             UserDefaultsManager.pickDateSwitchIsOn = false
-            pickedDate = Date.todaysShortDate
+            pickedDate = Date.todayShort
             lastConfirmedDate = UserDefaultsManager.confirmedDate
             turnOffDateSwitch = true
             cell.selectionStyle = .none
@@ -110,7 +110,8 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     @IBAction func datePickerPressed(_ sender: UIDatePicker) {
         let senderDate = Date.createStringDate(from: sender.date)
         pickedDate = senderDate
-        turnOffDateSwitch = pickedDate != Date.todaysShortDate ? true : false
+        turnOffDateSwitch = pickedDate != Date.todayShort ? true : false
+        turnOffDateSwitch = pickedDate == Date.tomorrow ? false : true
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.datePickerCellKey) as! DatePickerTableViewCell
         configureDatePicker(cell: cell)
@@ -275,8 +276,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     
     @objc private func activatedCurrencyVC() {
         if UserDefaultsManager.CurrencyVC.isActiveCurrencyVC {
-            //NotificationsManager.post(name: K.Notifications.refreshData)
-            refreshData()
+            NotificationsManager.post(name: K.Notifications.refreshData)
             UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true
             tableView.reloadRows(at: [dateIndexPath], with: .none)
         } else {
@@ -341,7 +341,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 if UserDefaultsManager.pickDateSwitchIsOn && !self.dataSourceCellWasPressed {
                     self.displayInlineDatePickerAt(indexPath: self.dateIndexPath as NSIndexPath)
                 }
-                if UserDefaultsManager.CurrencyVC.PickedSection.value == K.Sections.custom && UserDefaultsManager.confirmedDate != Date.todaysLongDate {
+                if self.pickedDate == Date.tomorrow { UserDefaultsManager.pickDateSwitchIsOn = false }
+                
+                if UserDefaultsManager.CurrencyVC.PickedSection.value == K.Sections.custom && UserDefaultsManager.confirmedDate != Date.todayShort {
                     self.resetCurrencyHistoricalRow()
                 }
                 UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true
@@ -350,7 +352,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             self.dataSourceCellWasPressed = false
             self.startDateSpinner = false
             self.stopActivityIndicatorInDataSourceCell()
-            self.tableView.reloadRows(at: [self.dateIndexPath], with: .none)
+            self.tableView.reloadRows(at: [self.dateIndexPath, self.datePickerIndexPath], with: .none)
         }
     }
 }

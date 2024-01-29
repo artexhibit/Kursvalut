@@ -439,7 +439,7 @@ extension CurrencyViewController {
     
     @objc func refreshData() {
         let lastConfirmedDate = UserDefaultsManager.confirmedDate
-        UserDefaultsManager.confirmedDate = Date.todaysShortDate
+        UserDefaultsManager.confirmedDate = Date.todayShort
         UserDefaultsManager.newCurrencyDataReady = true
         UserDefaultsManager.pickDateSwitchIsOn = false
         
@@ -471,7 +471,10 @@ extension CurrencyViewController {
                 PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
                 UserDefaultsManager.newCurrencyDataReady = false
                 UserDefaultsManager.confirmedDate = self.currencyManager.getCurrencyDate()
-                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
+                }
             }
         }
     }
@@ -502,11 +505,13 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 }
                 UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else {
-                UserDefaultsManager.pickDateSwitchIsOn = pickedDate != Date.todaysLongDate ? true : false
+                UserDefaultsManager.pickDateSwitchIsOn = pickedDate != Date.todayShort && pickedDate != Date.tomorrow ? true : false
+                
                 self.setupFetchedResultsController()
                 PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.dataDownloaded, style: .success)
-                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
-                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
+                }
                 WidgetsData.updateWidgets()
             }
         }
@@ -545,8 +550,10 @@ extension CurrencyViewController: MenuViewDelegate {
             } else {
                 self.setupFetchedResultsController()
                 PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
-                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
-                self.dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
+                    self.dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
+                }
                 NotificationsManager.post(name: K.Notifications.refreshConverterFRC)
                 NotificationsManager.post(name: K.Notifications.refreshBaseCurrency)
             }

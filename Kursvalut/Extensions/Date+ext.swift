@@ -5,12 +5,13 @@ extension Date {
         return Date()
     }
     
-    static var todaysLongDate: String {
-        createStringDate(from: Date(), dateStyle: .long, format: "dd.MM.yyyy")
+    static var todayShort: String {
+        createStringDate(from: Date(), format: "dd.MM.yyyy")
     }
     
-    static var todaysShortDate: String {
-        createStringDate(from: Date(), format: "dd.MM.yyyy")
+    static var tomorrow: String {
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate
+        return createStringDate(from: tomorrow, format: "dd.MM.yyyy")
     }
     
     static func getCurrentTime() -> String {
@@ -50,6 +51,7 @@ extension Date {
     static func createStringDate(from date: Date = Date(), dateStyle: DateFormatter.Style? = nil, format: String = "dd.MM.yyyy") -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
         
         if let dateStyle = dateStyle {
             formatter.dateStyle = dateStyle
