@@ -283,13 +283,13 @@ extension CurrencyViewController: UISearchResultsUpdating {
         }
         
         var searchPredicate: NSCompoundPredicate {
-            let shortName = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
-            let fullName = NSPredicate(format: "fullName CONTAINS[cd] %@", searchText)
-            let searchName = NSPredicate(format: "searchName CONTAINS[cd] %@", searchText)
+            let shortName = NSPredicate(format: K.FRC.Predicates.shortNameBegins, searchText)
+            let fullName = NSPredicate(format: K.FRC.Predicates.fullNameContains, searchText)
+            let searchName = NSPredicate(format: K.FRC.Predicates.searchNameContains, searchText)
             return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName, searchName])
         }
         var filterPredicate: NSCompoundPredicate {
-            let filterBaseCurrency = NSPredicate(format: "isBaseCurrency == NO")
+            let filterBaseCurrency = NSPredicate(format: K.FRC.Predicates.noBaseCurrency)
             return NSCompoundPredicate(type: .and, subpredicates: [searchPredicate, filterBaseCurrency])
         }
         
@@ -324,8 +324,8 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
             try? forexFRC.performFetch()
         } else {
             var currencyScreenViewPredicate: NSCompoundPredicate {
-                let firstPredicate = NSPredicate(format: "isForCurrencyScreen == YES")
-                let secondPredicate = NSPredicate(format: "isBaseCurrency == NO")
+                let firstPredicate = NSPredicate(format: K.FRC.Predicates.forCurrencyScreen)
+                let secondPredicate = NSPredicate(format: K.FRC.Predicates.noBaseCurrency)
                 return NSCompoundPredicate(type: .and, subpredicates: [firstPredicate, secondPredicate])
             }
             

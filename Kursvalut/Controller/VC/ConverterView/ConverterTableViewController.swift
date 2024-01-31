@@ -962,7 +962,8 @@ extension ConverterTableViewController {
 
 extension ConverterTableViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let targetOffset: CGFloat = -145
+        let targetOffsetPercentage: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 0.16 : 0.11
+        let targetOffset: CGFloat = -UIScreen.main.bounds.height * targetOffsetPercentage
         let fadeRange: CGFloat = 14
         let currentOffset: CGFloat = scrollView.contentOffset.y
         var opacity: Float = 1.0
@@ -991,13 +992,13 @@ extension ConverterTableViewController {
 extension ConverterTableViewController: NSFetchedResultsControllerDelegate {
     @objc func setupFetchedResultsController() {
         if UserDefaultsManager.pickedDataSource == CurrencyData.cbrf {
-            let predicate = NSPredicate(format: "isForConverter == YES")
+            let predicate = NSPredicate(format: K.FRC.Predicates.forConverter)
             let sortDescriptor = NSSortDescriptor(key: "rowForConverter", ascending: true)
             bankOfRussiaFRC = coreDataManager.createBankOfRussiaCurrencyFRC(with: predicate, and: sortDescriptor)
             bankOfRussiaFRC.delegate = self
             try? bankOfRussiaFRC.performFetch()
         } else {
-            let predicate = NSPredicate(format: "isForConverter == YES")
+            let predicate = NSPredicate(format: K.FRC.Predicates.forConverter)
             let sortDescriptor = NSSortDescriptor(key: "rowForConverter", ascending: true)
             forexFRC = coreDataManager.createForexCurrencyFRC(with: predicate, and: sortDescriptor)
             forexFRC.delegate = self

@@ -9,7 +9,7 @@ struct CurrencyCoreDataManager {
     func createOrUpdateBankOfRussiaCurrency(with dictionary: Dictionary<String, Details>.Values, currentDate: Date, previousDate: Date) {
         dictionary.forEach { id in
             let request: NSFetchRequest<Currency> = Currency.fetchRequest()
-            request.predicate = NSPredicate(format: "shortName = %@", id.CharCode)
+            request.predicate = NSPredicate(format: K.FRC.Predicates.shortName, id.CharCode)
             
             do {
                 let fetchResult = try context.fetch(request)
@@ -66,7 +66,7 @@ struct CurrencyCoreDataManager {
     
     func createRubleCurrency() {
         let request: NSFetchRequest<Currency> = Currency.fetchRequest()
-        request.predicate = NSPredicate(format: "shortName = %@", "RUB")
+        request.predicate = NSPredicate(format: K.FRC.Predicates.shortName, "RUB")
         
         do {
             let fetchRuble = try context.fetch(request)
@@ -147,7 +147,7 @@ struct CurrencyCoreDataManager {
     func createOrUpdateLatestForexCurrency(from dictionary: [String:String], currentDate: Date) {
         dictionary.forEach { key, value in
             let request: NSFetchRequest<ForexCurrency> = ForexCurrency.fetchRequest()
-            request.predicate = NSPredicate(format: "shortName = %@", key)
+            request.predicate = NSPredicate(format: K.FRC.Predicates.shortName, key)
             
             do {
                 let fetchRequest = try context.fetch(request)
@@ -200,7 +200,7 @@ struct CurrencyCoreDataManager {
     func createOrUpdateYesterdayForexCurrency(from dictionary: [String:String], previousDate: Date) {
         dictionary.forEach { key, value in
             let request: NSFetchRequest<ForexCurrency> = ForexCurrency.fetchRequest()
-            request.predicate = NSPredicate(format: "shortName = %@", key)
+            request.predicate = NSPredicate(format: K.FRC.Predicates.shortName, key)
             
             do {
                 let fetchRequest = try context.fetch(request)
@@ -347,8 +347,8 @@ struct CurrencyCoreDataManager {
         }
         
         var predicate: NSCompoundPredicate {
-            let firstPredicate = NSPredicate(format: "isForCurrencyScreen == YES")
-            let secondPredicate = NSPredicate(format: "isBaseCurrency == NO")
+            let firstPredicate = NSPredicate(format: K.FRC.Predicates.forCurrencyScreen)
+            let secondPredicate = NSPredicate(format: K.FRC.Predicates.noBaseCurrency)
             return NSCompoundPredicate(type: .and, subpredicates: [firstPredicate, secondPredicate])
         }
         

@@ -200,4 +200,16 @@ struct K {
         static let ascendingOrderByNum = "По возрастанию (1→2)"
         static let descendingOrderByNum = "По убыванию (2→1)"
     }
+    struct FRC {
+        struct Predicates {
+            static let forCurrencyScreen = "isForCurrencyScreen == YES"
+            static let noBaseCurrency = "isBaseCurrency == NO"
+            static let shortName = "shortName = %@"
+            static let shortNameBegins = "shortName BEGINSWITH[cd] %@"
+            static let fullNameContains = "fullName CONTAINS[cd] %@"
+            static let searchNameContains = "searchName CONTAINS[cd] %@"
+            static let forConverter = "isForConverter == YES"
+            static let shortNameIn = "shortName IN %@"
+        }
+    }
 }

@@ -90,7 +90,7 @@ extension BaseCurrencyTableViewController: NSFetchedResultsControllerDelegate {
         UserDefaultsManager.pickCurrencyRequest = true
         let sortDescriptor = NSSortDescriptor(key: "fullName", ascending: true)
         var searchCompoundPredicate: NSCompoundPredicate {
-            let additionalPredicate = NSPredicate(format: "isForCurrencyScreen == YES")
+            let additionalPredicate = NSPredicate(format: K.FRC.Predicates.forCurrencyScreen)
             
             if let searchPredicate = searchPredicate {
                 return NSCompoundPredicate(type: .and, subpredicates: [searchPredicate, additionalPredicate])
@@ -152,13 +152,13 @@ extension BaseCurrencyTableViewController: UISearchResultsUpdating {
         guard let searchText = searchController.searchBar.text else { return }
         
         var searchPredicate: NSCompoundPredicate {
-            let shortName = NSPredicate(format: "shortName BEGINSWITH[cd] %@", searchText)
-            let fullName = NSPredicate(format: "fullName CONTAINS[cd] %@", searchText)
-            let searchName = NSPredicate(format: "searchName CONTAINS[cd] %@", searchText)
+            let shortName = NSPredicate(format: K.FRC.Predicates.shortNameBegins, searchText)
+            let fullName = NSPredicate(format: K.FRC.Predicates.fullNameContains, searchText)
+            let searchName = NSPredicate(format: K.FRC.Predicates.searchNameContains, searchText)
             return NSCompoundPredicate(type: .or, subpredicates: [shortName, fullName, searchName])
         }
         var searchCompoundPredicate: NSCompoundPredicate {
-            let additionalPredicate = NSPredicate(format: "isForCurrencyScreen == YES")
+            let additionalPredicate = NSPredicate(format: K.FRC.Predicates.forCurrencyScreen)
             return NSCompoundPredicate(type: .and, subpredicates: [searchPredicate, additionalPredicate])
         }
         searchText.count == 0 ? setupFetchedResultsController() : setupFetchedResultsController(with: searchCompoundPredicate)

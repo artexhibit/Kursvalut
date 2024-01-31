@@ -8,7 +8,7 @@ struct WidgetsCoreDataManager {
         let request = NSFetchRequest<T>(entityName: String(describing: entityName))
         
         if !fetchAll {
-            let predicate = NSPredicate(format: "shortName IN %@", targetCurrencies)
+            let predicate = NSPredicate(format: K.FRC.Predicates.shortNameIn, targetCurrencies)
             request.predicate = predicate
         }
         
