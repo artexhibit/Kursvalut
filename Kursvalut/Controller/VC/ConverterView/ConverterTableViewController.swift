@@ -39,7 +39,7 @@ class ConverterTableViewController: UITableViewController {
         formatter = converterManager.setupNumberFormatter()
         configureNavBarTitle()
         setupKeyboardBehaviour()
-        currencyManager.configureContentInset(for: tableView, top: 10)
+        currencyManager.configureContentInset(for: tableView, top: 15)
         if UserDefaultsManager.pickedStartView == "Конвертер" { currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch() }
         NotificationsManager.Darwin.addNetworkRequestObserver(name: K.Notifications.makeDarwinNetworkRequest)
         NotificationsManager.add(self, selector: #selector(refreshConverterFRC), name: K.Notifications.refreshConverterFRC)

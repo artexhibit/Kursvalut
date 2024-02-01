@@ -16,7 +16,7 @@ extension Date {
     
     static func getCurrentTime() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+        formatter.dateFormat = "dd.MM, HH:mm"
         return formatter.string(from: Date())
     }
     

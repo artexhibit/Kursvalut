@@ -249,27 +249,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="converterCell" id="k3t-kg-8vc" userLabel="converterCell" customClass="ConverterTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="38" width="390" height="115.33333587646484"/>
+                                <rect key="frame" x="20" y="38" width="390" height="118"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k3t-kg-8vc" id="QOP-Fg-Vof">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="115.33333587646484"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="118"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="XZA-bt-zwe" userLabel="Info Stack View">
-                                            <rect key="frame" x="15" y="6" width="216.66666666666666" height="103.33333333333333"/>
+                                            <rect key="frame" x="15" y="6" width="216.66666666666666" height="106"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gnp-RA-fA6" userLabel="Flag View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="103.33333333333333"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="106"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RUB" translatesAutoresizingMaskIntoConstraints="NO" id="37A-2O-abH" userLabel="Flag">
-                                                            <rect key="frame" x="0.0" y="29.333333333333336" width="45" height="45.000000000000007"/>
+                                                            <rect key="frame" x="0.0" y="30.666666666666664" width="45" height="44.999999999999993"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="45" id="9kw-Sf-TMB"/>
                                                                 <constraint firstAttribute="height" constant="45" id="bka-NK-PW7"/>
                                                             </constraints>
                                                         </imageView>
                                                         <button hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4P1-Mn-Cez">
-                                                            <rect key="frame" x="37" y="58.333333333333329" width="11" height="11"/>
+                                                            <rect key="frame" x="37" y="59.666666666666671" width="11" height="11"/>
                                                             <color key="backgroundColor" name="OrangeColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="11" id="QVg-lM-cLe"/>
@@ -288,7 +288,7 @@
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="-2" translatesAutoresizingMaskIntoConstraints="NO" id="Wz7-HV-hEa" userLabel="Names Stack View">
-                                                    <rect key="frame" x="59.999999999999986" y="34.666666666666664" width="156.66666666666663" height="33.999999999999993"/>
+                                                    <rect key="frame" x="59.999999999999986" y="36" width="156.66666666666663" height="34"/>
                                                     <subviews>
                                                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YKk-H7-q4C">
                                                             <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="21.666666666666668"/>
@@ -298,7 +298,7 @@
                                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                                         </label>
                                                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Азербайджанский манат" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OWq-Uz-8E2">
-                                                            <rect key="frame" x="0.0" y="19.666666666666671" width="156.66666666666666" height="14.333333333333336"/>
+                                                            <rect key="frame" x="0.0" y="19.666666666666664" width="156.66666666666666" height="14.333333333333336"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
@@ -306,7 +306,7 @@
                                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                                         </label>
                                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Доллар" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaL-4V-fZQ">
-                                                            <rect key="frame" x="0.0" y="34.000000000000007" width="47" height="0.0"/>
+                                                            <rect key="frame" x="0.0" y="34" width="47" height="0.0"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="47" id="Rwt-Y6-mO2"/>
@@ -338,10 +338,10 @@
                                             </constraints>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Vr-hJ-2ij" userLabel="Number Text Field View">
-                                            <rect key="frame" x="231.66666666666663" y="6" width="148.33333333333337" height="103.33333333333333"/>
+                                            <rect key="frame" x="231.66666666666663" y="6" width="148.33333333333337" height="106"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="C3t-y4-RfR">
-                                                    <rect key="frame" x="128.33333333333334" y="0.0" width="20" height="103.33333333333333"/>
+                                                    <rect key="frame" x="128.33333333333334" y="0.0" width="20" height="106"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="mgF-jh-2PG"/>
@@ -1611,7 +1611,7 @@
                                         <rect key="frame" x="20" y="1005" width="390" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Txu-hD-yLR" id="yij-Du-rUg">
-                                            <rect key="frame" x="0.0" y="0.0" width="359.66666666666669" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="371.66666666666669" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleAspectFit" ambiguous="YES" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="SYZ-Cm-bLs">
@@ -1662,7 +1662,7 @@
                                         <rect key="frame" x="20" y="1048" width="390" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EAh-gz-pEo" id="cBd-wT-6WD">
-                                            <rect key="frame" x="0.0" y="0.0" width="359.66666666666669" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="371.66666666666669" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="iLl-pO-hXL">
@@ -2274,14 +2274,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startViewCell" id="hyY-vn-r54" userLabel="Start View Cell" customClass="StartViewTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="38" width="390" height="42.666667938232422"/>
+                                <rect key="frame" x="20" y="38" width="390" height="43.333332061767578"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hyY-vn-r54" id="Dx2-ce-Ru7">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="42.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.333332061767578"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Валюты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbc-hr-FHJ" userLabel="viewNameLabel">
-                                            <rect key="frame" x="20" y="11.000000000000002" width="350" height="20.666666666666671"/>
+                                            <rect key="frame" x="20" y="10.999999999999998" width="350" height="21.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -2319,14 +2319,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="M1Q-1H-VHB" userLabel="Theme Cell" customClass="ThemeTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="38" width="390" height="43.333332061767578"/>
+                                <rect key="frame" x="20" y="38" width="390" height="42.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M1Q-1H-VHB" id="3sk-ff-s1w">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.333332061767578"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="42.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Как в системе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrU-4i-37D" userLabel="themeNameLabel">
-                                            <rect key="frame" x="20" y="10.999999999999998" width="350" height="21.333333333333329"/>
+                                            <rect key="frame" x="20" y="11.000000000000002" width="350" height="20.666666666666671"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
