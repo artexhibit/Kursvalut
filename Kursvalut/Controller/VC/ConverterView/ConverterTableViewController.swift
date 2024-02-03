@@ -7,13 +7,14 @@ class ConverterTableViewController: UITableViewController {
     
     @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     private let navBarLabel = UILabel()
+    private let navBarIcon = UIImageView()
     
     private var bankOfRussiaFRC: NSFetchedResultsController<Currency>!
     private var forexFRC: NSFetchedResultsController<ForexCurrency>!
     private let coreDataManager = CurrencyCoreDataManager()
     private let converterManager = ConverterManager()
     private var currencyManager = CurrencyManager()
-    private let currencyNetworking = CurrencyNetworking()
+    private let currencyNetworking = CurrencyNetworkingManager()
     private var numberFromTextField: Double?
     private var pickedBankOfRussiaCurrency: Currency?
     private var pickedForexCurrency: ForexCurrency?
@@ -53,7 +54,7 @@ class ConverterTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         setupFetchedResultsController()
         shouldAnimateCellAppear = tableViewIsInEditingMode ? true : false
-        navBarLabel.text = "\(K.updateTimeTextKey) \(UserDefaultsManager.dataUpdateTime)"
+        navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
         
         if dataSourceWasChanged {
             cellHeightNames.removeAll()
@@ -499,16 +500,27 @@ class ConverterTableViewController: UITableViewController {
 extension ConverterTableViewController {
     func configureNavBarTitle() {
         guard let navigationBar = self.navigationController?.navigationBar else { return }
+        navigationBar.addSubview(navBarIcon)
         navigationBar.addSubview(navBarLabel)
         
         navBarLabel.translatesAutoresizingMaskIntoConstraints = false
-        navBarLabel.text = "\(K.updateTimeTextKey) \(UserDefaultsManager.dataUpdateTime)"
+        navBarIcon.translatesAutoresizingMaskIntoConstraints = false
+        
+        navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
         navBarLabel.textColor = .secondaryLabel
         navBarLabel.font = .systemFont(ofSize: 13)
+        navBarIcon.image = UIImage(resource: .clockArrowCirclepath)
+        navBarIcon.tintColor = .secondaryLabel
+        navBarIcon.backgroundColor = .clear
         
         NSLayoutConstraint.activate([
-            navBarLabel.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -50),
-            navBarLabel.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor, constant: 17),
+            navBarIcon.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -52),
+            navBarIcon.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor, constant: 17),
+            navBarIcon.heightAnchor.constraint(equalToConstant: 17),
+            navBarIcon.widthAnchor.constraint(equalToConstant: 17),
+            
+            navBarLabel.centerYAnchor.constraint(equalTo: navBarIcon.centerYAnchor),
+            navBarLabel.leadingAnchor.constraint(equalTo: navBarIcon.trailingAnchor, constant: 3),
             navBarLabel.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -17),
             navBarLabel.heightAnchor.constraint(equalToConstant: 15)
         ])
@@ -962,7 +974,7 @@ extension ConverterTableViewController {
 
 extension ConverterTableViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let targetOffsetPercentage: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 0.16 : 0.11
+        let targetOffsetPercentage: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 0.18 : 0.11
         let targetOffset: CGFloat = -UIScreen.main.bounds.height * targetOffsetPercentage
         let fadeRange: CGFloat = 14
         let currentOffset: CGFloat = scrollView.contentOffset.y
@@ -979,6 +991,7 @@ extension ConverterTableViewController {
         
         UIView.animate(withDuration: isInitialScroll ? 0 : 0.3) {
             self.navBarLabel.layer.opacity = opacity
+            self.navBarIcon.layer.opacity = opacity
         }
     }
     

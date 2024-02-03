@@ -88,7 +88,7 @@ struct CurrencyManager {
     //MARK: - Check For Today's First Launch Method
     
     func updateAllCurrencyTypesData(completion: @escaping () -> Void) {
-        let currencyNetworking = CurrencyNetworking()
+        let currencyNetworking = CurrencyNetworkingManager()
         let lastPickedBaseSource = UserDefaultsManager.pickedDataSource
         var completedRequests = 0
         
@@ -120,9 +120,9 @@ struct CurrencyManager {
     }
     
     func updateAllCurrencyTypesOnEachDayFirstLaunch() {
-        if UserDefaultsManager.isFirstLaunchToday != Date.todayShort {
-            UserDefaultsManager.isFirstLaunchToday = Date.todayShort
-            UserDefaultsManager.confirmedDate = Date.todayShort
+        if UserDefaultsManager.isFirstLaunchToday != Date.today {
+            UserDefaultsManager.isFirstLaunchToday = Date.today
+            UserDefaultsManager.confirmedDate = Date.today
             UserDefaultsManager.newCurrencyDataReady = true
             
             updateAllCurrencyTypesData {

@@ -5,7 +5,15 @@ extension Date {
         return Date()
     }
     
-    static var todayShort: String {
+    static var yesterday: Date {
+        return Calendar.current.date(byAdding: .day, value: -1, to: currentDate) ?? currentDate
+    }
+    
+    static var dayBeforeYesterday: Date {
+        return Calendar.current.date(byAdding: .day, value: -2, to: currentDate) ?? currentDate
+    }
+    
+    static var today: String {
         createStringDate(from: Date(), format: "dd.MM.yyyy")
     }
     
@@ -16,8 +24,27 @@ extension Date {
     
     static func getCurrentTime() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM, HH:mm"
+        
+        if Calendar.current.isDate(currentDate, inSameDayAs: currentDate) ||
+            Calendar.current.isDate(yesterday, inSameDayAs: currentDate) ||
+            Calendar.current.isDate(dayBeforeYesterday, inSameDayAs: currentDate) {
+            formatter.dateFormat = "HH:mm"
+        } else {
+            formatter.dateFormat = "dd.MM, HH:mm"
+        }
         return formatter.string(from: Date())
+    }
+    
+    static func getDataUpdateString() -> String {
+        if Calendar.current.isDate(currentDate, inSameDayAs: currentDate) {
+            K.DataUpdateStrings.today
+        } else if Calendar.current.isDate(yesterday, inSameDayAs: currentDate) {
+            K.DataUpdateStrings.yesterday
+        } else if Calendar.current.isDate(dayBeforeYesterday, inSameDayAs: currentDate) {
+            K.DataUpdateStrings.dayBeforeYesterday
+        } else {
+            K.DataUpdateStrings.longTimeAgo
+        }
     }
     
     static func createDate(from string: String) -> Date {

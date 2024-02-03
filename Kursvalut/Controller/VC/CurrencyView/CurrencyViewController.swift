@@ -9,9 +9,11 @@ class CurrencyViewController: UIViewController {
     @IBOutlet weak var dataSourceButton: UIButton!
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var separatorViewHeight: NSLayoutConstraint!
+    private let navBarLabel = UILabel()
+    private let navBarIcon = UIImageView()
     
     private var currencyManager = CurrencyManager()
-    private let currencyNetworking = CurrencyNetworking()
+    private let currencyNetworking = CurrencyNetworkingManager()
     private let coreDataManager = CurrencyCoreDataManager()
     private let datePickerView = DatePickerView()
     private let menuView = MenuView()
@@ -21,6 +23,7 @@ class CurrencyViewController: UIViewController {
     private let updateButtonTopInset: CGFloat = 8.0
     private var tabBarIndex: Int = 0
     private var canHideOpenedView = true
+    private var isInitialScroll = true
     private var tapGestureRecognizer: UITapGestureRecognizer {
         let recogniser = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         recogniser.cancelsTouchesInView = false
@@ -43,6 +46,7 @@ class CurrencyViewController: UIViewController {
         setupButtonsDesign()
         setupSearchController()
         setupRefreshControl()
+        configureNavBarTitle()
         UserDefaultsManager.CurrencyVC.isActiveCurrencyVC = true
         self.view.addGestureRecognizer(tapGestureRecognizer)
         self.navigationController?.navigationBar.addGestureRecognizer(navigationBarGestureRecogniser)
@@ -62,6 +66,7 @@ class CurrencyViewController: UIViewController {
         updateDecimalsNumber()
         dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
         updateTimeButton.setTitle(currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
+        navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
         
         if UserDefaultsManager.CurrencyVC.needToScrollUpViewController {
             scrollViewToTop()
@@ -116,6 +121,26 @@ class CurrencyViewController: UIViewController {
 
 extension CurrencyViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let targetOffsetPercentage: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 0.16 : 0.11
+        let targetOffset: CGFloat = -UIScreen.main.bounds.height * targetOffsetPercentage
+        let fadeRange: CGFloat = 14
+        let currentOffset: CGFloat = scrollView.contentOffset.y
+        var opacity: Float = 1.0
+        
+        if currentOffset < targetOffset {
+            opacity = 1.0
+        } else if currentOffset >= targetOffset && currentOffset <= targetOffset + fadeRange {
+            let percentage = 1 - ((currentOffset - targetOffset) / fadeRange)
+            opacity = Float(percentage)
+        } else {
+            opacity = 0.0
+        }
+        
+        UIView.animate(withDuration: isInitialScroll ? 0 : 0.3) {
+            self.navBarLabel.layer.opacity = opacity
+            self.navBarIcon.layer.opacity = opacity
+        }
+        
         if datePickerView.superview != nil && canHideOpenedView { datePickerView.hideView() }
         if menuView.superview != nil && canHideOpenedView { menuView.hideView() }
         canHideOpenedView = false
@@ -393,6 +418,33 @@ extension CurrencyViewController: NSFetchedResultsControllerDelegate {
 //MARK: - CurrencyViewController UI Methods
 
 extension CurrencyViewController {
+    func configureNavBarTitle() {
+        searchController.searchBar.addSubview(navBarIcon)
+        searchController.searchBar.addSubview(navBarLabel)
+        
+        navBarLabel.translatesAutoresizingMaskIntoConstraints = false
+        navBarIcon.translatesAutoresizingMaskIntoConstraints = false
+    
+        navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
+        navBarLabel.textColor = .secondaryLabel
+        navBarLabel.font = .systemFont(ofSize: 13)
+        navBarIcon.image = UIImage(resource: .clockArrowCirclepath)
+        navBarIcon.tintColor = .secondaryLabel
+        navBarIcon.backgroundColor = .clear
+        
+        NSLayoutConstraint.activate([
+            navBarIcon.topAnchor.constraint(equalTo: searchController.searchBar.topAnchor, constant: -69),
+            navBarIcon.leadingAnchor.constraint(equalTo: searchController.searchBar.leadingAnchor, constant: 17),
+            navBarIcon.heightAnchor.constraint(equalToConstant: 17),
+            navBarIcon.widthAnchor.constraint(equalToConstant: 17),
+            
+            navBarLabel.centerYAnchor.constraint(equalTo: navBarIcon.centerYAnchor),
+            navBarLabel.leadingAnchor.constraint(equalTo: navBarIcon.trailingAnchor, constant: 3),
+            navBarLabel.trailingAnchor.constraint(equalTo: searchController.searchBar.trailingAnchor, constant: -15),
+            navBarLabel.heightAnchor.constraint(equalToConstant: 15)
+        ])
+    }
+    
     func setupButtonsDesign() {
         if UIScreen().sizeType == .iPhoneSE {
             dataSourceButton.widthAnchor.constraint(equalToConstant: 110).isActive = true
@@ -439,7 +491,7 @@ extension CurrencyViewController {
     
     @objc func refreshData() {
         let lastConfirmedDate = UserDefaultsManager.confirmedDate
-        UserDefaultsManager.confirmedDate = Date.todayShort
+        UserDefaultsManager.confirmedDate = Date.today
         UserDefaultsManager.newCurrencyDataReady = true
         UserDefaultsManager.pickDateSwitchIsOn = false
         
@@ -474,6 +526,7 @@ extension CurrencyViewController {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
+                    self.navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
                 }
             }
         }
@@ -505,7 +558,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 }
                 UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else {
-                UserDefaultsManager.pickDateSwitchIsOn = pickedDate != Date.todayShort && pickedDate != Date.tomorrow ? true : false
+                UserDefaultsManager.pickDateSwitchIsOn = pickedDate != Date.today && pickedDate != Date.tomorrow ? true : false
                 
                 self.setupFetchedResultsController()
                 PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.dataDownloaded, style: .success)

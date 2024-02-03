@@ -1,7 +1,7 @@
 import CoreData
 import UIKit
 
-struct CurrencyNetworking {
+struct CurrencyNetworkingManager {
     private let coreDataManager = CurrencyCoreDataManager()
     private let currencyManager = CurrencyManager()
     private let dataToFilterOut = Set(["BTC", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPD", "XPF", "XPT"])

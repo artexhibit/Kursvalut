@@ -16,9 +16,14 @@ struct K {
     static let isFirstLaunchTodayKey = "isFirstLaunchToday"
     static let maxCalendarDateKey = "maxCalendarDate"
     static let newCurrencyDataReadyKey = "newCurrencyDataReady"
-    static let updateTimeTextKey = "Обновлено"
     static let dataUpdateTimeKey = "dataUpdateTime"
     
+    struct DataUpdateStrings {
+        static let today = "сегодня в"
+        static let yesterday = "вчера в"
+        static let dayBeforeYesterday = "позавчера в"
+        static let longTimeAgo = ""
+    }
     struct Images {
         static let defaultImage = "notFound"
         static let defaultRoundImage = "notFoundRound"
