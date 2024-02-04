@@ -1,6 +1,12 @@
 import Foundation
 
 extension Date {
+    enum DateFormat: String {
+        case dashYMD = "yyyy-MM-dd"
+        case dotDMY = "dd.MM.yyyy"
+        case slashYMD = "yyyy/MM/dd"
+    }
+    
     static var currentDate: Date {
         return Date()
     }
@@ -14,12 +20,12 @@ extension Date {
     }
     
     static var today: String {
-        createStringDate(from: Date(), format: "dd.MM.yyyy")
+        createStringDate(from: Date(), format: .dotDMY)
     }
     
     static var tomorrow: String {
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate
-        return createStringDate(from: tomorrow, format: "dd.MM.yyyy")
+        return createStringDate(from: tomorrow, format: .dotDMY)
     }
     
     static func getCurrentTime() -> String {
@@ -54,7 +60,7 @@ extension Date {
         }
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = DateFormat.dashYMD.rawValue
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         
         if let date = dateFormatter.date(from: string) {
@@ -63,10 +69,10 @@ extension Date {
         return Date()
     }
     
-    static func formatDate(from string: String, dateStyle: DateFormatter.Style = .long, format: String = "dd.MM.yyyy") -> Date {
+    static func formatDate(from string: String, dateStyle: DateFormatter.Style = .long, format: DateFormat = .dotDMY) -> Date {
         let formatter = DateFormatter()
         formatter.dateStyle = dateStyle
-        formatter.dateFormat = format
+        formatter.dateFormat = format.rawValue
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         return formatter.date(from: string) ?? Date()
     }
@@ -75,9 +81,9 @@ extension Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: today) ?? Date()
     }
     
-    static func createStringDate(from date: Date = Date(), dateStyle: DateFormatter.Style? = nil, format: String = "dd.MM.yyyy") -> String {
+    static func createStringDate(from date: Date = Date(), dateStyle: DateFormatter.Style? = nil, format: DateFormat = .dotDMY) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = format
+        formatter.dateFormat = format.rawValue
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         
         if let dateStyle = dateStyle {

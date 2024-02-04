@@ -192,7 +192,7 @@ extension CurrencyViewController: UITableViewDelegate, UITableViewDataSource {
         move.image = UIImage(systemName: K.Images.line)
         move.backgroundColor = UIColor(named: "ColorBlue")
         
-        configuration = UserDefaultsManager.proPurchased ? UISwipeActionsConfiguration(actions: [move]) : UISwipeActionsConfiguration(actions: [])
+        configuration = UserDefaultsManager.proPurchased ? UISwipeActionsConfiguration(actions: []) : UISwipeActionsConfiguration(actions: [])
         return configuration
     }
 }
@@ -500,7 +500,9 @@ extension CurrencyViewController {
         }
         setupFetchedResultsController()
         
-        currencyNetworking.performRequest { networkingError, parsingError in
+        currencyNetworking.performRequest { [weak self] networkingError, parsingError in
+            guard let self = self else { return }
+            
             if networkingError != nil {
                 guard let error = networkingError else { return }
                 self.tableView.refreshControl?.endRefreshing()
@@ -543,7 +545,9 @@ extension CurrencyViewController: DatePickerViewDelegate {
     func didPickedDateFromPicker(_ datePickerView: DatePickerView, pickedDate: String, lastConfirmedDate: String) {
         PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.oneSecond, message: K.PopupTexts.Messages.download, style: .load, type: .manual)
         
-        currencyNetworking.performRequest { networkingError, parsingError in
+        currencyNetworking.performRequest { [weak self] networkingError, parsingError in
+            guard let self = self else { return }
+            
             if networkingError != nil {
                 guard let error = networkingError else { return }
                 PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
@@ -564,6 +568,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.dataDownloaded, style: .success)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
+                    self.navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
                 }
                 WidgetsData.updateWidgets()
             }
@@ -575,21 +580,20 @@ extension CurrencyViewController: DatePickerViewDelegate {
 
 extension CurrencyViewController: MenuViewDelegate {
     func didPickDataSource(_ menuView: MenuView, dataSource: String) {
-        let lastPickedSource = UserDefaultsManager.pickedDataSource
-        let lastConfirmedDate = UserDefaultsManager.confirmedDate
+        guard dataSource != UserDefaultsManager.pickedDataSource else { return }
+        
         UserDefaultsManager.pickedDataSource = dataSource
         UserDefaultsManager.confirmedDate = currencyManager.getCurrencyDate()
         
         PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.oneSecond, message: K.PopupTexts.Messages.download, style: .load, type: .manual)
         
-        self.currencyNetworking.performRequest { networkingError, parsingError in
+        self.currencyNetworking.performRequest { [weak self] networkingError, parsingError in
+            guard let self = self else { return }
+            
             if networkingError != nil {
                 guard let error = networkingError else { return }
                 
                 PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(error.localizedDescription)", style: .failure)
-                
-                UserDefaultsManager.pickedDataSource = lastPickedSource
-                UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else if parsingError != nil {
                 guard let parsingError = parsingError else { return }
                 
@@ -598,17 +602,20 @@ extension CurrencyViewController: MenuViewDelegate {
                 } else {
                     PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.error, message: "\(parsingError.localizedDescription)", style: .failure)
                 }
-                UserDefaultsManager.pickedDataSource = lastPickedSource
-                UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else {
                 self.setupFetchedResultsController()
-                PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
-                    self.dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
+                    self.navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
                 }
+                PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
                 NotificationsManager.post(name: K.Notifications.refreshConverterFRC)
                 NotificationsManager.post(name: K.Notifications.refreshBaseCurrency)
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
+                self.dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
             }
         }
     }

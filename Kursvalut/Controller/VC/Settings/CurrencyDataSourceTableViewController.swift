@@ -219,6 +219,8 @@ class CurrencyDataSourceTableViewController: UITableViewController {
             guard let cell = tableView.cellForRow(at: indexPath) as? DataSourceTableViewCell else { return }
             let pickedOption = cell.sourceNameLabel.text ?? ""
          
+            guard pickedOption != UserDefaultsManager.pickedDataSource else { return }
+            
             cell.dataUpdateSpinner.startAnimating()
             UserDefaultsManager.pickedDataSource = pickedOption
             
@@ -322,7 +324,9 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     private func refreshData() {
-        currencyNetworking.performRequest { networkingError, parsingError in
+        currencyNetworking.performRequest { [weak self] networkingError, parsingError in
+            guard let self = self else { return }
+            
             if networkingError != nil {
                 guard let error = networkingError else { return }
                 self.resetStateToTheLastConfirmedDate()

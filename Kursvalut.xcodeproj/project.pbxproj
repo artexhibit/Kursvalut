@@ -427,6 +427,7 @@
 				787F0A5C27BADE0100DC5F0D /* ConverterManager.swift */,
 				0B29C8E22B41C66800C4EBEF /* NotificationsManager.swift */,
 				78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */,
+				7838F8FD278856CB007D34AA /* CurrencyNetworkingManager.swift */,
 				78FECEAC299C0F9B00A6C597 /* PopupQueueManager.swift */,
 				0B3111C02B49AB0100CBCCFC /* UserDefaultsManager.swift */,
 			);
@@ -508,7 +509,6 @@
 				0B3815D72B2101B100D75674 /* Persistence.swift */,
 				0B3111BB2B49A8BB00CBCCFC /* Constants.swift */,
 				0B4B4C1A2B238E42003B55A5 /* CurrencyData.swift */,
-				7838F8FD278856CB007D34AA /* CurrencyNetworkingManager.swift */,
 				78B9F5602801BBAA0030ECF4 /* SortingSection.swift */,
 				780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */,
 				78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */,

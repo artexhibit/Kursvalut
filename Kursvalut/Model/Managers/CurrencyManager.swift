@@ -39,22 +39,6 @@ struct CurrencyManager {
         return "\(differenceAttributes.Sign)\(formattedDifference) (\(formattedPercentage)%)\(differenceAttributes.Symbol)"
     }
     
-    func createStringDate(with text: String = "", from date: Date = Date(), dateStyle: DateFormatter.Style? = nil) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = text
-        
-        if let dateStyle = dateStyle {
-            formatter.dateStyle = dateStyle
-        }
-        return formatter.string(from: date)
-    }
-    
-    func createDate(from string: String, dateStyle: DateFormatter.Style = .medium) -> Date {
-        let formatter = DateFormatter()
-        formatter.dateStyle = dateStyle
-        return formatter.date(from: string) ?? Date()
-    }
-    
     //MARK: - ViewController Configuration Methods
     func configureContentInset(for tableView: UITableView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
         tableView.contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)

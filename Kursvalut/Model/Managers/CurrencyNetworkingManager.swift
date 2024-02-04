@@ -4,16 +4,15 @@ import UIKit
 struct CurrencyNetworkingManager {
     private let coreDataManager = CurrencyCoreDataManager()
     private let currencyManager = CurrencyManager()
-    private let dataToFilterOut = Set(["BTC", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPD", "XPF", "XPT"])
     private var yesterdaysDate: String {
         let confirmedDate = Date.formatDate(from: UserDefaultsManager.confirmedDate)
         let date = Calendar.current.date(byAdding: .day, value: -1, to: confirmedDate) ?? Date()
-        return Date.createStringDate(from: date, format: "yyyy-MM-dd")
+        return Date.createStringDate(from: date, format: .dashYMD)
     }
     private var currentBankOfRussiaURL: URL {
         let date = Date.formatDate(from: UserDefaultsManager.confirmedDate)
-        let confirmedDate = currencyManager.createStringDate(with: "yyyy/MM/dd", from: date)
-        let todaysDate = Date.createStringDate(format: "yyyy/MM/dd")
+        let confirmedDate = Date.createStringDate(from: date, format: .slashYMD)
+        let todaysDate = Date.createStringDate(format: .slashYMD)
     
         if (confirmedDate == todaysDate && Date.isTomorrow(date: date)) || Date.isTomorrow(date: date) || UserDefaultsManager.newCurrencyDataReady {
             return URL(string: "https://www.cbr-xml-daily.ru/daily_json.js") ?? URL(fileURLWithPath: "")
@@ -23,8 +22,8 @@ struct CurrencyNetworkingManager {
     }
     private var currentForexURL: URL {
         let date = Date.formatDate(from: UserDefaultsManager.confirmedDate)
-        let confirmedDate = currencyManager.createStringDate(with: "yyyy-MM-dd", from: date)
-        let todaysDate = Date.createStringDate(format: "yyyy-MM-dd")
+        let confirmedDate = Date.createStringDate(from: date, format: .dashYMD)
+        let todaysDate = Date.createStringDate(format: .dashYMD)
         
         if confirmedDate != todaysDate {
             return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(confirmedDate)/currencies/\(UserDefaultsManager.baseCurrency.lowercased()).json")!
@@ -99,7 +98,7 @@ struct CurrencyNetworkingManager {
         do {
             if url == currentBankOfRussiaURL {
                 let decodedData = try decoder.decode(BankOfRussiaCurrencyData.self, from: currencyData)
-                let filteredData = decodedData.Valute.filter({ dataToFilterOut.contains($0.value.CharCode) == false }).values
+                let filteredData = decodedData.Valute.filter({ CurrencyData.currenciesToFilterOut.contains($0.value.CharCode) == false }).values
                 let currenciesCurrentDate = Date.createDate(from: decodedData.Date)
                 let currenciesPreviousDate = Date.createDate(from: decodedData.PreviousDate)
                 
@@ -109,7 +108,7 @@ struct CurrencyNetworkingManager {
                 coreDataManager.removeResetBankOfRussiaCurrenciesFromConverter()
             } else {
                 let decodedData = try JSONDecoder().decode(ForexCurrencyData.self, from: currencyData)
-                let currenciesCurrentDate = Date.formatDate(from: decodedData.date, format: "yyyy-MM-dd")
+                let currenciesCurrentDate = Date.formatDate(from: decodedData.date, format: .dashYMD)
                 let currenciesPreviousDate = Date.createYesterdaysDate(from: currenciesCurrentDate)
                 let decodedDict = decodedData.currencies as [String: Double]
                 
