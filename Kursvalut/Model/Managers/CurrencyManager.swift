@@ -24,7 +24,7 @@ struct CurrencyManager {
     }
     
     func showRate(with value: Double, forConverter: Bool = false) -> String {
-        return forConverter ? String.roundDouble(value, maxDecimals: UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount) + " \(UserDefaultsManager.baseCurrency)" : String.roundDouble(value, maxDecimals: UserDefaultsManager.CurrencyVC.currencyScreenDecimalsAmount) + " \(UserDefaultsManager.baseCurrency)"
+        return forConverter ? value.round(maxDecimals: UserDefaultsManager.ConverterVC.converterScreenDecimalsAmount) + " \(UserDefaultsManager.baseCurrency)" : value.round(maxDecimals: UserDefaultsManager.CurrencyVC.currencyScreenDecimalsAmount) + " \(UserDefaultsManager.baseCurrency)"
     }
     
     func showColor() -> UIColor {
@@ -34,8 +34,8 @@ struct CurrencyManager {
     mutating func showDifference(with absoluteValue: Double, and previousValue: Double) -> String {
         difference = absoluteValue - previousValue
         let differencePercentage = (abs(difference) / ((absoluteValue + previousValue)/2)) * 100
-        let formattedDifference = String.roundDouble(abs(difference), maxDecimals: UserDefaultsManager.CurrencyVC.currencyScreenPercentageAmount)
-        let formattedPercentage = String.roundDouble(differencePercentage, maxDecimals: UserDefaultsManager.CurrencyVC.currencyScreenPercentageAmount)
+        let formattedDifference = abs(difference).round(maxDecimals: UserDefaultsManager.CurrencyVC.currencyScreenPercentageAmount)
+        let formattedPercentage = differencePercentage.round(maxDecimals: UserDefaultsManager.CurrencyVC.currencyScreenPercentageAmount)
         return "\(differenceAttributes.Sign)\(formattedDifference) (\(formattedPercentage)%)\(differenceAttributes.Symbol)"
     }
     
@@ -91,16 +91,16 @@ struct CurrencyManager {
     }
     
     func createNotificationText(with baseSource: String, newStoredDate: Date) -> String {
-        let date = Date.createStringDate(from: newStoredDate)
+        let date = newStoredDate.createStringDate()
         let cbrfCurrencies = coreDataManager.fetchCurrencies(entityName: Currency.self).filter { $0.shortName == "USD" || $0.shortName == "EUR" }.sorted { $0.shortName ?? "" > $1.shortName ?? "" }
         let forexCurrencies = coreDataManager.fetchCurrencies(entityName: ForexCurrency.self).filter { $0.shortName == "USD" || $0.shortName == "EUR" }.sorted { $0.shortName ?? "" > $1.shortName ?? "" }
         
         let usd = baseSource == CurrencyData.cbrf ? cbrfCurrencies.first?.shortName ?? "USD" : forexCurrencies.first?.shortName ?? "USD"
-        let usdValue = baseSource == CurrencyData.cbrf ? String.roundDouble(cbrfCurrencies.first?.absoluteValue ?? 0, maxDecimals: 4) : String.roundDouble(forexCurrencies.first?.absoluteValue ?? 0, maxDecimals: 4)
+        let usdValue = baseSource == CurrencyData.cbrf ? cbrfCurrencies.first?.absoluteValue.round(maxDecimals: 4) : forexCurrencies.first?.absoluteValue.round(maxDecimals: 4)
         let eur = baseSource == CurrencyData.cbrf ? cbrfCurrencies.last?.shortName ?? "EUR" : forexCurrencies.last?.shortName ?? "EUR"
-        let eurValue = baseSource == CurrencyData.cbrf ? String.roundDouble(cbrfCurrencies.last?.absoluteValue ?? 0, maxDecimals: 4) : String.roundDouble(forexCurrencies.last?.absoluteValue ?? 0, maxDecimals: 4)
+        let eurValue = baseSource == CurrencyData.cbrf ? cbrfCurrencies.last?.absoluteValue.round(maxDecimals: 4) : forexCurrencies.last?.absoluteValue.round(maxDecimals: 4)
         
-        return "Курс \(baseSource) на \(date): \(usd) - \(usdValue) \(UserDefaultsManager.baseCurrency), \(eur) - \(eurValue) \(UserDefaultsManager.baseCurrency)"
+        return "Курс \(baseSource) на \(date): \(usd) - \(usdValue ?? "") \(UserDefaultsManager.baseCurrency), \(eur ) - \(eurValue ?? "") \(UserDefaultsManager.baseCurrency)"
     }
     
     func updateAllCurrencyTypesOnEachDayFirstLaunch() {
@@ -117,6 +117,6 @@ struct CurrencyManager {
     }
     
     func getCurrencyDate(dateStyle: DateFormatter.Style? = nil) -> String {
-        return UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? Date.createStringDate(from: coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate(), dateStyle: dateStyle) : Date.createStringDate(from: coreDataManager.fetchForexCurrenciesCurrentDate(), dateStyle: dateStyle)
+        return UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate().createStringDate(dateStyle: dateStyle) : coreDataManager.fetchForexCurrenciesCurrentDate().createStringDate(dateStyle: dateStyle)
     }
 }

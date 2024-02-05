@@ -108,7 +108,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     @IBAction func datePickerPressed(_ sender: UIDatePicker) {
-        let senderDate = Date.createStringDate(from: sender.date)
+        let senderDate = sender.date.createStringDate()
         pickedDate = senderDate
         turnOffDateSwitch = pickedDate != Date.today ? true : false
         turnOffDateSwitch = pickedDate == Date.tomorrow ? false : true
@@ -261,7 +261,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     //MARK: - User Interface Handling Methods
     
     private func configureDatePicker(cell: DatePickerTableViewCell) {
-        cell.datePicker.date = pickedDate != nil ? Date.formatDate(from: pickedDate ?? "") : datePickerCurrentDate
+        cell.datePicker.date = pickedDate != nil ? pickedDate!.formatDate() : datePickerCurrentDate
         
         if let pickedDate = pickedDate, UserDefaultsManager.confirmedDate != pickedDate {
             cell.confirmButton.isEnabled = true
@@ -280,7 +280,10 @@ class CurrencyDataSourceTableViewController: UITableViewController {
         if UserDefaultsManager.CurrencyVC.isActiveCurrencyVC {
             NotificationsManager.post(name: K.Notifications.refreshData)
             UserDefaultsManager.CurrencyVC.needToScrollUpViewController = true
-            tableView.reloadRows(at: [dateIndexPath], with: .none)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                self.tableView.reloadRows(at: [self.dateIndexPath, self.datePickerIndexPath], with: .none)
+            }
         } else {
             if targetIndexPath == nil { dataSourceCellWasPressed = true }
             pickedDate = UserDefaultsManager.confirmedDate

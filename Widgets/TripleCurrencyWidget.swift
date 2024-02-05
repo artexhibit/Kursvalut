@@ -12,20 +12,29 @@ struct TripleCurrencyProvider: IntentTimelineProvider {
     }
     
     func getTimeline(for configuration: SetTripleCurrencyIntent, in context: Context, completion: @escaping (Timeline<TripleCurrencyEntry>) -> Void) {
-        guard let currencyOne = configuration.currencyOne?.prefix(3) else { return }
-        guard let currencyTwo = configuration.currencyTwo?.prefix(3) else { return }
-        guard let currencyThree = configuration.currencyThree?.prefix(3) else { return }
-        guard let baseCurrency = configuration.baseCurrency?.prefix(3) else { return }
-        guard let baseSource = configuration.baseSource else { return }
-        guard let decimals = configuration.decimals as? Int else { return }
-        let mainCurrencies = [String(currencyOne), String(currencyTwo), String(currencyThree)]
-        let values = WidgetsCoreDataManager.calculateValue(for: baseSource, with: mainCurrencies, and: String(baseCurrency), decimals: decimals, includePreviousValues: true)
-        let dates = WidgetsCoreDataManager.getDates(baseSource: baseSource, mainCurrencies: mainCurrencies)
+        var entries: [TripleCurrencyEntry] = []
+        let currentDate = Date.current
+        let endDate = Calendar.current.date(byAdding: .hour, value: 24, to: currentDate) ?? Date.current
+        var entryDate = currentDate
         
-        let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: mainCurrencies, shortNames: nil, currentValues: values.currentValues, previousValues: values.previousValues, currentValuesDate: dates.current, previousValuesDate: dates.previous, decimals: decimals)
-        
-        let entry = TripleCurrencyEntry(date: Date(), currency: currency)
-        let timeline = Timeline(entries: [entry], policy: .never)
+        while entryDate < endDate {
+            guard let currencyOne = configuration.currencyOne?.prefix(3) else { return }
+            guard let currencyTwo = configuration.currencyTwo?.prefix(3) else { return }
+            guard let currencyThree = configuration.currencyThree?.prefix(3) else { return }
+            guard let baseCurrency = configuration.baseCurrency?.prefix(3) else { return }
+            guard let baseSource = configuration.baseSource else { return }
+            guard let decimals = configuration.decimals as? Int else { return }
+            let mainCurrencies = [String(currencyOne), String(currencyTwo), String(currencyThree)]
+            let values = WidgetsCoreDataManager.calculateValue(for: baseSource, with: mainCurrencies, and: String(baseCurrency), decimals: decimals, includePreviousValues: true)
+            let dates = WidgetsCoreDataManager.getDates(baseSource: baseSource, mainCurrencies: mainCurrencies)
+            
+            let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: mainCurrencies, shortNames: nil, currentValues: values.currentValues, previousValues: values.previousValues, currentValuesDate: dates.current, previousValuesDate: dates.previous, decimals: decimals)
+            
+            let entry = TripleCurrencyEntry(date: entryDate, currency: currency)
+            entries.append(entry)
+            entryDate = Calendar.current.date(byAdding: .hour, value: 1, to: entryDate) ?? Date.current
+        }
+        let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
 }

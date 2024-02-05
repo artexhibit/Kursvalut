@@ -25,7 +25,7 @@ class DatePickerView: UIView {
             }
             return UserDefaultsManager.maxCalendarDate
         } else {
-            return Date.currentDate
+            return Date.current
         }
     }
     private var interfaceOrientation: UIInterfaceOrientation {
@@ -62,7 +62,7 @@ class DatePickerView: UIView {
     }
     
     @IBAction func datePickerPressed(_ sender: UIDatePicker) {
-        let senderDate = Date.createStringDate(from: sender.date)
+        let senderDate = sender.date.createStringDate()
         pickedDate = senderDate
         animateDoneButton()
     }

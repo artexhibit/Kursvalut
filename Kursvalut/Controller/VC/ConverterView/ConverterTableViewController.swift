@@ -54,7 +54,7 @@ class ConverterTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         setupFetchedResultsController()
         shouldAnimateCellAppear = tableViewIsInEditingMode ? true : false
-        navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
+        navBarLabel.text = "\(Date().getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
         
         if dataSourceWasChanged {
             cellHeightNames.removeAll()
@@ -506,7 +506,7 @@ extension ConverterTableViewController {
         navBarLabel.translatesAutoresizingMaskIntoConstraints = false
         navBarIcon.translatesAutoresizingMaskIntoConstraints = false
         
-        navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
+        navBarLabel.text = "\(Date().getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
         navBarLabel.textColor = .secondaryLabel
         navBarLabel.font = .systemFont(ofSize: 13)
         navBarIcon.image = UIImage(resource: .clockArrowCirclepath)

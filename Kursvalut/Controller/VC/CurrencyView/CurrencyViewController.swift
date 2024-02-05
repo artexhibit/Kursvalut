@@ -66,7 +66,7 @@ class CurrencyViewController: UIViewController {
         updateDecimalsNumber()
         dataSourceButton.setTitle(UserDefaultsManager.pickedDataSource, for: .normal)
         updateTimeButton.setTitle(currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
-        navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
+        navBarLabel.text = "\(Date().getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
         
         if UserDefaultsManager.CurrencyVC.needToScrollUpViewController {
             scrollViewToTop()
@@ -425,7 +425,7 @@ extension CurrencyViewController {
         navBarLabel.translatesAutoresizingMaskIntoConstraints = false
         navBarIcon.translatesAutoresizingMaskIntoConstraints = false
     
-        navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
+        navBarLabel.text = "\(Date().getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
         navBarLabel.textColor = .secondaryLabel
         navBarLabel.font = .systemFont(ofSize: 13)
         navBarIcon.image = UIImage(resource: .clockArrowCirclepath)
@@ -528,7 +528,7 @@ extension CurrencyViewController {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
-                    self.navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
+                    self.navBarLabel.text = "\(Date().getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
                 }
             }
         }
@@ -568,7 +568,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.dataDownloaded, style: .success)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.updateTimeButton.setTitle(self.currencyManager.getCurrencyDate(dateStyle: .long), for: .normal)
-                    self.navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
+                    self.navBarLabel.text = "\(Date().getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
                 }
                 WidgetsData.updateWidgets()
             }
@@ -606,7 +606,7 @@ extension CurrencyViewController: MenuViewDelegate {
                 self.setupFetchedResultsController()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.navBarLabel.text = "\(Date.getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
+                    self.navBarLabel.text = "\(Date().getDataUpdateString()) \(UserDefaultsManager.dataUpdateTime)"
                 }
                 PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.updated, message: K.PopupTexts.Messages.dataUpdated, style: .success)
                 NotificationsManager.post(name: K.Notifications.refreshConverterFRC)

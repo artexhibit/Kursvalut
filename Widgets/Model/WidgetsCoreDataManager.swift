@@ -44,15 +44,17 @@ struct WidgetsCoreDataManager {
             if baseSource == CurrencyData.cbrf {
                 let mainValue = get(currencies: [mainCurrency], for: baseSource).cbrf.first?.absoluteValue ?? 0
                 let baseValue = get(currencies: [baseCurrency], for: baseSource).cbrf.first?.absoluteValue ?? 0
-                let calculatedValue = String.roundDouble(mainValue / baseValue, maxDecimals: decimals)
+                let resultValue = mainValue / baseValue
+                let calculatedValue = resultValue.round(maxDecimals: decimals)
                 
-                value = String.addZero(to: calculatedValue)
+                value = calculatedValue.addZeroAsLastDigit()
             } else {
                 let mainValue = get(currencies: [mainCurrency], for: baseSource).forex.first?.absoluteValue ?? 0
                 let baseValue = get(currencies: [baseCurrency], for: baseSource).forex.first?.absoluteValue ?? 0
-                let calculatedValue = String.roundDouble(mainValue / baseValue, maxDecimals: decimals)
-                                
-                value = String.addZero(to: calculatedValue)
+                let resultValue = mainValue / baseValue
+                let calculatedValue = resultValue.round(maxDecimals: decimals)
+                
+                value = calculatedValue.addZeroAsLastDigit()
             }
             currentValues.append(value)
             
@@ -89,9 +91,9 @@ struct WidgetsCoreDataManager {
             mainValue = mainPrevValue / Double(mainNominal)
             baseValue = basePrevValue / Double(baseNominal)
         }
-        
-        let calculatedValue = String.roundDouble(mainValue / baseValue, maxDecimals: decimals)
-        value = String.addZero(to: calculatedValue)
+        let resultValue = mainValue / baseValue
+        let calculatedValue = resultValue.round(maxDecimals: decimals)
+        value = calculatedValue.addZeroAsLastDigit()
         return value
     }
     
@@ -110,16 +112,16 @@ struct WidgetsCoreDataManager {
     }
     
     static func getFirstTenCurrencies(for baseSource: String, and baseCurrency: String) -> [String] {
-        let confirmedDate = Date.formatDate(from: UserDefaultsManager.confirmedDate)
+        let confirmedDate = UserDefaultsManager.confirmedDate.formatDate()
         
         if baseSource == CurrencyData.cbrf {
-            if Calendar.current.isDate(confirmedDate, inSameDayAs: Date.currentDate) {
+            if Calendar.current.isDate(confirmedDate, inSameDayAs: Date.current) {
                 return get(for: baseSource, fetchAll: true).cbrf.filter { $0.rowForCurrency <= 9 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }.filter { $0 != baseCurrency }
             } else {
                 return get(for: baseSource, fetchAll: true).cbrf.filter { $0.rowForHistoricalCurrency <= 9 }.sorted { $0.rowForHistoricalCurrency < $1.rowForHistoricalCurrency }.compactMap { $0.shortName }.filter { $0 != baseCurrency }
             }
         } else {
-            if Calendar.current.isDate(confirmedDate, inSameDayAs: Date.currentDate) {
+            if Calendar.current.isDate(confirmedDate, inSameDayAs: Date.current) {
                 return get(for: baseSource, fetchAll: true).forex.filter { $0.rowForCurrency <= 9 }.sorted { $0.rowForCurrency < $1.rowForCurrency }.compactMap { $0.shortName }.filter{ $0 != baseCurrency }
             } else {
                 return get(for: baseSource, fetchAll: true).forex.filter { $0.rowForHistoricalCurrency <= 9 }.sorted { $0.rowForHistoricalCurrency < $1.rowForHistoricalCurrency }.compactMap { $0.shortName }.filter{ $0 != baseCurrency }

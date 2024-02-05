@@ -17,7 +17,7 @@ class DatePickerTableViewCell: UITableViewCell {
             }
             return UserDefaultsManager.maxCalendarDate
         } else {
-            return Date.currentDate
+            return Date.current
         }
     }
     

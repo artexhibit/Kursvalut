@@ -8,7 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		0B0539DA2B52D70A00FB7ECA /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B29C8E22B41C66800C4EBEF /* NotificationsManager.swift */; };
-		0B158C682B1E43BA004EA97A /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
+		0B099DDE2B6FE8930056613F /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B099DDD2B6FE8930056613F /* Enums.swift */; };
+		0B099DDF2B6FE8930056613F /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B099DDD2B6FE8930056613F /* Enums.swift */; };
+		0B099DE02B6FE8930056613F /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B099DDD2B6FE8930056613F /* Enums.swift */; };
+		0B099DE12B6FE8930056613F /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B099DDD2B6FE8930056613F /* Enums.swift */; };
+		0B099DE32B6FEA770056613F /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B099DE22B6FEA770056613F /* Double+Ext.swift */; };
+		0B099DE42B6FEA770056613F /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B099DE22B6FEA770056613F /* Double+Ext.swift */; };
+		0B099DE52B6FEA770056613F /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B099DE22B6FEA770056613F /* Double+Ext.swift */; };
+		0B099DE62B6FEA770056613F /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B099DE22B6FEA770056613F /* Double+Ext.swift */; };
+		0B158C682B1E43BA004EA97A /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+Ext.swift */; };
 		0B29C8E32B41C66800C4EBEF /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B29C8E22B41C66800C4EBEF /* NotificationsManager.swift */; };
 		0B2D6AE92B25F0CE0074AB48 /* SingleCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AE82B25F0CE0074AB48 /* SingleCurrencyView.swift */; };
 		0B2D6AEC2B25F19E0074AB48 /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
@@ -29,7 +37,7 @@
 		0B3815DA2B2107EA00D75674 /* Kursvalut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */; };
 		0B41F2D72B602607008C2F54 /* WidgetsCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */; };
 		0B41F2D82B6029D3008C2F54 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815D72B2101B100D75674 /* Persistence.swift */; };
-		0B41F2D92B6029E8008C2F54 /* String+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B81E0AF2B3703900011F99D /* String+ext.swift */; };
+		0B41F2D92B6029E8008C2F54 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B81E0AF2B3703900011F99D /* String+Ext.swift */; };
 		0B41F2DA2B60339C008C2F54 /* ChangeCurrencyIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 0B41F2DE2B60339C008C2F54 /* ChangeCurrencyIntent.intentdefinition */; };
 		0B41F2DB2B60339C008C2F54 /* ChangeCurrencyIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 0B41F2DE2B60339C008C2F54 /* ChangeCurrencyIntent.intentdefinition */; };
 		0B41F2DC2B60339C008C2F54 /* ChangeCurrencyIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 0B41F2DE2B60339C008C2F54 /* ChangeCurrencyIntent.intentdefinition */; };
@@ -42,8 +50,8 @@
 		0B4B4C462B239D8F003B55A5 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0B6D80C72B223DE200E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0B6D80C82B223F3D00E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
-		0B81E0B02B3703900011F99D /* String+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B81E0AF2B3703900011F99D /* String+ext.swift */; };
-		0B81E0B12B3703900011F99D /* String+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B81E0AF2B3703900011F99D /* String+ext.swift */; };
+		0B81E0B02B3703900011F99D /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B81E0AF2B3703900011F99D /* String+Ext.swift */; };
+		0B81E0B12B3703900011F99D /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B81E0AF2B3703900011F99D /* String+Ext.swift */; };
 		0B919C6A2B39F16C005C4BB5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B919C692B39F16C005C4BB5 /* GoogleService-Info.plist */; };
 		0B919C6B2B39F16C005C4BB5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B919C692B39F16C005C4BB5 /* GoogleService-Info.plist */; };
 		0B919C6C2B39F16C005C4BB5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B919C692B39F16C005C4BB5 /* GoogleService-Info.plist */; };
@@ -62,24 +70,24 @@
 		0BC0087C2B40705600775BC2 /* BankOfRussiaCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FF27885B86007D34AA /* BankOfRussiaCurrencyData.swift */; };
 		0BC0087E2B40706D00775BC2 /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
 		0BC008852B4070AD00775BC2 /* ForexCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E00278283EA57100EE9B4C /* ForexCurrencyData.swift */; };
-		0BC008862B4075EE00775BC2 /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
+		0BC008862B4075EE00775BC2 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+Ext.swift */; };
 		0BC008872B407DC400775BC2 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC008652B404EA700775BC2 /* NotificationService.swift */; };
 		0BC0088E2B40877000775BC2 /* CurrencyNetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7838F8FD278856CB007D34AA /* CurrencyNetworkingManager.swift */; };
 		0BC0088F2B40877800775BC2 /* CurrencyCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D5318F2793058B00EF65B2 /* CurrencyCoreDataManager.swift */; };
 		0BC008902B40878200775BC2 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3815D72B2101B100D75674 /* Persistence.swift */; };
 		0BC008912B40879000775BC2 /* Kursvalut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */; };
 		0BC008922B40879F00775BC2 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C1A2B238E42003B55A5 /* CurrencyData.swift */; };
-		0BC008932B4087AF00775BC2 /* String+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B81E0AF2B3703900011F99D /* String+ext.swift */; };
+		0BC008932B4087AF00775BC2 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B81E0AF2B3703900011F99D /* String+Ext.swift */; };
 		0BC008942B4087BD00775BC2 /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		0BC813202B25FA7F00AE5AE9 /* Kursvalut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78041C212786F9FA00C4D861 /* Kursvalut.xcdatamodeld */; };
 		0BC813232B25FB2A00AE5AE9 /* WidgetCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */; };
 		0BC813662B26260400AE5AE9 /* TripleCurrencyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC813642B26260400AE5AE9 /* TripleCurrencyWidget.swift */; };
 		0BC813692B262A0800AE5AE9 /* RoundedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC813682B262A0800AE5AE9 /* RoundedTextView.swift */; };
 		0BC8136B2B26345D00AE5AE9 /* MediumCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC8136A2B26345D00AE5AE9 /* MediumCurrencyView.swift */; };
-		0BE247CB2B27AD38000C0566 /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
+		0BE247CB2B27AD38000C0566 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+Ext.swift */; };
 		0BEEC2532B28DDAC00450E0A /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		0BEEC2542B28DDAD00450E0A /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
-		0BEEC2552B28DDCC00450E0A /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+ext.swift */; };
+		0BEEC2552B28DDCC00450E0A /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B158C672B1E43BA004EA97A /* Date+Ext.swift */; };
 		0BEEC2562B28DE5300450E0A /* WidgetsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */; };
 		0BEEC2582B28F04000450E0A /* TripleCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEEC2572B28F04000450E0A /* TripleCurrencyView.swift */; };
 		0BEEC25A2B28F61E00450E0A /* TripleCurrencyRectangularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEEC2592B28F61E00450E0A /* TripleCurrencyRectangularView.swift */; };
@@ -102,7 +110,7 @@
 		7813102827D75FE000065410 /* SMailComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813102727D75FE000065410 /* SMailComposeViewController.swift */; };
 		78137FD72833A78400F4621E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78137FD62833A78400F4621E /* TutorialViewController.swift */; };
 		78137FD92833D9AE00F4621E /* TutorialImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78137FD82833D9AE00F4621E /* TutorialImageTableViewCell.swift */; };
-		78137FDB2833EC1200F4621E /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78137FDA2833EC1200F4621E /* UIImage+extension.swift */; };
+		78137FDB2833EC1200F4621E /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78137FDA2833EC1200F4621E /* UIImage+Ext.swift */; };
 		78137FE52834047400F4621E /* changeCellOrder.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FE42834047400F4621E /* changeCellOrder.gif */; };
 		78137FEB28340EBB00F4621E /* updateCellData.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FEA28340EBB00F4621E /* updateCellData.gif */; };
 		78137FED2834127300F4621E /* changeConverterCell.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78137FEC2834127300F4621E /* changeConverterCell.gif */; };
@@ -209,7 +217,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0B158C672B1E43BA004EA97A /* Date+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ext.swift"; sourceTree = "<group>"; };
+		0B099DDD2B6FE8930056613F /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		0B099DE22B6FEA770056613F /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
+		0B158C672B1E43BA004EA97A /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		0B158C692B1E4B68004EA97A /* Kursvalut_v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Kursvalut_v3.xcdatamodel; sourceTree = "<group>"; };
 		0B29C8E22B41C66800C4EBEF /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		0B2D6AE82B25F0CE0074AB48 /* SingleCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleCurrencyView.swift; sourceTree = "<group>"; };
@@ -228,7 +238,7 @@
 		0B4B4C422B239843003B55A5 /* WidgetsIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsIntents.entitlements; sourceTree = "<group>"; };
 		0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsData.swift; sourceTree = "<group>"; };
 		0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
-		0B81E0AF2B3703900011F99D /* String+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ext.swift"; sourceTree = "<group>"; };
+		0B81E0AF2B3703900011F99D /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		0B919C692B39F16C005C4BB5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0B9872EB2B29F4D900A14F5D /* MultipleCurrencyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleCurrencyWidget.swift; sourceTree = "<group>"; };
 		0BA08AC32B441D2200BFF59C /* NotificationPermissionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionTableViewController.swift; sourceTree = "<group>"; };
@@ -270,7 +280,7 @@
 		7813102727D75FE000065410 /* SMailComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMailComposeViewController.swift; sourceTree = "<group>"; };
 		78137FD62833A78400F4621E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		78137FD82833D9AE00F4621E /* TutorialImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialImageTableViewCell.swift; sourceTree = "<group>"; };
-		78137FDA2833EC1200F4621E /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
+		78137FDA2833EC1200F4621E /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		78137FE42834047400F4621E /* changeCellOrder.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = changeCellOrder.gif; sourceTree = "<group>"; };
 		78137FEA28340EBB00F4621E /* updateCellData.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = updateCellData.gif; sourceTree = "<group>"; };
 		78137FEC2834127300F4621E /* changeConverterCell.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = changeConverterCell.gif; sourceTree = "<group>"; };
@@ -373,13 +383,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B099DE72B6FF53E0056613F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0B3111BB2B49A8BB00CBCCFC /* Constants.swift */,
+				0B099DDD2B6FE8930056613F /* Enums.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		0B158C662B1E43A6004EA97A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0B158C672B1E43BA004EA97A /* Date+ext.swift */,
-				0B81E0AF2B3703900011F99D /* String+ext.swift */,
+				0B099DE22B6FEA770056613F /* Double+Ext.swift */,
+				0B158C672B1E43BA004EA97A /* Date+Ext.swift */,
+				0B81E0AF2B3703900011F99D /* String+Ext.swift */,
 				0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */,
-				78137FDA2833EC1200F4621E /* UIImage+extension.swift */,
+				78137FDA2833EC1200F4621E /* UIImage+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -487,6 +507,7 @@
 		78041C172786F9FA00C4D861 /* Kursvalut */ = {
 			isa = PBXGroup;
 			children = (
+				0B099DE72B6FF53E0056613F /* Utilities */,
 				78041C182786F9FA00C4D861 /* AppDelegate.swift */,
 				78041C1A2786F9FA00C4D861 /* SceneDelegate.swift */,
 				0BAA1F842B1FA1D500188959 /* Kursvalut.entitlements */,
@@ -507,7 +528,6 @@
 				0BC7B69F2B6ADD4300E9B4C2 /* Managers */,
 				78E0027A283EA91C00EE9B4C /* CurrencyJSONDecodingModels */,
 				0B3815D72B2101B100D75674 /* Persistence.swift */,
-				0B3111BB2B49A8BB00CBCCFC /* Constants.swift */,
 				0B4B4C1A2B238E42003B55A5 /* CurrencyData.swift */,
 				78B9F5602801BBAA0030ECF4 /* SortingSection.swift */,
 				780AA2EA280ADF7F00ECC3C4 /* OnboardingSlide.swift */,
@@ -891,13 +911,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B41F2D92B6029E8008C2F54 /* String+ext.swift in Sources */,
+				0B41F2D92B6029E8008C2F54 /* String+Ext.swift in Sources */,
 				0B41F2D72B602607008C2F54 /* WidgetsCoreDataManager.swift in Sources */,
+				0B099DE52B6FEA770056613F /* Double+Ext.swift in Sources */,
 				0B4B4C442B23996D003B55A5 /* CurrencyData.swift in Sources */,
 				0B3111C62B49B73000CBCCFC /* Constants.swift in Sources */,
 				0B4B4C3A2B239825003B55A5 /* IntentHandler.swift in Sources */,
-				0BEEC2552B28DDCC00450E0A /* Date+ext.swift in Sources */,
+				0BEEC2552B28DDCC00450E0A /* Date+Ext.swift in Sources */,
 				0B4B4C462B239D8F003B55A5 /* UserDefaults+Ext.swift in Sources */,
+				0B099DE02B6FE8930056613F /* Enums.swift in Sources */,
 				0BEEC2562B28DE5300450E0A /* WidgetsData.swift in Sources */,
 				0B41F2D82B6029D3008C2F54 /* Persistence.swift in Sources */,
 				0BEEC25E2B28FDDE00450E0A /* WidgetCurrency.swift in Sources */,
@@ -914,11 +936,13 @@
 			files = (
 				0B41F2DB2B60339C008C2F54 /* ChangeCurrencyIntent.intentdefinition in Sources */,
 				0B2D6AE92B25F0CE0074AB48 /* SingleCurrencyView.swift in Sources */,
+				0B099DE42B6FEA770056613F /* Double+Ext.swift in Sources */,
+				0B099DDF2B6FE8930056613F /* Enums.swift in Sources */,
 				0BEEC2532B28DDAC00450E0A /* WidgetsData.swift in Sources */,
 				0BC8136B2B26345D00AE5AE9 /* MediumCurrencyView.swift in Sources */,
 				0BC813692B262A0800AE5AE9 /* RoundedTextView.swift in Sources */,
 				0B3815D02B20F85400D75674 /* WidgetsCoreDataManager.swift in Sources */,
-				0B81E0B12B3703900011F99D /* String+ext.swift in Sources */,
+				0B81E0B12B3703900011F99D /* String+Ext.swift in Sources */,
 				0B3111C22B49AB0100CBCCFC /* UserDefaultsManager.swift in Sources */,
 				0BC813662B26260400AE5AE9 /* TripleCurrencyWidget.swift in Sources */,
 				0B3815DA2B2107EA00D75674 /* Kursvalut.xcdatamodeld in Sources */,
@@ -926,7 +950,7 @@
 				0B9872EC2B29F4D900A14F5D /* MultipleCurrencyWidget.swift in Sources */,
 				0B4B4C1D2B238F58003B55A5 /* CurrencyData.swift in Sources */,
 				0BEEC2582B28F04000450E0A /* TripleCurrencyView.swift in Sources */,
-				0BE247CB2B27AD38000C0566 /* Date+ext.swift in Sources */,
+				0BE247CB2B27AD38000C0566 /* Date+Ext.swift in Sources */,
 				0B6D80C72B223DE200E2BE25 /* UserDefaults+Ext.swift in Sources */,
 				0B3815D92B21067E00D75674 /* Persistence.swift in Sources */,
 				0BEEC25A2B28F61E00450E0A /* TripleCurrencyRectangularView.swift in Sources */,
@@ -946,7 +970,8 @@
 				0BC008852B4070AD00775BC2 /* ForexCurrencyData.swift in Sources */,
 				0B3111C72B49B73000CBCCFC /* Constants.swift in Sources */,
 				0BC0087C2B40705600775BC2 /* BankOfRussiaCurrencyData.swift in Sources */,
-				0BC008932B4087AF00775BC2 /* String+ext.swift in Sources */,
+				0BC008932B4087AF00775BC2 /* String+Ext.swift in Sources */,
+				0B099DE62B6FEA770056613F /* Double+Ext.swift in Sources */,
 				0BC0087E2B40706D00775BC2 /* WidgetCurrency.swift in Sources */,
 				0B3111C42B49AB0100CBCCFC /* UserDefaultsManager.swift in Sources */,
 				0BC0088F2B40877800775BC2 /* CurrencyCoreDataManager.swift in Sources */,
@@ -957,8 +982,9 @@
 				0BC008872B407DC400775BC2 /* NotificationService.swift in Sources */,
 				0B0539DA2B52D70A00FB7ECA /* NotificationsManager.swift in Sources */,
 				0BC0088E2B40877000775BC2 /* CurrencyNetworkingManager.swift in Sources */,
-				0BC008862B4075EE00775BC2 /* Date+ext.swift in Sources */,
+				0BC008862B4075EE00775BC2 /* Date+Ext.swift in Sources */,
 				0BC008902B40878200775BC2 /* Persistence.swift in Sources */,
+				0B099DE12B6FE8930056613F /* Enums.swift in Sources */,
 				0BF976552B63F4AC00F27AD3 /* CurrencyManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -971,7 +997,7 @@
 				78E9B79C27D7958A00BB5249 /* PrivacyPolicyTableViewCell.swift in Sources */,
 				785EFE1F28C4DB8700257C8F /* CustomSortTableViewCell.swift in Sources */,
 				7838F90027885B86007D34AA /* BankOfRussiaCurrencyData.swift in Sources */,
-				78137FDB2833EC1200F4621E /* UIImage+extension.swift in Sources */,
+				78137FDB2833EC1200F4621E /* UIImage+Ext.swift in Sources */,
 				783BCB9927CD288B00430992 /* DecimalsTableViewCell.swift in Sources */,
 				0BC813232B25FB2A00AE5AE9 /* WidgetCurrency.swift in Sources */,
 				78B9F55F2801B9F10030ECF4 /* SubSortTableViewCell.swift in Sources */,
@@ -984,7 +1010,7 @@
 				78F13FF327CE9AD80076613A /* ConverterPreviewTableViewCell.swift in Sources */,
 				7813102827D75FE000065410 /* SMailComposeViewController.swift in Sources */,
 				7852295F279B19E300507877 /* PickCurrencyTableViewController.swift in Sources */,
-				0B158C682B1E43BA004EA97A /* Date+ext.swift in Sources */,
+				0B158C682B1E43BA004EA97A /* Date+Ext.swift in Sources */,
 				0BA08AC42B441D2200BFF59C /* NotificationPermissionTableViewController.swift in Sources */,
 				78041C1D2786F9FA00C4D861 /* CurrencyViewController.swift in Sources */,
 				78BD46DF27F07460002AFDA1 /* PopupView.swift in Sources */,
@@ -1001,6 +1027,7 @@
 				0BEEC2542B28DDAD00450E0A /* WidgetsData.swift in Sources */,
 				78CEB9AB2813F83900AE0903 /* OnboardingTableViewCell.swift in Sources */,
 				0B6D80C82B223F3D00E2BE25 /* UserDefaults+Ext.swift in Sources */,
+				0B099DE32B6FEA770056613F /* Double+Ext.swift in Sources */,
 				78E9B79A27D7956300BB5249 /* PrivacyPolicyViewController.swift in Sources */,
 				7831DAEA28B0FAC4008A1758 /* DatePickerTableViewCell.swift in Sources */,
 				78F2716D27CFE00400381CA9 /* StartViewTableViewCell.swift in Sources */,
@@ -1029,7 +1056,7 @@
 				78B40A1027D659BB0016D9E6 /* PermissionsViewController.swift in Sources */,
 				7877053A29B25F2C004C5C1D /* MenuView.swift in Sources */,
 				789FD81E288F06B80084468F /* NumpadView.swift in Sources */,
-				0B81E0B02B3703900011F99D /* String+ext.swift in Sources */,
+				0B81E0B02B3703900011F99D /* String+Ext.swift in Sources */,
 				780AA2E7280ACE9000ECC3C4 /* OnboardingViewController.swift in Sources */,
 				0B3815D12B20F89700D75674 /* WidgetsCoreDataManager.swift in Sources */,
 				78B9F55D2801B9B50030ECF4 /* MainSortTableViewCell.swift in Sources */,
@@ -1038,6 +1065,7 @@
 				0B3111C12B49AB0100CBCCFC /* UserDefaultsManager.swift in Sources */,
 				780AA2ED280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift in Sources */,
 				78137FD92833D9AE00F4621E /* TutorialImageTableViewCell.swift in Sources */,
+				0B099DDE2B6FE8930056613F /* Enums.swift in Sources */,
 				7841735E27E6460000A35530 /* ProTableViewCell.swift in Sources */,
 				787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */,
 				78B49AE427CBD3D5003C975D /* DecimalsTableViewController.swift in Sources */,
