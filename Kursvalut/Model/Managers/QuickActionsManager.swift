@@ -29,14 +29,14 @@ struct QuickActionsManager {
         ]
     }
     
-    static func performActionOn(actionItem: UIApplicationShortcutItem, in window: UIWindow?) {
+    static func performActionOn(actionItem: UIApplicationShortcutItem, in tabBarController: UITabBarController) {
         guard let quickActionItem = QuickActionType(rawValue: actionItem.type) else { return }
         
         switch quickActionItem {
         case .openCurrencyScreen:
-            setTabBar(index: 0, in: window)
+            set(tabBarController: tabBarController, index: 0)
         case .openConverterScreen:
-            setTabBar(index: 1, in: window)
+            set(tabBarController: tabBarController, index: 1)
         case .showCBRFSource:
             UserDefaultsManager.pickedDataSource = CurrencyData.cbrf
         case .showForexSource:
@@ -44,8 +44,7 @@ struct QuickActionsManager {
         }
     }
     
-    static private func setTabBar(index: Int, in window: UIWindow?) {
-        guard let tabBarController = window?.rootViewController as? UITabBarController else { return }
+    static private func set(tabBarController: UITabBarController, index: Int) {
         tabBarController.selectedIndex = index
     }
 }

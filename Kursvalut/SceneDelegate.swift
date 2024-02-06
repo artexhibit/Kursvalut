@@ -8,17 +8,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
-        guard let shortcutItem = connectionOptions.shortcutItem else { return }
-        guard let tabBarController = self.window?.rootViewController as? UITabBarController else { return }
-        
+        guard let tabBarController = UIHelper.configureTabBarController(in: window) else { return }
+
         //Temporary set the color for future change color section in settings
         UserDefaultsManager.appColor = "ColorOrange"
-        tabBarController.selectedIndex = UserDefaultsManager.pickedStartView == "Валюты" ? 0 : 1
-        tabBarController.tabBar.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         UINavigationBar.appearance().tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         window?.overrideUserInterfaceStyle = currencyManager.switchTheme()
         
-        QuickActionsManager.performActionOn(actionItem: shortcutItem, in: window)
+        guard let shortcutItem = connectionOptions.shortcutItem else { return }
+        QuickActionsManager.performActionOn(actionItem: shortcutItem, in: tabBarController)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -49,7 +47,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        QuickActionsManager.performActionOn(actionItem: shortcutItem, in: window)
+        guard let tabBarController = UIHelper.configureTabBarController(in: window) else { return }
+        QuickActionsManager.performActionOn(actionItem: shortcutItem, in: tabBarController)
     }
 }
 

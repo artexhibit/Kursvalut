@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B04F1732B72A0DA00FA34B0 /* QuickActionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B04F1722B72A0DA00FA34B0 /* QuickActionsManager.swift */; };
+		0B04F1752B72B6FE00FA34B0 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B04F1742B72B6FE00FA34B0 /* UIHelper.swift */; };
 		0B0539DA2B52D70A00FB7ECA /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B29C8E22B41C66800C4EBEF /* NotificationsManager.swift */; };
 		0B099DDE2B6FE8930056613F /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B099DDD2B6FE8930056613F /* Enums.swift */; };
 		0B099DDF2B6FE8930056613F /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B099DDD2B6FE8930056613F /* Enums.swift */; };
@@ -219,6 +220,7 @@
 
 /* Begin PBXFileReference section */
 		0B04F1722B72A0DA00FA34B0 /* QuickActionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsManager.swift; sourceTree = "<group>"; };
+		0B04F1742B72B6FE00FA34B0 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		0B099DDD2B6FE8930056613F /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		0B099DE22B6FEA770056613F /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
 		0B158C672B1E43BA004EA97A /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 			children = (
 				0B3111BB2B49A8BB00CBCCFC /* Constants.swift */,
 				0B099DDD2B6FE8930056613F /* Enums.swift */,
+				0B04F1742B72B6FE00FA34B0 /* UIHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1069,6 +1072,7 @@
 				780AA2ED280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift in Sources */,
 				78137FD92833D9AE00F4621E /* TutorialImageTableViewCell.swift in Sources */,
 				0B04F1732B72A0DA00FA34B0 /* QuickActionsManager.swift in Sources */,
+				0B04F1752B72B6FE00FA34B0 /* UIHelper.swift in Sources */,
 				0B099DDE2B6FE8930056613F /* Enums.swift in Sources */,
 				7841735E27E6460000A35530 /* ProTableViewCell.swift in Sources */,
 				787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */,
@@ -1134,7 +1138,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = WidgetsIntents/WidgetsIntents.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1165,7 +1169,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = WidgetsIntents/WidgetsIntents.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1197,7 +1201,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = WidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1230,7 +1234,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = WidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1260,7 +1264,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1291,7 +1295,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1445,7 +1449,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Kursvalut/Kursvalut.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kursvalut/Info.plist;
@@ -1477,7 +1481,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Kursvalut/Kursvalut.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Y43668Q2S4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kursvalut/Info.plist;
