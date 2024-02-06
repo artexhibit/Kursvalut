@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B04F1732B72A0DA00FA34B0 /* QuickActionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B04F1722B72A0DA00FA34B0 /* QuickActionsManager.swift */; };
 		0B0539DA2B52D70A00FB7ECA /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B29C8E22B41C66800C4EBEF /* NotificationsManager.swift */; };
 		0B099DDE2B6FE8930056613F /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B099DDD2B6FE8930056613F /* Enums.swift */; };
 		0B099DDF2B6FE8930056613F /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B099DDD2B6FE8930056613F /* Enums.swift */; };
@@ -217,6 +218,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B04F1722B72A0DA00FA34B0 /* QuickActionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsManager.swift; sourceTree = "<group>"; };
 		0B099DDD2B6FE8930056613F /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		0B099DE22B6FEA770056613F /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
 		0B158C672B1E43BA004EA97A /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 				7838F8FD278856CB007D34AA /* CurrencyNetworkingManager.swift */,
 				78FECEAC299C0F9B00A6C597 /* PopupQueueManager.swift */,
 				0B3111C02B49AB0100CBCCFC /* UserDefaultsManager.swift */,
+				0B04F1722B72A0DA00FA34B0 /* QuickActionsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1065,6 +1068,7 @@
 				0B3111C12B49AB0100CBCCFC /* UserDefaultsManager.swift in Sources */,
 				780AA2ED280AEA8D00ECC3C4 /* WelcomeOnboardingCollectionViewCell.swift in Sources */,
 				78137FD92833D9AE00F4621E /* TutorialImageTableViewCell.swift in Sources */,
+				0B04F1732B72A0DA00FA34B0 /* QuickActionsManager.swift in Sources */,
 				0B099DDE2B6FE8930056613F /* Enums.swift in Sources */,
 				7841735E27E6460000A35530 /* ProTableViewCell.swift in Sources */,
 				787F0A5D27BADE0100DC5F0D /* ConverterManager.swift in Sources */,

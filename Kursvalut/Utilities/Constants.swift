@@ -18,6 +18,12 @@ struct K {
     static let newCurrencyDataReadyKey = "newCurrencyDataReady"
     static let dataUpdateTimeKey = "dataUpdateTime"
     
+    struct QuickActionTitles {
+        static let getCurrency = "Открыть Валюты"
+        static let getConverter = "Открыть Конвертер"
+        static let showCBRF = "Показать курс ЦБ РФ"
+        static let showForex = "Показать курс Форекс"
+    }
     struct DataUpdateStrings {
         static let today = "сегодня в"
         static let yesterday = "вчера в"
@@ -55,6 +61,8 @@ struct K {
         static let circleTwo = "2.circle"
         static let circleThree = "3.circle"
         static let circleFour = "4.circle"
+        static let globeEurope = "globe.europe.africa.fill"
+        static let arrowLeftRight = "arrow.left.arrow.right"
     }
     
     struct Notifications {

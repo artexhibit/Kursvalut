@@ -8,28 +8,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
+        guard let shortcutItem = connectionOptions.shortcutItem else { return }
+        guard let tabBarController = self.window?.rootViewController as? UITabBarController else { return }
         
         //Temporary set the color for future change color section in settings
         UserDefaultsManager.appColor = "ColorOrange"
-        
-        guard let tabBarController = self.window?.rootViewController as? UITabBarController else { return }
         tabBarController.selectedIndex = UserDefaultsManager.pickedStartView == "Валюты" ? 0 : 1
         tabBarController.tabBar.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         UINavigationBar.appearance().tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         window?.overrideUserInterfaceStyle = currencyManager.switchTheme()
+        
+        QuickActionsManager.performActionOn(actionItem: shortcutItem, in: window)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
+        if UserDefaultsManager.proPurchased { QuickActionsManager.createQuickActionsItems() }
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
+        if UserDefaultsManager.proPurchased { QuickActionsManager.createQuickActionsItems() }
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -44,6 +46,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Save changes in the application's managed object context when the application transitions to the background.
         PersistenceController.shared.saveContext()
+    }
+    
+    func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        QuickActionsManager.performActionOn(actionItem: shortcutItem, in: window)
     }
 }
 
