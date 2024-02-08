@@ -20,6 +20,7 @@ class SettingsTableViewController: UITableViewController {
         roundViewCorners()
         if UserDefaultsManager.proPurchased { unlockPro(for: proLabel) }
         NotificationsManager.add(self, selector: #selector(reloadData), name: K.Notifications.pro)
+        UIHelper.createPanGesture(in: self, edge: .left, selector: #selector(didPanLeft(_:)))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -146,6 +147,14 @@ class SettingsTableViewController: UITableViewController {
         } else {
             PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.error, message: K.PopupTexts.Messages.failureToOpenAppStore, style: .failure)
         }
+    }
+}
+
+//MARK: - UIGestureRecognizerDelegate Methods To Switch VC With Swipe
+
+extension SettingsTableViewController: UIGestureRecognizerDelegate {
+    @objc func didPanLeft(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .ended { self.tabBarController?.selectedIndex = 1 }
     }
 }
 

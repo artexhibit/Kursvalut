@@ -7,4 +7,11 @@ struct UIHelper {
         tabBarController.tabBar.tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         return tabBarController
     }
+    
+    static func createPanGesture(in viewController: UIViewController, edge: UIRectEdge, selector: Selector) {
+        let screenEdgePanGesture = UIScreenEdgePanGestureRecognizer.init(target: viewController, action: selector)
+        screenEdgePanGesture.edges = edge
+        screenEdgePanGesture.delegate = viewController as? any UIGestureRecognizerDelegate
+        viewController.view.addGestureRecognizer(screenEdgePanGesture)
+    }
 }

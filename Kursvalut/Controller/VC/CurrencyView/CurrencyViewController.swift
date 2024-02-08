@@ -47,6 +47,7 @@ class CurrencyViewController: UIViewController {
         setupSearchController()
         setupRefreshControl()
         configureNavBarTitle()
+        UIHelper.createPanGesture(in: self, edge: .right, selector: #selector(didPanRight(_:)))
         UserDefaultsManager.CurrencyVC.isActiveCurrencyVC = true
         self.view.addGestureRecognizer(tapGestureRecognizer)
         self.navigationController?.navigationBar.addGestureRecognizer(navigationBarGestureRecogniser)
@@ -622,6 +623,14 @@ extension CurrencyViewController: MenuViewDelegate {
     
     func didFinishHideAnimation(_ menuView: MenuView) {
         canHideOpenedView = true
+    }
+}
+
+//MARK: - UIGestureRecognizerDelegate Methods To Switch VC With Swipe
+
+extension CurrencyViewController: UIGestureRecognizerDelegate {
+    @objc func didPanRight(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .ended { self.tabBarController?.selectedIndex = 1 }
     }
 }
 

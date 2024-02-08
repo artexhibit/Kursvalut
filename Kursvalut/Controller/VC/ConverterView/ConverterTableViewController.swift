@@ -39,6 +39,8 @@ class ConverterTableViewController: UITableViewController {
         super.viewDidLoad()
         formatter = converterManager.setupNumberFormatter()
         configureNavBarTitle()
+        UIHelper.createPanGesture(in: self, edge: .left, selector: #selector(self.didPanLeft(_:)))
+        UIHelper.createPanGesture(in: self, edge: .right, selector: #selector(self.didPanRight(_:)))
         setupKeyboardBehaviour()
         currencyManager.configureContentInset(for: tableView, top: 15)
         if UserDefaultsManager.pickedStartView == "Конвертер" { currencyManager.updateAllCurrencyTypesOnEachDayFirstLaunch() }
@@ -997,6 +999,18 @@ extension ConverterTableViewController {
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         isInitialScroll = false
+    }
+}
+
+//MARK: - UIGestureRecognizerDelegate Methods To Switch VC With Swipe
+
+extension ConverterTableViewController: UIGestureRecognizerDelegate {
+    @objc func didPanRight(_ recognizer: UIScreenEdgePanGestureRecognizer)  {
+        if recognizer.state == .ended { self.tabBarController?.selectedIndex = 2 }
+    }
+    
+    @objc func didPanLeft(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .ended { self.tabBarController?.selectedIndex = 0 }
     }
 }
 
