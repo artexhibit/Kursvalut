@@ -5,7 +5,6 @@ import AudioToolbox
 
 class ConverterTableViewController: UITableViewController {
     
-    @IBOutlet weak var doneEditingButton: UIBarButtonItem!
     private let navBarLabel = UILabel()
     private let navBarIcon = UIImageView()
     
@@ -37,6 +36,10 @@ class ConverterTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.dragInteractionEnabled = true
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        
         formatter = converterManager.setupNumberFormatter()
         configureNavBarTitle()
         UIHelper.createPanGesture(in: self, edge: .left, selector: #selector(self.didPanLeft(_:)))
@@ -77,18 +80,6 @@ class ConverterTableViewController: UITableViewController {
         super.viewWillDisappear(animated)
         avoidTriggerCellsHeightChange = true
         if UserDefaultsManager.ConverterVC.canSaveConverterValues { saveTextFieldNumbers() }
-    }
-    
-    @IBAction func doneEditingPressed(_ sender: UIBarButtonItem) {
-        turnEditing()
-        tableViewIsInEditingMode = false
-        
-        for cell in activeConverterCells { cell.animateIn() }
-        for cell in self.activeConverterCells { cell.switchNumberTextField(to: .on) }
-        
-        updateTableView()
-        canSetCustomCellHeight = true
-        updateTableView()
     }
     
     @IBAction func addNewCurrencyButtonPressed(_ sender: UIBarButtonItem) {
@@ -147,9 +138,6 @@ class ConverterTableViewController: UITableViewController {
                 cell.numberTextField.text = calculationResult
             }
         }
-        cell.numberTextField.isHidden = tableViewIsInEditingMode ? true : false
-        cell.numberTextField.alpha = tableViewIsInEditingMode ? 0 : 1
-        cell.numberTextField.isUserInteractionEnabled = tableViewIsInEditingMode ? false : true
         cell.secondFullName.text = CurrencyData.currencyFullNameDict[cell.shortName.text ?? "RUB"]?.shortName
         
         if UserDefaultsManager.ConverterVC.setTextFieldToZero && !UserDefaultsManager.ConverterVC.canSaveConverterValues {
@@ -175,20 +163,6 @@ class ConverterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let move = UIContextualAction(style: .normal, title: nil) { [self] action, view, completionHandler in
-            turnEditing()
-            turnEditing()
-            canSetCustomCellHeight = false
-            tableViewIsInEditingMode = true
-            
-            for cell in self.activeConverterCells { cell.animateOut(completion: nil) }
-            for cell in self.activeConverterCells { cell.switchNumberTextField(to: .off) }
-            updateTableView()
-            completionHandler(true)
-        }
-        move.image = UIImage(systemName: K.Images.line)
-        move.backgroundColor = UIColor(named: "ColorBlue")
-        
         let delete = UIContextualAction(style: .destructive, title: nil) { [self] (action, view, completionHandler) in
             shouldAnimateCellAppear = false
             avoidTriggerCellsHeightChange = true
@@ -236,38 +210,23 @@ class ConverterTableViewController: UITableViewController {
             }
             PersistenceController.shared.saveContext()
             updateCellsHeightAfterDeletion(at: indexPath)
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
                 self.avoidTriggerCellsHeightChange = false
+                self.recalculateCellsHeight(clearCellHeightNames: false)
                 self.updateTableView()
             }
+ 
             completionHandler(true)
         }
         delete.image = UIImage(systemName: K.Images.trash)
         delete.backgroundColor = UIColor(named: "ColorRed")
         
-        if UserDefaultsManager.proPurchased {
-            let configuration = UISwipeActionsConfiguration(actions: [delete, move])
-            return configuration
-        } else {
-            let configuration = UISwipeActionsConfiguration(actions: [delete])
-            return configuration
-        }
+        let configuration = UISwipeActionsConfiguration(actions: [delete])
+        return configuration
     }
     
     //MARK: - Methods for Working with TableView
-    
-    func turnEditing() {
-        if tableView.isEditing {
-            tableView.isEditing = false
-            doneEditingButton.title = ""
-            doneEditingButton.isEnabled = false
-        } else {
-            tableView.isEditing = true
-            doneEditingButton.isEnabled = true
-            doneEditingButton.title = "Готово"
-        }
-    }
     
     @objc func refreshConverterFRC() {
         UserDefaultsManager.ConverterVC.setTextFieldToZero = true
@@ -497,6 +456,43 @@ class ConverterTableViewController: UITableViewController {
         return false
     }
 }
+
+//MARK: - UITableViewDragDelegate & UITableViewDropDelegate Methods
+
+extension ConverterTableViewController: UITableViewDragDelegate, UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let currencyItem = UIDragItem(itemProvider: NSItemProvider())
+        currencyItem.localObject = indexPath
+        return [currencyItem]
+    }
+    
+    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        shouldAnimateCellAppear = false
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidEnd session: UIDropSession) {
+        tableViewIsInEditingMode = false
+        canSetCustomCellHeight = true
+        recalculateCellsHeight(clearCellHeightNames: false)
+        updateTableView()
+        
+        if !UserDefaultsManager.proPurchased {
+            PopupQueueManager.shared.addPopupToQueue(title: K.PopupTexts.Titles.onlyPro, message: K.PopupTexts.Messages.ownSearchInPro, style: .lock)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        var dropProposal = UITableViewDropProposal(operation: .forbidden)
+        guard session.items.count == 1 else { return dropProposal }
+
+        dropProposal = UserDefaultsManager.proPurchased ? UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath) : UITableViewDropProposal(operation: .forbidden)
+        return dropProposal
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+    }
+}
+
 //MARK: - ConverterTableViewController UI Methods
 
 extension ConverterTableViewController {
@@ -818,7 +814,7 @@ extension ConverterTableViewController: UITextFieldDelegate {
     }
     
     func restrictEnteredDigitAmount(from string: String) -> Bool {
-        let maxDigits = 7
+        let maxDigits = 10
         
         let parts = string.components(separatedBy: CharacterSet(charactersIn: ",."))
         if parts.count == 1 {

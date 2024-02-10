@@ -14,7 +14,7 @@
         <!--Currency View Controller-->
         <scene sceneID="n8G-dq-dRA">
             <objects>
-                <viewController id="KcP-4b-ebc" userLabel="Currency View Controller" customClass="CurrencyViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CurrencyVC" id="KcP-4b-ebc" userLabel="Currency View Controller" customClass="CurrencyViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cZ2-f5-qkg">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -243,33 +243,33 @@
         <!--Converter Table View Controller-->
         <scene sceneID="HEg-rd-FNw">
             <objects>
-                <tableViewController id="7CZ-dz-alq" userLabel="Converter Table View Controller" customClass="ConverterTableViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ConverterTVC" id="7CZ-dz-alq" userLabel="Converter Table View Controller" customClass="ConverterTableViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="Cd2-GM-0dN">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="converterCell" id="k3t-kg-8vc" userLabel="converterCell" customClass="ConverterTableViewCell" customModule="Kursvalut" customModuleProvider="target">
-                                <rect key="frame" x="20" y="38" width="390" height="128.33332824707031"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="converterCell" rowHeight="76" id="k3t-kg-8vc" userLabel="converterCell" customClass="ConverterTableViewCell" customModule="Kursvalut" customModuleProvider="target">
+                                <rect key="frame" x="20" y="38" width="390" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k3t-kg-8vc" id="QOP-Fg-Vof">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="128.33332824707031"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="76"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="XZA-bt-zwe" userLabel="Info Stack View">
-                                            <rect key="frame" x="15" y="5.9999999999999929" width="216.66666666666666" height="116.33333333333331"/>
+                                            <rect key="frame" x="15" y="12.666666666666664" width="216.66666666666666" height="51"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gnp-RA-fA6" userLabel="Flag View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="116.33333333333333"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="51"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RUB" translatesAutoresizingMaskIntoConstraints="NO" id="37A-2O-abH" userLabel="Flag">
-                                                            <rect key="frame" x="0.0" y="35.666666666666664" width="45" height="44.999999999999993"/>
+                                                            <rect key="frame" x="0.0" y="3" width="45" height="45"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="45" id="9kw-Sf-TMB"/>
                                                                 <constraint firstAttribute="height" constant="45" id="bka-NK-PW7"/>
                                                             </constraints>
                                                         </imageView>
                                                         <button hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4P1-Mn-Cez">
-                                                            <rect key="frame" x="37" y="64.666666666666671" width="11" height="11"/>
+                                                            <rect key="frame" x="37" y="32" width="11" height="11"/>
                                                             <color key="backgroundColor" name="OrangeColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="11" id="QVg-lM-cLe"/>
@@ -288,7 +288,7 @@
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="-2" translatesAutoresizingMaskIntoConstraints="NO" id="Wz7-HV-hEa" userLabel="Names Stack View">
-                                                    <rect key="frame" x="59.999999999999986" y="41.333333333333336" width="156.66666666666663" height="34.000000000000007"/>
+                                                    <rect key="frame" x="59.999999999999986" y="8.3333333333333357" width="156.66666666666663" height="34"/>
                                                     <subviews>
                                                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YKk-H7-q4C">
                                                             <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="21.666666666666668"/>
@@ -306,7 +306,7 @@
                                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                                         </label>
                                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Доллар" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaL-4V-fZQ">
-                                                            <rect key="frame" x="0.0" y="33.999999999999993" width="47" height="0.0"/>
+                                                            <rect key="frame" x="0.0" y="34" width="47" height="0.0"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="47" id="Rwt-Y6-mO2"/>
@@ -338,14 +338,11 @@
                                             </constraints>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Vr-hJ-2ij" userLabel="Number Text Field View">
-                                            <rect key="frame" x="231.66666666666663" y="5.9999999999999929" width="148.33333333333337" height="116.33333333333331"/>
+                                            <rect key="frame" x="231.66666666666663" y="6" width="148.33333333333337" height="64"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="C3t-y4-RfR">
-                                                    <rect key="frame" x="128.33333333333334" y="0.0" width="20" height="116.33333333333333"/>
+                                                    <rect key="frame" x="128.33333333333334" y="0.0" width="20" height="64"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="mgF-jh-2PG"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                                 </textField>
@@ -353,20 +350,20 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="C3t-y4-RfR" secondAttribute="trailing" id="PuO-rV-YVM"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="XUJ-oP-5rM"/>
+                                                <constraint firstItem="C3t-y4-RfR" firstAttribute="top" secondItem="0Vr-hJ-2ij" secondAttribute="top" id="ZrS-qo-iGl"/>
                                                 <constraint firstAttribute="bottom" secondItem="C3t-y4-RfR" secondAttribute="bottom" id="kkb-uF-ZlG"/>
-                                                <constraint firstItem="C3t-y4-RfR" firstAttribute="top" secondItem="0Vr-hJ-2ij" secondAttribute="top" id="n32-n4-oMT"/>
                                             </constraints>
                                         </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="0Vr-hJ-2ij" secondAttribute="trailing" constant="10" id="EVv-sx-7ru"/>
                                         <constraint firstItem="0Vr-hJ-2ij" firstAttribute="width" secondItem="QOP-Fg-Vof" secondAttribute="width" multiplier="0.38" id="EuK-aW-h0N"/>
-                                        <constraint firstAttribute="bottom" secondItem="0Vr-hJ-2ij" secondAttribute="bottom" constant="6" id="EyD-G5-oeg"/>
                                         <constraint firstItem="0Vr-hJ-2ij" firstAttribute="leading" secondItem="XZA-bt-zwe" secondAttribute="trailing" id="MER-sV-aJu"/>
-                                        <constraint firstItem="XZA-bt-zwe" firstAttribute="top" secondItem="QOP-Fg-Vof" secondAttribute="top" constant="6" id="ONl-MH-QQF"/>
                                         <constraint firstItem="XZA-bt-zwe" firstAttribute="leading" secondItem="QOP-Fg-Vof" secondAttribute="leading" constant="15" id="Tt6-1E-F7A"/>
-                                        <constraint firstAttribute="bottom" secondItem="XZA-bt-zwe" secondAttribute="bottom" constant="6" id="fkz-Cf-qOA"/>
-                                        <constraint firstItem="0Vr-hJ-2ij" firstAttribute="top" secondItem="QOP-Fg-Vof" secondAttribute="top" constant="6" id="riz-x2-8Tb"/>
+                                        <constraint firstItem="XZA-bt-zwe" firstAttribute="centerY" secondItem="QOP-Fg-Vof" secondAttribute="centerY" id="YE1-fx-cvF"/>
+                                        <constraint firstAttribute="bottom" secondItem="0Vr-hJ-2ij" secondAttribute="bottom" constant="6" id="eHd-VO-Dyu"/>
+                                        <constraint firstItem="0Vr-hJ-2ij" firstAttribute="top" secondItem="QOP-Fg-Vof" secondAttribute="top" constant="6" id="usP-2S-E6t"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="62" minY="0.0" maxX="13" maxY="0.0"/>
@@ -395,11 +392,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Конвертер" id="bsY-Hn-9A3">
-                        <barButtonItem key="leftBarButtonItem" title=" " id="WXI-kA-tYn">
-                            <connections>
-                                <action selector="doneEditingPressed:" destination="7CZ-dz-alq" id="cRR-Xe-2D2"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="F39-hz-bc4">
                             <connections>
                                 <action selector="addNewCurrencyButtonPressed:" destination="7CZ-dz-alq" id="gu0-Qb-Wbk"/>
@@ -407,13 +399,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="doneEditingButton" destination="WXI-kA-tYn" id="2kG-Ui-BtJ"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2BI-ex-Q7P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="257.97101449275362" y="1587.7232142857142"/>
+            <point key="canvasLocation" x="256.74418604651163" y="1587.5536480686696"/>
         </scene>
         <!--Pick Currency Table View Controller-->
         <scene sceneID="X79-H2-AaX">
@@ -650,7 +639,7 @@
         <!--Settings Table View Controller-->
         <scene sceneID="Wxi-4f-yBY">
             <objects>
-                <tableViewController id="BCS-Ga-ALS" userLabel="Settings Table View Controller" customClass="SettingsTableViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsTVC" id="BCS-Ga-ALS" userLabel="Settings Table View Controller" customClass="SettingsTableViewController" customModule="Kursvalut" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="UPm-SP-I6Q">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
