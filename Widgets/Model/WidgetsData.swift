@@ -2,6 +2,9 @@ import Foundation
 import WidgetKit
 
 struct WidgetsData {
+    static let metalNames = ["Золото", "Серебро", "Платина", "Палладий"]
+    static let metalShortNames = ["Au", "Ag", "Pt", "Pd"]
+    
     static let currencyExample = WidgetCurrency(baseSource: CurrencyData.forex,
                                                 baseCurrency: "RUB",
                                                 mainCurrencies: ["USD", "EUR", "CNY"],
@@ -22,10 +25,21 @@ struct WidgetsData {
                                                 previousValues: ["97.1135", "102.3454", "11.3144", "114.4433", "106.3393", "62.4291", "65.4113", "54.2933", "51.9915", "29.3777"],
                                                 currentValuesDate: Date(),
                                                 previousValuesDate: Date().createYesterdaysDate(),
-                                                decimals: 4
-                                                
+                                                        decimals: 4
+                                                        
     )
     
+    static let metalsExample = [PreciousMetal(name: "Золото",
+                                              shortName: "Au",
+                                              currentValue: "5925,12",
+                                              yesterdayValue: "5928,09"
+                                             ),
+                                PreciousMetal(name: "Серебро",
+                                              shortName: "Ag",
+                                              currentValue: "66,34",
+                                              yesterdayValue: "65,77"
+                                             )
+    ]
     
     static func getShortNames(with mainCurrencies: [String]) -> [String] {
         mainCurrencies.map { CurrencyData.currencyFullNameDict[$0]?.shortName ?? "" }

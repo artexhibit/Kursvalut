@@ -61,6 +61,15 @@
 		0B9872EC2B29F4D900A14F5D /* MultipleCurrencyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9872EB2B29F4D900A14F5D /* MultipleCurrencyWidget.swift */; };
 		0BA08AC42B441D2200BFF59C /* NotificationPermissionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA08AC32B441D2200BFF59C /* NotificationPermissionTableViewController.swift */; };
 		0BA08AC62B441DC400BFF59C /* NotificationPermissionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA08AC52B441DC400BFF59C /* NotificationPermissionTableViewCell.swift */; };
+		0BA7C3FD2B7BBA5A00936A7D /* MetalsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA7C3FB2B7BBA5A00936A7D /* MetalsWidget.swift */; };
+		0BA7C4342B7BBFA200936A7D /* PreciousMetal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA7C4332B7BBFA200936A7D /* PreciousMetal.swift */; };
+		0BA7C4352B7BBFA200936A7D /* PreciousMetal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA7C4332B7BBFA200936A7D /* PreciousMetal.swift */; };
+		0BA7C4362B7BC47400936A7D /* PreciousMetal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA7C4332B7BBFA200936A7D /* PreciousMetal.swift */; };
+		0BA7C4372B7BC48F00936A7D /* PreciousMetal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA7C4332B7BBFA200936A7D /* PreciousMetal.swift */; };
+		0BA7C43A2B7BECE900936A7D /* WidgetsNetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA7C4392B7BECE900936A7D /* WidgetsNetworkingManager.swift */; };
+		0BA7C43B2B7BECE900936A7D /* WidgetsNetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA7C4392B7BECE900936A7D /* WidgetsNetworkingManager.swift */; };
+		0BA7C43D2B7C008B00936A7D /* WidgetXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA7C43C2B7C008B00936A7D /* WidgetXMLParser.swift */; };
+		0BA7C43E2B7C008B00936A7D /* WidgetXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA7C43C2B7C008B00936A7D /* WidgetXMLParser.swift */; };
 		0BAA1F722B1FA18500188959 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA1F712B1FA18500188959 /* WidgetKit.framework */; };
 		0BAA1F742B1FA18500188959 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA1F732B1FA18500188959 /* SwiftUI.framework */; };
 		0BAA1F772B1FA18600188959 /* WidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAA1F762B1FA18600188959 /* WidgetsBundle.swift */; };
@@ -247,6 +256,10 @@
 		0B9872EB2B29F4D900A14F5D /* MultipleCurrencyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleCurrencyWidget.swift; sourceTree = "<group>"; };
 		0BA08AC32B441D2200BFF59C /* NotificationPermissionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionTableViewController.swift; sourceTree = "<group>"; };
 		0BA08AC52B441DC400BFF59C /* NotificationPermissionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionTableViewCell.swift; sourceTree = "<group>"; };
+		0BA7C3FB2B7BBA5A00936A7D /* MetalsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalsWidget.swift; sourceTree = "<group>"; };
+		0BA7C4332B7BBFA200936A7D /* PreciousMetal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreciousMetal.swift; sourceTree = "<group>"; };
+		0BA7C4392B7BECE900936A7D /* WidgetsNetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsNetworkingManager.swift; sourceTree = "<group>"; };
+		0BA7C43C2B7C008B00936A7D /* WidgetXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetXMLParser.swift; sourceTree = "<group>"; };
 		0BAA1F702B1FA18500188959 /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BAA1F712B1FA18500188959 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		0BAA1F732B1FA18500188959 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -419,13 +432,24 @@
 			path = WidgetsIntents;
 			sourceTree = "<group>";
 		};
+		0BA7C4382B7BECC500936A7D /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				0BAA1F782B1FA18600188959 /* SingleCurrencyWidget.swift */,
+				0BC813642B26260400AE5AE9 /* TripleCurrencyWidget.swift */,
+				0B9872EB2B29F4D900A14F5D /* MultipleCurrencyWidget.swift */,
+				0BA7C3FB2B7BBA5A00936A7D /* MetalsWidget.swift */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
 		0BAA1F752B1FA18600188959 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
 				0BAA1F762B1FA18600188959 /* WidgetsBundle.swift */,
-				0BAA1F782B1FA18600188959 /* SingleCurrencyWidget.swift */,
-				0BC813642B26260400AE5AE9 /* TripleCurrencyWidget.swift */,
-				0B9872EB2B29F4D900A14F5D /* MultipleCurrencyWidget.swift */,
+				0BA7C43C2B7C008B00936A7D /* WidgetXMLParser.swift */,
+				0BA7C4392B7BECE900936A7D /* WidgetsNetworkingManager.swift */,
+				0BA7C4382B7BECC500936A7D /* Widgets */,
 				0BC813252B260C9300AE5AE9 /* Model */,
 				0BC813242B260C8100AE5AE9 /* Views */,
 				0BAA1F7A2B1FA18600188959 /* Assets.xcassets */,
@@ -481,6 +505,7 @@
 				0B2D6AEB2B25F19E0074AB48 /* WidgetCurrency.swift */,
 				0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */,
 				0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */,
+				0BA7C4332B7BBFA200936A7D /* PreciousMetal.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -922,6 +947,7 @@
 				0B099DE52B6FEA770056613F /* Double+Ext.swift in Sources */,
 				0B4B4C442B23996D003B55A5 /* CurrencyData.swift in Sources */,
 				0B3111C62B49B73000CBCCFC /* Constants.swift in Sources */,
+				0BA7C4362B7BC47400936A7D /* PreciousMetal.swift in Sources */,
 				0B4B4C3A2B239825003B55A5 /* IntentHandler.swift in Sources */,
 				0BEEC2552B28DDCC00450E0A /* Date+Ext.swift in Sources */,
 				0B4B4C462B239D8F003B55A5 /* UserDefaults+Ext.swift in Sources */,
@@ -950,6 +976,8 @@
 				0B3815D02B20F85400D75674 /* WidgetsCoreDataManager.swift in Sources */,
 				0B81E0B12B3703900011F99D /* String+Ext.swift in Sources */,
 				0B3111C22B49AB0100CBCCFC /* UserDefaultsManager.swift in Sources */,
+				0BA7C43E2B7C008B00936A7D /* WidgetXMLParser.swift in Sources */,
+				0BA7C3FD2B7BBA5A00936A7D /* MetalsWidget.swift in Sources */,
 				0BC813662B26260400AE5AE9 /* TripleCurrencyWidget.swift in Sources */,
 				0B3815DA2B2107EA00D75674 /* Kursvalut.xcdatamodeld in Sources */,
 				0BFFA66A2B2E019C009EFA34 /* MultipleWidgetSmallView.swift in Sources */,
@@ -962,9 +990,11 @@
 				0BEEC25A2B28F61E00450E0A /* TripleCurrencyRectangularView.swift in Sources */,
 				0B2D6AEC2B25F19E0074AB48 /* WidgetCurrency.swift in Sources */,
 				0B30769A2B2A41EE00690727 /* MultipleCurrencyView.swift in Sources */,
+				0BA7C4352B7BBFA200936A7D /* PreciousMetal.swift in Sources */,
 				0BFFA66C2B2E0E86009EFA34 /* MultipleWidgetBigView.swift in Sources */,
 				0BAA1F772B1FA18600188959 /* WidgetsBundle.swift in Sources */,
 				0BAA1F792B1FA18600188959 /* SingleCurrencyWidget.swift in Sources */,
+				0BA7C43B2B7BECE900936A7D /* WidgetsNetworkingManager.swift in Sources */,
 				0B3111C52B49B72F00CBCCFC /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -976,6 +1006,7 @@
 				0BC008852B4070AD00775BC2 /* ForexCurrencyData.swift in Sources */,
 				0B3111C72B49B73000CBCCFC /* Constants.swift in Sources */,
 				0BC0087C2B40705600775BC2 /* BankOfRussiaCurrencyData.swift in Sources */,
+				0BA7C4372B7BC48F00936A7D /* PreciousMetal.swift in Sources */,
 				0BC008932B4087AF00775BC2 /* String+Ext.swift in Sources */,
 				0B099DE62B6FEA770056613F /* Double+Ext.swift in Sources */,
 				0BC0087E2B40706D00775BC2 /* WidgetCurrency.swift in Sources */,
@@ -1009,6 +1040,7 @@
 				78B9F55F2801B9F10030ECF4 /* SubSortTableViewCell.swift in Sources */,
 				7802A17327D90C4400769693 /* AboutAppTableViewController.swift in Sources */,
 				78B40A1327D659F60016D9E6 /* PermissionsTableViewCell.swift in Sources */,
+				0BA7C43D2B7C008B00936A7D /* WidgetXMLParser.swift in Sources */,
 				0B41F2DA2B60339C008C2F54 /* ChangeCurrencyIntent.intentdefinition in Sources */,
 				0BA08AC62B441DC400BFF59C /* NotificationPermissionTableViewCell.swift in Sources */,
 				786A002D2839361300D0DAA4 /* PickedBaseCurrencyTableViewCell.swift in Sources */,
@@ -1054,6 +1086,7 @@
 				7838F8FE278856CB007D34AA /* CurrencyNetworkingManager.swift in Sources */,
 				78F2716B27CFDF6000381CA9 /* StartViewTableViewController.swift in Sources */,
 				786A002B283935CA00D0DAA4 /* DataSourceTableViewCell.swift in Sources */,
+				0BA7C4342B7BBFA200936A7D /* PreciousMetal.swift in Sources */,
 				780AA2EB280ADF7F00ECC3C4 /* OnboardingSlide.swift in Sources */,
 				787D551927C9364400587653 /* SettingsTableViewController.swift in Sources */,
 				786479AC279825DF0077ABC7 /* ConverterTableViewCell.swift in Sources */,
@@ -1061,6 +1094,7 @@
 				78F13FF127CE9AC60076613A /* CurrencyPreviewTableViewCell.swift in Sources */,
 				78B40A1027D659BB0016D9E6 /* PermissionsViewController.swift in Sources */,
 				7877053A29B25F2C004C5C1D /* MenuView.swift in Sources */,
+				0BA7C43A2B7BECE900936A7D /* WidgetsNetworkingManager.swift in Sources */,
 				789FD81E288F06B80084468F /* NumpadView.swift in Sources */,
 				0B81E0B02B3703900011F99D /* String+Ext.swift in Sources */,
 				780AA2E7280ACE9000ECC3C4 /* OnboardingViewController.swift in Sources */,
