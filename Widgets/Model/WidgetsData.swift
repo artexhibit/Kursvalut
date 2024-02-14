@@ -32,16 +32,30 @@ struct WidgetsData {
     static let metalsExample = [PreciousMetal(name: "Золото",
                                               shortName: "Au",
                                               currentValue: 5925.12,
-                                              difference: "3.2",
+                                              difference: "43.2",
                                               differenceSign: "+",
-                                              dataDate: "13.02.2024"
+                                              dataDate: Date.current.makeString(format: .dotDMY)
+                                             ),
+                                PreciousMetal(name: "Платина",
+                                              shortName: "Pt",
+                                              currentValue: 2598.04,
+                                              difference: "5.32",
+                                              differenceSign: "-",
+                                              dataDate: Date.current.makeString(format: .dotDMY)
                                              ),
                                 PreciousMetal(name: "Серебро",
                                               shortName: "Ag",
                                               currentValue: 66.34,
-                                              difference: "3.2",
+                                              difference: "0.02",
+                                              differenceSign: "+",
+                                              dataDate: Date.current.makeString(format: .dotDMY)
+                                             ),
+                                PreciousMetal(name: "Палладий",
+                                              shortName: "Pd",
+                                              currentValue: 2630.30,
+                                              difference: "55.32",
                                               differenceSign: "-",
-                                              dataDate: "13.02.2024"
+                                              dataDate: Date.current.makeString(format: .dotDMY)
                                              )
     ]
     

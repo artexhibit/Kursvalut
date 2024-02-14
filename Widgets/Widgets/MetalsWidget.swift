@@ -27,10 +27,11 @@ struct MetalsProvider: TimelineProvider {
             let tomorrowPricesSigns = zip(tomorrowPrices, currentPrices).map { $0 > $1 ? "+" : "" }
             let differences = tomorrowPrices.isEmpty ? currentPricesDifference : tomorrowPricesDifference
             let differenceSigns = tomorrowPrices.isEmpty ? currentPricesSigns : tomorrowPricesSigns
+            let currentValue = tomorrowPrices.isEmpty ? currentPrices : tomorrowPrices
             let dataDate = tomorrowPrices.isEmpty ? Date.current.makeString(format: .dotDMY) : Date.tomorrow.makeString(format: .dotDMY)
     
             for (index, metalName) in WidgetsData.metalNames.enumerated() {
-                let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: currentPrices[index], difference: differences[index], differenceSign: differenceSigns[index], dataDate: dataDate)
+                let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: currentValue[index], difference: differences[index], differenceSign: differenceSigns[index], dataDate: dataDate)
                 metals.append(metal)
             }
             
@@ -86,7 +87,7 @@ struct MetalsWidgetEntryView : View {
                     MetalView(metal: entry.metals[3], alignment: .trailing)
                 }
             }
-            .padding(.leading, 5)
+            .padding(.leading, 3)
         }
     }
 }

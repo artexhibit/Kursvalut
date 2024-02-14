@@ -14,24 +14,20 @@ struct SingleCurrencyProvider: IntentTimelineProvider {
     
     func getTimeline(for configuration: SetSingleCurrencyIntent, in context: Context, completion: @escaping (Timeline<CurrencyEntry>) -> Void) {
         var entries: [CurrencyEntry] = []
-        let currentDate = Date.current
-        let endDate = Calendar.current.date(byAdding: .hour, value: 24, to: currentDate) ?? Date.current
-        var entryDate = currentDate
+        let nextUpdate = Date().addingTimeInterval(3600)
         
-        while entryDate < endDate {
-            guard let mainCurrency = configuration.mainCurrency?.prefix(3) else { return }
-            guard let baseCurrency = configuration.baseCurrency?.prefix(3) else { return }
-            guard let baseSource = configuration.baseSource else { return }
-            guard let decimals = configuration.decimals as? Int else { return }
-            let value = WidgetsCoreDataManager.calculateValue(for: baseSource, with: [String(mainCurrency)], and: String(baseCurrency), decimals: decimals)
-            
-            let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: [String(mainCurrency)], shortNames: nil, currentValues: [value.currentValues.first ?? ""], previousValues: nil, currentValuesDate: nil, previousValuesDate: nil, decimals: decimals)
-            
-            let entry = CurrencyEntry(date: entryDate, currency: currency)
-            entries.append(entry)
-            entryDate = Calendar.current.date(byAdding: .hour, value: 1, to: entryDate) ?? Date.current
-        }
-        let timeline = Timeline(entries: entries, policy: .atEnd)
+        guard let mainCurrency = configuration.mainCurrency?.prefix(3) else { return }
+        guard let baseCurrency = configuration.baseCurrency?.prefix(3) else { return }
+        guard let baseSource = configuration.baseSource else { return }
+        guard let decimals = configuration.decimals as? Int else { return }
+        let value = WidgetsCoreDataManager.calculateValue(for: baseSource, with: [String(mainCurrency)], and: String(baseCurrency), decimals: decimals)
+        
+        let currency = WidgetCurrency(baseSource: baseSource, baseCurrency: String(baseCurrency), mainCurrencies: [String(mainCurrency)], shortNames: nil, currentValues: [value.currentValues.first ?? ""], previousValues: nil, currentValuesDate: nil, previousValuesDate: nil, decimals: decimals)
+        
+        let entry = CurrencyEntry(date: Date(), currency: currency)
+        entries.append(entry)
+        
+        let timeline = Timeline(entries: entries, policy: .after(nextUpdate))
         completion(timeline)
     }
 }
