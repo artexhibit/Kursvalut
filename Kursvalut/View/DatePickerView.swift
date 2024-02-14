@@ -62,7 +62,7 @@ class DatePickerView: UIView {
     }
     
     @IBAction func datePickerPressed(_ sender: UIDatePicker) {
-        let senderDate = sender.date.createStringDate()
+        let senderDate = sender.date.makeString()
         pickedDate = senderDate
         animateDoneButton()
     }

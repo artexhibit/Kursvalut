@@ -39,6 +39,6 @@ struct MultipleCurrencyView: View {
     }
 }
 
-#Preview {
-    MultipleCurrencyView(shortName: "Рубль", mainCurrency: "RUB", value: "89.1134")
-}
+//#Preview {
+//    MultipleCurrencyView(shortName: "Рубль", mainCurrency: "RUB", value: "89.1134")
+//}

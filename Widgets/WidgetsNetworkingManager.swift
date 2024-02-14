@@ -10,7 +10,7 @@ class WidgetsNetworkingManager {
     static let shared = WidgetsNetworkingManager()
     private let xmlParser = WidgetXMLParser()
     
-    func getMetalPrices(forDate date: String) async throws -> [String] {
+    func getMetalPrices(forDate date: String) async throws -> [Double] {
         
         let baseURL = "https://www.cbr.ru/scripts/xml_metall.asp?date_req1=\(date)&date_req2=\(date)"
         

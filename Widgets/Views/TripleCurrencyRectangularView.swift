@@ -29,6 +29,6 @@ struct TripleCurrencyRectangularView: View {
     }
 }
 
-#Preview {
-    TripleCurrencyRectangularView(currency: WidgetsData.currencyExample)
-}
+//#Preview {
+//    TripleCurrencyRectangularView(currency: WidgetsData.currencyExample)
+//}

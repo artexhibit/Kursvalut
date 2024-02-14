@@ -17,7 +17,7 @@ class NotificationService: UNNotificationServiceExtension {
                 let currencyManager = CurrencyManager()
                 let coreDataManager = CurrencyCoreDataManager()
                 
-                UserDefaultsManager.confirmedDate = Date().createStringDate()
+                UserDefaultsManager.confirmedDate = Date().makeString()
                 UserDefaultsManager.pickDateSwitchIsOn = false
                 UserDefaultsManager.newCurrencyDataReady = true
                 
@@ -27,7 +27,7 @@ class NotificationService: UNNotificationServiceExtension {
                     let forexPushText = currencyManager.createNotificationText(with: CurrencyData.forex, newStoredDate: newDataDate)
                     
                     UserDefaultsManager.newCurrencyDataReady = false
-                    UserDefaultsManager.confirmedDate = newDataDate.createStringDate()
+                    UserDefaultsManager.confirmedDate = newDataDate.makeString()
 
                     let notificationName = "ru.igorcodes.makeNetworkRequest" as CFString
                     NotificationsManager.Darwin.postNotification(name: notificationName)

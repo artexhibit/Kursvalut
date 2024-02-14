@@ -18,6 +18,6 @@ struct RoundedTextView: View {
     }
 }
 
-#Preview {
-    RoundedTextView(text: CurrencyData.forex)
-}
+//#Preview {
+//    RoundedTextView(text: CurrencyData.forex)
+//}

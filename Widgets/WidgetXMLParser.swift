@@ -3,9 +3,11 @@ import Foundation
 class WidgetXMLParser: NSObject, XMLParserDelegate {
     private var currentElement = ""
     private var currentValue = ""
-    private var prices = [String]()
+    private var prices = [Double]()
     
-    func parseMetalPricesXML(data: Data) async -> [String] {
+    func parseMetalPricesXML(data: Data) async -> [Double] {
+        prices.removeAll()
+        
         let parser = XMLParser(data: data)
         parser.delegate = self
         parser.parse()
@@ -21,7 +23,7 @@ class WidgetXMLParser: NSObject, XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if currentElement == "Buy" { prices.append(currentValue) }
+        if currentElement == "Buy" { prices.append(currentValue.createDouble()) }
         
         currentElement = ""
         currentValue = ""

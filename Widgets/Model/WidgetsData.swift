@@ -31,13 +31,17 @@ struct WidgetsData {
     
     static let metalsExample = [PreciousMetal(name: "Золото",
                                               shortName: "Au",
-                                              currentValue: "5925,12",
-                                              yesterdayValue: "5928,09"
+                                              currentValue: 5925.12,
+                                              difference: "3.2",
+                                              differenceSign: "+",
+                                              dataDate: "13.02.2024"
                                              ),
                                 PreciousMetal(name: "Серебро",
                                               shortName: "Ag",
-                                              currentValue: "66,34",
-                                              yesterdayValue: "65,77"
+                                              currentValue: 66.34,
+                                              difference: "3.2",
+                                              differenceSign: "-",
+                                              dataDate: "13.02.2024"
                                              )
     ]
     

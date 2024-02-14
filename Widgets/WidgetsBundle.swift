@@ -7,5 +7,6 @@ struct WidgetsBundle: WidgetBundle {
         SingleCurrencyWidget()
         TripleCurrencyWidget()
         MultipleCurrencyWidget()
+        MetalsWidget()
     }
 }

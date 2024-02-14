@@ -28,6 +28,6 @@ struct MultipleWidgetSmallView: View {
     }
 }
 
-#Preview {
-    MultipleWidgetSmallView(currency: WidgetsData.multipleCurrencyExample)
-}
+//#Preview {
+//    MultipleWidgetSmallView(currency: WidgetsData.multipleCurrencyExample)
+//}

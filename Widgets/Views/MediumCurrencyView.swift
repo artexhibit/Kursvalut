@@ -37,6 +37,6 @@ struct MediumCurrencyView: View {
     }
 }
 
-#Preview {
-    MediumCurrencyView(mainCurrency: "", currentValue: "", previousValue: "", decimals: 4)
-}
+//#Preview {
+//    MediumCurrencyView(mainCurrency: "", currentValue: "", previousValue: "", decimals: 4)
+//}

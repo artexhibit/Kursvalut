@@ -22,7 +22,7 @@ struct MultipleWidgetBigView: View {
                 RoundedTextView(text: currency.baseSource)
                 RoundedTextView(text: currency.baseCurrency)
                 Spacer()
-                RoundedTextView(text: currency.currentValuesDate?.createStringDate() ?? "")
+                RoundedTextView(text: currency.currentValuesDate?.makeString() ?? "")
             }
             .frame(minHeight: 20)
             
@@ -44,6 +44,6 @@ struct MultipleWidgetBigView: View {
     }
 }
 
-#Preview {
-    MultipleWidgetBigView(currency: WidgetsData.multipleCurrencyExample, currenciesToShow: 10, spacing: 10, gridSpacing: 20, gridItemSpacing: 20)
-}
+//#Preview {
+//    MultipleWidgetBigView(currency: WidgetsData.multipleCurrencyExample, currenciesToShow: 10, spacing: 10, gridSpacing: 20, gridItemSpacing: 20)
+//}

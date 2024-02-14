@@ -7,12 +7,12 @@ struct CurrencyNetworkingManager {
     private var yesterdaysDate: String {
         let confirmedDate = UserDefaultsManager.confirmedDate.formatDate()
         let date = Calendar.current.date(byAdding: .day, value: -1, to: confirmedDate) ?? Date()
-        return date.createStringDate(format: .dashYMD)
+        return date.makeString(format: .dashYMD)
     }
     private var currentBankOfRussiaURL: URL {
         let date = UserDefaultsManager.confirmedDate.formatDate()
-        let confirmedDate = date.createStringDate(format: .slashYMD)
-        let todaysDate = Date().createStringDate(format: .slashYMD)
+        let confirmedDate = date.makeString(format: .slashYMD)
+        let todaysDate = Date().makeString(format: .slashYMD)
     
         if (confirmedDate == todaysDate && date.isTomorrow()) || date.isTomorrow() || UserDefaultsManager.newCurrencyDataReady {
             return URL(string: "https://www.cbr-xml-daily.ru/daily_json.js") ?? URL(fileURLWithPath: "")
@@ -22,8 +22,8 @@ struct CurrencyNetworkingManager {
     }
     private var currentForexURL: URL {
         let date = UserDefaultsManager.confirmedDate.formatDate()
-        let confirmedDate = date.createStringDate(format: .dashYMD)
-        let todaysDate = Date().createStringDate(format: .dashYMD)
+        let confirmedDate = date.makeString(format: .dashYMD)
+        let todaysDate = Date().makeString(format: .dashYMD)
         
         if confirmedDate != todaysDate {
             return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(confirmedDate)/currencies/\(UserDefaultsManager.baseCurrency.lowercased()).json")!

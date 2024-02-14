@@ -21,6 +21,13 @@ extension String {
         return Date()
     }
     
+    func createDouble() -> Double {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.decimalSeparator = ","
+        return formatter.number(from: self)?.doubleValue ?? 0.0
+    }
+    
      func formatDate(dateStyle: DateFormatter.Style = .long, format: DateFormat = .dotDMY) -> Date {
         let formatter = DateFormatter()
         formatter.dateStyle = dateStyle

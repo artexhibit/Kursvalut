@@ -14,12 +14,11 @@ extension Date {
     }
     
     static var today: String {
-        current.createStringDate(format: .dotDMY)
+        current.makeString(format: .dotDMY)
     }
     
-    static var tomorrow: String {
-        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: current) ?? current
-        return tomorrow.createStringDate(format: .dotDMY)
+    static var tomorrow: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: current) ?? current
     }
     
     func getCurrentTime() -> String {
@@ -51,7 +50,7 @@ extension Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: self) ?? Date.current
     }
     
-    func createStringDate(dateStyle: DateFormatter.Style? = nil, format: DateFormat = .dotDMY) -> String {
+    func makeString(dateStyle: DateFormatter.Style? = nil, format: DateFormat = .dotDMY) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format.rawValue
         formatter.timeZone = TimeZone(secondsFromGMT: 0)

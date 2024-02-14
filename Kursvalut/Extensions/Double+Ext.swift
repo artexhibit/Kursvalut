@@ -15,4 +15,13 @@ extension Double {
         }
         return resNumber
     }
+    
+    func formatToString() -> String {
+        let formatter = NumberFormatter()
+        
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 4
+        formatter.usesGroupingSeparator = true
+        return formatter.string(from: NSNumber(value: self)) ?? ""
+    }
 }

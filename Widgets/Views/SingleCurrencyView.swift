@@ -40,6 +40,6 @@ struct SingleCurrencyView: View {
     }
 }
 
-#Preview {
-    SingleCurrencyView(currency: WidgetsData.currencyExample)
-}
+//#Preview {
+//    SingleCurrencyView(currency: WidgetsData.currencyExample)
+//}

@@ -91,7 +91,7 @@ struct CurrencyManager {
     }
     
     func createNotificationText(with baseSource: String, newStoredDate: Date) -> String {
-        let date = newStoredDate.createStringDate()
+        let date = newStoredDate.makeString()
         let cbrfCurrencies = coreDataManager.fetchCurrencies(entityName: Currency.self).filter { $0.shortName == "USD" || $0.shortName == "EUR" }.sorted { $0.shortName ?? "" > $1.shortName ?? "" }
         let forexCurrencies = coreDataManager.fetchCurrencies(entityName: ForexCurrency.self).filter { $0.shortName == "USD" || $0.shortName == "EUR" }.sorted { $0.shortName ?? "" > $1.shortName ?? "" }
         
@@ -117,6 +117,6 @@ struct CurrencyManager {
     }
     
     func getCurrencyDate(dateStyle: DateFormatter.Style? = nil) -> String {
-        return UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate().createStringDate(dateStyle: dateStyle) : coreDataManager.fetchForexCurrenciesCurrentDate().createStringDate(dateStyle: dateStyle)
+        return UserDefaultsManager.pickedDataSource == CurrencyData.cbrf ? coreDataManager.fetchBankOfRussiaCurrenciesCurrentDate().makeString(dateStyle: dateStyle) : coreDataManager.fetchForexCurrenciesCurrentDate().makeString(dateStyle: dateStyle)
     }
 }

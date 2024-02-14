@@ -17,12 +17,20 @@ struct MetalsProvider: TimelineProvider {
             var metals: [PreciousMetal] = []
             
             let nextUpdate = Date().addingTimeInterval(3600)
-            let currentPrices = try await WidgetsNetworkingManager.shared.getMetalPrices(forDate: Date.current.createStringDate(format: .slashDMY))
-            let yesterdayPrices = try await WidgetsNetworkingManager.shared.getMetalPrices(forDate: Date.yesterday.createStringDate(format: .slashDMY))
-    
+            let currentPrices = try await WidgetsNetworkingManager.shared.getMetalPrices(forDate: Date.current.makeString(format: .slashDMY))
+            let yesterdayPrices = try await WidgetsNetworkingManager.shared.getMetalPrices(forDate: Date.yesterday.makeString(format: .slashDMY))
+            let tomorrowPrices = try await WidgetsNetworkingManager.shared.getMetalPrices(forDate: Date.tomorrow.makeString(format: .slashDMY))
             
+            let currentPricesDifference = zip(currentPrices, yesterdayPrices).map { ($0 - $1).round(maxDecimals: 2) }
+            let tomorrowPricesDifference = zip(tomorrowPrices, currentPrices).map { ($0 - $1).round(maxDecimals: 2) }
+            let currentPricesSigns = zip(currentPrices, yesterdayPrices).map { $0 > $1 ? "+" : "" }
+            let tomorrowPricesSigns = zip(tomorrowPrices, currentPrices).map { $0 > $1 ? "+" : "" }
+            let differences = tomorrowPrices.isEmpty ? currentPricesDifference : tomorrowPricesDifference
+            let differenceSigns = tomorrowPrices.isEmpty ? currentPricesSigns : tomorrowPricesSigns
+            let dataDate = tomorrowPrices.isEmpty ? Date.current.makeString(format: .dotDMY) : Date.tomorrow.makeString(format: .dotDMY)
+    
             for (index, metalName) in WidgetsData.metalNames.enumerated() {
-                let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: currentPrices[index], yesterdayValue: yesterdayPrices[index])
+                let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: currentPrices[index], difference: differences[index], differenceSign: differenceSigns[index], dataDate: dataDate)
                 metals.append(metal)
             }
             
@@ -43,17 +51,15 @@ struct MetalsEntry: TimelineEntry {
 struct MetalsWidgetEntryView : View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.showsWidgetContainerBackground) var showsBackground
-    var entry: MetalsProvider.Entry
+    var entry: MetalsEntry
     
     var body: some View {
         VStack {
             HStack {
                 RoundedTextView(text: "ЦБ РФ")
                 RoundedTextView(text: "RUB")
-                
                 Spacer()
-                
-                RoundedTextView(text: "13.02.2024")
+                RoundedTextView(text: entry.metals.first?.dataDate ?? "")
                 
                 Button { } label: {
                     Image(systemName: "arrow.clockwise")
@@ -70,130 +76,14 @@ struct MetalsWidgetEntryView : View {
             Spacer()
             VStack() {
                 HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "arrowtriangle.down.fill")
-                                .foregroundStyle(.green)
-                                .font(.system(size: 13))
-                                .frame(alignment: .center)
-                            Text("Золото")
-                                .font(.system(size: 17, weight: .semibold, design: .rounded))
-                                .foregroundStyle(.secondary)
-                            Text("Au")
-                                .font(.system(size: 15, weight: .regular, design: .rounded))
-                                .foregroundStyle(.secondary)
-                                .padding(.top, 1)
-                        }
-                        HStack(spacing: 3) {
-                            Text("5909,23")
-                                .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .foregroundStyle(.primary)
-                                .contentTransition(.numericText())
-                            
-                            Text("-16,13")
-                                .font(.system(size: 12, weight: .semibold, design: .rounded))
-                                .foregroundStyle(showsBackground ? .white : .secondary)
-                                .padding(.horizontal, 5)
-                                .padding(.vertical, 2.5)
-                                .lineLimit(1)
-                                .background(showsBackground ? .green : .clear)
-                                .clipShape(RoundedRectangle(cornerSize: CGSize(width: 7, height: 7)))
-                        }
-                    }
+                    MetalView(metal: entry.metals[0], alignment: .leading)
                     Spacer()
-                    VStack(alignment: .trailing, spacing: 4) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "arrowtriangle.up.fill")
-                                .foregroundStyle(.red)
-                                .font(.system(size: 13))
-                                .frame(alignment: .center)
-                            Text("Серебро")
-                                .font(.system(size: 17, weight: .semibold, design: .rounded))
-                                .foregroundStyle(.secondary)
-                            Text("Ag")
-                                .font(.system(size: 15, weight: .regular, design: .rounded))
-                                .foregroundStyle(.secondary)
-                                .padding(.top, 1)
-                        }
-                        HStack(spacing: 3) {
-                            Text("67,19")
-                                .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .foregroundStyle(.primary)
-                                .contentTransition(.numericText())
-                            
-                            Text("+16,13")
-                                .font(.system(size: 12, weight: .semibold, design: .rounded))
-                                .foregroundStyle(showsBackground ? .white : .secondary)
-                                .padding(.horizontal, 5)
-                                .padding(.vertical, 2.5)
-                                .lineLimit(1)
-                                .background(showsBackground ? .red : .clear)
-                                .clipShape(RoundedRectangle(cornerSize: CGSize(width: 7, height: 7)))
-                        }
-                    }
+                    MetalView(metal: entry.metals[2], alignment: .trailing)
                 }
                 HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "arrowtriangle.down.fill")
-                                .foregroundStyle(.green)
-                                .font(.system(size: 14))
-                                .frame(alignment: .center)
-                            Text("Платина")
-                                .font(.system(size: 17, weight: .semibold, design: .rounded))
-                                .foregroundStyle(.secondary)
-                            Text("Pt")
-                                .font(.system(size: 15, weight: .regular, design: .rounded))
-                                .foregroundStyle(.secondary)
-                                .padding(.top, 1)
-                        }
-                        HStack(spacing: 3) {
-                            Text("2 598,04")
-                                .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .foregroundStyle(.primary)
-                                .contentTransition(.numericText())
-                            
-                            Text("-9,63")
-                                .font(.system(size: 12, weight: .semibold, design: .rounded))
-                                .foregroundStyle(showsBackground ? .white : .secondary)
-                                .padding(.horizontal, 5)
-                                .padding(.vertical, 2.5)
-                                .lineLimit(1)
-                                .background(showsBackground ? .green : .clear)
-                                .clipShape(RoundedRectangle(cornerSize: CGSize(width: 7, height: 7)))
-                        }
-                    }
+                    MetalView(metal: entry.metals[1], alignment: .leading)
                     Spacer()
-                    VStack(alignment: .trailing, spacing: 4) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "arrowtriangle.up.fill")
-                                .foregroundStyle(.red)
-                                .font(.system(size: 14))
-                                .frame(alignment: .center)
-                            Text("Палладий")
-                                .font(.system(size: 17, weight: .semibold, design: .rounded))
-                                .foregroundStyle(.secondary)
-                            Text("Pd")
-                                .font(.system(size: 15, weight: .regular, design: .rounded))
-                                .foregroundStyle(.secondary)
-                                .padding(.top, 1)
-                        }
-                        HStack(spacing: 3) {
-                            Text("2 603,30")
-                                .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .foregroundStyle(.primary)
-                                .contentTransition(.numericText())
-                            
-                            Text("+13,95")
-                                .font(.system(size: 12, weight: .semibold, design: .rounded))
-                                .foregroundStyle(showsBackground ? .white : .secondary)
-                                .padding(.horizontal, 5)
-                                .padding(.vertical, 2.5)
-                                .lineLimit(1)
-                                .background(showsBackground ? .red : .clear)
-                                .clipShape(RoundedRectangle(cornerSize: CGSize(width: 7, height: 7)))
-                        }
-                    }
+                    MetalView(metal: entry.metals[3], alignment: .trailing)
                 }
             }
             .padding(.leading, 5)
@@ -217,6 +107,7 @@ struct MetalsWidget: Widget {
         }
         .configurationDisplayName("Драгоценные металлы")
         .description("Виджет отображает стоимость драгоценных металлов по данным ЦБ РФ")
+        .supportedFamilies([.systemMedium])
     }
 }
 

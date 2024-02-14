@@ -108,10 +108,10 @@ class CurrencyDataSourceTableViewController: UITableViewController {
     }
     
     @IBAction func datePickerPressed(_ sender: UIDatePicker) {
-        let senderDate = sender.date.createStringDate()
+        let senderDate = sender.date.makeString()
         pickedDate = senderDate
         turnOffDateSwitch = pickedDate != Date.today ? true : false
-        turnOffDateSwitch = pickedDate == Date.tomorrow ? false : true
+        turnOffDateSwitch = pickedDate == Date.tomorrow.makeString(format: .dotDMY) ? false : true
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.datePickerCellKey) as! DatePickerTableViewCell
         configureDatePicker(cell: cell)
@@ -348,7 +348,7 @@ class CurrencyDataSourceTableViewController: UITableViewController {
                 if UserDefaultsManager.pickDateSwitchIsOn && !self.dataSourceCellWasPressed {
                     self.displayInlineDatePickerAt(indexPath: self.dateIndexPath as NSIndexPath)
                 }
-                if self.pickedDate == Date.tomorrow { UserDefaultsManager.pickDateSwitchIsOn = false }
+                if self.pickedDate == Date.tomorrow.makeString(format: .dotDMY) { UserDefaultsManager.pickDateSwitchIsOn = false }
                 
                 if UserDefaultsManager.CurrencyVC.PickedSection.value == K.Sections.custom && UserDefaultsManager.confirmedDate != Date.today {
                     self.resetCurrencyHistoricalRow()

@@ -563,7 +563,7 @@ extension CurrencyViewController: DatePickerViewDelegate {
                 }
                 UserDefaultsManager.confirmedDate = lastConfirmedDate
             } else {
-                UserDefaultsManager.pickDateSwitchIsOn = pickedDate != Date.today && pickedDate != Date.tomorrow ? true : false
+                UserDefaultsManager.pickDateSwitchIsOn = pickedDate != Date.today && pickedDate != Date.tomorrow.makeString(format: .dotDMY) ? true : false
                 
                 self.setupFetchedResultsController()
                 PopupQueueManager.shared.changePopupDataInQueue(title: K.PopupTexts.Titles.success, message: K.PopupTexts.Messages.dataDownloaded, style: .success)
