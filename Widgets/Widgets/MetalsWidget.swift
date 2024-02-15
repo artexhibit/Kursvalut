@@ -17,9 +17,16 @@ struct MetalsProvider: TimelineProvider {
             var metals: [PreciousMetal] = []
             
             let nextUpdate = Date().addingTimeInterval(3600)
+            
             let currentPrices = try await WidgetsNetworkingManager.shared.getMetalPrices(forDate: Date.current.makeString(format: .slashDMY))
             let yesterdayPrices = try await WidgetsNetworkingManager.shared.getMetalPrices(forDate: Date.yesterday.makeString(format: .slashDMY))
             let tomorrowPrices = try await WidgetsNetworkingManager.shared.getMetalPrices(forDate: Date.tomorrow.makeString(format: .slashDMY))
+            
+            if currentPrices.isEmpty {
+                let timeline = Timeline(entries: entries, policy: .after(nextUpdate))
+                completion(timeline)
+                return
+            }
             
             let currentPricesDifference = zip(currentPrices, yesterdayPrices).map { ($0 - $1).round(maxDecimals: 2) }
             let tomorrowPricesDifference = zip(tomorrowPrices, currentPrices).map { ($0 - $1).round(maxDecimals: 2) }
@@ -60,31 +67,38 @@ struct MetalsWidgetEntryView : View {
                 RoundedTextView(text: "ЦБ РФ")
                 RoundedTextView(text: "RUB")
                 Spacer()
-                RoundedTextView(text: entry.metals.first?.dataDate ?? "")
-                
-                Button { } label: {
-                    Image(systemName: "arrow.clockwise")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 11, height: 11)
-                        .bold()
-                        .foregroundStyle(.white)
+                if #available(iOSApplicationExtension 17.0, *) {
+                    RoundedTextView(text: entry.metals.first?.dataDate ?? "")
+                        .invalidatableContent()
+                } else {
+                    RoundedTextView(text: entry.metals.first?.dataDate ?? "")
                 }
-                .frame(width: 20, height: 20)
-                .background(.gray.opacity(0.6))
-                .clipShape(Circle())
+                
+                if #available(iOS 17, *) {
+                    Button(intent: RefreshButtonIntent(), label: {
+                        Image(systemName: "arrow.clockwise")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 11, height: 11)
+                            .bold()
+                            .foregroundStyle(.white)
+                    })
+                    .frame(width: 30, height: 30)
+                    .background(.gray.opacity(0.6))
+                    .clipShape(Circle())
+                }
             }
             Spacer()
             VStack() {
                 HStack {
-                    MetalView(metal: entry.metals[0], alignment: .leading)
+                    MetalView(metal: entry.metals[0])
                     Spacer()
-                    MetalView(metal: entry.metals[2], alignment: .trailing)
+                    MetalView(metal: entry.metals[2])
                 }
                 HStack {
-                    MetalView(metal: entry.metals[1], alignment: .leading)
+                    MetalView(metal: entry.metals[1])
                     Spacer()
-                    MetalView(metal: entry.metals[3], alignment: .trailing)
+                    MetalView(metal: entry.metals[3])
                 }
             }
             .padding(.leading, 3)

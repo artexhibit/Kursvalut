@@ -20,7 +20,7 @@ extension Double {
         let formatter = NumberFormatter()
         
         formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 4
+        formatter.minimumFractionDigits = 2
         formatter.usesGroupingSeparator = true
         return formatter.string(from: NSNumber(value: self)) ?? ""
     }

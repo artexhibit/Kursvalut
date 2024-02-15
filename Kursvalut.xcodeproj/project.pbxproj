@@ -50,6 +50,7 @@
 		0B4B4C3E2B239825003B55A5 /* WidgetsIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0B4B4C362B239825003B55A5 /* WidgetsIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0B4B4C442B23996D003B55A5 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B4C1A2B238E42003B55A5 /* CurrencyData.swift */; };
 		0B4B4C462B239D8F003B55A5 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
+		0B4E35B42B7E9F930070FD67 /* AppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4E35B32B7E9F930070FD67 /* AppIntents.swift */; };
 		0B6D80C72B223DE200E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0B6D80C82B223F3D00E2BE25 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */; };
 		0B6F69A02B7D50C40033691A /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F699E2B7D50C40033691A /* MetalView.swift */; };
@@ -251,6 +252,7 @@
 		0B4B4C3B2B239825003B55A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B4B4C422B239843003B55A5 /* WidgetsIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsIntents.entitlements; sourceTree = "<group>"; };
 		0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsData.swift; sourceTree = "<group>"; };
+		0B4E35B32B7E9F930070FD67 /* AppIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntents.swift; sourceTree = "<group>"; };
 		0B6D80C62B223DE200E2BE25 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		0B6F699E2B7D50C40033691A /* MetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalView.swift; sourceTree = "<group>"; };
 		0B81E0AF2B3703900011F99D /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 				0B4B4C4A2B23B477003B55A5 /* WidgetsData.swift */,
 				0B3815CF2B20F85400D75674 /* WidgetsCoreDataManager.swift */,
 				0BA7C4332B7BBFA200936A7D /* PreciousMetal.swift */,
+				0B4E35B32B7E9F930070FD67 /* AppIntents.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -986,6 +989,7 @@
 				0BFFA66A2B2E019C009EFA34 /* MultipleWidgetSmallView.swift in Sources */,
 				0B9872EC2B29F4D900A14F5D /* MultipleCurrencyWidget.swift in Sources */,
 				0B4B4C1D2B238F58003B55A5 /* CurrencyData.swift in Sources */,
+				0B4E35B42B7E9F930070FD67 /* AppIntents.swift in Sources */,
 				0BEEC2582B28F04000450E0A /* TripleCurrencyView.swift in Sources */,
 				0BE247CB2B27AD38000C0566 /* Date+Ext.swift in Sources */,
 				0B6D80C72B223DE200E2BE25 /* UserDefaults+Ext.swift in Sources */,
