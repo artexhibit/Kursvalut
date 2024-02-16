@@ -8,13 +8,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
-        guard let tabBarController = UIHelper.configureTabBarController(in: window) else { return }
 
         //Temporary set the color for future change color section in settings
         UserDefaultsManager.appColor = "ColorOrange"
         UINavigationBar.appearance().tintColor = UIColor(named: "\(UserDefaultsManager.appColor)")
         window?.overrideUserInterfaceStyle = currencyManager.switchTheme()
         
+        guard let tabBarController = UIHelper.configureTabBarController(in: window) else { return }
         guard let shortcutItem = connectionOptions.shortcutItem else { return }
         QuickActionsManager.performActionOn(actionItem: shortcutItem, in: tabBarController)
     }

@@ -59,49 +59,66 @@ struct MetalsEntry: TimelineEntry {
 struct MetalsWidgetEntryView : View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.showsWidgetContainerBackground) var showsBackground
+    @State var proPurchased = UserDefaultsManager.proPurchased
     var entry: MetalsEntry
     
     var body: some View {
-        VStack {
-            HStack {
-                RoundedTextView(text: "ЦБ РФ")
-                RoundedTextView(text: "RUB")
+        
+        ZStack {
+            VStack {
+                HStack {
+                    RoundedTextView(text: "ЦБ РФ")
+                    RoundedTextView(text: "RUB")
+                    Spacer()
+                    if #available(iOSApplicationExtension 17.0, *) {
+                        RoundedTextView(text: entry.metals.first?.dataDate ?? "")
+                            .invalidatableContent()
+                    } else {
+                        RoundedTextView(text: entry.metals.first?.dataDate ?? "")
+                    }
+                    
+                    if #available(iOS 17, *) {
+                        Button(intent: RefreshButtonIntent(), label: {
+                            Image(systemName: "arrow.clockwise")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 11, height: 11)
+                                .bold()
+                                .foregroundStyle(.gray)
+                        })
+                        .frame(width: 20, height: 20)
+                        .tint(.gray)
+                        .clipShape(Circle())
+                    }
+                }
                 Spacer()
-                if #available(iOSApplicationExtension 17.0, *) {
-                    RoundedTextView(text: entry.metals.first?.dataDate ?? "")
-                        .invalidatableContent()
-                } else {
-                    RoundedTextView(text: entry.metals.first?.dataDate ?? "")
+                VStack() {
+                    HStack {
+                        MetalView(metal: entry.metals[0])
+                        Spacer()
+                        MetalView(metal: entry.metals[2])
+                    }
+                    HStack {
+                        MetalView(metal: entry.metals[1])
+                        Spacer()
+                        MetalView(metal: entry.metals[3])
+                    }
                 }
-                
-                if #available(iOS 17, *) {
-                    Button(intent: RefreshButtonIntent(), label: {
-                        Image(systemName: "arrow.clockwise")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 11, height: 11)
-                            .bold()
-                            .foregroundStyle(.white)
-                    })
-                    .frame(width: 30, height: 30)
-                    .background(.gray.opacity(0.6))
-                    .clipShape(Circle())
-                }
+                .padding(.leading, 3)
             }
-            Spacer()
-            VStack() {
-                HStack {
-                    MetalView(metal: entry.metals[0])
-                    Spacer()
-                    MetalView(metal: entry.metals[2])
+         if !proPurchased {
+             VStack() {
+                    Text("Доступно только для Pro версии")
+                     .font(.system(size: 17, weight: .bold))
+                     .foregroundStyle(.primary)
+                        .multilineTextAlignment(.center)
                 }
-                HStack {
-                    MetalView(metal: entry.metals[1])
-                    Spacer()
-                    MetalView(metal: entry.metals[3])
-                }
+                .frame(maxWidth: 300, maxHeight: 50)
+                .background(
+                    .ultraThinMaterial,
+                    in: RoundedRectangle(cornerRadius: 15, style: .continuous)
+                )
             }
-            .padding(.leading, 3)
         }
     }
 }
@@ -113,7 +130,7 @@ struct MetalsWidget: Widget {
         StaticConfiguration(kind: kind, provider: MetalsProvider()) { entry in
             if #available(iOS 17.0, *) {
                 MetalsWidgetEntryView(entry: entry)
-                    .containerBackground(.fill.tertiary, for: .widget)
+                    .containerBackground(.background, for: .widget)
             } else {
                 MetalsWidgetEntryView(entry: entry)
                     .padding()
@@ -131,6 +148,6 @@ struct MetalsWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
         MetalsWidgetEntryView(entry: MetalsEntry(date: Date(), metals: WidgetsData.metalsExample))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
-            .containerBackground(.clear, for: .widget)
+            .containerBackground(.background, for: .widget)
     }
 }
