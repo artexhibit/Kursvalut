@@ -17,6 +17,7 @@ struct K {
     static let maxCalendarDateKey = "maxCalendarDate"
     static let newCurrencyDataReadyKey = "newCurrencyDataReady"
     static let dataUpdateTimeKey = "dataUpdateTime"
+    static let savedPreciousMetals = "savedPreciousMetals"
     
     struct QuickActionTitles {
         static let getCurrency = "Открыть Валюты"
@@ -63,6 +64,7 @@ struct K {
         static let circleFour = "4.circle"
         static let globeEurope = "globe.europe.africa.fill"
         static let arrowLeftRight = "arrow.left.arrow.right"
+        static let arrowClockwise = "arrow.clockwise"
     }
     
     struct Notifications {

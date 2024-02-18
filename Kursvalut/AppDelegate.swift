@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 import FirebaseCore
 import FirebaseMessaging
 import UserNotifications
