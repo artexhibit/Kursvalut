@@ -3,11 +3,11 @@ import SwiftUI
 
 struct MetalsProvider: TimelineProvider {
     func placeholder(in context: Context) -> MetalsEntry {
-        MetalsEntry(date: Date(), metals: WidgetsData.getMetalsExample(isDataAvailable: true))
+        MetalsEntry(date: Date(), isDataAvailable: true, metals: WidgetsData.metalsExample)
     }
     
     func getSnapshot(in context: Context, completion: @escaping (MetalsEntry) -> ()) {
-        let entry = MetalsEntry(date: Date(), metals: WidgetsData.getMetalsExample(isDataAvailable: true))
+        let entry = MetalsEntry(date: Date(), isDataAvailable: true, metals: WidgetsData.metalsExample)
         completion(entry)
     }
     
@@ -22,7 +22,7 @@ struct MetalsProvider: TimelineProvider {
             let yesterdayPrices = try await WidgetsNetworkingManager.shared.getMetalPrices(forDate: Date.yesterday.makeString(format: .slashDMY))
             let tomorrowPrices = try await WidgetsNetworkingManager.shared.getMetalPrices(forDate: Date.tomorrow.makeString(format: .slashDMY))
             
-            if !currentPrices.isEmpty {
+            if !currentPrices.isEmpty && !yesterdayPrices.isEmpty {
                 let currentPricesDifference = zip(currentPrices, yesterdayPrices).map { ($0 - $1).round(maxDecimals: 2) }
                 let tomorrowPricesDifference = zip(tomorrowPrices, currentPrices).map { ($0 - $1).round(maxDecimals: 2) }
                 let currentPricesSigns = zip(currentPrices, yesterdayPrices).map { $0 > $1 ? "+" : "" }
@@ -33,21 +33,31 @@ struct MetalsProvider: TimelineProvider {
                 let dataDate = tomorrowPrices.isEmpty ? Date.current.makeString(format: .dotDMY) : Date.tomorrow.makeString(format: .dotDMY)
                 
                 for (index, metalName) in WidgetsData.metalNames.enumerated() {
-                    let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: currentValue[index], difference: differences[index], differenceSign: differenceSigns[index], dataDate: dataDate, isDataAvailable: true)
+                    let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: currentValue[index], difference: differences[index], differenceSign: differenceSigns[index], dataDate: dataDate)
                     metals.append(metal)
                 }
                 if !metals.isEmpty { WidgetsData.saveMetals(metals: metals) }
+                
+                let entry = MetalsEntry(date: Date(), isDataAvailable: true, metals: metals)
+                entries.append(entry)
             } else {
-                if let savedMetals = WidgetsData.retrieveMetals(), !savedMetals.isEmpty {
-                    metals = savedMetals
+                if yesterdayPrices.isEmpty {
+                    for (index, metalName) in WidgetsData.metalNames.enumerated() {
+                        let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: currentPrices[index], difference: "0", differenceSign: "", dataDate: Date.current.makeString(format: .dotDMY))
+                        metals.append(metal)
+                    }
+                    let entry = MetalsEntry(date: Date(), isDataAvailable: true, metals: metals)
+                    entries.append(entry)
                 } else {
-                    metals = WidgetsData.getMetalsExample(isDataAvailable: false)
+                    if let savedMetals = WidgetsData.retrieveMetals(), !savedMetals.isEmpty {
+                        let entry = MetalsEntry(date: Date(), isDataAvailable: true, metals: savedMetals)
+                        entries.append(entry)
+                    } else {
+                        let entry = MetalsEntry(date: Date(), isDataAvailable: false, metals: WidgetsData.metalsExample)
+                        entries.append(entry)
+                    }
                 }
             }
-            
-            let entry = MetalsEntry(date: Date(), metals: metals)
-            entries.append(entry)
-            
             let timeline = Timeline(entries: entries, policy: .after(nextUpdate))
             completion(timeline)
         }
@@ -56,6 +66,7 @@ struct MetalsProvider: TimelineProvider {
 
 struct MetalsEntry: TimelineEntry {
     let date: Date
+    let isDataAvailable: Bool
     let metals: [PreciousMetal]
 }
 
@@ -115,7 +126,7 @@ struct MetalsWidgetEntryView : View {
             if !proPurchased {
                 MessageView(title: "Доступно в Pro версии", subtitle: "Можно приобрести в настройках приложения")
             } else {
-                if !entry.metals.first!.isDataAvailable {
+                if !entry.isDataAvailable {
                     MessageView(title: "Данных на сегодня нет", subtitle: "Виджет обновится, как только ЦБ РФ опубликует новые данные")
                 }
             }
@@ -146,7 +157,7 @@ struct MetalsWidget: Widget {
 @available(iOSApplicationExtension 17.0, *)
 struct MetalsWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        MetalsWidgetEntryView(entry: MetalsEntry(date: Date(), metals: WidgetsData.getMetalsExample(isDataAvailable: false)))
+        MetalsWidgetEntryView(entry: MetalsEntry(date: Date(), isDataAvailable: true, metals: WidgetsData.metalsExample))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
             .containerBackground(.background, for: .widget)
     }

@@ -7,5 +7,4 @@ struct PreciousMetal: Codable {
     let difference: String
     let differenceSign: String
     let dataDate: String
-    let isDataAvailable: Bool
 }

@@ -29,43 +29,35 @@ struct WidgetsData {
                                                         
     )
     
-    static func getMetalsExample(isDataAvailable: Bool) -> [PreciousMetal] {
-        
-        let metalsExample = [PreciousMetal(name: "Золото",
-                                           shortName: "Au",
-                                           currentValue: 5925.12,
-                                           difference: "43.2",
-                                           differenceSign: "+",
-                                           dataDate: Date.current.makeString(format: .dotDMY),
-                                           isDataAvailable: isDataAvailable
-                                          ),
-                             PreciousMetal(name: "Платина",
-                                           shortName: "Pt",
-                                           currentValue: 2598.04,
-                                           difference: "5.32",
-                                           differenceSign: "-",
-                                           dataDate: Date.current.makeString(format: .dotDMY),
-                                           isDataAvailable: isDataAvailable
-                                          ),
-                             PreciousMetal(name: "Серебро",
-                                           shortName: "Ag",
-                                           currentValue: 66.34,
-                                           difference: "0.02",
-                                           differenceSign: "+",
-                                           dataDate: Date.current.makeString(format: .dotDMY),
-                                           isDataAvailable: isDataAvailable
-                                          ),
-                             PreciousMetal(name: "Палладий",
-                                           shortName: "Pd",
-                                           currentValue: 2630.30,
-                                           difference: "55.32",
-                                           differenceSign: "-",
-                                           dataDate: Date.current.makeString(format: .dotDMY),
-                                           isDataAvailable: isDataAvailable
-                                          )
-        ]
-        return metalsExample
-    }
+    static let metalsExample = [PreciousMetal(name: "Золото",
+                                       shortName: "Au",
+                                       currentValue: 5925.12,
+                                       difference: "43.2",
+                                       differenceSign: "+",
+                                       dataDate: Date.current.makeString(format: .dotDMY)
+                                      ),
+                         PreciousMetal(name: "Платина",
+                                       shortName: "Pt",
+                                       currentValue: 2598.04,
+                                       difference: "5.32",
+                                       differenceSign: "-",
+                                       dataDate: Date.current.makeString(format: .dotDMY)
+                                      ),
+                         PreciousMetal(name: "Серебро",
+                                       shortName: "Ag",
+                                       currentValue: 66.34,
+                                       difference: "0.02",
+                                       differenceSign: "+",
+                                       dataDate: Date.current.makeString(format: .dotDMY)
+                                      ),
+                         PreciousMetal(name: "Палладий",
+                                       shortName: "Pd",
+                                       currentValue: 2630.30,
+                                       difference: "55.32",
+                                       differenceSign: "-",
+                                       dataDate: Date.current.makeString(format: .dotDMY)
+                                      )
+    ]
     
     static func getShortNames(with mainCurrencies: [String]) -> [String] {
         mainCurrencies.map { CurrencyData.currencyFullNameDict[$0]?.shortName ?? "" }

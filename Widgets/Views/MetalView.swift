@@ -11,11 +11,13 @@ struct MetalView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 4) {
-                Image(systemName: "arrow.\(imageType)")
-                    .foregroundStyle(color)
-                    .font(.system(size: 11))
-                    .frame(alignment: .center)
-                    .bold()
+                if metal.difference != "0" {
+                    Image(systemName: "arrow.\(imageType)")
+                        .foregroundStyle(color)
+                        .font(.system(size: 11))
+                        .frame(alignment: .center)
+                        .bold()
+                }
                 Text(metal.name)
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .foregroundStyle(.secondary)
@@ -39,16 +41,18 @@ struct MetalView: View {
                 }
                 
                 if #available(iOSApplicationExtension 17.0, *) {
-                    Text("\(metal.differenceSign)\(metal.difference)")
-                        .font(.system(size: 11, weight: .semibold, design: .rounded))
-                        .foregroundStyle(showsBackground ? .white : .secondary)
-                        .padding(.horizontal, 5)
-                        .padding(.vertical, 2.5)
-                        .lineLimit(1)
-                        .background(showsBackground ? color : .clear)
-                        .contentTransition(.numericText())
-                        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 7, height: 7)))
-                        .invalidatableContent()
+                    if metal.difference != "0" {
+                        Text("\(metal.differenceSign)\(metal.difference)")
+                            .font(.system(size: 11, weight: .semibold, design: .rounded))
+                            .foregroundStyle(showsBackground ? .white : .secondary)
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 2.5)
+                            .lineLimit(1)
+                            .background(showsBackground ? color : .clear)
+                            .contentTransition(.numericText())
+                            .clipShape(RoundedRectangle(cornerSize: CGSize(width: 7, height: 7)))
+                            .invalidatableContent()
+                    }
                 } else {
                     Text("\(metal.differenceSign)\(metal.difference)")
                         .font(.system(size: 11, weight: .semibold, design: .rounded))
