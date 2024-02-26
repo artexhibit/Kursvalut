@@ -22,10 +22,10 @@ struct MetalsProvider: TimelineProvider {
             let yesterdayPrices = try await WidgetsNetworkingManager.shared.getMetalPrices(forDate: Date.yesterday.makeString(format: .slashDMY))
             let tomorrowPrices = try await WidgetsNetworkingManager.shared.getMetalPrices(forDate: Date.tomorrow.makeString(format: .slashDMY))
             
-            if !currentPrices.isEmpty && !yesterdayPrices.isEmpty {
-                let currentPricesDifference = zip(currentPrices, yesterdayPrices).map { ($0 - $1).round(maxDecimals: 2) }
+            if !currentPrices.isEmpty {
+                let currentPricesDifference = !yesterdayPrices.isEmpty ? zip(currentPrices, yesterdayPrices).map { ($0 - $1).round(maxDecimals: 2) } : zip(currentPrices, currentPrices).map { ($0 - $1).round(maxDecimals: 2) }
                 let tomorrowPricesDifference = zip(tomorrowPrices, currentPrices).map { ($0 - $1).round(maxDecimals: 2) }
-                let currentPricesSigns = zip(currentPrices, yesterdayPrices).map { $0 > $1 ? "+" : "" }
+                let currentPricesSigns = !yesterdayPrices.isEmpty ? zip(currentPrices, yesterdayPrices).map { $0 > $1 ? "+" : "" } : zip(currentPrices, currentPrices).map { $0 > $1 ? "+" : "" }
                 let tomorrowPricesSigns = zip(tomorrowPrices, currentPrices).map { $0 > $1 ? "+" : "" }
                 let differences = tomorrowPrices.isEmpty ? currentPricesDifference : tomorrowPricesDifference
                 let differenceSigns = tomorrowPrices.isEmpty ? currentPricesSigns : tomorrowPricesSigns
@@ -41,9 +41,16 @@ struct MetalsProvider: TimelineProvider {
                 let entry = MetalsEntry(date: Date(), isDataAvailable: true, metals: metals)
                 entries.append(entry)
             } else {
-                if yesterdayPrices.isEmpty {
+                if yesterdayPrices.isEmpty && !currentPrices.isEmpty {
                     for (index, metalName) in WidgetsData.metalNames.enumerated() {
                         let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: currentPrices[index], difference: "0", differenceSign: "", dataDate: Date.current.makeString(format: .dotDMY))
+                        metals.append(metal)
+                    }
+                    let entry = MetalsEntry(date: Date(), isDataAvailable: true, metals: metals)
+                    entries.append(entry)
+                } else if yesterdayPrices.isEmpty, currentPrices.isEmpty, !tomorrowPrices.isEmpty {
+                    for (index, metalName) in WidgetsData.metalNames.enumerated() {
+                        let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: tomorrowPrices[index], difference: "0", differenceSign: "", dataDate: Date.tomorrow.makeString(format: .dotDMY))
                         metals.append(metal)
                     }
                     let entry = MetalsEntry(date: Date(), isDataAvailable: true, metals: metals)
@@ -107,18 +114,21 @@ struct MetalsWidgetEntryView : View {
                         .clipShape(Circle())
                     }
                 }
+               
                 Spacer()
+                
                 VStack() {
                     HStack {
-                        MetalView(metal: entry.metals[0])
+                        VStack(alignment: .leading) {
+                            MetalView(metal: entry.metals[0])
+                            MetalView(metal: entry.metals[1])
+                        }
                         Spacer()
-                        MetalView(metal: entry.metals[2])
-                            .padding(.trailing, 10)
-                    }
-                    HStack {
-                        MetalView(metal: entry.metals[1])
-                        Spacer()
-                        MetalView(metal: entry.metals[3])
+                        VStack(alignment: .leading) {
+                            MetalView(metal: entry.metals[2])
+                            MetalView(metal: entry.metals[3])
+                        }
+                        .padding(.trailing, 3)
                     }
                 }
                 .padding(.leading, 3)
