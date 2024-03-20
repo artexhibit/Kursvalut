@@ -26,13 +26,13 @@ struct CurrencyNetworkingManager {
         let todaysDate = Date().makeString(format: .dashYMD)
         
         if confirmedDate != todaysDate {
-            return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(confirmedDate)/currencies/\(UserDefaultsManager.baseCurrency.lowercased()).json")!
+            return URL(string: "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@\(confirmedDate)/v1/currencies/\(UserDefaultsManager.baseCurrency.lowercased()).json")!
         } else {
-            return URL(string: "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/\(UserDefaultsManager.baseCurrency.lowercased()).json")!
+            return URL(string: "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@\(todaysDate)/v1/currencies/\(UserDefaultsManager.baseCurrency.lowercased()).json")!
         }
     }
     private var historicalForexURL: URL {
-        return URL(string: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/\(yesterdaysDate)/currencies/\(UserDefaultsManager.baseCurrency.lowercased()).json")!
+        return URL(string: "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@\(yesterdaysDate)/v1/currencies/\(UserDefaultsManager.baseCurrency.lowercased()).json")!
     }
     
     //MARK: - Networking Methods

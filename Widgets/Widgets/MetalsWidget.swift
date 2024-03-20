@@ -43,14 +43,14 @@ struct MetalsProvider: TimelineProvider {
             } else {
                 if yesterdayPrices.isEmpty && !currentPrices.isEmpty {
                     for (index, metalName) in WidgetsData.metalNames.enumerated() {
-                        let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: currentPrices[index], difference: "0", differenceSign: "", dataDate: Date.current.makeString(format: .dotDMY))
+                        let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: currentPrices[index], difference: "0,0", differenceSign: "", dataDate: Date.current.makeString(format: .dotDMY))
                         metals.append(metal)
                     }
                     let entry = MetalsEntry(date: Date(), isDataAvailable: true, metals: metals)
                     entries.append(entry)
                 } else if yesterdayPrices.isEmpty, currentPrices.isEmpty, !tomorrowPrices.isEmpty {
                     for (index, metalName) in WidgetsData.metalNames.enumerated() {
-                        let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: tomorrowPrices[index], difference: "0", differenceSign: "", dataDate: Date.tomorrow.makeString(format: .dotDMY))
+                        let metal = PreciousMetal(name: metalName, shortName: WidgetsData.metalShortNames[index], currentValue: tomorrowPrices[index], difference: "0,0", differenceSign: "", dataDate: Date.tomorrow.makeString(format: .dotDMY))
                         metals.append(metal)
                     }
                     let entry = MetalsEntry(date: Date(), isDataAvailable: true, metals: metals)

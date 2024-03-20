@@ -12,7 +12,7 @@ struct MetalView: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 4) {
                 HStack(spacing: 0) {
-                    if metal.difference != "0" {
+                    if metal.difference != "0,0" {
                         Image(systemName: "arrow.\(imageType)")
                             .foregroundStyle(color)
                             .font(.system(size: 11))
@@ -43,11 +43,11 @@ struct MetalView: View {
                 }
                 
                 if #available(iOSApplicationExtension 17.0, *) {
-                    if metal.difference != "0" {
+                    if metal.difference != "0,0" {
                         Text("\(metal.differenceSign)\(metal.difference)")
-                            .font(.system(size: 11, weight: .semibold, design: .rounded))
+                            .font(.system(size: 9, weight: .semibold, design: .rounded))
                             .foregroundStyle(showsBackground ? .white : .secondary)
-                            .padding(.horizontal, 5)
+                            .padding(.horizontal, 4)
                             .padding(.vertical, 2.5)
                             .lineLimit(1)
                             .background(showsBackground ? color : .clear)
@@ -56,9 +56,9 @@ struct MetalView: View {
                             .invalidatableContent()
                     }
                 } else {
-                    if metal.difference != "0" {
+                    if metal.difference != "0.0" {
                         Text("\(metal.differenceSign)\(metal.difference)")
-                            .font(.system(size: 11, weight: .semibold, design: .rounded))
+                            .font(.system(size: 9, weight: .semibold, design: .rounded))
                             .foregroundStyle(showsBackground ? .white : .secondary)
                             .padding(.horizontal, 5)
                             .padding(.vertical, 2.5)
